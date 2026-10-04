@@ -1,0 +1,19 @@
+{
+  "identifier" : "AEBDA58C",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "49.99", "familyShareable" : false,
+      "internalID" : "AEBDA583", "localizations" : [ { "description" : "All Halo Day Premium features, forever.", "displayName" : "Halo Day Lifetime", "locale" : "en_US" } ],
+      "productID" : "co.haloday.premium.lifetime", "referenceName" : "Lifetime", "type" : "NonConsumable"
+    }
+  ],
+  "settings" : { "_failTransactionsEnabled" : false, "_locale" : "en_US", "_storefront" : "USA", "_storeKitErrors" : [] },
+  "subscriptionGroups" : [
+    { "id" : "AEBDA580", "localizations" : [], "name" : "Halo Day Premium", "subscriptions" : [
+      { "adHocOffers" : [], "codeOffers" : [], "displayPrice" : "24.99", "familyShareable" : false, "groupNumber" : 1, "internalID" : "AEBDA581", "introductoryOffer" : null, "localizations" : [ { "description" : "All Halo Day Premium features for one year.", "displayName" : "Halo Day Yearly", "locale" : "en_US" } ], "productID" : "co.haloday.premium.yearly", "recurringSubscriptionPeriod" : "P1Y", "referenceName" : "Yearly", "subscriptionGroupID" : "AEBDA580", "type" : "RecurringSubscription" },
+      { "adHocOffers" : [], "codeOffers" : [], "displayPrice" : "3.99", "familyShareable" : false, "groupNumber" : 2, "internalID" : "AEBDA582", "introductoryOffer" : null, "localizations" : [ { "description" : "All Halo Day Premium features for one month.", "displayName" : "Halo Day Monthly", "locale" : "en_US" } ], "productID" : "co.haloday.premium.monthly", "recurringSubscriptionPeriod" : "P1M", "referenceName" : "Monthly", "subscriptionGroupID" : "AEBDA580", "type" : "RecurringSubscription" }
+    ] }
+  ],
+  "version" : { "major" : 4, "minor" : 0 }
+}

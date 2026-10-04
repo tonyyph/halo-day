@@ -1,0 +1,20 @@
+import Foundation
+
+enum MockData {
+    static func events(on date: Date = .now) -> [CalendarEvent] {
+        let day = Calendar.current.startOfDay(for: date)
+        let items: [(String, Int, Int, String, String?)] = [
+            ("Standup", 9, 30, "Work", nil), ("Design review", 10, 45, "Work", "Studio B"),
+            ("Lunch with Mai", 13, 60, "Personal", "The little café"), ("Pilates", 16, 50, "Health", nil), ("Dinner", 19, 90, "Personal", nil)
+        ]
+        return items.enumerated().map { index, item in
+            let start = Calendar.current.date(byAdding: .minute, value: item.1 * 60 + (index == 1 ? 30 : 0), to: day)!
+            return CalendarEvent(id: "sample-\(day.timeIntervalSince1970)-\(index)", title: item.0, startDate: start, endDate: start.addingTimeInterval(Double(item.2 * 60)), location: item.4, calendarName: item.3, accentColor: ThemeRegistry.all[1].light.accent, source: "sample")
+        }
+    }
+    static let habits: [Habit] = [
+        Habit(id: UUID(uuidString: "00000000-0000-0000-0000-000000000001")!, title: "Drink water", icon: "drop", accentColor: ThemeRegistry.all[0].light.accent),
+        Habit(id: UUID(uuidString: "00000000-0000-0000-0000-000000000002")!, title: "A page of journaling", icon: "book.closed", accentColor: ThemeRegistry.all[1].light.accent),
+        Habit(id: UUID(uuidString: "00000000-0000-0000-0000-000000000003")!, title: "A little movement", icon: "figure.walk", accentColor: ThemeRegistry.all[4].light.accent)
+    ]
+}
