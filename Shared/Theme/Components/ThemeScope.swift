@@ -12,7 +12,7 @@ private struct ThemeScopeModifier: ViewModifier {
             .environment(\.palette, colors)
             .foregroundStyle(colors.ink)
             .tint(colors.accentInk)
-            .preferredColorScheme(theme.darkOnly ? .dark : nil)
+            .environment(\.colorScheme, theme.darkOnly ? .dark : scheme)
             .animation(Motion.resolve(Motion.gentle, reduceMotion: reduceMotion), value: theme.id)
     }
 }
