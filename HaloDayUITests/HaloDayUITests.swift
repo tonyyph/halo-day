@@ -67,8 +67,8 @@ final class HaloDayUITests: XCTestCase {
     @MainActor private func finishOnboardingIfNeeded(_ app: XCUIApplication) {
         if app.buttons["Begin"].waitForExistence(timeout: 5) {
             app.buttons["Begin"].tap()
-            app.buttons["Continue"].tap()
-            app.buttons["Continue"].tap()
+            app.buttons["onboarding-primary"].tap()
+            app.buttons["onboarding-primary"].tap()
             app.buttons["Not now"].tap()
             app.buttons["Not now"].tap()
             app.buttons["Save my Halo"].tap()

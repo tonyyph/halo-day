@@ -39,9 +39,13 @@ struct LockScreenMock: View {
     var date: Date
     var sample = false
     var onSelect: ((WidgetSize) -> Void)?
+    var animateSlots = false
 
     @Environment(\.haloTheme) private var theme
     @Environment(\.palette) private var palette
+    @Environment(\.haloReduceMotion) private var reduceMotion
+    @Environment(\.haloHapticsEnabled) private var haptics
+    @State private var revealedSlots = 0
 
     var body: some View {
         ZStack {
@@ -58,14 +62,18 @@ struct LockScreenMock: View {
 
                 slot(type: preset.widgetFamily == .inline ? preset.widgetType : .month, size: .inline)
                     .frame(height: 16)
+                    .modifier(SlotEntrance(index: 0, revealed: revealedSlots, enabled: animateSlots, reduceMotion: reduceMotion))
 
                 HStack(spacing: 7) {
                     slot(type: preset.widgetType, size: preset.widgetFamily == .circular ? .circular : .rectangular)
                         .frame(width: preset.widgetFamily == .circular ? 48 : 108, height: 58)
+                        .modifier(SlotEntrance(index: 1, revealed: revealedSlots, enabled: animateSlots, reduceMotion: reduceMotion))
                     slot(type: .month, size: .circular)
                         .frame(width: 39, height: 39)
+                        .modifier(SlotEntrance(index: 2, revealed: revealedSlots, enabled: animateSlots, reduceMotion: reduceMotion))
                     slot(type: .ritual, size: .circular)
                         .frame(width: 39, height: 39)
+                        .modifier(SlotEntrance(index: 3, revealed: revealedSlots, enabled: animateSlots, reduceMotion: reduceMotion))
                 }
                 .frame(height: 64)
 
@@ -83,6 +91,16 @@ struct LockScreenMock: View {
             .padding(.horizontal, 12)
         }
         .foregroundStyle(palette.ink)
+        .sensoryFeedback(.impact(weight: .light), trigger: revealedSlots) { _, _ in haptics && animateSlots && !reduceMotion }
+        .task {
+            guard animateSlots else { return }
+            if reduceMotion { revealedSlots = 4; return }
+            for index in 0..<4 {
+                try? await Task.sleep(for: .milliseconds(120))
+                guard !Task.isCancelled else { return }
+                revealedSlots = index + 1
+            }
+        }
     }
 
     private func slot(type: WidgetType, size: WidgetSize) -> some View {
@@ -163,6 +181,7 @@ struct PhonePreview: View {
     var isExporting = false
     var wallpaperScheme: ColorScheme?
     var onSelect: ((WidgetSize) -> Void)?
+    var animateSlots = false
 
     var body: some View {
         PhoneFrame(isExporting: isExporting) {
@@ -170,7 +189,7 @@ struct PhonePreview: View {
                 if preset.widgetFamily.isAccessory {
                     LockScreenMock(
                         preset: preset, events: events, habits: habits, focus: focus,
-                        countdown: countdown, date: date, sample: sample, onSelect: onSelect
+                        countdown: countdown, date: date, sample: sample, onSelect: onSelect, animateSlots: animateSlots
                     )
                 } else {
                     HomeScreenMock(
@@ -183,6 +202,21 @@ struct PhonePreview: View {
         .haloTheme(ThemeRegistry.theme(preset.themeId))
         .environment(\.colorScheme, wallpaperScheme ?? (ThemeRegistry.theme(preset.themeId).darkOnly ? .dark : .light))
         .accessibilityElement(children: onSelect == nil ? .combine : .contain)
+    }
+}
+
+private struct SlotEntrance: ViewModifier {
+    var index: Int
+    var revealed: Int
+    var enabled: Bool
+    var reduceMotion: Bool
+
+    func body(content: Content) -> some View {
+        let visible = !enabled || revealed > index
+        content
+            .opacity(visible ? 1 : 0)
+            .offset(y: visible || reduceMotion ? 0 : -10)
+            .animation(Motion.resolve(Motion.bouncy, reduceMotion: reduceMotion), value: revealed)
     }
 }
 

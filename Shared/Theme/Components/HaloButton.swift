@@ -65,6 +65,7 @@ struct HaloButton: View {
         Button(action: action) {
             ZStack {
                 Text(LocalizedStringKey(title))
+                    .contentTransition(.interpolate)
                     .opacity(isLoading || showSuccess ? 0 : 1)
                 ProgressView()
                     .tint(kind == .primary ? palette.accentOn : palette.ink)

@@ -3,84 +3,185 @@ import SwiftUI
 struct OnboardingView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.haloReduceMotion) private var reduceMotion
+    @Environment(\.haloHapticsEnabled) private var haptics
     @State private var step = 0
+    @State private var direction = 1
     @State private var themeID = "pearlHalo"
     @State private var starter = WidgetType.agenda
     @State private var busy = false
-    private let titles = ["Halo Day", "Your day, at a glance", "Choose your style", "Bring in your calendar", "Gentle reminders", "Your first Halo"]
-    private let bodies = ["Your day, beautifully on display.", "Your schedule, rituals and focus time on the Lock Screen. Glance, and go.", "Pick a look. You can change it anytime.", "Halo Day reads your calendar to show what's next. It stays on your iPhone. Always.", "A quiet nudge before events and rituals. Never noisy.", "Choose a starting layout. Make it yours in Studio."]
-    private var previewTheme: HaloTheme { ThemeRegistry.theme(themeID) }
+    @State private var success = false
+    @State private var finishing = false
+
+    private let titles = [
+        "Halo Day", "Your day, at a glance", "Choose your style",
+        "Bring in your calendar", "Gentle reminders", "Your first Halo"
+    ]
+    private let bodies = [
+        "Your day, beautifully on display.",
+        "Your schedule, rituals and focus time on the Lock Screen. Glance, and go.",
+        "Pick a look. You can change it anytime.",
+        "Halo Day reads your calendar to show what's next. It stays on your iPhone. Always.",
+        "A quiet nudge before events and rituals. Never noisy.",
+        "Choose a starting layout. Make it yours in Studio."
+    ]
+
+    private var theme: HaloTheme { ThemeRegistry.theme(step < 2 ? "pearlHalo" : themeID) }
+    private var secondaryVisible: Bool { step == 3 || step == 4 }
+
+    private var cta: String {
+        switch step {
+        case 0: String(localized: "Begin")
+        case 2: String(localized: "Continue with \(String(localized: String.LocalizationValue(theme.name)))")
+        case 3: String(localized: "Connect Calendar")
+        case 4: String(localized: "Allow reminders")
+        case 5: String(localized: "Save my Halo")
+        default: String(localized: "Continue")
+        }
+    }
+
     var body: some View {
         ZStack {
-            ThemeBackground()
-            VStack(spacing: HaloTokens.Space.card) {
+            ThemeBackground(breathing: step == 0)
+            VStack(spacing: 0) {
                 HStack {
-                    if step > 0 { Button { advance(-1) } label: { Image(systemName: "chevron.left").frame(width: 44, height: 44) }.accessibilityLabel("Back") }
+                    Button { advance(-1) } label: {
+                        Image(systemName: "chevron.left").frame(width: 44, height: 44)
+                    }
+                    .accessibilityLabel("Back")
+                    .opacity(step > 0 ? 1 : 0)
+                    .disabled(step == 0 || busy)
+                    .accessibilityHidden(step == 0)
                     Spacer()
-                    Text("\(step + 1) / 6").font(.caption).foregroundStyle(.secondary)
-                }.padding(.horizontal, HaloTokens.Space.card)
-                ScrollView {
-                    VStack(spacing: HaloTokens.Space.section) {
-                        if step == 0 {
-                            Image(systemName: "circle.dotted").font(.system(size: 120, weight: .ultraLight)).foregroundStyle(.tint).padding(.vertical, HaloTokens.Space.onboarding)
-                        }
-                        Text(LocalizedStringKey(titles[step])).font(HaloTokens.display).multilineTextAlignment(.center)
-                        Text(LocalizedStringKey(bodies[step])).font(.body).foregroundStyle(.secondary).multilineTextAlignment(.center)
-                        if [1, 5].contains(step) {
-                            PhonePreview(preset: WidgetPreset(name: "My Halo", widgetType: starter, themeId: themeID), events: MockData.events(), habits: MockData.habits, focus: nil, countdown: nil)
-                        }
-                        if step == 2 {
-                            LazyVGrid(columns: [GridItem(.adaptive(minimum: 145))], spacing: HaloTokens.Space.row) {
-                                ForEach(ThemeRegistry.all) { theme in
-                                    Button { themeID = theme.id } label: {
-                                        VStack(alignment: .leading, spacing: HaloTokens.Space.row) {
-                                            Image(systemName: "circle.dotted").font(.largeTitle).foregroundStyle(PaletteResolver.resolve(theme, scheme: .light).accent)
-                                            Text(LocalizedStringKey(theme.name)).font(HaloTokens.title)
-                                            if theme.isPremium { PremiumChip(preview: true) }
-                                            if theme.id == themeID { Image(systemName: "checkmark.circle.fill") }
-                                        }.frame(maxWidth: .infinity, minHeight: 130, alignment: .leading).padding(HaloTokens.Space.card)
-                                            .foregroundStyle(PaletteResolver.resolve(theme, scheme: .light).ink).background(PaletteResolver.resolve(theme, scheme: .light).bg, in: RoundedRectangle(cornerRadius: HaloTokens.Radius.card, style: .continuous))
-                                            .overlay(RoundedRectangle(cornerRadius: HaloTokens.Radius.card, style: .continuous).stroke(PaletteResolver.resolve(theme, scheme: .light).hairline, lineWidth: theme.id == themeID ? 3 : 1))
-                                    }.buttonStyle(.plain)
-                                }
-                            }
-                        }
-                        if step == 3 {
-                            HaloCard { ForEach(MockData.events().prefix(2)) { AgendaRow(event: $0) } }
-                            Label("Your calendar never leaves your iPhone.", systemImage: "lock.fill").font(.caption)
-                        }
-                        if step == 4 {
-                            HaloCard { Label("Design review · in 10 minutes", systemImage: "calendar.badge.clock").font(.headline) }
-                            HaloCard { Label("A little space to focus", systemImage: "timer").font(.headline) }
-                        }
-                        if step == 5 {
-                            Picker("Starter layout", selection: $starter) { Text("Agenda").tag(WidgetType.agenda); Text("Ritual").tag(WidgetType.ritual); Text("Minimal").tag(WidgetType.month) }.pickerStyle(.segmented)
-                            if previewTheme.isPremium {
-                                Text("Premium styles can be explored in Studio. Your first Halo starts with Pearl Halo.").font(.caption).foregroundStyle(.secondary)
-                            }
-                        }
-                    }.frame(maxWidth: 600).padding(HaloTokens.Space.card).frame(maxWidth: .infinity)
+                    Text("\(step + 1) / 6")
+                        .haloFont(.caption)
+                        .foregroundStyle(.secondary)
+                        .monospacedDigit()
+                        .contentTransition(.numericText())
                 }
-                HStack(spacing: 6) { ForEach(0..<6) { index in Capsule().fill(.primary.opacity(index == step ? 1 : 0.2)).frame(width: index == step ? 18 : 6, height: 6) } }.accessibilityHidden(true)
-                Button(cta) { Task { await next() } }.buttonStyle(HaloButtonStyle()).disabled(busy).padding(.horizontal, HaloTokens.Space.card)
-                if step == 3 || step == 4 { Button("Not now") { advance(1) }.frame(minHeight: 44) }
-            }.padding(.bottom, HaloTokens.Space.card)
-        }.environment(\.haloTheme, step < 2 ? ThemeRegistry.all[0] : previewTheme)
-            .tint(PaletteResolver.resolve(previewTheme, scheme: previewTheme.darkOnly ? .dark : .light).accentInk).preferredColorScheme(previewTheme.darkOnly ? .dark : nil)
+                .padding(.horizontal, 16)
+
+                ScrollView {
+                    VStack(spacing: 24) {
+                        if step == 0 { HaloWelcomeHero() }
+                        else {
+                            Text(LocalizedStringKey(titles[step]))
+                                .haloFont(.displayL)
+                                .multilineTextAlignment(.center)
+                        }
+                        Text(LocalizedStringKey(bodies[step]))
+                            .haloFont(.body)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                        pageContent
+                    }
+                    .frame(maxWidth: 600)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 24)
+                    .frame(maxWidth: .infinity)
+                    .id(step)
+                    .transition(pageTransition)
+                }
+                .scrollIndicators(.hidden)
+
+                VStack(spacing: 16) {
+                    HaloPagerIndicator(total: 6, selection: step)
+                    HaloButton(title: cta, isLoading: busy && !success, isSuccess: success) {
+                        Task { await next() }
+                    }
+                    .disabled(finishing || (busy && !success))
+                    .accessibilityIdentifier("onboarding-primary")
+                    Button("Not now") { advance(1) }
+                        .frame(minHeight: 44)
+                        .opacity(secondaryVisible ? 1 : 0)
+                        .disabled(!secondaryVisible || busy)
+                        .accessibilityHidden(!secondaryVisible)
+                }
+                .padding(20)
+            }
+        }
+        .haloTheme(theme)
+        .scaleEffect(finishing && !reduceMotion ? 1.04 : 1)
+        .opacity(finishing ? 0 : 1)
+        .animation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion), value: step)
+        .animation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion), value: finishing)
+        .sensoryFeedback(.selection, trigger: themeID) { _, _ in haptics }
     }
-    private var cta: String {
-        switch step { case 0: String(localized: "Begin"); case 3: String(localized: "Connect Calendar"); case 4: String(localized: "Allow reminders"); case 5: String(localized: "Save my Halo"); default: String(localized: "Continue") }
+
+    @ViewBuilder private var pageContent: some View {
+        switch step {
+        case 1:
+            PhonePreview(
+                preset: WidgetPreset(name: "My Halo", widgetType: starter, themeId: themeID),
+                events: MockData.events(), habits: MockData.habits, animateSlots: true
+            )
+            .scaleEffect(0.74)
+            .frame(height: 330)
+        case 2: OnboardingThemeCarousel(selection: $themeID)
+        case 3: PermissionIllustration(calendar: true)
+        case 4: PermissionIllustration(calendar: false)
+        case 5:
+            StarterPresetPicker(selection: $starter, themeID: themeID)
+            if theme.isPremium && !model.purchases.isPremium {
+                Text("Premium styles can be explored in Studio. Your first Halo starts with Pearl Halo.")
+                    .haloFont(.footnote).foregroundStyle(.secondary)
+            }
+        default: EmptyView()
+        }
     }
-    private func advance(_ amount: Int) { withAnimation(reduceMotion ? nil : .smooth(duration: 0.3)) { step += amount } }
+
+    private var pageTransition: AnyTransition {
+        guard !reduceMotion else { return .opacity }
+        return .asymmetric(
+            insertion: .move(edge: direction > 0 ? .trailing : .leading).combined(with: .opacity),
+            removal: .move(edge: direction > 0 ? .leading : .trailing).combined(with: .opacity)
+        )
+    }
+
+    private func advance(_ amount: Int) {
+        guard !busy else { return }
+        direction = amount
+        success = false
+        withAnimation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion)) {
+            step = min(5, max(0, step + amount))
+        }
+    }
+
     private func next() async {
-        busy = true; defer { busy = false }
-        if step == 3 { await model.requestCalendar() }
-        if step == 4 { await model.requestNotifications() }
-        if step == 5 {
-            let chosen = previewTheme.isPremium && !model.purchases.isPremium ? ThemeRegistry.all[0] : previewTheme
+        guard !busy else { return }
+        busy = true
+        let current = step
+        if current == 3 { await model.requestCalendar(); success = model.settings.calendarPermissionGranted }
+        if current == 4 { await model.requestNotifications(); success = model.settings.notificationPermissionGranted }
+        if success { try? await Task.sleep(for: .milliseconds(550)) }
+
+        if current == 5 {
+            let chosen = theme.isPremium && !model.purchases.isPremium ? ThemeRegistry.all[0] : theme
             model.settings.selectedThemeId = chosen.id
-            if model.presets.isEmpty { _ = model.savePreset(WidgetPreset(name: "My first Halo", widgetType: starter, themeId: chosen.id)) }
-            model.settings.hasCompletedOnboarding = true; model.persist(); model.showGuide = true
-        } else { advance(1) }
+            if model.presets.isEmpty {
+                _ = model.savePreset(WidgetPreset(name: String(localized: "My first Halo"), widgetType: starter, themeId: chosen.id))
+            }
+            success = true
+            finishing = true
+            try? await Task.sleep(for: .milliseconds(350))
+            model.settings.hasCompletedOnboarding = true
+            model.persist()
+            try? await Task.sleep(for: .milliseconds(350))
+            model.showGuide = true
+            busy = false
+        } else {
+            busy = false
+            advance(1)
+        }
     }
+}
+
+#Preview("Onboarding · Light") {
+    OnboardingView().environment(HaloModel())
+}
+
+#Preview("Onboarding · AX3 Reduced Motion") {
+    OnboardingView().environment(HaloModel())
+        .environment(\.dynamicTypeSize, .accessibility3)
+        .environment(\.haloReduceMotionOverride, true)
 }
