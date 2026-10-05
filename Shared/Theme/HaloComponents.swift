@@ -155,10 +155,22 @@ struct MiniMonthGrid: View {
         }
     }
     private func dayCell(_ number: Int, day: Date) -> some View {
-        Text(number, format: .number).font(.caption.monospacedDigit()).frame(maxWidth: .infinity)
-            .padding(.vertical, 2)
+        let compact = selection == nil
+        return VStack(spacing: compact ? 0 : 2) {
+            Text(number, format: .number)
+                .font(.caption.monospacedDigit())
+                .frame(width: compact ? 18 : 24, height: compact ? 16 : 24)
+                .background(
+                    Calendar.current.isDate(day, inSameDayAs: month)
+                        ? AnyShapeStyle(.tint.opacity(0.16)) : AnyShapeStyle(.clear),
+                    in: Circle()
+                )
+            Circle()
+                .fill(highlights.contains(number) ? AnyShapeStyle(.tint) : AnyShapeStyle(.clear))
+                .frame(width: compact ? 3 : 4, height: compact ? 3 : 4)
+        }
+        .frame(maxWidth: .infinity)
             .foregroundStyle(Calendar.current.isDateInToday(day) ? AnyShapeStyle(.tint) : AnyShapeStyle(.primary))
-            .background(highlights.contains(number) ? Color.primary.opacity(0.08) : Color.clear, in: Capsule())
             .accessibilityLabel(Text(day, format: .dateTime.month().day()))
     }
 }
