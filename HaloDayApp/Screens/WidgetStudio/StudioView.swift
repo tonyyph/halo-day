@@ -3,7 +3,7 @@ import SwiftUI
 struct StudioView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.palette) private var palette
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @Environment(\.haloHapticsEnabled) private var haptics
 
     @State private var preset = WidgetPreset(name: "My Halo")
@@ -36,7 +36,7 @@ struct StudioView: View {
             VStack(spacing: 0) {
                 HStack {
                     Text("Widget Studio")
-                        .font(HaloFont.displayL)
+                        .haloFont(.displayL)
                     Spacer()
                     Image(systemName: "square.on.square.dashed")
                         .font(.title2)
@@ -65,7 +65,7 @@ struct StudioView: View {
         .overlay(alignment: .top) {
             if saved {
                 Label("Preset saved", systemImage: "checkmark.circle.fill")
-                    .font(HaloFont.subhead)
+                    .haloFont(.subhead)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 12)
                     .background(.thinMaterial, in: Capsule())
@@ -98,11 +98,11 @@ struct StudioView: View {
                 Text(preset.widgetFamily.isAccessory
                      ? "Lock Screen colors follow your wallpaper. This preview shows the layout."
                      : "Home Screen widgets show your theme in full color.")
-                    .font(HaloFont.footnote)
+                    .haloFont(.footnote)
                     .foregroundStyle(palette.ink2)
 
                 TextField("Preset name", text: $preset.name)
-                    .font(HaloFont.displayS)
+                    .haloFont(.displayS)
                     .textFieldStyle(.plain)
                     .submitLabel(.done)
                     .accessibilityLabel("Preset name")
@@ -136,7 +136,7 @@ struct StudioView: View {
                         Text("Theme").captionUpper().foregroundStyle(palette.ink2)
                         Spacer()
                         NavigationLink("Explore all themes") { ThemesView() }
-                            .font(HaloFont.footnote)
+                            .haloFont(.footnote)
                     }
                     ThemeOrbPicker(selection: $preset.themeId)
                 }
@@ -190,7 +190,7 @@ struct StudioView: View {
 
     private var presetCarousel: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Your presets").font(HaloFont.displayM)
+            Text("Your presets").haloFont(.displayM)
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 12) {
                     ForEach(model.presets) { item in
@@ -203,7 +203,7 @@ struct StudioView: View {
                                     ).accent)
                                     .frame(maxWidth: .infinity, minHeight: 80)
                                 Text(item.name)
-                                    .font(HaloFont.subhead)
+                                    .haloFont(.subhead)
                                     .lineLimit(1)
                             }
                             .padding(12)

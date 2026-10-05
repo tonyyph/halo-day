@@ -3,7 +3,7 @@ import SwiftUI
 struct FocusView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.palette) private var palette
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var minutes = 50
     @State private var title = ""
 
@@ -14,6 +14,7 @@ struct FocusView: View {
             FocusDial(minutes: $minutes)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
+                .haloZoomSource("focus-session")
 
             ChipGroup(
                 options: [(25, "25 min"), (50, "50 min"), (90, "90 min")],
@@ -22,7 +23,7 @@ struct FocusView: View {
 
             HaloCard(variant: .inset) {
                 TextField("Deep work", text: $title)
-                    .font(HaloFont.body)
+                    .haloFont(.body)
                     .textInputAutocapitalization(.sentences)
             }
 
@@ -42,7 +43,7 @@ struct FocusView: View {
             set: { _ in }
         )) {
             if let session = model.focus, session.isActive {
-                FocusActiveView(session: session)
+                FocusActiveView(session: session).haloZoomDestination("focus-session")
             }
         }
     }
@@ -51,7 +52,7 @@ struct FocusView: View {
         HaloCard {
             VStack(alignment: .leading, spacing: 16) {
                 HStack {
-                    Text("On your Dynamic Island").font(HaloFont.headline)
+                    Text("On your Dynamic Island").haloFont(.headline)
                     Spacer()
                     if !model.purchases.isPremium { PremiumChip() }
                 }
@@ -67,7 +68,7 @@ struct FocusView: View {
                          : "50:00")
                         .monospacedDigit()
                 }
-                .font(HaloFont.caption)
+                .haloFont(.caption)
                 .foregroundStyle(PaletteResolver.resolve(model.theme, scheme: .dark).ink)
                 .padding(16)
                 .background(
@@ -76,14 +77,14 @@ struct FocusView: View {
                 )
 
                 Text("Live Activities show your timer on the Lock Screen. Dynamic Island appears on supported iPhones.")
-                    .font(HaloFont.footnote)
+                    .haloFont(.footnote)
                     .foregroundStyle(palette.ink2)
 
                 if !model.purchases.isPremium {
                     Button("Unlock Live Activities") { model.showPaywall = true }
                 } else if !model.activities.enabled {
                     Text("Live Activities are turned off for Halo Day in iOS Settings.")
-                        .font(HaloFont.footnote)
+                        .haloFont(.footnote)
                 }
             }
         }
@@ -91,7 +92,7 @@ struct FocusView: View {
 
     private var history: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Time well spent").font(HaloFont.displayM)
+            Text("Time well spent").haloFont(.displayM)
             HaloCard {
                 VStack(spacing: 0) {
                     ForEach(model.focusHistory.prefix(7)) { session in
@@ -102,7 +103,7 @@ struct FocusView: View {
                             Text("\(session.durationMinutes) min")
                                 .foregroundStyle(palette.ink2)
                         }
-                        .font(HaloFont.footnote)
+                        .haloFont(.footnote)
                         .padding(.vertical, 8)
                     }
                 }

@@ -49,7 +49,7 @@ struct WidgetGuideView: View {
                                 .frame(height: 150)
 
                             Text(LocalizedStringKey(steps[index]))
-                                .font(HaloFont.displayM)
+                                .haloFont(.displayM)
                                 .multilineTextAlignment(.center)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
@@ -81,7 +81,7 @@ struct WidgetGuideView: View {
 
                 if let message {
                     Text(message)
-                        .font(HaloFont.subhead)
+                        .haloFont(.subhead)
                         .foregroundStyle(palette.ink2)
                         .multilineTextAlignment(.center)
                 }

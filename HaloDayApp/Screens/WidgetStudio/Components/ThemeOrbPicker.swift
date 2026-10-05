@@ -5,7 +5,7 @@ struct ThemeOrbPicker: View {
 
     @Environment(\.palette) private var palette
     @Environment(\.haloHapticsEnabled) private var haptics
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
 
     var body: some View {
         ScrollView(.horizontal) {

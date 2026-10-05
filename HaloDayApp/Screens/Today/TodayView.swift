@@ -3,8 +3,11 @@ import SwiftUI
 struct TodayView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.palette) private var palette
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloNavigation) private var navigation
+    @Environment(\.dynamicTypeSize) private var dynamicType
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var hasAppeared = false
+    @State private var collapsed = false
 
     private var greeting: String {
         let hour = Calendar.current.component(.hour, from: .now)
@@ -17,7 +20,9 @@ struct TodayView: View {
     }
 
     var body: some View {
-        HaloScreen {
+        HaloScreen(onScrollCollapse: { value in
+            withAnimation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion)) { collapsed = value }
+        }) {
             header.sectionEntrance(0, hasAppeared, reduceMotion)
             if model.isSample { sampleBanner }
             progress.sectionEntrance(1, hasAppeared, reduceMotion)
@@ -28,6 +33,9 @@ struct TodayView: View {
             haloPreview.sectionEntrance(6, hasAppeared, reduceMotion)
         }
         .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(greeting).haloFont(.headline).opacity(collapsed ? 1 : 0)
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Button { model.showSettings = true } label: {
                     Image(systemName: "gearshape").frame(width: 44, height: 44)
@@ -46,10 +54,12 @@ struct TodayView: View {
                 .captionUpper()
                 .foregroundStyle(palette.ink2)
             Text(greeting)
-                .font(HaloFont.displayL)
+                .haloFont(.displayL)
                 .fixedSize(horizontal: false, vertical: true)
         }
         .padding(.top, 12)
+        .opacity(collapsed ? 0 : 1)
+        .blur(radius: collapsed && !reduceMotion ? 2 : 0)
     }
 
     private var sampleBanner: some View {
@@ -57,24 +67,27 @@ struct TodayView: View {
             HStack(spacing: 12) {
                 Image(systemName: "calendar.badge.clock").foregroundStyle(palette.accentInk)
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("A sample day").font(HaloFont.headline)
+                    Text("A sample day").haloFont(.headline)
                     Text("Connect your calendar to see your own events.")
-                        .font(HaloFont.footnote).foregroundStyle(palette.ink2)
+                        .haloFont(.footnote).foregroundStyle(palette.ink2)
                 }
                 Spacer(minLength: 4)
                 Button("Connect") { Task { await model.requestCalendar() } }
-                    .font(HaloFont.subhead)
+                    .haloFont(.subhead)
             }
         }
     }
 
     private var progress: some View {
-        HStack(spacing: 24) {
+        let layout = dynamicType.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 20))
+            : AnyLayout(HStackLayout(spacing: 24))
+        return layout {
             ProgressRing(progress: model.progress)
                 .frame(width: 120, height: 120)
                 .overlay {
                     Text(model.progress, format: .percent.precision(.fractionLength(0)))
-                        .font(HaloFont.numericL)
+                        .haloFont(.numericL)
                         .monospacedDigit()
                         .contentTransition(.numericText())
                 }
@@ -84,10 +97,10 @@ struct TodayView: View {
                     .foregroundStyle(palette.ink2)
                     .accessibilityLabel("Day progress")
                 Text("\(model.completedHabits) of \(model.habits.count) rituals kept")
-                    .font(HaloFont.displayS)
+                    .haloFont(.displayS)
                     .fixedSize(horizontal: false, vertical: true)
                 Text("Your day, beautifully on display.")
-                    .font(HaloFont.footnote).foregroundStyle(palette.ink2)
+                    .haloFont(.footnote).foregroundStyle(palette.ink2)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -96,7 +109,10 @@ struct TodayView: View {
 
     @ViewBuilder private var nextEvent: some View {
         if let event = model.nextEvent {
-            Button { model.selectedEvent = event } label: {
+            Button {
+                navigation?.eventSource = "today-next-\(event.id)"
+                model.selectedEvent = event
+            } label: {
                 HaloCard(hero: true) {
                     HStack(alignment: .top, spacing: 16) {
                         RoundedRectangle(cornerRadius: 2, style: .continuous)
@@ -109,12 +125,12 @@ struct TodayView: View {
                                 Spacer()
                                 if event.startDate > .now {
                                     Text(event.startDate, style: .relative)
-                                        .font(HaloFont.footnote).foregroundStyle(palette.ink2)
+                                        .haloFont(.footnote).foregroundStyle(palette.ink2)
                                 }
                             }
                             .foregroundStyle(palette.accentInk)
                             Text(event.title)
-                                .font(HaloFont.displayM)
+                                .haloFont(.displayM)
                                 .multilineTextAlignment(.leading)
                                 .fixedSize(horizontal: false, vertical: true)
                             HStack(spacing: 5) {
@@ -125,7 +141,7 @@ struct TodayView: View {
                             .font(HaloFont.subhead.monospacedDigit())
                             Label(event.location ?? event.calendarName,
                                   systemImage: event.location == nil ? "calendar" : "mappin")
-                                .font(HaloFont.footnote)
+                                .haloFont(.footnote)
                                 .foregroundStyle(palette.ink2)
                                 .lineLimit(1)
                         }
@@ -133,6 +149,7 @@ struct TodayView: View {
                 }
             }
             .buttonStyle(PressableStyle())
+            .haloZoomSource("today-next-\(event.id)")
         } else {
             HaloCard(variant: .inset) {
                 EmptyState(title: "An open day", message: "Nothing on the calendar. Make room for something good.")
@@ -143,18 +160,22 @@ struct TodayView: View {
     private var timeline: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Today").font(HaloFont.displayM)
+                Text("Today").haloFont(.displayM)
                 Spacer()
-                Button("See all") { model.tab = 1 }.font(HaloFont.subhead)
+                Button("See all") { model.tab = 1 }.haloFont(.subhead)
             }
             if !model.todayEvents.isEmpty {
                 HaloCard {
                     VStack(spacing: 0) {
                         ForEach(Array(model.todayEvents.prefix(6))) { event in
-                            Button { model.selectedEvent = event } label: {
+                            Button {
+                                navigation?.eventSource = "today-row-\(event.id)"
+                                model.selectedEvent = event
+                            } label: {
                                 AgendaRow(event: event)
                             }
                             .buttonStyle(PressableStyle())
+                            .haloZoomSource("today-row-\(event.id)")
                             if event.id != model.todayEvents.prefix(6).last?.id {
                                 Divider().padding(.leading, 81)
                             }
@@ -168,10 +189,10 @@ struct TodayView: View {
     private var rituals: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("Rituals").font(HaloFont.displayM)
+                Text("Rituals").haloFont(.displayM)
                 Spacer()
                 Text("\(model.completedHabits) / \(model.habits.count)")
-                    .font(HaloFont.caption)
+                    .haloFont(.caption)
                     .monospacedDigit()
                     .contentTransition(.numericText())
                     .foregroundStyle(palette.ink2)
@@ -191,7 +212,7 @@ struct TodayView: View {
                                     .frame(width: 38, height: 38)
                                     .background(palette.accentSoft, in: Circle())
                                 HStack(spacing: 8) {
-                                    Text(habit.title).font(HaloFont.subhead).lineLimit(1)
+                                    Text(habit.title).haloFont(.subhead).lineLimit(1)
                                     Image(systemName: habit.isCompleted() ? "checkmark.circle.fill" : "circle")
                                         .foregroundStyle(palette.accentInk)
                                 }
@@ -213,7 +234,7 @@ struct TodayView: View {
             HaloCard {
                 HStack(spacing: 14) {
                     Image(systemName: "timer").font(.title2).foregroundStyle(palette.accentInk)
-                    Text("Make space to focus").font(HaloFont.displayS)
+                    Text("Make space to focus").haloFont(.displayS)
                     Spacer()
                     Image(systemName: "play.fill")
                         .font(.footnote).foregroundStyle(palette.accentOn)
@@ -230,9 +251,9 @@ struct TodayView: View {
             HaloCard {
                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
-                        Text("Your Halo").font(HaloFont.displayM)
+                        Text("Your Halo").haloFont(.displayM)
                         Spacer()
-                        Text("Edit").font(HaloFont.subhead).foregroundStyle(palette.accentInk)
+                        Text("Edit").haloFont(.subhead).foregroundStyle(palette.accentInk)
                     }
                     HaloWidgetContent(
                         date: .now, type: .agenda, size: .rectangular,
@@ -242,7 +263,7 @@ struct TodayView: View {
                     )
                     .frame(height: 70)
                     Text("Your day, beautifully on display.")
-                        .font(HaloFont.caption).foregroundStyle(palette.ink2)
+                        .haloFont(.caption).foregroundStyle(palette.ink2)
                 }
             }
         }

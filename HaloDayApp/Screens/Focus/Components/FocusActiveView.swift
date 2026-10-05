@@ -18,12 +18,12 @@ struct FocusActiveView: View {
                     FocusTimerRing(session: session)
                     VStack(spacing: 16) {
                         Text(session.title)
-                            .font(HaloFont.displayS)
+                            .haloFont(.displayS)
                             .lineLimit(2)
                             .multilineTextAlignment(.center)
                         timerText
                         Text(session.isPaused ? "Paused" : "A little space, just for you.")
-                            .font(HaloFont.caption)
+                            .haloFont(.caption)
                             .foregroundStyle(palette.ink2)
                     }
                     .padding(24)
@@ -44,7 +44,7 @@ struct FocusActiveView: View {
                     .buttonStyle(PressableStyle())
 
                     Button("End", role: .destructive) { confirmEnd = true }
-                        .font(HaloFont.subhead)
+                        .haloFont(.subhead)
                         .frame(minWidth: 64, minHeight: 64)
                 }
                 Spacer()
@@ -69,11 +69,11 @@ struct FocusActiveView: View {
     @ViewBuilder private var timerText: some View {
         if let remaining = session.pausedRemaining {
             Text(Duration.seconds(remaining), format: .time(pattern: .minuteSecond))
-                .font(HaloFont.numericHero)
+                .haloFont(.numericHero)
                 .monospacedDigit()
         } else {
             Text(timerInterval: session.startDate...session.endDate, countsDown: true)
-                .font(HaloFont.numericHero)
+                .haloFont(.numericHero)
                 .monospacedDigit()
         }
     }

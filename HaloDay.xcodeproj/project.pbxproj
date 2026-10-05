@@ -7,110 +7,111 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00202CF65121055D11AA044C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFDF3F12693E1A3550F6EC0B /* Assets.xcassets */; };
-		0548DA20C70D556C7521E33D /* HaloIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE14D68106A1B0D44C1E477 /* HaloIntents.swift */; };
-		0A64493FDCBB28903DB4314D /* HaloControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372386692341E0DF0A814ED1 /* HaloControls.swift */; };
-		0BC51129EB0E5DF42EB0D534 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D15D3466EE8DA11133B48C34 /* Foundation.framework */; };
-		0E79D542F0987022D8332B9A /* ThemeOrbPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B66AF681FFF0792A67C359 /* ThemeOrbPicker.swift */; };
-		143A8517C31B28C14226B1C8 /* HaloDay.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 35A415D4D15C3584019BFF5F /* HaloDay.storekit */; };
-		1A97A4192A251FA05617BF57 /* WidgetGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A048A9FA67A743DA214AAA /* WidgetGuideView.swift */; };
-		1B45BB1266D70440C3B28B77 /* ThemePalettes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BDB81C56BB96584A6C6403 /* ThemePalettes.swift */; };
-		1D5D9F4C11DEE73CFED85F77 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD710F6DD588C21E6B770EA6 /* Models.swift */; };
-		25D19D5C92AAA2DE048DDBB8 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C483DB981CFC3539FCDCC2C7 /* PaywallView.swift */; };
-		343AA124ECA46EB90A44DFC4 /* HaloFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BE69651CF641B5B0046B6E /* HaloFont.swift */; };
-		345F8D6C9625A5190124B3FD /* HaloFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696E0A513CF601D85D86DE5C /* HaloFeedback.swift */; };
-		358494DAE9C88F5018BC2ADE /* HaloFocusLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4747329E1540754811A9E8 /* HaloFocusLiveActivity.swift */; };
-		35A21027D5D09AFD3F52FD4F /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BDEAC3A6DDEC51570FEC4D /* ProgressRing.swift */; };
-		37A518AF09C649F38DC9E8D0 /* HaloDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BD73EE8AEE5ABDA3E1B5EF /* HaloDayTests.swift */; };
-		37A5E0992B39E2217112C792 /* HaloIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE14D68106A1B0D44C1E477 /* HaloIntents.swift */; };
-		3A81CFB2DE5AC0E0C2341D62 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23756C279C7517A80440282 /* FocusView.swift */; };
-		3CBBDC51DE810A53A175B4A2 /* HaloButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB239CFD581B7B078EFF676 /* HaloButton.swift */; };
-		3E205104A070B481106F0242 /* StudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC39902647D7EC298A552195 /* StudioView.swift */; };
-		3FB4D2F7C2B7CBDDAD0AB9ED /* HaloMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E98C24947E2EEC0EA8E48 /* HaloMotion.swift */; };
-		40D485D1DCE240784FF659C9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D15D3466EE8DA11133B48C34 /* Foundation.framework */; };
-		42F1A4AE7DF0E68D182636F7 /* WidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFCA61CBCA5A0A5F19DF8B7 /* WidgetContent.swift */; };
-		47E5ACA9093660510FC29330 /* HaloButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB239CFD581B7B078EFF676 /* HaloButton.swift */; };
-		488CBB9E0C4669D58395268C /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B714E01B3A111B7C8EF06454 /* MockData.swift */; };
-		4FA628FE946918C59FF2D745 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D15D3466EE8DA11133B48C34 /* Foundation.framework */; };
-		50EECF3A92837841BA160FD9 /* PhoneFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072E0D3C2DA370AAA311F275 /* PhoneFrame.swift */; };
-		5173ED0C71062D23CB7EB1D9 /* RitualCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A6187FC428B8A3090C9995 /* RitualCheck.swift */; };
-		573D6AD1831836C770D18626 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9961BD95B46A936058A768B /* CalendarView.swift */; };
-		58F05CC90E36A2AC12476199 /* AppGroupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E26FB7731B84325A7902136 /* AppGroupStorage.swift */; };
-		5A3426206E3ED8A92B05625E /* HaloDay.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 35A415D4D15C3584019BFF5F /* HaloDay.storekit */; };
-		5CBAC8172FFD7029AE9BE503 /* HaloDayWidgets.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 369A7D2B589DCFC4902BCF03 /* HaloDayWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		5EDBC7395FFC7D3B5A55C39A /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB19C77143C7E145EC0F449 /* NotificationService.swift */; };
-		63C71415ACBF1DDC660B6C98 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BDEAC3A6DDEC51570FEC4D /* ProgressRing.swift */; };
-		6CE79A0BE9CBD5F7E9621FEC /* LiveActivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88AAB96B370549C465FF4F /* LiveActivityService.swift */; };
-		6FDDA106679D20D4AF6AE2B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D15D3466EE8DA11133B48C34 /* Foundation.framework */; };
-		720B5B3C692DE87603FD6380 /* HaloDayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA399DABEE4C50A97BDF28 /* HaloDayUITests.swift */; };
-		751A3BE206BB57D895070F98 /* HaloControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372386692341E0DF0A814ED1 /* HaloControls.swift */; };
-		7759D9D71045C9ACF3CE142C /* HaloWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047DF08F22F3544CDE1312D9 /* HaloWidgets.swift */; };
-		777BFE2F7C46D766A3D69732 /* ThemeScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AA091A2450F30F04AA823E /* ThemeScope.swift */; };
-		77EC37BF2FBDF2529D2CA1B8 /* ThemeScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0AA091A2450F30F04AA823E /* ThemeScope.swift */; };
-		7A62928AB13C87ACD7E8EAFA /* WidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFCA61CBCA5A0A5F19DF8B7 /* WidgetContent.swift */; };
-		8211D59B496390765C28CBFC /* RitualCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A6187FC428B8A3090C9995 /* RitualCheck.swift */; };
-		888FEBDEF99CECE8EDCD516D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1A3AE4F7131A6D442DBC88B6 /* PrivacyInfo.xcprivacy */; };
-		94BD2F76A52E0A2A4CCE1DB8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD710F6DD588C21E6B770EA6 /* Models.swift */; };
-		975EAAAB5CE391D911B9D436 /* FocusDial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5D79BC5477FBFBA159A22C /* FocusDial.swift */; };
-		9C82A65E3EDEF359332EC65C /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324BF212F93F48EA8AFBAB9B /* CalendarService.swift */; };
-		9DE5F52CECF7C6A77006441A /* FocusTimerRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3015C91EBEE8F35A0ED3205A /* FocusTimerRing.swift */; };
-		A0BDE0A390AEACA2AFD02B2B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DDD6B14172D4C17612466 /* OnboardingView.swift */; };
-		A3AE8A4ADC91AF06D107B368 /* PhoneFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072E0D3C2DA370AAA311F275 /* PhoneFrame.swift */; };
-		A3FF3D46AC67D236BD7EA5B1 /* FocusActiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929CD96FFA796FD2075CCE82 /* FocusActiveView.swift */; };
-		A5E168707843F1BF21AD5C7E /* HaloFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696E0A513CF601D85D86DE5C /* HaloFeedback.swift */; };
-		AB7932927804B1FD3A3E7353 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 436BB8DDCDC7C53E6663BA57 /* Localizable.xcstrings */; };
-		AFFB2D290F0D05D57452B045 /* RitualsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865B7F8A1645B13728164E18 /* RitualsView.swift */; };
-		B199E7290159D038F47CB6E0 /* ThemePalettes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BDB81C56BB96584A6C6403 /* ThemePalettes.swift */; };
-		BA5552D329991AE94FD778B4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F30289B365FCCAEA307D276 /* SettingsView.swift */; };
-		BCB74080ACE223B058F18350 /* ScreenLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10509D867175B62117CB3DF1 /* ScreenLayout.swift */; };
-		BF2655D4E4EF255B20B9F81C /* HaloDayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BC309B638CC72D341221D8 /* HaloDayApp.swift */; };
-		C10C1335CEDED80DBFC8B735 /* HaloModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E9EF937AED725740B2D3C1 /* HaloModel.swift */; };
-		C94C3170566C2E23A9B12282 /* ResolvedPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3BAEFCD239A10B8640F09A /* ResolvedPalette.swift */; };
-		CD2B42E180A28741EC910712 /* ThemesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504003EAF13A93FD3919B8A4 /* ThemesView.swift */; };
-		CD61F07CC9D42E8DB01DEFFA /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B714E01B3A111B7C8EF06454 /* MockData.swift */; };
-		D2A6D981F89E747C55CA724E /* HaloComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AEB678B9CB16EA81BBC14 /* HaloComponents.swift */; };
-		D7F2F2C1D024312FEF93FA1C /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 088D54FADF84AC6BF7D48E11 /* Localizable.xcstrings */; };
-		D9A29FCBFC9EB49DE015E8AF /* HaloFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BE69651CF641B5B0046B6E /* HaloFont.swift */; };
-		E6493F00B8F689C1FDC311B3 /* HaloMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E98C24947E2EEC0EA8E48 /* HaloMotion.swift */; };
-		EB45F9C218E68B192A15535C /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0633B6A3746149DA3860A8 /* PurchaseService.swift */; };
-		F2F49E49AEBAE494EF1255B4 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6265E2D0AE00683B90913E6 /* TodayView.swift */; };
-		F4E9ECC0F477DD4423E13A28 /* ResolvedPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3BAEFCD239A10B8640F09A /* ResolvedPalette.swift */; };
-		FB6077592AC84FE86FDFF203 /* HaloComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835AEB678B9CB16EA81BBC14 /* HaloComponents.swift */; };
-		FC3F49C985D8307ADAD481E5 /* AppGroupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E26FB7731B84325A7902136 /* AppGroupStorage.swift */; };
+		052B34093919C5BC77099BF5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84B745DFECE621A0D52AD0B /* Foundation.framework */; };
+		073B1953D032776D991EA634 /* WidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365B1DB0106C91E6FB9A987E /* WidgetContent.swift */; };
+		07AEF253197288D75AF36556 /* HaloWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5908E4C3744DCD940F164D1F /* HaloWidgets.swift */; };
+		104394A0240A7C613F85F0CA /* FocusTimerRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A6F1067162E9C672EF1B14 /* FocusTimerRing.swift */; };
+		125040D3C472A5A819532C4F /* LiveActivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8EBD7CD461999BFD5D5F97 /* LiveActivityService.swift */; };
+		196145C88D65CC32547D295F /* HaloControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8357BE137753ACFE18A9AC3 /* HaloControls.swift */; };
+		20D0E8D0CDB1997A4824B218 /* ThemeScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AD11BC0128AF5B4AA4FDF5 /* ThemeScope.swift */; };
+		21DFE2E27250C25A91A38E47 /* AppGroupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49777421892DBD7EA965D172 /* AppGroupStorage.swift */; };
+		27FE4F3C1AC42434CD00619A /* ThemeOrbPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226E44FFC19DDBCA187E20C /* ThemeOrbPicker.swift */; };
+		292777200A76C40FB4F00AF1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17527921A4D21EE67FB953E2 /* Models.swift */; };
+		2B10ABC470C29909AA19BAE4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84B745DFECE621A0D52AD0B /* Foundation.framework */; };
+		2E6002A7BA6169FEBF20057D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84B745DFECE621A0D52AD0B /* Foundation.framework */; };
+		306681D61F52F276A1DDEF9F /* HaloMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E92F7A6EFD8053D0B84967 /* HaloMotion.swift */; };
+		416FBF00BBC3921EC9128DAD /* RitualCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A313752F8B7E6A8D4BA6CD1 /* RitualCheck.swift */; };
+		42985B5DB199482B1E5A777B /* HaloDayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E532C9F6A17E42A62159FD5 /* HaloDayUITests.swift */; };
+		457CD2D1BEB5B49489AE21C4 /* HaloNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D03C2A292CD0F037065AAD9 /* HaloNavigation.swift */; };
+		48A981435297139D905D25BD /* ResolvedPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F38A616709AA95C982E68 /* ResolvedPalette.swift */; };
+		4909A2B60B1FF6121610AFA6 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB04CC5A89E520527FABA6F /* ProgressRing.swift */; };
+		49AA6521F2A28A6015872FCE /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D549FA0CF93EED22A70ECB /* MockData.swift */; };
+		4D0674BB2029B2C829609CB1 /* PhoneFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79F8998E9EE7A6052C0CA21 /* PhoneFrame.swift */; };
+		57B12631C1E21CEB85DCD441 /* HaloDay.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B419F28DEB057FB96B52D831 /* HaloDay.storekit */; };
+		57CD351257DC5744575C6CB6 /* HaloButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D731254850DA12D40A5E7B0B /* HaloButton.swift */; };
+		5C00186371281696ECCFAF14 /* HaloFocusLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931796FF9B5F4F0C5B3EBF2B /* HaloFocusLiveActivity.swift */; };
+		5D0272BB13B1DE8377FBD233 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4B5BB932783D9053F5D954 /* PurchaseService.swift */; };
+		5F3142814005A38F274185D9 /* ScreenLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E3CF901B66EE21316A4F88 /* ScreenLayout.swift */; };
+		66F9561CA1D47F60300B5D25 /* HaloModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ECE3F0889B26B831F7B847 /* HaloModel.swift */; };
+		695421A495F8ACC71B8A50E0 /* WidgetGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3533CF3E34287DA26E897562 /* WidgetGuideView.swift */; };
+		6C40B6B974615A5A37B5FE83 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D549FA0CF93EED22A70ECB /* MockData.swift */; };
+		6E30CB712057B4813E95E290 /* StudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAEDD7CF90FB214D535E699 /* StudioView.swift */; };
+		6FC3F0E112CD7E63BBE8FC2A /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCB2217C10CCF4FFD3037D1 /* CalendarService.swift */; };
+		6FD8D377BC7184A7FC0FFE01 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DFD919CBC841905F0147721C /* Localizable.xcstrings */; };
+		7D9E4E06960BABFB44977E80 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77341E33EFFE5F23B8C4A97 /* OnboardingView.swift */; };
+		7E4F54C7ADA706B1A08B73FA /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53D8EDFFB6714B9408C7B7A /* CalendarView.swift */; };
+		809DCCC9B34C4CC44A7F635B /* HaloDayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BCB2745145C0EF7121F01E /* HaloDayApp.swift */; };
+		81F36EFC75FFE38EB4EA6A64 /* ThemePalettes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC79C5D8341E9E9FA4F840B /* ThemePalettes.swift */; };
+		839402280895E9C6EB207F8C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE8435BC0553AE671AE6149F /* SettingsView.swift */; };
+		853DFEECA9428A88B3C687A3 /* HaloFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF651E29F14D3EF7EE63102 /* HaloFont.swift */; };
+		87951E6F35A93D1F7469BE91 /* HaloControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8357BE137753ACFE18A9AC3 /* HaloControls.swift */; };
+		87CDAE30B24A3A6E7F9D1766 /* ThemesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC9C5B8B4CC4041C99BDD24 /* ThemesView.swift */; };
+		89D37274AE5CD0F8A3E2FDC4 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB04CC5A89E520527FABA6F /* ProgressRing.swift */; };
+		8E703625A62B7B8F59D942B9 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A449A0F89FE3BD006710EF0 /* PaywallView.swift */; };
+		9E67155A4C8A66E92B7360F2 /* HaloIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623662430F262D775EDF9F33 /* HaloIntents.swift */; };
+		9FA6C2799EB3BA0D9F1B6FC6 /* HaloComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB86A4D45CFD3027E10968 /* HaloComponents.swift */; };
+		A22DC34BC2300AB856030838 /* FocusActiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F7D7E6AFEE68005CE945F9 /* FocusActiveView.swift */; };
+		A28A33D6B4DDEE9482C538EA /* ResolvedPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F38A616709AA95C982E68 /* ResolvedPalette.swift */; };
+		A2D30B998702E0C9D923CDDB /* HaloIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 623662430F262D775EDF9F33 /* HaloIntents.swift */; };
+		A6C823B5C270D1BF0541F071 /* HaloButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D731254850DA12D40A5E7B0B /* HaloButton.swift */; };
+		A6C9E3FFC091DC9F505A6306 /* FocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C125C597557CAE185349BA1 /* FocusView.swift */; };
+		A7D4874865B9D9264BEF1EA0 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9A6BCB2D159FFA08F4272710 /* PrivacyInfo.xcprivacy */; };
+		A8F840BDB7341E16F24957B8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = ABE9B01BE52C799DABFAC068 /* Localizable.xcstrings */; };
+		AA516C89F999C346F5D069FC /* RitualCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A313752F8B7E6A8D4BA6CD1 /* RitualCheck.swift */; };
+		AF5ED4AFD6F8E5AA53CC1EBD /* HaloMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E92F7A6EFD8053D0B84967 /* HaloMotion.swift */; };
+		B24500ED8E659E5C9C0DD495 /* HaloFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77057FD88CB36861664E165E /* HaloFeedback.swift */; };
+		BCFAFF75AA0BD7A81FBC28E5 /* HaloDayWidgets.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F5FA63040F3A70BA219ADF07 /* HaloDayWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BFE521A6582CC7943C8EBD26 /* ThemeScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AD11BC0128AF5B4AA4FDF5 /* ThemeScope.swift */; };
+		C064E2E7669F0B0EEB9DBBB3 /* ThemePalettes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC79C5D8341E9E9FA4F840B /* ThemePalettes.swift */; };
+		C25D79D142BF24E573FB53AD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686FBB6F93C64063F1EB689F /* NotificationService.swift */; };
+		C59FF4FAAA63F3F15796858D /* PhoneFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79F8998E9EE7A6052C0CA21 /* PhoneFrame.swift */; };
+		C8BF744056C09BE9C64F1D3D /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760ECC05DEFD7DEBC2AD26A0 /* TodayView.swift */; };
+		CAA2876DFE2C3EE16EE28B5F /* FocusDial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC4382A098759534E069B50 /* FocusDial.swift */; };
+		D8C27EEE873923EC36AE3F55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058D1660A6B7E53F56E32E42 /* Assets.xcassets */; };
+		D9C1677AAEB65A2F9FBB5FCF /* HaloDay.storekit in Resources */ = {isa = PBXBuildFile; fileRef = B419F28DEB057FB96B52D831 /* HaloDay.storekit */; };
+		DAD2873C17ECFE053E8CED70 /* HaloFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF651E29F14D3EF7EE63102 /* HaloFont.swift */; };
+		DB1F206BF61814574F2D55BC /* WidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365B1DB0106C91E6FB9A987E /* WidgetContent.swift */; };
+		E279769BFECAA4A583715C42 /* HaloFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77057FD88CB36861664E165E /* HaloFeedback.swift */; };
+		E964F6CF7FFEE4E39C109DD7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84B745DFECE621A0D52AD0B /* Foundation.framework */; };
+		EB39D8BBCC2D8406220E0BAB /* HaloDayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD725C2163413F1C401F2ACC /* HaloDayTests.swift */; };
+		F3AA933B367265521EA23DA8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17527921A4D21EE67FB953E2 /* Models.swift */; };
+		F5706D2D6A232B487708A8B1 /* AppGroupStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49777421892DBD7EA965D172 /* AppGroupStorage.swift */; };
+		F5A3925BDDC20A8EAB0A2617 /* RitualsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1151A66C384882C4ED5E761 /* RitualsView.swift */; };
+		FD8B58A75B52749ADA6FAE41 /* HaloComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5EB86A4D45CFD3027E10968 /* HaloComponents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1A91D2047DCDB488277DB9C0 /* PBXContainerItemProxy */ = {
+		3D0C6D73F16541FFE066DBA1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1625D7517C41C90EFCB189BC /* Project object */;
+			containerPortal = 8750CB8D95ADE9C45288020B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 03EA83513246725153E14D38;
+			remoteGlobalIDString = 0DAAA6F272CCB2CFD4FE107B;
 			remoteInfo = HaloDay;
 		};
-		6EEA4100D3808F28C3B246D4 /* PBXContainerItemProxy */ = {
+		63BAE088685FBC22CEEDC44D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1625D7517C41C90EFCB189BC /* Project object */;
+			containerPortal = 8750CB8D95ADE9C45288020B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 03EA83513246725153E14D38;
+			remoteGlobalIDString = 0DAAA6F272CCB2CFD4FE107B;
 			remoteInfo = HaloDay;
 		};
-		F16DAD32E1C5A0D7E3FC28F1 /* PBXContainerItemProxy */ = {
+		9270FD7D749153F600F2F3D3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 1625D7517C41C90EFCB189BC /* Project object */;
+			containerPortal = 8750CB8D95ADE9C45288020B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0C4301B8AD9267DB7754680C;
+			remoteGlobalIDString = 01E728F054188B7D1111E8D0;
 			remoteInfo = HaloDayWidgets;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E240F4B3F69846B9FD9BC5CD /* Embed App Extensions */ = {
+		2A0D8E315DBC61D3357719E5 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				5CBAC8172FFD7029AE9BE503 /* HaloDayWidgets.appex in Embed App Extensions */,
+				BCFAFF75AA0BD7A81FBC28E5 /* HaloDayWidgets.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,270 +119,253 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		03438F3D3E6EF8ADA547A6E9 /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; name = Contents.json; path = Resources/Assets.xcassets/Contents.json; sourceTree = "<group>"; };
-		047DF08F22F3544CDE1312D9 /* HaloWidgets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloWidgets.swift; path = LockScreenWidgets/HaloWidgets.swift; sourceTree = "<group>"; };
-		072E0D3C2DA370AAA311F275 /* PhoneFrame.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhoneFrame.swift; path = Theme/Components/PhoneFrame.swift; sourceTree = "<group>"; };
-		088D54FADF84AC6BF7D48E11 /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; name = Localizable.xcstrings; path = HaloDayApp/Resources/Localizable.xcstrings; sourceTree = "<group>"; };
-		0CB239CFD581B7B078EFF676 /* HaloButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloButton.swift; path = Theme/Components/HaloButton.swift; sourceTree = "<group>"; };
-		10509D867175B62117CB3DF1 /* ScreenLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScreenLayout.swift; path = Components/ScreenLayout.swift; sourceTree = "<group>"; };
-		10BC309B638CC72D341221D8 /* HaloDayApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloDayApp.swift; path = App/HaloDayApp.swift; sourceTree = "<group>"; };
-		11F17714C671F2C63F9C0CA7 /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; name = Contents.json; path = Resources/Assets.xcassets/AccentColor.colorset/Contents.json; sourceTree = "<group>"; };
-		1A3AE4F7131A6D442DBC88B6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Resources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		25A232E02B69A6E51CB6E620 /* AppIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = AppIcon.png; path = Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png; sourceTree = "<group>"; };
-		26B66AF681FFF0792A67C359 /* ThemeOrbPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeOrbPicker.swift; path = Screens/WidgetStudio/Components/ThemeOrbPicker.swift; sourceTree = "<group>"; };
-		2816D8834CED27FCA9FEF163 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A6D574334DCA8822EA66400 /* HaloDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaloDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2CFA399DABEE4C50A97BDF28 /* HaloDayUITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HaloDayUITests.swift; sourceTree = "<group>"; };
-		3015C91EBEE8F35A0ED3205A /* FocusTimerRing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FocusTimerRing.swift; path = Screens/Focus/Components/FocusTimerRing.swift; sourceTree = "<group>"; };
-		324BF212F93F48EA8AFBAB9B /* CalendarService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarService.swift; path = Services/CalendarService.swift; sourceTree = "<group>"; };
-		35A415D4D15C3584019BFF5F /* HaloDay.storekit */ = {isa = PBXFileReference; includeInIndex = 1; name = HaloDay.storekit; path = HaloDayApp/Resources/HaloDay.storekit; sourceTree = "<group>"; };
-		369A7D2B589DCFC4902BCF03 /* HaloDayWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HaloDayWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		372386692341E0DF0A814ED1 /* HaloControls.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloControls.swift; path = Theme/Components/HaloControls.swift; sourceTree = "<group>"; };
-		3AB19C77143C7E145EC0F449 /* NotificationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NotificationService.swift; path = Services/NotificationService.swift; sourceTree = "<group>"; };
-		40BDEAC3A6DDEC51570FEC4D /* ProgressRing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProgressRing.swift; path = Theme/Components/ProgressRing.swift; sourceTree = "<group>"; };
-		436BB8DDCDC7C53E6663BA57 /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; name = Localizable.xcstrings; path = Resources/Localizable.xcstrings; sourceTree = "<group>"; };
-		46B1E9F5809908F9DBC73591 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
-		4D957F321F0FA7576FDC71AA /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; name = Contents.json; path = Resources/Assets.xcassets/AppIcon.appiconset/Contents.json; sourceTree = "<group>"; };
-		4E0633B6A3746149DA3860A8 /* PurchaseService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PurchaseService.swift; path = Services/PurchaseService.swift; sourceTree = "<group>"; };
-		4F30289B365FCCAEA307D276 /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Screens/Settings/SettingsView.swift; sourceTree = "<group>"; };
-		504003EAF13A93FD3919B8A4 /* ThemesView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemesView.swift; path = Screens/Themes/ThemesView.swift; sourceTree = "<group>"; };
-		696E0A513CF601D85D86DE5C /* HaloFeedback.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloFeedback.swift; path = Theme/Components/HaloFeedback.swift; sourceTree = "<group>"; };
-		7E3BAEFCD239A10B8640F09A /* ResolvedPalette.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResolvedPalette.swift; path = Theme/ResolvedPalette.swift; sourceTree = "<group>"; };
-		835AEB678B9CB16EA81BBC14 /* HaloComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloComponents.swift; path = Theme/HaloComponents.swift; sourceTree = "<group>"; };
-		865B7F8A1645B13728164E18 /* RitualsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RitualsView.swift; path = Screens/Rituals/RitualsView.swift; sourceTree = "<group>"; };
-		8B4747329E1540754811A9E8 /* HaloFocusLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloFocusLiveActivity.swift; path = LiveActivities/HaloFocusLiveActivity.swift; sourceTree = "<group>"; };
-		8B88AAB96B370549C465FF4F /* LiveActivityService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LiveActivityService.swift; path = Services/LiveActivityService.swift; sourceTree = "<group>"; };
-		8D5D79BC5477FBFBA159A22C /* FocusDial.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FocusDial.swift; path = Screens/Focus/Components/FocusDial.swift; sourceTree = "<group>"; };
-		90389E142784B27274CDF816 /* HaloDayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaloDayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		91A048A9FA67A743DA214AAA /* WidgetGuideView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetGuideView.swift; path = Screens/WidgetStudio/WidgetGuideView.swift; sourceTree = "<group>"; };
-		929CD96FFA796FD2075CCE82 /* FocusActiveView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FocusActiveView.swift; path = Screens/Focus/Components/FocusActiveView.swift; sourceTree = "<group>"; };
-		9AFF5A7F6C3F80B347052F73 /* HaloDayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaloDayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E26FB7731B84325A7902136 /* AppGroupStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppGroupStorage.swift; path = Storage/AppGroupStorage.swift; sourceTree = "<group>"; };
-		A5E9EF937AED725740B2D3C1 /* HaloModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloModel.swift; path = ViewModels/HaloModel.swift; sourceTree = "<group>"; };
-		A6265E2D0AE00683B90913E6 /* TodayView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TodayView.swift; path = Screens/Today/TodayView.swift; sourceTree = "<group>"; };
-		A92E98C24947E2EEC0EA8E48 /* HaloMotion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloMotion.swift; path = Theme/HaloMotion.swift; sourceTree = "<group>"; };
-		B714E01B3A111B7C8EF06454 /* MockData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockData.swift; path = MockData/MockData.swift; sourceTree = "<group>"; };
-		B8A6187FC428B8A3090C9995 /* RitualCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RitualCheck.swift; path = Theme/Components/RitualCheck.swift; sourceTree = "<group>"; };
-		B8BDB81C56BB96584A6C6403 /* ThemePalettes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemePalettes.swift; path = Theme/ThemePalettes.swift; sourceTree = "<group>"; };
-		BD710F6DD588C21E6B770EA6 /* Models.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Models.swift; path = Models/Models.swift; sourceTree = "<group>"; };
-		BFDF3F12693E1A3550F6EC0B /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = HaloDayApp/Resources/Assets.xcassets; sourceTree = "<group>"; };
-		C23756C279C7517A80440282 /* FocusView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FocusView.swift; path = Screens/Focus/FocusView.swift; sourceTree = "<group>"; };
-		C483DB981CFC3539FCDCC2C7 /* PaywallView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PaywallView.swift; path = Screens/Paywall/PaywallView.swift; sourceTree = "<group>"; };
-		CC39902647D7EC298A552195 /* StudioView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StudioView.swift; path = Screens/WidgetStudio/StudioView.swift; sourceTree = "<group>"; };
-		CE2963967F10F2A355D1AFDC /* HaloDayWidgets.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = HaloDayWidgets.entitlements; sourceTree = "<group>"; };
-		D15D3466EE8DA11133B48C34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		D2BD73EE8AEE5ABDA3E1B5EF /* HaloDayTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HaloDayTests.swift; sourceTree = "<group>"; };
-		DCFCA61CBCA5A0A5F19DF8B7 /* WidgetContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetContent.swift; path = Theme/WidgetContent.swift; sourceTree = "<group>"; };
-		E0AA091A2450F30F04AA823E /* ThemeScope.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeScope.swift; path = Theme/Components/ThemeScope.swift; sourceTree = "<group>"; };
-		E9961BD95B46A936058A768B /* CalendarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarView.swift; path = Screens/Calendar/CalendarView.swift; sourceTree = "<group>"; };
-		EAE14D68106A1B0D44C1E477 /* HaloIntents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloIntents.swift; path = Extensions/HaloIntents.swift; sourceTree = "<group>"; };
-		F19BAE5248264AC6F70C4D06 /* HaloDay.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = HaloDay.entitlements; sourceTree = "<group>"; };
-		F20F6C90D2DD72B17DBEBBF4 /* HaloDay.storekit */ = {isa = PBXFileReference; includeInIndex = 1; name = HaloDay.storekit; path = Resources/HaloDay.storekit; sourceTree = "<group>"; };
-		F2BE69651CF641B5B0046B6E /* HaloFont.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloFont.swift; path = Theme/HaloFont.swift; sourceTree = "<group>"; };
-		F98DDD6B14172D4C17612466 /* OnboardingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OnboardingView.swift; path = Screens/Onboarding/OnboardingView.swift; sourceTree = "<group>"; };
+		058D1660A6B7E53F56E32E42 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = HaloDayApp/Resources/Assets.xcassets; sourceTree = "<group>"; };
+		10F54EF2A502559E0BA8C725 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = "<group>"; };
+		17527921A4D21EE67FB953E2 /* Models.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Models.swift; path = Models/Models.swift; sourceTree = "<group>"; };
+		1BDC2E57081AE37EA1BB437E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C4B5BB932783D9053F5D954 /* PurchaseService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PurchaseService.swift; path = Services/PurchaseService.swift; sourceTree = "<group>"; };
+		1CF651E29F14D3EF7EE63102 /* HaloFont.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloFont.swift; path = Theme/HaloFont.swift; sourceTree = "<group>"; };
+		27F7D7E6AFEE68005CE945F9 /* FocusActiveView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FocusActiveView.swift; path = Screens/Focus/Components/FocusActiveView.swift; sourceTree = "<group>"; };
+		2D03C2A292CD0F037065AAD9 /* HaloNavigation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloNavigation.swift; path = Components/HaloNavigation.swift; sourceTree = "<group>"; };
+		3533CF3E34287DA26E897562 /* WidgetGuideView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetGuideView.swift; path = Screens/WidgetStudio/WidgetGuideView.swift; sourceTree = "<group>"; };
+		365B1DB0106C91E6FB9A987E /* WidgetContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetContent.swift; path = Theme/WidgetContent.swift; sourceTree = "<group>"; };
+		3A1F38A616709AA95C982E68 /* ResolvedPalette.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResolvedPalette.swift; path = Theme/ResolvedPalette.swift; sourceTree = "<group>"; };
+		405CF865A15DB360FF6CC481 /* HaloDayTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaloDayTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		48B3AC4075B1FDD280E98F2B /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; name = Contents.json; path = Resources/Assets.xcassets/Contents.json; sourceTree = "<group>"; };
+		49777421892DBD7EA965D172 /* AppGroupStorage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppGroupStorage.swift; path = Storage/AppGroupStorage.swift; sourceTree = "<group>"; };
+		4A449A0F89FE3BD006710EF0 /* PaywallView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PaywallView.swift; path = Screens/Paywall/PaywallView.swift; sourceTree = "<group>"; };
+		4BCB2217C10CCF4FFD3037D1 /* CalendarService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarService.swift; path = Services/CalendarService.swift; sourceTree = "<group>"; };
+		54BA491DF2F1BE34492098A8 /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; name = Contents.json; path = Resources/Assets.xcassets/AppIcon.appiconset/Contents.json; sourceTree = "<group>"; };
+		55E92F7A6EFD8053D0B84967 /* HaloMotion.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloMotion.swift; path = Theme/HaloMotion.swift; sourceTree = "<group>"; };
+		5908E4C3744DCD940F164D1F /* HaloWidgets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloWidgets.swift; path = LockScreenWidgets/HaloWidgets.swift; sourceTree = "<group>"; };
+		5A313752F8B7E6A8D4BA6CD1 /* RitualCheck.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RitualCheck.swift; path = Theme/Components/RitualCheck.swift; sourceTree = "<group>"; };
+		5BC4382A098759534E069B50 /* FocusDial.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FocusDial.swift; path = Screens/Focus/Components/FocusDial.swift; sourceTree = "<group>"; };
+		623662430F262D775EDF9F33 /* HaloIntents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloIntents.swift; path = Extensions/HaloIntents.swift; sourceTree = "<group>"; };
+		686FBB6F93C64063F1EB689F /* NotificationService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NotificationService.swift; path = Services/NotificationService.swift; sourceTree = "<group>"; };
+		6C125C597557CAE185349BA1 /* FocusView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FocusView.swift; path = Screens/Focus/FocusView.swift; sourceTree = "<group>"; };
+		6E532C9F6A17E42A62159FD5 /* HaloDayUITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HaloDayUITests.swift; sourceTree = "<group>"; };
+		75A6F1067162E9C672EF1B14 /* FocusTimerRing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FocusTimerRing.swift; path = Screens/Focus/Components/FocusTimerRing.swift; sourceTree = "<group>"; };
+		760ECC05DEFD7DEBC2AD26A0 /* TodayView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TodayView.swift; path = Screens/Today/TodayView.swift; sourceTree = "<group>"; };
+		77057FD88CB36861664E165E /* HaloFeedback.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloFeedback.swift; path = Theme/Components/HaloFeedback.swift; sourceTree = "<group>"; };
+		78E5D6D3DEEF02DBAD9927EE /* HaloDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HaloDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		79ECE3F0889B26B831F7B847 /* HaloModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloModel.swift; path = ViewModels/HaloModel.swift; sourceTree = "<group>"; };
+		7CB04CC5A89E520527FABA6F /* ProgressRing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProgressRing.swift; path = Theme/Components/ProgressRing.swift; sourceTree = "<group>"; };
+		7EC79C5D8341E9E9FA4F840B /* ThemePalettes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemePalettes.swift; path = Theme/ThemePalettes.swift; sourceTree = "<group>"; };
+		8BAEDD7CF90FB214D535E699 /* StudioView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StudioView.swift; path = Screens/WidgetStudio/StudioView.swift; sourceTree = "<group>"; };
+		931796FF9B5F4F0C5B3EBF2B /* HaloFocusLiveActivity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloFocusLiveActivity.swift; path = LiveActivities/HaloFocusLiveActivity.swift; sourceTree = "<group>"; };
+		94D549FA0CF93EED22A70ECB /* MockData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MockData.swift; path = MockData/MockData.swift; sourceTree = "<group>"; };
+		9514C9F77F3B139C9331FEF7 /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; name = Contents.json; path = Resources/Assets.xcassets/AccentColor.colorset/Contents.json; sourceTree = "<group>"; };
+		9A6BCB2D159FFA08F4272710 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = Resources/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A226E44FFC19DDBCA187E20C /* ThemeOrbPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeOrbPicker.swift; path = Screens/WidgetStudio/Components/ThemeOrbPicker.swift; sourceTree = "<group>"; };
+		A6B1722BA9B401ECF2375441 /* AppIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = AppIcon.png; path = Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png; sourceTree = "<group>"; };
+		ABE9B01BE52C799DABFAC068 /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; name = Localizable.xcstrings; path = HaloDayApp/Resources/Localizable.xcstrings; sourceTree = "<group>"; };
+		B419F28DEB057FB96B52D831 /* HaloDay.storekit */ = {isa = PBXFileReference; includeInIndex = 1; name = HaloDay.storekit; path = HaloDayApp/Resources/HaloDay.storekit; sourceTree = "<group>"; };
+		B5EB86A4D45CFD3027E10968 /* HaloComponents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloComponents.swift; path = Theme/HaloComponents.swift; sourceTree = "<group>"; };
+		B77341E33EFFE5F23B8C4A97 /* OnboardingView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = OnboardingView.swift; path = Screens/Onboarding/OnboardingView.swift; sourceTree = "<group>"; };
+		BE8435BC0553AE671AE6149F /* SettingsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = Screens/Settings/SettingsView.swift; sourceTree = "<group>"; };
+		C20547489C3A8991E7226E5B /* HaloDayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HaloDayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9831DE5803BE081B60217DA /* HaloDay.storekit */ = {isa = PBXFileReference; includeInIndex = 1; name = HaloDay.storekit; path = Resources/HaloDay.storekit; sourceTree = "<group>"; };
+		CE8EBD7CD461999BFD5D5F97 /* LiveActivityService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LiveActivityService.swift; path = Services/LiveActivityService.swift; sourceTree = "<group>"; };
+		D4BCB2745145C0EF7121F01E /* HaloDayApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloDayApp.swift; path = App/HaloDayApp.swift; sourceTree = "<group>"; };
+		D731254850DA12D40A5E7B0B /* HaloButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloButton.swift; path = Theme/Components/HaloButton.swift; sourceTree = "<group>"; };
+		D7AD11BC0128AF5B4AA4FDF5 /* ThemeScope.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemeScope.swift; path = Theme/Components/ThemeScope.swift; sourceTree = "<group>"; };
+		D84B745DFECE621A0D52AD0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		DBC9C5B8B4CC4041C99BDD24 /* ThemesView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ThemesView.swift; path = Screens/Themes/ThemesView.swift; sourceTree = "<group>"; };
+		DFD919CBC841905F0147721C /* Localizable.xcstrings */ = {isa = PBXFileReference; includeInIndex = 1; name = Localizable.xcstrings; path = Resources/Localizable.xcstrings; sourceTree = "<group>"; };
+		E79F8998E9EE7A6052C0CA21 /* PhoneFrame.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhoneFrame.swift; path = Theme/Components/PhoneFrame.swift; sourceTree = "<group>"; };
+		E8357BE137753ACFE18A9AC3 /* HaloControls.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HaloControls.swift; path = Theme/Components/HaloControls.swift; sourceTree = "<group>"; };
+		EAAE5D7184BAC3FE6A938DF2 /* HaloDayWidgets.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = HaloDayWidgets.entitlements; sourceTree = "<group>"; };
+		F04BE76F106E6AE6D86645A2 /* HaloDay.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = HaloDay.entitlements; sourceTree = "<group>"; };
+		F0E3CF901B66EE21316A4F88 /* ScreenLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScreenLayout.swift; path = Components/ScreenLayout.swift; sourceTree = "<group>"; };
+		F1151A66C384882C4ED5E761 /* RitualsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RitualsView.swift; path = Screens/Rituals/RitualsView.swift; sourceTree = "<group>"; };
+		F53D8EDFFB6714B9408C7B7A /* CalendarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarView.swift; path = Screens/Calendar/CalendarView.swift; sourceTree = "<group>"; };
+		F5FA63040F3A70BA219ADF07 /* HaloDayWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HaloDayWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD725C2163413F1C401F2ACC /* HaloDayTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HaloDayTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		65235DDD4C64312F9255FA62 /* Frameworks */ = {
+		4FC40B21F113C2ABA8536C49 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FA628FE946918C59FF2D745 /* Foundation.framework in Frameworks */,
+				052B34093919C5BC77099BF5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8979BAD5C46AC164E117D3A0 /* Frameworks */ = {
+		7C8B37E3C98E0ADDD5B01373 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FDDA106679D20D4AF6AE2B0 /* Foundation.framework in Frameworks */,
+				E964F6CF7FFEE4E39C109DD7 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BDAC33883D2E74A63AB0CB71 /* Frameworks */ = {
+		EAFD1F462E213F376003841E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BC51129EB0E5DF42EB0D534 /* Foundation.framework in Frameworks */,
+				2E6002A7BA6169FEBF20057D /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C09E559CB11D8DD226FD860B /* Frameworks */ = {
+		EE73BD670AFE6AAEFA36ADF6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40D485D1DCE240784FF659C9 /* Foundation.framework in Frameworks */,
+				2B10ABC470C29909AA19BAE4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0564AFF23D94D1BD444023E0 /* Products */ = {
+		093CFFF167351FF30DA1B135 = {
 			isa = PBXGroup;
 			children = (
-				2A6D574334DCA8822EA66400 /* HaloDay.app */,
-				369A7D2B589DCFC4902BCF03 /* HaloDayWidgets.appex */,
-				9AFF5A7F6C3F80B347052F73 /* HaloDayTests.xctest */,
-				90389E142784B27274CDF816 /* HaloDayUITests.xctest */,
+				2330F70092770DCAB4BA427F /* Products */,
+				3D2D5CB27FF8D63C41F9E8BC /* Frameworks */,
+				AB559B502B2DE4C04E7DCFFD /* HaloDayApp */,
+				71CAE1C77AC47A76A0A32152 /* HaloDayWidgets */,
+				9E989B1326B7DFA6C91D78A3 /* HaloDayTests */,
+				939FE6C1D18EFEAD47BE6B7B /* HaloDayUITests */,
+				058D1660A6B7E53F56E32E42 /* Assets.xcassets */,
+				CC08940788D2A17DE0B3EB7A /* Shared */,
+				ABE9B01BE52C799DABFAC068 /* Localizable.xcstrings */,
+				B419F28DEB057FB96B52D831 /* HaloDay.storekit */,
+			);
+			sourceTree = "<group>";
+		};
+		2330F70092770DCAB4BA427F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				78E5D6D3DEEF02DBAD9927EE /* HaloDay.app */,
+				F5FA63040F3A70BA219ADF07 /* HaloDayWidgets.appex */,
+				405CF865A15DB360FF6CC481 /* HaloDayTests.xctest */,
+				C20547489C3A8991E7226E5B /* HaloDayUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1E8CEF439F8668F50FC925CF /* Frameworks */ = {
+		3D2D5CB27FF8D63C41F9E8BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8D94440172BEB3C1B3A87D7F /* iOS */,
+				BDCC33C674676A773FEB6112 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		6C41BC95516E3B28E8FDA047 /* HaloDayWidgets */ = {
+		71CAE1C77AC47A76A0A32152 /* HaloDayWidgets */ = {
 			isa = PBXGroup;
 			children = (
-				CE2963967F10F2A355D1AFDC /* HaloDayWidgets.entitlements */,
-				2816D8834CED27FCA9FEF163 /* Info.plist */,
-				8B4747329E1540754811A9E8 /* HaloFocusLiveActivity.swift */,
-				047DF08F22F3544CDE1312D9 /* HaloWidgets.swift */,
+				EAAE5D7184BAC3FE6A938DF2 /* HaloDayWidgets.entitlements */,
+				1BDC2E57081AE37EA1BB437E /* Info.plist */,
+				931796FF9B5F4F0C5B3EBF2B /* HaloFocusLiveActivity.swift */,
+				5908E4C3744DCD940F164D1F /* HaloWidgets.swift */,
 			);
 			name = HaloDayWidgets;
 			path = HaloDayWidgets;
 			sourceTree = "<group>";
 		};
-		7D714E62E6F78065EBBE7EA1 /* HaloDayUITests */ = {
+		939FE6C1D18EFEAD47BE6B7B /* HaloDayUITests */ = {
 			isa = PBXGroup;
 			children = (
-				2CFA399DABEE4C50A97BDF28 /* HaloDayUITests.swift */,
+				6E532C9F6A17E42A62159FD5 /* HaloDayUITests.swift */,
 			);
 			name = HaloDayUITests;
 			path = HaloDayUITests;
 			sourceTree = "<group>";
 		};
-		8D94440172BEB3C1B3A87D7F /* iOS */ = {
+		9E989B1326B7DFA6C91D78A3 /* HaloDayTests */ = {
 			isa = PBXGroup;
 			children = (
-				D15D3466EE8DA11133B48C34 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		AE5DE11ED4B7B6A5D6D2889E /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				EAE14D68106A1B0D44C1E477 /* HaloIntents.swift */,
-				B714E01B3A111B7C8EF06454 /* MockData.swift */,
-				BD710F6DD588C21E6B770EA6 /* Models.swift */,
-				9E26FB7731B84325A7902136 /* AppGroupStorage.swift */,
-				0CB239CFD581B7B078EFF676 /* HaloButton.swift */,
-				372386692341E0DF0A814ED1 /* HaloControls.swift */,
-				696E0A513CF601D85D86DE5C /* HaloFeedback.swift */,
-				072E0D3C2DA370AAA311F275 /* PhoneFrame.swift */,
-				40BDEAC3A6DDEC51570FEC4D /* ProgressRing.swift */,
-				B8A6187FC428B8A3090C9995 /* RitualCheck.swift */,
-				E0AA091A2450F30F04AA823E /* ThemeScope.swift */,
-				835AEB678B9CB16EA81BBC14 /* HaloComponents.swift */,
-				F2BE69651CF641B5B0046B6E /* HaloFont.swift */,
-				A92E98C24947E2EEC0EA8E48 /* HaloMotion.swift */,
-				7E3BAEFCD239A10B8640F09A /* ResolvedPalette.swift */,
-				B8BDB81C56BB96584A6C6403 /* ThemePalettes.swift */,
-				DCFCA61CBCA5A0A5F19DF8B7 /* WidgetContent.swift */,
-			);
-			name = Shared;
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		BCDB48CE0B7EF6C8FD447E01 /* HaloDayApp */ = {
-			isa = PBXGroup;
-			children = (
-				10BC309B638CC72D341221D8 /* HaloDayApp.swift */,
-				10509D867175B62117CB3DF1 /* ScreenLayout.swift */,
-				F19BAE5248264AC6F70C4D06 /* HaloDay.entitlements */,
-				11F17714C671F2C63F9C0CA7 /* Contents.json */,
-				25A232E02B69A6E51CB6E620 /* AppIcon.png */,
-				4D957F321F0FA7576FDC71AA /* Contents.json */,
-				03438F3D3E6EF8ADA547A6E9 /* Contents.json */,
-				F20F6C90D2DD72B17DBEBBF4 /* HaloDay.storekit */,
-				46B1E9F5809908F9DBC73591 /* Info.plist */,
-				436BB8DDCDC7C53E6663BA57 /* Localizable.xcstrings */,
-				1A3AE4F7131A6D442DBC88B6 /* PrivacyInfo.xcprivacy */,
-				E9961BD95B46A936058A768B /* CalendarView.swift */,
-				929CD96FFA796FD2075CCE82 /* FocusActiveView.swift */,
-				8D5D79BC5477FBFBA159A22C /* FocusDial.swift */,
-				3015C91EBEE8F35A0ED3205A /* FocusTimerRing.swift */,
-				C23756C279C7517A80440282 /* FocusView.swift */,
-				F98DDD6B14172D4C17612466 /* OnboardingView.swift */,
-				C483DB981CFC3539FCDCC2C7 /* PaywallView.swift */,
-				865B7F8A1645B13728164E18 /* RitualsView.swift */,
-				4F30289B365FCCAEA307D276 /* SettingsView.swift */,
-				504003EAF13A93FD3919B8A4 /* ThemesView.swift */,
-				A6265E2D0AE00683B90913E6 /* TodayView.swift */,
-				26B66AF681FFF0792A67C359 /* ThemeOrbPicker.swift */,
-				CC39902647D7EC298A552195 /* StudioView.swift */,
-				91A048A9FA67A743DA214AAA /* WidgetGuideView.swift */,
-				324BF212F93F48EA8AFBAB9B /* CalendarService.swift */,
-				8B88AAB96B370549C465FF4F /* LiveActivityService.swift */,
-				3AB19C77143C7E145EC0F449 /* NotificationService.swift */,
-				4E0633B6A3746149DA3860A8 /* PurchaseService.swift */,
-				A5E9EF937AED725740B2D3C1 /* HaloModel.swift */,
-			);
-			name = HaloDayApp;
-			path = HaloDayApp;
-			sourceTree = "<group>";
-		};
-		E4DD43D1BFA6F5CD4DA5F5FB = {
-			isa = PBXGroup;
-			children = (
-				0564AFF23D94D1BD444023E0 /* Products */,
-				1E8CEF439F8668F50FC925CF /* Frameworks */,
-				BCDB48CE0B7EF6C8FD447E01 /* HaloDayApp */,
-				6C41BC95516E3B28E8FDA047 /* HaloDayWidgets */,
-				FE0F1BE1EA77D4F25A74B225 /* HaloDayTests */,
-				7D714E62E6F78065EBBE7EA1 /* HaloDayUITests */,
-				BFDF3F12693E1A3550F6EC0B /* Assets.xcassets */,
-				AE5DE11ED4B7B6A5D6D2889E /* Shared */,
-				088D54FADF84AC6BF7D48E11 /* Localizable.xcstrings */,
-				35A415D4D15C3584019BFF5F /* HaloDay.storekit */,
-			);
-			sourceTree = "<group>";
-		};
-		FE0F1BE1EA77D4F25A74B225 /* HaloDayTests */ = {
-			isa = PBXGroup;
-			children = (
-				D2BD73EE8AEE5ABDA3E1B5EF /* HaloDayTests.swift */,
+				FD725C2163413F1C401F2ACC /* HaloDayTests.swift */,
 			);
 			name = HaloDayTests;
 			path = HaloDayTests;
 			sourceTree = "<group>";
 		};
+		AB559B502B2DE4C04E7DCFFD /* HaloDayApp */ = {
+			isa = PBXGroup;
+			children = (
+				D4BCB2745145C0EF7121F01E /* HaloDayApp.swift */,
+				2D03C2A292CD0F037065AAD9 /* HaloNavigation.swift */,
+				F0E3CF901B66EE21316A4F88 /* ScreenLayout.swift */,
+				F04BE76F106E6AE6D86645A2 /* HaloDay.entitlements */,
+				9514C9F77F3B139C9331FEF7 /* Contents.json */,
+				A6B1722BA9B401ECF2375441 /* AppIcon.png */,
+				54BA491DF2F1BE34492098A8 /* Contents.json */,
+				48B3AC4075B1FDD280E98F2B /* Contents.json */,
+				C9831DE5803BE081B60217DA /* HaloDay.storekit */,
+				10F54EF2A502559E0BA8C725 /* Info.plist */,
+				DFD919CBC841905F0147721C /* Localizable.xcstrings */,
+				9A6BCB2D159FFA08F4272710 /* PrivacyInfo.xcprivacy */,
+				F53D8EDFFB6714B9408C7B7A /* CalendarView.swift */,
+				27F7D7E6AFEE68005CE945F9 /* FocusActiveView.swift */,
+				5BC4382A098759534E069B50 /* FocusDial.swift */,
+				75A6F1067162E9C672EF1B14 /* FocusTimerRing.swift */,
+				6C125C597557CAE185349BA1 /* FocusView.swift */,
+				B77341E33EFFE5F23B8C4A97 /* OnboardingView.swift */,
+				4A449A0F89FE3BD006710EF0 /* PaywallView.swift */,
+				F1151A66C384882C4ED5E761 /* RitualsView.swift */,
+				BE8435BC0553AE671AE6149F /* SettingsView.swift */,
+				DBC9C5B8B4CC4041C99BDD24 /* ThemesView.swift */,
+				760ECC05DEFD7DEBC2AD26A0 /* TodayView.swift */,
+				A226E44FFC19DDBCA187E20C /* ThemeOrbPicker.swift */,
+				8BAEDD7CF90FB214D535E699 /* StudioView.swift */,
+				3533CF3E34287DA26E897562 /* WidgetGuideView.swift */,
+				4BCB2217C10CCF4FFD3037D1 /* CalendarService.swift */,
+				CE8EBD7CD461999BFD5D5F97 /* LiveActivityService.swift */,
+				686FBB6F93C64063F1EB689F /* NotificationService.swift */,
+				1C4B5BB932783D9053F5D954 /* PurchaseService.swift */,
+				79ECE3F0889B26B831F7B847 /* HaloModel.swift */,
+			);
+			name = HaloDayApp;
+			path = HaloDayApp;
+			sourceTree = "<group>";
+		};
+		BDCC33C674676A773FEB6112 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D84B745DFECE621A0D52AD0B /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		CC08940788D2A17DE0B3EB7A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				623662430F262D775EDF9F33 /* HaloIntents.swift */,
+				94D549FA0CF93EED22A70ECB /* MockData.swift */,
+				17527921A4D21EE67FB953E2 /* Models.swift */,
+				49777421892DBD7EA965D172 /* AppGroupStorage.swift */,
+				D731254850DA12D40A5E7B0B /* HaloButton.swift */,
+				E8357BE137753ACFE18A9AC3 /* HaloControls.swift */,
+				77057FD88CB36861664E165E /* HaloFeedback.swift */,
+				E79F8998E9EE7A6052C0CA21 /* PhoneFrame.swift */,
+				7CB04CC5A89E520527FABA6F /* ProgressRing.swift */,
+				5A313752F8B7E6A8D4BA6CD1 /* RitualCheck.swift */,
+				D7AD11BC0128AF5B4AA4FDF5 /* ThemeScope.swift */,
+				B5EB86A4D45CFD3027E10968 /* HaloComponents.swift */,
+				1CF651E29F14D3EF7EE63102 /* HaloFont.swift */,
+				55E92F7A6EFD8053D0B84967 /* HaloMotion.swift */,
+				3A1F38A616709AA95C982E68 /* ResolvedPalette.swift */,
+				7EC79C5D8341E9E9FA4F840B /* ThemePalettes.swift */,
+				365B1DB0106C91E6FB9A987E /* WidgetContent.swift */,
+			);
+			name = Shared;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		03EA83513246725153E14D38 /* HaloDay */ = {
+		01E728F054188B7D1111E8D0 /* HaloDayWidgets */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B5EEAEE610D98AB109FF92B6 /* Build configuration list for PBXNativeTarget "HaloDay" */;
+			buildConfigurationList = 51A7C681DFB820C0C1C0E76A /* Build configuration list for PBXNativeTarget "HaloDayWidgets" */;
 			buildPhases = (
-				ABB7977D3163660981DE7239 /* Sources */,
-				8979BAD5C46AC164E117D3A0 /* Frameworks */,
-				DC4F57BF30F2D2AA18F10428 /* Resources */,
-				E240F4B3F69846B9FD9BC5CD /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				892E75EE9A2F1A407163ED5D /* PBXTargetDependency */,
-			);
-			name = HaloDay;
-			productName = HaloDay;
-			productReference = 2A6D574334DCA8822EA66400 /* HaloDay.app */;
-			productType = "com.apple.product-type.application";
-		};
-		0C4301B8AD9267DB7754680C /* HaloDayWidgets */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5499DAE56AF8D058D541ADEB /* Build configuration list for PBXNativeTarget "HaloDayWidgets" */;
-			buildPhases = (
-				50D6944F495D067E8905B8B5 /* Sources */,
-				C09E559CB11D8DD226FD860B /* Frameworks */,
-				6761F77B6CDAF9C1210755ED /* Resources */,
+				25E7218D2AA22775CE8A039F /* Sources */,
+				4FC40B21F113C2ABA8536C49 /* Frameworks */,
+				D17B53DEFD4FFF0F3D071C61 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -389,55 +373,74 @@
 			);
 			name = HaloDayWidgets;
 			productName = HaloDayWidgets;
-			productReference = 369A7D2B589DCFC4902BCF03 /* HaloDayWidgets.appex */;
+			productReference = F5FA63040F3A70BA219ADF07 /* HaloDayWidgets.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		4317760227659C3995CF4E38 /* HaloDayUITests */ = {
+		0DAAA6F272CCB2CFD4FE107B /* HaloDay */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 222EB48C698131A5A9A18365 /* Build configuration list for PBXNativeTarget "HaloDayUITests" */;
+			buildConfigurationList = 6E6C0448DE84D6A02761181C /* Build configuration list for PBXNativeTarget "HaloDay" */;
 			buildPhases = (
-				5CE3D3435C700554EBA93476 /* Sources */,
-				65235DDD4C64312F9255FA62 /* Frameworks */,
-				B52481E8DF8F76FE5265E10A /* Resources */,
+				349F7477673C9401ADA42D27 /* Sources */,
+				EE73BD670AFE6AAEFA36ADF6 /* Frameworks */,
+				7BB239856BD91892FE02AE38 /* Resources */,
+				2A0D8E315DBC61D3357719E5 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9DE35571A06E7DD213E8340B /* PBXTargetDependency */,
+				F849331846A14B3D406C5BE0 /* PBXTargetDependency */,
+			);
+			name = HaloDay;
+			productName = HaloDay;
+			productReference = 78E5D6D3DEEF02DBAD9927EE /* HaloDay.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5876BF459D0148D9DE5BAFBC /* HaloDayUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9AA98F8C7164807E23C8A2B2 /* Build configuration list for PBXNativeTarget "HaloDayUITests" */;
+			buildPhases = (
+				F62DFC1309CB23C5AB2FDE30 /* Sources */,
+				7C8B37E3C98E0ADDD5B01373 /* Frameworks */,
+				8EBB5C7BDB5DAA7C73A75DB9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5AEB1613FEDD534508F56FB9 /* PBXTargetDependency */,
 			);
 			name = HaloDayUITests;
 			productName = HaloDayUITests;
-			productReference = 90389E142784B27274CDF816 /* HaloDayUITests.xctest */;
+			productReference = C20547489C3A8991E7226E5B /* HaloDayUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		7834662A7AFE6D1D517E9FAF /* HaloDayTests */ = {
+		D9A43B9A954CC8DC544283EF /* HaloDayTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CBBE1B834801BD4C85F9C4FD /* Build configuration list for PBXNativeTarget "HaloDayTests" */;
+			buildConfigurationList = 1AF98A762920A1ED8A23F8CD /* Build configuration list for PBXNativeTarget "HaloDayTests" */;
 			buildPhases = (
-				03A19F59730FEAAF7539B540 /* Sources */,
-				BDAC33883D2E74A63AB0CB71 /* Frameworks */,
-				7CD5B979CD8744B937DD628D /* Resources */,
+				67E99DF268E64AD0AEF829D9 /* Sources */,
+				EAFD1F462E213F376003841E /* Frameworks */,
+				4D1911FCA1B67056DAAA88DB /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B6147C5137F3A47A67939649 /* PBXTargetDependency */,
+				03B7148C5CC226B2CF7ED436 /* PBXTargetDependency */,
 			);
 			name = HaloDayTests;
 			productName = HaloDayTests;
-			productReference = 9AFF5A7F6C3F80B347052F73 /* HaloDayTests.xctest */;
+			productReference = 405CF865A15DB360FF6CC481 /* HaloDayTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1625D7517C41C90EFCB189BC /* Project object */ = {
+		8750CB8D95ADE9C45288020B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 			};
-			buildConfigurationList = F9DC470CF02031099E5D242B /* Build configuration list for PBXProject "HaloDay" */;
+			buildConfigurationList = 50FC52577822881BEFFE1796 /* Build configuration list for PBXProject "HaloDay" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = vi;
 			hasScannedForEncodings = 0;
@@ -445,171 +448,377 @@
 				en,
 				Base,
 			);
-			mainGroup = E4DD43D1BFA6F5CD4DA5F5FB;
+			mainGroup = 093CFFF167351FF30DA1B135;
 			minimizedProjectReferenceProxies = 0;
 			preferredProjectObjectVersion = 100;
-			productRefGroup = 0564AFF23D94D1BD444023E0 /* Products */;
+			productRefGroup = 2330F70092770DCAB4BA427F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				03EA83513246725153E14D38 /* HaloDay */,
-				0C4301B8AD9267DB7754680C /* HaloDayWidgets */,
-				7834662A7AFE6D1D517E9FAF /* HaloDayTests */,
-				4317760227659C3995CF4E38 /* HaloDayUITests */,
+				0DAAA6F272CCB2CFD4FE107B /* HaloDay */,
+				01E728F054188B7D1111E8D0 /* HaloDayWidgets */,
+				D9A43B9A954CC8DC544283EF /* HaloDayTests */,
+				5876BF459D0148D9DE5BAFBC /* HaloDayUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6761F77B6CDAF9C1210755ED /* Resources */ = {
+		4D1911FCA1B67056DAAA88DB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7F2F2C1D024312FEF93FA1C /* Localizable.xcstrings in Resources */,
+				57B12631C1E21CEB85DCD441 /* HaloDay.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7CD5B979CD8744B937DD628D /* Resources */ = {
+		7BB239856BD91892FE02AE38 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A3426206E3ED8A92B05625E /* HaloDay.storekit in Resources */,
+				6FD8D377BC7184A7FC0FFE01 /* Localizable.xcstrings in Resources */,
+				A7D4874865B9D9264BEF1EA0 /* PrivacyInfo.xcprivacy in Resources */,
+				D8C27EEE873923EC36AE3F55 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B52481E8DF8F76FE5265E10A /* Resources */ = {
+		8EBB5C7BDB5DAA7C73A75DB9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				143A8517C31B28C14226B1C8 /* HaloDay.storekit in Resources */,
+				D9C1677AAEB65A2F9FBB5FCF /* HaloDay.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DC4F57BF30F2D2AA18F10428 /* Resources */ = {
+		D17B53DEFD4FFF0F3D071C61 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB7932927804B1FD3A3E7353 /* Localizable.xcstrings in Resources */,
-				888FEBDEF99CECE8EDCD516D /* PrivacyInfo.xcprivacy in Resources */,
-				00202CF65121055D11AA044C /* Assets.xcassets in Resources */,
+				A8F840BDB7341E16F24957B8 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		03A19F59730FEAAF7539B540 /* Sources */ = {
+		25E7218D2AA22775CE8A039F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37A518AF09C649F38DC9E8D0 /* HaloDayTests.swift in Sources */,
+				5C00186371281696ECCFAF14 /* HaloFocusLiveActivity.swift in Sources */,
+				07AEF253197288D75AF36556 /* HaloWidgets.swift in Sources */,
+				9E67155A4C8A66E92B7360F2 /* HaloIntents.swift in Sources */,
+				49AA6521F2A28A6015872FCE /* MockData.swift in Sources */,
+				F3AA933B367265521EA23DA8 /* Models.swift in Sources */,
+				F5706D2D6A232B487708A8B1 /* AppGroupStorage.swift in Sources */,
+				A6C823B5C270D1BF0541F071 /* HaloButton.swift in Sources */,
+				87951E6F35A93D1F7469BE91 /* HaloControls.swift in Sources */,
+				E279769BFECAA4A583715C42 /* HaloFeedback.swift in Sources */,
+				4D0674BB2029B2C829609CB1 /* PhoneFrame.swift in Sources */,
+				4909A2B60B1FF6121610AFA6 /* ProgressRing.swift in Sources */,
+				AA516C89F999C346F5D069FC /* RitualCheck.swift in Sources */,
+				20D0E8D0CDB1997A4824B218 /* ThemeScope.swift in Sources */,
+				FD8B58A75B52749ADA6FAE41 /* HaloComponents.swift in Sources */,
+				DAD2873C17ECFE053E8CED70 /* HaloFont.swift in Sources */,
+				306681D61F52F276A1DDEF9F /* HaloMotion.swift in Sources */,
+				48A981435297139D905D25BD /* ResolvedPalette.swift in Sources */,
+				81F36EFC75FFE38EB4EA6A64 /* ThemePalettes.swift in Sources */,
+				DB1F206BF61814574F2D55BC /* WidgetContent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		50D6944F495D067E8905B8B5 /* Sources */ = {
+		349F7477673C9401ADA42D27 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				358494DAE9C88F5018BC2ADE /* HaloFocusLiveActivity.swift in Sources */,
-				7759D9D71045C9ACF3CE142C /* HaloWidgets.swift in Sources */,
-				37A5E0992B39E2217112C792 /* HaloIntents.swift in Sources */,
-				CD61F07CC9D42E8DB01DEFFA /* MockData.swift in Sources */,
-				1D5D9F4C11DEE73CFED85F77 /* Models.swift in Sources */,
-				58F05CC90E36A2AC12476199 /* AppGroupStorage.swift in Sources */,
-				47E5ACA9093660510FC29330 /* HaloButton.swift in Sources */,
-				751A3BE206BB57D895070F98 /* HaloControls.swift in Sources */,
-				345F8D6C9625A5190124B3FD /* HaloFeedback.swift in Sources */,
-				50EECF3A92837841BA160FD9 /* PhoneFrame.swift in Sources */,
-				63C71415ACBF1DDC660B6C98 /* ProgressRing.swift in Sources */,
-				8211D59B496390765C28CBFC /* RitualCheck.swift in Sources */,
-				77EC37BF2FBDF2529D2CA1B8 /* ThemeScope.swift in Sources */,
-				FB6077592AC84FE86FDFF203 /* HaloComponents.swift in Sources */,
-				343AA124ECA46EB90A44DFC4 /* HaloFont.swift in Sources */,
-				3FB4D2F7C2B7CBDDAD0AB9ED /* HaloMotion.swift in Sources */,
-				F4E9ECC0F477DD4423E13A28 /* ResolvedPalette.swift in Sources */,
-				1B45BB1266D70440C3B28B77 /* ThemePalettes.swift in Sources */,
-				7A62928AB13C87ACD7E8EAFA /* WidgetContent.swift in Sources */,
+				809DCCC9B34C4CC44A7F635B /* HaloDayApp.swift in Sources */,
+				457CD2D1BEB5B49489AE21C4 /* HaloNavigation.swift in Sources */,
+				5F3142814005A38F274185D9 /* ScreenLayout.swift in Sources */,
+				7E4F54C7ADA706B1A08B73FA /* CalendarView.swift in Sources */,
+				A22DC34BC2300AB856030838 /* FocusActiveView.swift in Sources */,
+				CAA2876DFE2C3EE16EE28B5F /* FocusDial.swift in Sources */,
+				104394A0240A7C613F85F0CA /* FocusTimerRing.swift in Sources */,
+				A6C9E3FFC091DC9F505A6306 /* FocusView.swift in Sources */,
+				7D9E4E06960BABFB44977E80 /* OnboardingView.swift in Sources */,
+				8E703625A62B7B8F59D942B9 /* PaywallView.swift in Sources */,
+				F5A3925BDDC20A8EAB0A2617 /* RitualsView.swift in Sources */,
+				839402280895E9C6EB207F8C /* SettingsView.swift in Sources */,
+				87CDAE30B24A3A6E7F9D1766 /* ThemesView.swift in Sources */,
+				C8BF744056C09BE9C64F1D3D /* TodayView.swift in Sources */,
+				27FE4F3C1AC42434CD00619A /* ThemeOrbPicker.swift in Sources */,
+				6E30CB712057B4813E95E290 /* StudioView.swift in Sources */,
+				695421A495F8ACC71B8A50E0 /* WidgetGuideView.swift in Sources */,
+				6FC3F0E112CD7E63BBE8FC2A /* CalendarService.swift in Sources */,
+				125040D3C472A5A819532C4F /* LiveActivityService.swift in Sources */,
+				C25D79D142BF24E573FB53AD /* NotificationService.swift in Sources */,
+				5D0272BB13B1DE8377FBD233 /* PurchaseService.swift in Sources */,
+				66F9561CA1D47F60300B5D25 /* HaloModel.swift in Sources */,
+				A2D30B998702E0C9D923CDDB /* HaloIntents.swift in Sources */,
+				6C40B6B974615A5A37B5FE83 /* MockData.swift in Sources */,
+				292777200A76C40FB4F00AF1 /* Models.swift in Sources */,
+				21DFE2E27250C25A91A38E47 /* AppGroupStorage.swift in Sources */,
+				57CD351257DC5744575C6CB6 /* HaloButton.swift in Sources */,
+				196145C88D65CC32547D295F /* HaloControls.swift in Sources */,
+				B24500ED8E659E5C9C0DD495 /* HaloFeedback.swift in Sources */,
+				C59FF4FAAA63F3F15796858D /* PhoneFrame.swift in Sources */,
+				89D37274AE5CD0F8A3E2FDC4 /* ProgressRing.swift in Sources */,
+				416FBF00BBC3921EC9128DAD /* RitualCheck.swift in Sources */,
+				BFE521A6582CC7943C8EBD26 /* ThemeScope.swift in Sources */,
+				9FA6C2799EB3BA0D9F1B6FC6 /* HaloComponents.swift in Sources */,
+				853DFEECA9428A88B3C687A3 /* HaloFont.swift in Sources */,
+				AF5ED4AFD6F8E5AA53CC1EBD /* HaloMotion.swift in Sources */,
+				A28A33D6B4DDEE9482C538EA /* ResolvedPalette.swift in Sources */,
+				C064E2E7669F0B0EEB9DBBB3 /* ThemePalettes.swift in Sources */,
+				073B1953D032776D991EA634 /* WidgetContent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5CE3D3435C700554EBA93476 /* Sources */ = {
+		67E99DF268E64AD0AEF829D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				720B5B3C692DE87603FD6380 /* HaloDayUITests.swift in Sources */,
+				EB39D8BBCC2D8406220E0BAB /* HaloDayTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		ABB7977D3163660981DE7239 /* Sources */ = {
+		F62DFC1309CB23C5AB2FDE30 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF2655D4E4EF255B20B9F81C /* HaloDayApp.swift in Sources */,
-				BCB74080ACE223B058F18350 /* ScreenLayout.swift in Sources */,
-				573D6AD1831836C770D18626 /* CalendarView.swift in Sources */,
-				A3FF3D46AC67D236BD7EA5B1 /* FocusActiveView.swift in Sources */,
-				975EAAAB5CE391D911B9D436 /* FocusDial.swift in Sources */,
-				9DE5F52CECF7C6A77006441A /* FocusTimerRing.swift in Sources */,
-				3A81CFB2DE5AC0E0C2341D62 /* FocusView.swift in Sources */,
-				A0BDE0A390AEACA2AFD02B2B /* OnboardingView.swift in Sources */,
-				25D19D5C92AAA2DE048DDBB8 /* PaywallView.swift in Sources */,
-				AFFB2D290F0D05D57452B045 /* RitualsView.swift in Sources */,
-				BA5552D329991AE94FD778B4 /* SettingsView.swift in Sources */,
-				CD2B42E180A28741EC910712 /* ThemesView.swift in Sources */,
-				F2F49E49AEBAE494EF1255B4 /* TodayView.swift in Sources */,
-				0E79D542F0987022D8332B9A /* ThemeOrbPicker.swift in Sources */,
-				3E205104A070B481106F0242 /* StudioView.swift in Sources */,
-				1A97A4192A251FA05617BF57 /* WidgetGuideView.swift in Sources */,
-				9C82A65E3EDEF359332EC65C /* CalendarService.swift in Sources */,
-				6CE79A0BE9CBD5F7E9621FEC /* LiveActivityService.swift in Sources */,
-				5EDBC7395FFC7D3B5A55C39A /* NotificationService.swift in Sources */,
-				EB45F9C218E68B192A15535C /* PurchaseService.swift in Sources */,
-				C10C1335CEDED80DBFC8B735 /* HaloModel.swift in Sources */,
-				0548DA20C70D556C7521E33D /* HaloIntents.swift in Sources */,
-				488CBB9E0C4669D58395268C /* MockData.swift in Sources */,
-				94BD2F76A52E0A2A4CCE1DB8 /* Models.swift in Sources */,
-				FC3F49C985D8307ADAD481E5 /* AppGroupStorage.swift in Sources */,
-				3CBBDC51DE810A53A175B4A2 /* HaloButton.swift in Sources */,
-				0A64493FDCBB28903DB4314D /* HaloControls.swift in Sources */,
-				A5E168707843F1BF21AD5C7E /* HaloFeedback.swift in Sources */,
-				A3AE8A4ADC91AF06D107B368 /* PhoneFrame.swift in Sources */,
-				35A21027D5D09AFD3F52FD4F /* ProgressRing.swift in Sources */,
-				5173ED0C71062D23CB7EB1D9 /* RitualCheck.swift in Sources */,
-				777BFE2F7C46D766A3D69732 /* ThemeScope.swift in Sources */,
-				D2A6D981F89E747C55CA724E /* HaloComponents.swift in Sources */,
-				D9A29FCBFC9EB49DE015E8AF /* HaloFont.swift in Sources */,
-				E6493F00B8F689C1FDC311B3 /* HaloMotion.swift in Sources */,
-				C94C3170566C2E23A9B12282 /* ResolvedPalette.swift in Sources */,
-				B199E7290159D038F47CB6E0 /* ThemePalettes.swift in Sources */,
-				42F1A4AE7DF0E68D182636F7 /* WidgetContent.swift in Sources */,
+				42985B5DB199482B1E5A777B /* HaloDayUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		892E75EE9A2F1A407163ED5D /* PBXTargetDependency */ = {
+		03B7148C5CC226B2CF7ED436 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HaloDay;
+			target = 0DAAA6F272CCB2CFD4FE107B /* HaloDay */;
+			targetProxy = 3D0C6D73F16541FFE066DBA1 /* PBXContainerItemProxy */;
+		};
+		5AEB1613FEDD534508F56FB9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HaloDay;
+			target = 0DAAA6F272CCB2CFD4FE107B /* HaloDay */;
+			targetProxy = 63BAE088685FBC22CEEDC44D /* PBXContainerItemProxy */;
+		};
+		F849331846A14B3D406C5BE0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = HaloDayWidgets;
-			target = 0C4301B8AD9267DB7754680C /* HaloDayWidgets */;
-			targetProxy = F16DAD32E1C5A0D7E3FC28F1 /* PBXContainerItemProxy */;
-		};
-		9DE35571A06E7DD213E8340B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = HaloDay;
-			target = 03EA83513246725153E14D38 /* HaloDay */;
-			targetProxy = 6EEA4100D3808F28C3B246D4 /* PBXContainerItemProxy */;
-		};
-		B6147C5137F3A47A67939649 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = HaloDay;
-			target = 03EA83513246725153E14D38 /* HaloDay */;
-			targetProxy = 1A91D2047DCDB488277DB9C0 /* PBXContainerItemProxy */;
+			target = 01E728F054188B7D1111E8D0 /* HaloDayWidgets */;
+			targetProxy = 9270FD7D749153F600F2F3D3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0F6544978593A8D1E97D43DB /* Debug */ = {
+		074E3FDD1AD45603082FF8D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = HaloDay;
+			};
+			name = Debug;
+		};
+		1CECBC2D6A9CC42F9A4CBB9D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = HaloDayApp/HaloDay.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HaloDayApp/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		3336F511198BE4A4C85AF407 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		380423945D7AE9D8A34E3B38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = HaloDay;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3CDB8B709408DC6A12D83DFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = HaloDayWidgets/HaloDayWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HaloDayWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		51D524B5DB1816441F31F584 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.tests;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HaloDay.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HaloDay";
+			};
+			name = Debug;
+		};
+		6B2929689B27EBC7BD8BE9E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = HaloDayWidgets/HaloDayWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HaloDayWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		785C2E085719FB8C228392ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = HaloDayApp/HaloDay.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HaloDayApp/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		88ED7BE23461C1B369712AF2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -670,189 +879,7 @@
 			};
 			name = Debug;
 		};
-		205931EEBCB821EC2F1D48AC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = HaloDayApp/HaloDay.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HaloDayApp/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app;
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		282D9EDFEA0446DCCBD6E299 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		2BB00F93E5CABBD5A72EA541 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.uitests;
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_TARGET_NAME = HaloDay;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		A154A8E4884910135383B5B3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = HaloDayWidgets/HaloDayWidgets.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HaloDayWidgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.widgets;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		A8EB0A2E32244BE569C37A67 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.uitests;
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_TARGET_NAME = HaloDay;
-			};
-			name = Debug;
-		};
-		AAD4C213D204835F69195F67 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = HaloDayWidgets/HaloDayWidgets.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HaloDayWidgets/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.widgets;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		B0A66F94CCBACF6A03C9C34D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app.tests;
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HaloDay.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/HaloDay";
-			};
-			name = Debug;
-		};
-		BEF9BA8B367586DB0D14C7F4 /* Release */ = {
+		90F71DB49DC8298059378918 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -872,79 +899,56 @@
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
-		};
-		E982E08A66FCF5A25944290D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = HaloDayApp/HaloDay.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = HaloDayApp/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = co.haloday.app;
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_STRICT_CONCURRENCY = complete;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		222EB48C698131A5A9A18365 /* Build configuration list for PBXNativeTarget "HaloDayUITests" */ = {
+		1AF98A762920A1ED8A23F8CD /* Build configuration list for PBXNativeTarget "HaloDayTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2BB00F93E5CABBD5A72EA541 /* Release */,
-				A8EB0A2E32244BE569C37A67 /* Debug */,
+				90F71DB49DC8298059378918 /* Release */,
+				51D524B5DB1816441F31F584 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5499DAE56AF8D058D541ADEB /* Build configuration list for PBXNativeTarget "HaloDayWidgets" */ = {
+		50FC52577822881BEFFE1796 /* Build configuration list for PBXProject "HaloDay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A154A8E4884910135383B5B3 /* Release */,
-				AAD4C213D204835F69195F67 /* Debug */,
+				88ED7BE23461C1B369712AF2 /* Debug */,
+				3336F511198BE4A4C85AF407 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B5EEAEE610D98AB109FF92B6 /* Build configuration list for PBXNativeTarget "HaloDay" */ = {
+		51A7C681DFB820C0C1C0E76A /* Build configuration list for PBXNativeTarget "HaloDayWidgets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				205931EEBCB821EC2F1D48AC /* Release */,
-				E982E08A66FCF5A25944290D /* Debug */,
+				6B2929689B27EBC7BD8BE9E4 /* Release */,
+				3CDB8B709408DC6A12D83DFF /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CBBE1B834801BD4C85F9C4FD /* Build configuration list for PBXNativeTarget "HaloDayTests" */ = {
+		6E6C0448DE84D6A02761181C /* Build configuration list for PBXNativeTarget "HaloDay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BEF9BA8B367586DB0D14C7F4 /* Release */,
-				B0A66F94CCBACF6A03C9C34D /* Debug */,
+				785C2E085719FB8C228392ED /* Release */,
+				1CECBC2D6A9CC42F9A4CBB9D /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F9DC470CF02031099E5D242B /* Build configuration list for PBXProject "HaloDay" */ = {
+		9AA98F8C7164807E23C8A2B2 /* Build configuration list for PBXNativeTarget "HaloDayUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0F6544978593A8D1E97D43DB /* Debug */,
-				282D9EDFEA0446DCCBD6E299 /* Release */,
+				380423945D7AE9D8A34E3B38 /* Release */,
+				074E3FDD1AD45603082FF8D7 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1625D7517C41C90EFCB189BC /* Project object */;
+	rootObject = 8750CB8D95ADE9C45288020B /* Project object */;
 }

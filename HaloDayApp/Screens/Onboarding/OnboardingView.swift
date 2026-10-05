@@ -2,7 +2,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Environment(HaloModel.self) private var model
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var step = 0
     @State private var themeID = "pearlHalo"
     @State private var starter = WidgetType.agenda
@@ -32,7 +32,7 @@ struct OnboardingView: View {
                         if step == 2 {
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 145))], spacing: HaloTokens.Space.row) {
                                 ForEach(ThemeRegistry.all) { theme in
-                                    Button { themeID = theme.id; model.haptic() } label: {
+                                    Button { themeID = theme.id } label: {
                                         VStack(alignment: .leading, spacing: HaloTokens.Space.row) {
                                             Image(systemName: "circle.dotted").font(.largeTitle).foregroundStyle(PaletteResolver.resolve(theme, scheme: .light).accent)
                                             Text(LocalizedStringKey(theme.name)).font(HaloTokens.title)

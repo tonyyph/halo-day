@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PressableStyle: ButtonStyle {
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -23,7 +23,7 @@ struct HaloChip: View {
     var body: some View {
         Button(action: action) {
             Text(LocalizedStringKey(title))
-                .font(HaloFont.subhead)
+                .haloFont(.subhead)
                 .foregroundStyle(selected ? palette.accentOn : palette.ink)
                 .padding(.horizontal, 14)
                 .frame(minHeight: 36)
@@ -41,7 +41,7 @@ struct ChipGroup<Value: Hashable>: View {
 
     @Environment(\.palette) private var palette
     @Environment(\.haloHapticsEnabled) private var haptics
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @Namespace private var indicator
 
     var body: some View {
@@ -55,7 +55,7 @@ struct ChipGroup<Value: Hashable>: View {
                         }
                     } label: {
                         Text(LocalizedStringKey(option.title))
-                            .font(HaloFont.subhead)
+                            .haloFont(.subhead)
                             .foregroundStyle(selection == option.value ? palette.accentOn : palette.ink)
                             .padding(.horizontal, 14)
                             .frame(minHeight: 36)
@@ -87,7 +87,7 @@ struct HaloSegmented<Value: Hashable>: View {
 
     @Environment(\.palette) private var palette
     @Environment(\.haloHapticsEnabled) private var haptics
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @Namespace private var thumb
 
     var body: some View {
@@ -100,7 +100,7 @@ struct HaloSegmented<Value: Hashable>: View {
                     }
                 } label: {
                     Text(LocalizedStringKey(option.title))
-                        .font(HaloFont.subhead)
+                        .haloFont(.subhead)
                         .foregroundStyle(selection == option.value ? palette.ink : palette.ink2)
                         .frame(maxWidth: .infinity, minHeight: 42)
                         .background {

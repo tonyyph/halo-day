@@ -78,12 +78,12 @@ final class HaloModel {
     }
     func applyTheme(_ theme: HaloTheme) {
         guard !theme.isPremium || purchases.isPremium else { showPaywall = true; return }
-        settings.selectedThemeId = theme.id; persist(); haptic()
+        settings.selectedThemeId = theme.id; persist()
     }
     func savePreset(_ preset: WidgetPreset) -> Bool {
         guard purchases.isPremium || (!ThemeRegistry.theme(preset.themeId).isPremium && !preset.widgetType.premium && ![.medium, .large].contains(preset.widgetFamily) && presets.count < 1) else { showPaywall = true; return false }
         presets.append(preset)
-        do { try storage.write(presets, key: "presets"); try storage.write(preset.id.uuidString, key: "activePreset"); WidgetCenter.shared.reloadAllTimelines(); haptic(); return true }
+        do { try storage.write(presets, key: "presets"); try storage.write(preset.id.uuidString, key: "activePreset"); WidgetCenter.shared.reloadAllTimelines(); return true }
         catch { self.error = error.localizedDescription; return false }
     }
     func activatePreset(_ preset: WidgetPreset) {
@@ -95,7 +95,7 @@ final class HaloModel {
         do { try storage.write(presets, key: "presets"); WidgetCenter.shared.reloadAllTimelines() } catch { self.error = error.localizedDescription }
     }
     func toggleHabit(_ habit: Habit) {
-        do { try storage.toggleHabit(habit.id); habits = storage.habits; haptic(success: true) }
+        do { try storage.toggleHabit(habit.id); habits = storage.habits }
         catch { self.error = error.localizedDescription }
     }
     func saveHabit(_ habit: Habit) {
@@ -124,7 +124,7 @@ final class HaloModel {
             try await notifications.plan(events: events, focus: session, minutes: settings.eventReminderMinutes)
             if purchases.isPremium && settings.liveActivities { try await activities.start(focus: session, theme: theme) }
         } catch { self.error = error.localizedDescription }
-        WidgetCenter.shared.reloadAllTimelines(); haptic()
+        WidgetCenter.shared.reloadAllTimelines()
     }
     func pauseFocus() async {
         guard var session = focus, session.isActive else { return }
@@ -149,11 +149,6 @@ final class HaloModel {
         guard purchases.isPremium else { showPaywall = true; return }
         if focus?.isActive == true { await stopFocus() }
         do { try await activities.eventCountdown(event, theme: theme) } catch { self.error = error.localizedDescription }
-    }
-    func haptic(success: Bool = false) {
-        guard settings.haptics else { return }
-        if success { UINotificationFeedbackGenerator().notificationOccurred(.success) }
-        else { UIImpactFeedbackGenerator(style: .soft).impactOccurred() }
     }
     func route(_ url: URL) {
         switch url.host {

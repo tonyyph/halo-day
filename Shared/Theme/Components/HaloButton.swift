@@ -12,7 +12,7 @@ struct HaloActionStyle: ButtonStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(HaloFont.headline)
+            .haloFont(.headline)
             .foregroundStyle(kind == .primary ? palette.accentOn : kind == .text ? palette.accentInk : palette.ink)
             .frame(maxWidth: kind == .text ? nil : .infinity)
             .frame(minHeight: kind == .text ? 44 : 56)

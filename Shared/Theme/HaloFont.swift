@@ -86,7 +86,7 @@ private struct HaloFontModifier: ViewModifier {
     }
 
     func body(content: Content) -> some View {
-        content.font(.system(size: size, weight: token.weight, design: token.design))
+        content.font(.system(size: token == .numericHero ? min(size, 102) : size, weight: token.weight, design: token.design))
     }
 }
 

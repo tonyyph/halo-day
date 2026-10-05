@@ -4,6 +4,7 @@ struct RitualCheck: View {
     var completed: Bool
     var progress: Double = 0
     var label = "Complete ritual"
+    var feedbackEnabled = true
     var action: () -> Void
 
     @Environment(\.palette) private var palette
@@ -37,7 +38,7 @@ struct RitualCheck: View {
         .buttonStyle(PressableStyle())
         .accessibilityLabel(Text(LocalizedStringKey(label)))
         .accessibilityValue(completed ? Text("Completed") : Text("Not completed"))
-        .sensoryFeedback(.success, trigger: completed) { _, new in new && haptics }
+        .sensoryFeedback(.success, trigger: completed) { _, new in new && haptics && feedbackEnabled }
     }
 
     private var burst: some View {

@@ -5,7 +5,7 @@ struct FocusDial: View {
 
     @Environment(\.palette) private var palette
     @Environment(\.haloHapticsEnabled) private var haptics
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
 
     private var progress: Double { Double(minutes - 5) / 235 }
 
@@ -25,10 +25,10 @@ struct FocusDial: View {
 
                 VStack(spacing: 5) {
                     RollingNumber(value: minutes)
-                        .font(HaloFont.numericHero)
+                        .haloFont(.numericHero)
                         .foregroundStyle(palette.ink)
                     Text("minutes, beautifully spent")
-                        .font(HaloFont.subhead)
+                        .haloFont(.subhead)
                         .foregroundStyle(palette.ink2)
                 }
             }

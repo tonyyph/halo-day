@@ -3,7 +3,8 @@ import SwiftUI
 struct CalendarView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.palette) private var palette
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloNavigation) private var navigation
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var mode = 0
     @State private var showSources = false
 
@@ -43,7 +44,7 @@ struct CalendarView: View {
                 .accessibilityLabel("Previous")
                 Spacer()
                 Text(model.selectedDate, format: .dateTime.month(.wide).year())
-                    .font(HaloFont.displayM)
+                    .haloFont(.displayM)
                     .contentTransition(.numericText())
                 Spacer()
                 Button { shift(1) } label: {
@@ -95,8 +96,8 @@ struct CalendarView: View {
                     mode = 0
                 } label: {
                     VStack(spacing: 8) {
-                        Text(day, format: .dateTime.weekday(.narrow)).font(HaloFont.caption)
-                        Text(day, format: .dateTime.day()).font(HaloFont.numericM)
+                        Text(day, format: .dateTime.weekday(.narrow)).haloFont(.caption)
+                        Text(day, format: .dateTime.day()).haloFont(.numericM)
                         Circle()
                             .fill(count > 0 ? palette.accent : .clear)
                             .frame(width: 5, height: 5)
@@ -129,7 +130,7 @@ struct CalendarView: View {
         let events = mode == 2 ? selectedDayEvents : shownEvents
         return VStack(alignment: .leading, spacing: 12) {
             Text(model.selectedDate, format: .dateTime.weekday(.wide).day().month(.wide))
-                .font(HaloFont.displayS)
+                .haloFont(.displayS)
 
             if events.isEmpty {
                 EmptyState(
@@ -141,10 +142,14 @@ struct CalendarView: View {
                 HaloCard {
                     VStack(spacing: 0) {
                         ForEach(events) { event in
-                            Button { model.selectedEvent = event } label: {
+                            Button {
+                                navigation?.eventSource = "calendar-row-\(event.id)"
+                                model.selectedEvent = event
+                            } label: {
                                 AgendaRow(event: event)
                             }
                             .buttonStyle(PressableStyle())
+                            .haloZoomSource("calendar-row-\(event.id)")
                             if event.id != events.last?.id { Divider().padding(.leading, 80) }
                         }
                     }
@@ -223,7 +228,7 @@ struct EventDetailView: View {
                         Label(location, systemImage: "mappin")
                     }
                     if event.source == "sample" {
-                        Text("Sample event").font(HaloFont.caption)
+                        Text("Sample event").haloFont(.caption)
                     }
                 }
             }
@@ -232,7 +237,7 @@ struct EventDetailView: View {
             }
             .buttonStyle(HaloButtonStyle())
             Text("Live countdowns can begin in the hour before an event.")
-                .font(HaloFont.caption)
+                .haloFont(.caption)
                 .foregroundStyle(.secondary)
         }
         .toolbar { Button("Done") { dismiss() } }

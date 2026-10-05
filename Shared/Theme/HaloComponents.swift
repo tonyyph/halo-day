@@ -46,10 +46,12 @@ struct HaloCard<Content: View>: View {
     @Environment(\.palette) private var palette
     @Environment(\.colorScheme) private var scheme
     @Environment(\.haloReduceTransparency) private var reduceTransparency
+    @Environment(\.haloReduceMotion) private var reduceMotion
     var hero = false
     var variant: HaloCardVariant = .standard
     @ViewBuilder var content: Content
     var body: some View {
+        let noMotion = reduceMotion
         let kind: HaloCardVariant = hero ? .hero : variant
         let shape = RoundedRectangle(
             cornerRadius: kind == .hero ? HaloTokens.Radius.hero : HaloTokens.Radius.card,
@@ -76,6 +78,11 @@ struct HaloCard<Content: View>: View {
             }
             .shadow(color: palette.shadowTint.opacity(scheme == .dark || kind == .plain ? 0 : 0.08), radius: 24, y: 8)
             .shadow(color: palette.shadowTint.opacity(scheme == .dark || kind == .plain ? 0 : 0.04), radius: 2, y: 1)
+            .scrollTransition(.interactive) { view, phase in
+                view
+                    .opacity(phase.isIdentity ? 1 : 0.6)
+                    .scaleEffect(noMotion || phase.isIdentity ? 1 : 0.96)
+            }
     }
 }
 struct HaloButtonStyle: ButtonStyle {

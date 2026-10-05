@@ -23,7 +23,7 @@ struct HaloToast: View {
 
     var body: some View {
         Label(LocalizedStringKey(message), systemImage: "checkmark.circle.fill")
-            .font(HaloFont.subhead)
+            .haloFont(.subhead)
             .foregroundStyle(palette.ink)
             .padding(.horizontal, 20)
             .padding(.vertical, 14)
