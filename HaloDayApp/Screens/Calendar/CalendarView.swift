@@ -4,6 +4,7 @@ struct CalendarView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.palette) private var palette
     @Environment(\.haloNavigation) private var navigation
+    @Environment(\.haloScreenshotMode) private var fixture
     @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var mode = 0
     @State private var showSources = false
@@ -61,7 +62,7 @@ struct CalendarView: View {
                 dayView
             }
 
-            agenda
+            if mode != 1 { agenda }
         }
         .toolbar {
             Button { showSources = true } label: {
@@ -71,59 +72,36 @@ struct CalendarView: View {
         }
         .animation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion), value: mode)
         .animation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion), value: model.selectedDate)
-        .onChange(of: model.selectedDate) { _, _ in Task { await model.refresh() } }
+        .onChange(of: model.selectedDate) { _, _ in if !fixture { Task { await model.refresh() } } }
         .sheet(isPresented: $showSources) { sourcesSheet }
     }
 
+    private var selectedBinding: Binding<Date> {
+        Binding(get: { model.selectedDate }, set: { model.selectedDate = $0 })
+    }
+
     private var dayView: some View {
-        HaloCard(variant: .plain) {
-            WeekStrip(selected: Binding(
-                get: { model.selectedDate },
-                set: { model.selectedDate = $0 }
-            ))
+        VStack(spacing: 16) {
+            WeekStrip(selected: selectedBinding)
+            CalendarDayPager(selected: selectedBinding, events: model.events) { event in
+                navigation?.eventSource = "calendar-block-\(event.id)"
+                model.selectedEvent = event
+            }
         }
     }
 
     private var weekView: some View {
-        let calendar = Calendar.current
-        let start = calendar.dateInterval(of: .weekOfYear, for: model.selectedDate)!.start
-        return LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 4), count: 7), spacing: 4) {
-            ForEach(0..<7, id: \.self) { offset in
-                let day = calendar.date(byAdding: .day, value: offset, to: start)!
-                let count = shownEvents.filter { calendar.isDate($0.startDate, inSameDayAs: day) }.count
-                Button {
-                    model.selectedDate = day
-                    mode = 0
-                } label: {
-                    VStack(spacing: 8) {
-                        Text(day, format: .dateTime.weekday(.narrow)).haloFont(.caption)
-                        Text(day, format: .dateTime.day()).haloFont(.numericM)
-                        Circle()
-                            .fill(count > 0 ? palette.accent : .clear)
-                            .frame(width: 5, height: 5)
-                    }
-                    .frame(maxWidth: .infinity, minHeight: 78)
-                    .background(
-                        calendar.isDate(day, inSameDayAs: model.selectedDate)
-                            ? palette.accentSoft : palette.surface,
-                        in: RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    )
-                }
-                .buttonStyle(PressableStyle())
-                .accessibilityLabel(Text(day, format: .dateTime.weekday().month().day()))
-            }
+        CalendarWeekPager(selected: selectedBinding, events: model.events) { day in
+            model.selectedDate = day
+            mode = 0
+        } onOpen: { event in
+            navigation?.eventSource = "calendar-week-\(event.id)"
+            model.selectedEvent = event
         }
     }
 
     private var monthView: some View {
-        HaloCard {
-            MiniMonthGrid(
-                month: model.selectedDate,
-                highlights: Set(shownEvents.map { Calendar.current.component(.day, from: $0.startDate) })
-            ) { date in
-                model.selectedDate = date
-            }
-        }
+        CalendarMonthPager(selected: selectedBinding, events: model.events)
     }
 
     private var agenda: some View {
@@ -207,39 +185,5 @@ struct CalendarView: View {
             value: amount,
             to: model.selectedDate
         )!
-    }
-}
-
-struct EventDetailView: View {
-    @Environment(HaloModel.self) private var model
-    @Environment(\.dismiss) private var dismiss
-    var event: CalendarEvent
-
-    var body: some View {
-        HaloScreen {
-            SectionTitle(title: event.title)
-            HaloCard {
-                VStack(alignment: .leading, spacing: HaloTokens.Space.card) {
-                    Label(event.calendarName, systemImage: "calendar")
-                    Text(event.startDate, format: .dateTime.weekday().month().day().hour().minute())
-                    Text(event.endDate, format: .dateTime.hour().minute())
-                        .foregroundStyle(.secondary)
-                    if let location = event.location {
-                        Label(location, systemImage: "mappin")
-                    }
-                    if event.source == "sample" {
-                        Text("Sample event").haloFont(.caption)
-                    }
-                }
-            }
-            Button("Count down to this") {
-                Task { await model.countDown(event) }
-            }
-            .buttonStyle(HaloButtonStyle())
-            Text("Live countdowns can begin in the hour before an event.")
-                .haloFont(.caption)
-                .foregroundStyle(.secondary)
-        }
-        .toolbar { Button("Done") { dismiss() } }
     }
 }
