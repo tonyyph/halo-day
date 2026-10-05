@@ -3,29 +3,64 @@ import SwiftUI
 struct ThemeBackground: View {
     @Environment(\.palette) private var palette
     var body: some View {
-        GeometryReader { geometry in
-            palette.bg.overlay {
-                RadialGradient(colors: [palette.halo, .clear], center: UnitPoint(x: 0.5, y: -0.1), startRadius: 0, endRadius: geometry.size.width * 0.9)
+        palette.bg
+            .overlay {
+                MeshGradient(
+                    width: 3,
+                    height: 3,
+                    points: [
+                        .init(0, 0), .init(0.5, 0), .init(1, 0),
+                        .init(0, 0.5), .init(0.5, 0.5), .init(1, 0.5),
+                        .init(0, 1), .init(0.5, 1), .init(1, 1)
+                    ],
+                    colors: [
+                        palette.bg, palette.halo, palette.bg,
+                        palette.bg, palette.accentSoft, palette.bg,
+                        palette.bg, palette.bg, palette.bg
+                    ]
+                )
+                .opacity(0.25)
             }
-        }.ignoresSafeArea()
+            .ignoresSafeArea()
     }
 }
+
+enum HaloCardVariant { case standard, hero, inset, plain }
+
 struct HaloCard<Content: View>: View {
     @Environment(\.palette) private var palette
     @Environment(\.colorScheme) private var scheme
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     var hero = false
+    var variant: HaloCardVariant = .standard
     @ViewBuilder var content: Content
     var body: some View {
-        let shape = RoundedRectangle(cornerRadius: hero ? HaloTokens.Radius.hero : HaloTokens.Radius.card, style: .continuous)
+        let kind: HaloCardVariant = hero ? .hero : variant
+        let shape = RoundedRectangle(
+            cornerRadius: kind == .hero ? HaloTokens.Radius.hero : HaloTokens.Radius.card,
+            style: .continuous
+        )
         content.frame(maxWidth: .infinity, alignment: .leading)
-            .padding(hero ? HaloTokens.Space.hero : HaloTokens.Space.card)
+            .padding(kind == .hero ? HaloTokens.Space.hero : kind == .plain ? 0 : HaloTokens.Space.card)
             .background {
-                if hero && !reduceTransparency { shape.fill(.ultraThinMaterial) }
-                else { shape.fill(palette.surface) }
+                if kind == .plain { Color.clear }
+                else if kind == .hero && !reduceTransparency {
+                    if #available(iOS 26.0, *) {
+                        shape.fill(.ultraThinMaterial).glassEffect(.regular, in: shape)
+                    } else {
+                        shape.fill(.ultraThinMaterial)
+                    }
+                } else {
+                    shape.fill(kind == .inset ? palette.surfaceSunken : palette.surface)
+                }
             }
-            .overlay(shape.stroke(palette.hairline, lineWidth: 0.5))
-            .shadow(color: palette.shadowTint.opacity(scheme == .dark ? 0 : 0.06), radius: 12, y: 4)
+            .overlay {
+                if kind != .plain {
+                    shape.stroke(kind == .hero && !reduceTransparency ? palette.glassStroke : palette.hairline, lineWidth: 0.5)
+                }
+            }
+            .shadow(color: palette.shadowTint.opacity(scheme == .dark || kind == .plain ? 0 : 0.08), radius: 24, y: 8)
+            .shadow(color: palette.shadowTint.opacity(scheme == .dark || kind == .plain ? 0 : 0.04), radius: 2, y: 1)
     }
 }
 struct HaloButtonStyle: ButtonStyle {
@@ -37,16 +72,6 @@ struct HaloButtonStyle: ButtonStyle {
             .background(palette.accent, in: Capsule())
             .scaleEffect(configuration.isPressed && !reduceMotion ? 0.98 : 1)
             .animation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion), value: configuration.isPressed)
-    }
-}
-struct ProgressRing: View {
-    var progress: Double
-    var width: CGFloat = 7
-    var body: some View {
-        ZStack {
-            Circle().stroke(.primary.opacity(0.1), lineWidth: width)
-            Circle().trim(from: 0, to: min(1, max(0, progress))).stroke(.tint, style: StrokeStyle(lineWidth: width, lineCap: .round)).rotationEffect(.degrees(-90))
-        }.padding(width / 2).accessibilityLabel(Text("Progress")).accessibilityValue(Text(progress, format: .percent.precision(.fractionLength(0))))
     }
 }
 struct PremiumChip: View {
