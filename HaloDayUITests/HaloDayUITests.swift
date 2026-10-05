@@ -36,7 +36,7 @@ final class HaloDayUITests: XCTestCase {
         app.launch()
         finishOnboardingIfNeeded(app)
         XCTAssertTrue(app.tabBars.buttons["Today"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["Day progress"].exists)
+        XCTAssertTrue(app.staticTexts["DAY PROGRESS"].exists)
         capture(app, "Today")
         app.tabBars.buttons["Calendar"].tap()
         XCTAssertTrue(app.buttons["Month"].waitForExistence(timeout: 3))
