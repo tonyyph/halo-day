@@ -21,11 +21,14 @@ final class HaloDayUITests: XCTestCase {
         app.tabBars.buttons["Today"].tap()
         app.buttons["Settings"].tap()
         app.buttons["Upgrade to Premium"].tap()
-        XCTAssertTrue(app.staticTexts["Make your iPhone feel personal again."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Make every glance beautiful."].waitForExistence(timeout: 5))
+        for _ in 0..<4 where !app.staticTexts["Yearly"].exists {
+            app.scrollViews.firstMatch.swipeUp()
+        }
         XCTAssertTrue(app.staticTexts["Yearly"].exists)
         XCTAssertTrue(app.staticTexts["Monthly"].exists)
         XCTAssertTrue(app.staticTexts["Lifetime"].exists)
-        XCTAssertTrue(app.buttons["Restore purchases"].exists)
+        XCTAssertTrue(app.buttons["Restore Purchase"].exists)
         XCTAssertTrue(app.buttons["Close"].exists)
         capture(app, "Paywall")
     }

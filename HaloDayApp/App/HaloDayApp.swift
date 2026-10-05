@@ -44,7 +44,7 @@ private struct ThemedRoot: View {
             }
             .animation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion), value: toasts.message)
             .onChange(of: model.purchases.isPremium) { old, new in
-                if !old && new { toasts.show("Welcome to Halo Day Premium.") }
+                if !old && new && !model.showPaywall { toasts.show("Welcome to Halo Day Premium.") }
             }
             .sensoryFeedback(.success, trigger: model.purchases.isPremium) { _, new in new && model.settings.haptics }
             .sensoryFeedback(.success, trigger: model.theme.id) { _, _ in model.settings.haptics }

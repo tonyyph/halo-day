@@ -4,6 +4,7 @@ enum HaloButtonKind { case primary, secondary, glass, text }
 
 struct HaloActionStyle: ButtonStyle {
     var kind: HaloButtonKind = .primary
+    var loading = false
     @Environment(\.palette) private var palette
     @Environment(\.haloReduceMotion) private var reduceMotion
     @Environment(\.haloReduceTransparency) private var reduceTransparency
@@ -39,7 +40,7 @@ struct HaloActionStyle: ButtonStyle {
             .shadow(color: palette.accent.opacity(configuration.isPressed && kind == .primary ? 0.25 : 0), radius: 20)
             .scaleEffect(configuration.isPressed && !reduceMotion ? 0.97 : 1)
             .brightness(configuration.isPressed ? -0.02 : 0)
-            .opacity(enabled ? 1 : 0.38)
+            .opacity(enabled || loading ? 1 : 0.38)
             .animation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion), value: configuration.isPressed)
             .sensoryFeedback(.impact(weight: .light), trigger: configuration.isPressed) { _, pressed in
                 pressed && haptics && enabled
@@ -52,6 +53,7 @@ struct HaloButton: View {
     var kind: HaloButtonKind = .primary
     var isLoading = false
     var isSuccess = false
+    var emitSuccessFeedback = true
     var action: () -> Void
 
     @Environment(\.palette) private var palette
@@ -74,10 +76,10 @@ struct HaloButton: View {
             .animation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion), value: isLoading)
             .animation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion), value: showSuccess)
         }
-        .buttonStyle(HaloActionStyle(kind: kind))
+        .buttonStyle(HaloActionStyle(kind: kind, loading: isLoading))
         .disabled(isLoading)
         .accessibilityLabel(Text(LocalizedStringKey(title)))
-        .sensoryFeedback(.success, trigger: isSuccess) { _, success in success && haptics }
+        .sensoryFeedback(.success, trigger: isSuccess) { _, success in success && haptics && emitSuccessFeedback }
         .task(id: isSuccess) {
             guard isSuccess else { showSuccess = false; return }
             showSuccess = true
