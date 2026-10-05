@@ -3,6 +3,7 @@ import SwiftUI
 @MainActor @Observable
 final class HaloNavigationState {
     var eventSource = "event"
+    var focusSource = "focus-session"
 }
 
 private struct NamespaceKey: EnvironmentKey { static let defaultValue: Namespace.ID? = nil }

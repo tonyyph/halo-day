@@ -3,89 +3,104 @@ import SwiftUI
 struct FocusView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.palette) private var palette
-    @Environment(\.haloReduceMotion) private var reduceMotion
+    @Environment(\.haloNavigation) private var navigation
+    @Environment(\.haloReferenceDate) private var referenceDate
+    @Environment(\.haloReduceTransparency) private var reduceTransparency
     @State private var minutes = 50
     @State private var title = ""
+    @State private var suggestions: [(String, String)] = []
+    @State private var activeCover = false
+    @State private var lastActive: FocusSession?
+    @State private var completed: FocusSession?
 
     var body: some View {
         HaloScreen {
             SectionTitle(title: "Make space to focus", subtitle: "One thing. Your full attention.")
-
             FocusDial(minutes: $minutes)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .haloZoomSource("focus-session")
+            ChipGroup(options: [(25, "25 min"), (50, "50 min"), (90, "90 min")], selection: $minutes)
 
-            ChipGroup(
-                options: [(25, "25 min"), (50, "50 min"), (90, "90 min")],
-                selection: $minutes
-            )
-
-            HaloCard(variant: .inset) {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("What are you focusing on?").captionUpper().foregroundStyle(palette.ink2)
                 TextField("Deep work", text: $title)
-                    .haloFont(.body)
-                    .textInputAutocapitalization(.sentences)
+                    .haloFont(.displayS)
+                    .textFieldStyle(.plain)
+                    .frame(minHeight: 44)
+                if !suggestions.isEmpty { ChipGroup(options: suggestions, selection: $title) }
             }
 
-            Button("Begin focus") {
+            Toggle("Show on Lock Screen & Dynamic Island", isOn: Binding(
+                get: { model.purchases.isPremium && model.settings.liveActivities },
+                set: { enabled in
+                    if model.purchases.isPremium {
+                        model.settings.liveActivities = enabled
+                        model.persist()
+                    } else { model.showPaywall = true }
+                }
+            ))
+            .haloFont(.subhead)
+            .tint(palette.accent)
+
+            FocusIslandPreview(
+                session: model.focus?.isActive == true ? model.focus : nil,
+                minutes: minutes, theme: model.theme, premium: model.purchases.isPremium
+            ) { model.showPaywall = true }
+
+            if model.purchases.isPremium && !model.activities.enabled {
+                Text("Live Activities are turned off for Halo Day in iOS Settings.").haloFont(.footnote)
+            }
+            FocusWeekSummary(history: model.focusHistory, date: referenceDate ?? .now)
+
+            if !model.focusHistory.isEmpty { history }
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            HaloButton(title: "Begin focus") {
+                navigation?.focusSource = "focus-session"
                 Task { await model.startFocus(title: title, minutes: minutes) }
             }
-            .buttonStyle(HaloButtonStyle())
-
-            islandPreview
-
-            if !model.focusHistory.isEmpty {
-                history
+            .accessibilityIdentifier("focus-start")
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+            .background {
+                if reduceTransparency { palette.surface }
+                else { Rectangle().fill(.thinMaterial) }
             }
         }
-        .fullScreenCover(isPresented: Binding(
-            get: { model.focus?.isActive == true },
-            set: { _ in }
-        )) {
+        .fullScreenCover(isPresented: $activeCover, onDismiss: {
+            lastActive = nil
+            completed = nil
+        }) {
+            Group {
+                if let completed {
+                    FocusCompletionView(session: completed) { activeCover = false }
+                } else if let session = model.focus?.isActive == true ? model.focus : lastActive {
+                    FocusActiveView(session: session)
+                }
+            }
+            .haloTheme(model.theme)
+            .preferredColorScheme(.dark)
+            .haloZoomDestination(navigation?.focusSource ?? "focus-session")
+            .haloToastHost()
+        }
+        .onAppear {
+            updateSuggestions()
             if let session = model.focus, session.isActive {
-                FocusActiveView(session: session).haloZoomDestination("focus-session")
+                lastActive = session
+                activeCover = true
             }
         }
-    }
-
-    private var islandPreview: some View {
-        HaloCard {
-            VStack(alignment: .leading, spacing: 16) {
-                HStack {
-                    Text("On your Dynamic Island").haloFont(.headline)
-                    Spacer()
-                    if !model.purchases.isPremium { PremiumChip() }
-                }
-                HStack(spacing: 12) {
-                    Image(systemName: "timer")
-                        .foregroundStyle(PaletteResolver.resolve(model.theme, scheme: .dark).accent)
-                    Text(model.focus?.isActive == true
-                         ? model.focus!.title : String(localized: "Deep work"))
-                        .lineLimit(1)
-                    Spacer(minLength: 4)
-                    Text(model.focus?.isActive == true
-                         ? Duration.seconds(model.focus!.remaining()).formatted(.time(pattern: .minuteSecond))
-                         : "50:00")
-                        .monospacedDigit()
-                }
-                .haloFont(.caption)
-                .foregroundStyle(PaletteResolver.resolve(model.theme, scheme: .dark).ink)
-                .padding(16)
-                .background(
-                    PaletteResolver.resolve(ThemeRegistry.theme("graphiteFocus"), scheme: .dark).bg,
-                    in: Capsule()
-                )
-
-                Text("Live Activities show your timer on the Lock Screen. Dynamic Island appears on supported iPhones.")
-                    .haloFont(.footnote)
-                    .foregroundStyle(palette.ink2)
-
-                if !model.purchases.isPremium {
-                    Button("Unlock Live Activities") { model.showPaywall = true }
-                } else if !model.activities.enabled {
-                    Text("Live Activities are turned off for Halo Day in iOS Settings.")
-                        .haloFont(.footnote)
-                }
+        .onChange(of: model.events) { _, _ in updateSuggestions() }
+        .onChange(of: model.habits) { _, _ in updateSuggestions() }
+        .onChange(of: model.focus) { old, new in
+            if let new, new.isActive {
+                completed = nil
+                lastActive = new
+                activeCover = true
+            } else if let old, old.isActive, let new {
+                if new.endDate >= old.endDate { completed = new }
+                else { activeCover = false }
             }
         }
     }
@@ -100,8 +115,7 @@ struct FocusView: View {
                             Text(session.title)
                             Spacer()
                             Text(session.startDate, format: .dateTime.month().day())
-                            Text("\(session.durationMinutes) min")
-                                .foregroundStyle(palette.ink2)
+                            Text("\(session.durationMinutes) min").foregroundStyle(palette.ink2)
                         }
                         .haloFont(.footnote)
                         .padding(.vertical, 8)
@@ -110,6 +124,20 @@ struct FocusView: View {
             }
         }
     }
+
+    private func updateSuggestions() {
+        let values = model.todayEvents.prefix(2).map(\.title) + model.habits.prefix(1).map(\.title)
+        var seen = Set<String>()
+        suggestions = values.filter { seen.insert($0).inserted }.map { ($0, $0) }
+    }
 }
 
-#Preview { FocusView().environment(HaloModel()) }
+#Preview("Focus · Pearl") {
+    FocusView().environment(HaloModel()).haloTheme(ThemeRegistry.theme("pearlHalo"))
+}
+
+#Preview("Focus · Gold AX3 Reduced Motion") {
+    FocusView().environment(HaloModel()).haloTheme(ThemeRegistry.theme("midnightGold"))
+        .environment(\.dynamicTypeSize, .accessibility3)
+        .environment(\.haloReduceMotionOverride, true)
+}

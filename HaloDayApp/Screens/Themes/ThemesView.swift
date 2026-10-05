@@ -53,24 +53,7 @@ struct ThemeDetailView: View {
             TabView(selection: $page) {
                 phone(.rectangular).tag(0)
                 phone(.medium).tag(1)
-                VStack(spacing: 24) {
-                    Image(systemName: "timer")
-                        .font(.system(size: 42, weight: .light))
-                        .foregroundStyle(palette.accent)
-                    HaloCard(hero: true) {
-                        VStack(alignment: .leading, spacing: 14) {
-                            Text("FOCUS").captionUpper().foregroundStyle(palette.ink2)
-                            HStack(alignment: .firstTextBaseline) {
-                                Text("Deep work").haloFont(.displayS)
-                                Spacer()
-                                Text("32:14").haloFont(.numericL).monospacedDigit()
-                            }
-                            ProgressView(value: 0.36).tint(palette.accent)
-                        }
-                    }
-                }
-                .padding(16)
-                .tag(2)
+                activityPreview.tag(2)
             }
             .frame(height: 370)
             .tabViewStyle(.page(indexDisplayMode: .never))
@@ -111,6 +94,20 @@ struct ThemeDetailView: View {
         )
         .scaleEffect(0.78)
         .frame(maxWidth: .infinity)
+    }
+
+    private var activityPreview: some View {
+        let start = Date.now
+        return HaloActivityBanner(
+            attributes: HaloActivityAttributes(
+                title: String(localized: "Deep work"), startDate: start,
+                endDate: start.addingTimeInterval(3000), themeId: theme.id, accentColor: theme.dark.accent
+            ),
+            state: .init(endDate: start.addingTimeInterval(3000)), interactive: false
+        )
+        .background(PaletteResolver.resolve(theme, scheme: .dark).surface,
+                    in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+        .padding(16)
     }
 
     private var paletteStrip: some View {

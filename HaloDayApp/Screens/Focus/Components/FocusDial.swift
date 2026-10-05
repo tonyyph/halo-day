@@ -39,9 +39,12 @@ struct FocusDial: View {
                         let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
                         let dx = gesture.location.x - center.x
                         let dy = gesture.location.y - center.y
+                        guard hypot(dx, dy) >= side * 0.32 else { return }
                         let radians = atan2(dx, -dy)
                         let normalized = radians < 0 ? radians + 2 * .pi : radians
-                        let value = 5 + Int((normalized / (2 * .pi) * 235 / 5).rounded()) * 5
+                        var value = 5 + Int((normalized / (2 * .pi) * 235 / 5).rounded()) * 5
+                        if minutes > 180 && value < 60 { value = 240 }
+                        else if minutes < 60 && value > 180 { value = 5 }
                         if value != minutes {
                             withAnimation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion)) {
                                 minutes = min(240, max(5, value))
