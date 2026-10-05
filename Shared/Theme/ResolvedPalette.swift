@@ -23,9 +23,23 @@ struct ResolvedPalette: Sendable {
         shadowTint = Color(hex: source.shadowTint)
         glassStroke = .white.opacity(dark ? 0.12 : 0.35)
     }
+
+    init(vibrant scheme: ColorScheme) {
+        let primary: Color = scheme == .dark ? .white : .black
+        bg = .clear; halo = .clear; surface = .clear; surfaceSunken = primary.opacity(0.08)
+        ink = primary; ink2 = primary.opacity(0.6); ink3 = primary.opacity(0.35)
+        hairline = primary.opacity(0.15)
+        accent = primary; accentInk = primary
+        accentOn = scheme == .dark ? .black : .white
+        accentSoft = primary.opacity(0.12)
+        shadowTint = .clear; glassStroke = primary.opacity(0.12)
+    }
 }
 
 enum PaletteResolver {
+    private static let eventColors = EventColorCache()
+    private static let vibrantLight = ResolvedPalette(vibrant: .light)
+    private static let vibrantDark = ResolvedPalette(vibrant: .dark)
     private static let palettes: [String: ResolvedPalette] = Dictionary(
         uniqueKeysWithValues: ThemeRegistry.all.flatMap { theme in
             [
@@ -39,7 +53,30 @@ enum PaletteResolver {
         palettes["\(theme.id)-\(scheme == .dark ? "dark" : "light")"]!
     }
 
-    static func eventAccent(_ hex: String) -> Color { Color(hex: hex) }
+    static func eventAccent(_ hex: String) -> Color { eventColors.color(hex) }
+    static func vibrant(_ scheme: ColorScheme) -> ResolvedPalette {
+        scheme == .dark ? vibrantDark : vibrantLight
+    }
+}
+
+private final class ResolvedColorBox: NSObject {
+    let value: Color
+    init(_ value: Color) { self.value = value }
+}
+
+/// NSCache is thread safe; calendar colors are shared by app and widget renderers.
+private final class EventColorCache: @unchecked Sendable {
+    private let cache = NSCache<NSString, ResolvedColorBox>()
+
+    init() { cache.countLimit = 128 }
+
+    func color(_ hex: String) -> Color {
+        let key = hex as NSString
+        if let resolved = cache.object(forKey: key) { return resolved.value }
+        let resolved = Color(hex: hex)
+        cache.setObject(ResolvedColorBox(resolved), forKey: key)
+        return resolved
+    }
 }
 
 private extension Color {
@@ -63,6 +100,9 @@ private struct HaloHapticsKey: EnvironmentKey {
     static let defaultValue = true
 }
 
+private struct MotionOverrideKey: EnvironmentKey { static let defaultValue = false }
+private struct TransparencyOverrideKey: EnvironmentKey { static let defaultValue = false }
+
 extension EnvironmentValues {
     var palette: ResolvedPalette {
         get { self[ResolvedPaletteKey.self] }
@@ -72,5 +112,21 @@ extension EnvironmentValues {
     var haloHapticsEnabled: Bool {
         get { self[HaloHapticsKey.self] }
         set { self[HaloHapticsKey.self] = newValue }
+    }
+
+    var haloReduceMotionOverride: Bool {
+        get { self[MotionOverrideKey.self] }
+        set { self[MotionOverrideKey.self] = newValue }
+    }
+
+    var haloReduceMotion: Bool { accessibilityReduceMotion || haloReduceMotionOverride }
+
+    var haloReduceTransparencyOverride: Bool {
+        get { self[TransparencyOverrideKey.self] }
+        set { self[TransparencyOverrideKey.self] = newValue }
+    }
+
+    var haloReduceTransparency: Bool {
+        accessibilityReduceTransparency || haloReduceTransparencyOverride
     }
 }

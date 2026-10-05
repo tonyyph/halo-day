@@ -2,26 +2,41 @@ import SwiftUI
 
 struct ThemeBackground: View {
     @Environment(\.palette) private var palette
+    @Environment(\.haloReduceMotion) private var reduceMotion
+    @State private var visible = false
+    var breathing = false
+
     var body: some View {
         palette.bg
             .overlay {
-                MeshGradient(
-                    width: 3,
-                    height: 3,
-                    points: [
-                        .init(0, 0), .init(0.5, 0), .init(1, 0),
-                        .init(0, 0.5), .init(0.5, 0.5), .init(1, 0.5),
-                        .init(0, 1), .init(0.5, 1), .init(1, 1)
-                    ],
-                    colors: [
-                        palette.bg, palette.halo, palette.bg,
-                        palette.bg, palette.accentSoft, palette.bg,
-                        palette.bg, palette.bg, palette.bg
-                    ]
-                )
-                .opacity(0.25)
+                if breathing && !reduceMotion {
+                    TimelineView(.animation(minimumInterval: 1 / 30, paused: !visible)) { context in
+                        let phase = context.date.timeIntervalSinceReferenceDate / 8 * 2 * .pi
+                        mesh(drift: Float(sin(phase)) * 0.02)
+                    }
+                } else { mesh(drift: 0) }
             }
             .ignoresSafeArea()
+            .onAppear { visible = true }
+            .onDisappear { visible = false }
+    }
+
+    private func mesh(drift: Float) -> some View {
+        MeshGradient(
+            width: 3,
+            height: 3,
+            points: [
+                .init(0, 0), .init(0.5, 0), .init(1, 0),
+                .init(0, 0.5), .init(0.5 + drift, 0.5 + drift), .init(1, 0.5),
+                .init(0, 1), .init(0.5, 1), .init(1, 1)
+            ],
+            colors: [
+                palette.bg, palette.halo, palette.bg,
+                palette.bg, palette.accentSoft, palette.bg,
+                palette.bg, palette.bg, palette.bg
+            ]
+        )
+        .opacity(0.25)
     }
 }
 
@@ -30,7 +45,7 @@ enum HaloCardVariant { case standard, hero, inset, plain }
 struct HaloCard<Content: View>: View {
     @Environment(\.palette) private var palette
     @Environment(\.colorScheme) private var scheme
-    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+    @Environment(\.haloReduceTransparency) private var reduceTransparency
     var hero = false
     var variant: HaloCardVariant = .standard
     @ViewBuilder var content: Content
@@ -46,7 +61,7 @@ struct HaloCard<Content: View>: View {
                 if kind == .plain { Color.clear }
                 else if kind == .hero && !reduceTransparency {
                     if #available(iOS 26.0, *) {
-                        shape.fill(.ultraThinMaterial).glassEffect(.regular, in: shape)
+                        shape.fill(palette.surface.opacity(0.1)).glassEffect(.regular, in: shape)
                     } else {
                         shape.fill(.ultraThinMaterial)
                     }
@@ -64,14 +79,8 @@ struct HaloCard<Content: View>: View {
     }
 }
 struct HaloButtonStyle: ButtonStyle {
-    @Environment(\.palette) private var palette
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label.font(.headline).frame(maxWidth: .infinity).frame(minHeight: 54)
-            .foregroundStyle(palette.accentOn)
-            .background(palette.accent, in: Capsule())
-            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.98 : 1)
-            .animation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion), value: configuration.isPressed)
+        HaloActionStyle().makeBody(configuration: configuration)
     }
 }
 struct PremiumChip: View {
@@ -83,15 +92,21 @@ struct PremiumChip: View {
     }
 }
 struct EmptyState: View {
+    @Environment(\.haloReduceMotion) private var reduceMotion
+    @State private var appeared = false
     var icon = "sun.horizon"
     var title: String
     var message: String
     var body: some View {
         VStack(spacing: HaloTokens.Space.row) {
-            Image(systemName: icon).font(.largeTitle).foregroundStyle(.tint)
+            Image(systemName: icon)
+                .font(.system(size: 44, weight: .light))
+                .foregroundStyle(.tint)
+                .symbolEffect(.pulse, options: .nonRepeating, value: reduceMotion ? false : appeared)
             Text(LocalizedStringKey(title)).font(HaloTokens.title)
             Text(LocalizedStringKey(message)).font(.subheadline).foregroundStyle(.secondary).multilineTextAlignment(.center)
         }.frame(maxWidth: .infinity).padding(HaloTokens.Space.major)
+            .onAppear { appeared = true }
     }
 }
 struct AgendaRow: View {
@@ -111,6 +126,7 @@ struct AgendaRow: View {
             if event.endDate < date { Image(systemName: "checkmark").foregroundStyle(.secondary) }
             else if event.startDate <= date { Text("NOW").font(.caption2.bold()).foregroundStyle(.tint) }
         }.padding(.vertical, HaloTokens.Space.small)
+            .opacity(event.endDate < date ? 0.6 : 1)
     }
 }
 struct WeekStrip: View {

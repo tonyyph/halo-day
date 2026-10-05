@@ -6,6 +6,11 @@ enum Motion {
     static let gentle = Animation.spring(duration: 0.65, bounce: 0.05)
     static let bouncy = Animation.spring(duration: 0.5, bounce: 0.32)
     static let ring = Animation.spring(duration: 0.9, bounce: 0)
+    static let draw = Animation.easeInOut(duration: 1.2)
+    static let breathe = Animation.easeInOut(duration: 4)
+    static let ambient = Animation.linear(duration: 8)
+    static let phase = Animation.easeInOut(duration: 2.5)
+    static let shimmer = Animation.linear(duration: 1.6)
 
     static func timer(_ remaining: TimeInterval) -> Animation {
         .linear(duration: max(0, remaining))

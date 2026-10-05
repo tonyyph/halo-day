@@ -7,7 +7,7 @@ struct ProgressRing: View {
     var animates = true
 
     @Environment(\.palette) private var palette
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var appeared = false
 
     var body: some View {
@@ -47,8 +47,8 @@ struct ProgressRing: View {
             }
             .padding(width / 2)
         }
-        .animation(animates ? Motion.resolve(Motion.ring, reduceMotion: reduceMotion) : nil, value: progress)
-        .animation(animates ? Motion.resolve(Motion.ring, reduceMotion: reduceMotion) : nil, value: appeared)
+        .animation(animates && !reduceMotion ? Motion.ring : nil, value: progress)
+        .animation(animates && !reduceMotion ? Motion.ring : nil, value: appeared)
         .onAppear { appeared = true }
         .accessibilityLabel(Text("Progress"))
         .accessibilityValue(Text(progress, format: .percent.precision(.fractionLength(0))))

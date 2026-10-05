@@ -35,6 +35,7 @@ struct HaloWidgetContent: View {
             }
         }.foregroundStyle(monochrome ? Color.primary : PaletteResolver.resolve(theme, scheme: scheme).ink)
             .tint(monochrome ? Color.primary : PaletteResolver.resolve(theme, scheme: scheme).accent)
+            .environment(\.palette, monochrome ? PaletteResolver.vibrant(scheme) : PaletteResolver.resolve(theme, scheme: scheme))
             .privacySensitive()
     }
     @ViewBuilder private var inline: some View {
@@ -193,41 +194,5 @@ struct HaloWidgetContent: View {
             let days = max(0, Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: date), to: Calendar.current.startOfDay(for: countdown.targetDate)).day ?? 0)
             Text("\(days) days · \(countdown.title)")
         } else { Text("Count down to something") }
-    }
-}
-
-struct PhonePreview: View {
-    var preset: WidgetPreset
-    var events: [CalendarEvent]
-    var habits: [Habit]
-    var focus: FocusSession?
-    var countdown: Countdown?
-    var date: Date = .now
-    var sample = true
-    var body: some View {
-        let theme = ThemeRegistry.theme(preset.themeId)
-        let palette = PaletteResolver.resolve(theme, scheme: theme.darkOnly ? .dark : .light)
-        VStack(spacing: HaloTokens.Space.card) {
-            Capsule().fill(palette.ink).frame(width: 80, height: 23).padding(.top, HaloTokens.Space.small)
-            Text(date, format: .dateTime.weekday(.wide).month(.abbreviated).day()).font(.caption)
-            Text(date, format: .dateTime.hour().minute()).font(.system(size: 56, weight: .light, design: .rounded)).monospacedDigit()
-            HaloWidgetContent(date: date, type: preset.widgetType, size: preset.widgetFamily, theme: theme, events: events, habits: habits, focus: focus, countdown: countdown, sample: sample)
-                .frame(width: previewWidth, height: previewHeight, alignment: .topLeading)
-                .padding(preset.widgetFamily.isAccessory ? 0 : HaloTokens.Space.row)
-                .background(preset.widgetFamily.isAccessory ? Color.clear : palette.surface.opacity(0.85), in: RoundedRectangle(cornerRadius: HaloTokens.Radius.hero, style: .continuous))
-                .environment(\.colorScheme, theme.darkOnly ? .dark : .light)
-            Spacer(minLength: HaloTokens.Space.major)
-            HStack { Image(systemName: "flashlight.off.fill"); Spacer(); Image(systemName: "camera.fill") }.padding(HaloTokens.Space.hero)
-        }.frame(width: 260, height: preset.widgetFamily == .large ? 580 : 430)
-            .foregroundStyle(palette.ink)
-            .background(palette.bg.overlay { RadialGradient(colors: [palette.halo, .clear], center: .top, startRadius: 0, endRadius: 340) })
-            .clipShape(RoundedRectangle(cornerRadius: HaloTokens.Radius.phone, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: HaloTokens.Radius.phone, style: .continuous).stroke(palette.ink.opacity(0.2), lineWidth: 5))
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(Text("Widget preview"))
-    }
-    private var previewWidth: CGFloat { preset.widgetFamily == .circular ? 64 : preset.widgetFamily == .small ? 140 : 220 }
-    private var previewHeight: CGFloat {
-        switch preset.widgetFamily { case .inline: 24; case .circular: 64; case .rectangular: 72; case .small: 140; case .medium: 145; case .large: 300 }
     }
 }
