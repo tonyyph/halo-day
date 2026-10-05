@@ -1,8 +1,27 @@
 #!/usr/bin/env ruby
 require 'xcodeproj'
 require 'fileutils'
+require 'digest'
+
+class HaloProject < Xcodeproj::Project
+  def generate_uuid
+    @halo_object_counter = (@halo_object_counter || 0) + 1
+    Digest::SHA256.hexdigest("HaloDay-object-#{@halo_object_counter}")[0, 24].upcase
+  end
+end
 root = File.expand_path('..', __dir__)
-project = Xcodeproj::Project.new(File.join(root, 'HaloDay.xcodeproj'))
+project_path = File.join(root, 'HaloDay.xcodeproj')
+preserved_teams = {}
+if File.exist?(File.join(project_path, 'project.pbxproj'))
+  existing = Xcodeproj::Project.open(project_path)
+  existing.targets.each do |target|
+    target.build_configurations.each do |configuration|
+      team = configuration.build_settings['DEVELOPMENT_TEAM']
+      preserved_teams[[target.name, configuration.name]] = team if team
+    end
+  end
+end
+project = HaloProject.new(project_path)
 project.root_object.development_region = 'vi'
 app = project.new_target(:application, 'HaloDay', :ios, '18.0')
 widgets = project.new_target(:app_extension, 'HaloDayWidgets', :ios, '18.0')
@@ -50,6 +69,10 @@ project.targets.each do |target|
     settings['MARKETING_VERSION'] = '1.0'
     settings['CURRENT_PROJECT_VERSION'] = '3'
     settings['CODE_SIGN_STYLE'] = 'Automatic'
+    # Preserve Xcode's account selection; the fallback is the pre-polish project team.
+    team = preserved_teams[[target.name, config.name]]
+    team ||= 'YC5GD8U2GQ' if target == app || target == widgets
+    settings['DEVELOPMENT_TEAM'] = team if team
     settings['PRODUCT_BUNDLE_IDENTIFIER'] = target == app ? 'co.haloday.app' : target == widgets ? 'co.haloday.app.widgets' : 'co.haloday.app.tests'
     settings['IPHONEOS_DEPLOYMENT_TARGET'] = '18.0'
     if target == app
@@ -70,6 +93,7 @@ project.targets.each do |target|
     end
   end
 end
+project.predictabilize_uuids
 project.save
 scheme = Xcodeproj::XCScheme.new
 scheme.add_build_target(app)
