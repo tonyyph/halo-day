@@ -6,6 +6,7 @@ struct ThemeOrbPicker: View {
     @Environment(\.palette) private var palette
     @Environment(\.haloHapticsEnabled) private var haptics
     @Environment(\.haloReduceMotion) private var reduceMotion
+    @Namespace private var ring
 
     var body: some View {
         ScrollView(.horizontal) {
@@ -21,10 +22,12 @@ struct ThemeOrbPicker: View {
                             .fill(AngularGradient(colors: [colors.bg, colors.accent, colors.bg], center: .center))
                             .frame(width: 42, height: 42)
                             .overlay {
-                                Circle()
-                                    .stroke(selection == theme.id ? palette.accent : .clear, lineWidth: 2)
-                                    .padding(-4)
+                                if selection == theme.id {
+                                    Circle().stroke(palette.accent, lineWidth: 2).padding(-4)
+                                        .matchedGeometryEffect(id: "theme-ring", in: ring, properties: reduceMotion ? [] : .frame)
+                                }
                             }
+                            .frame(minWidth: 44, minHeight: 44)
                             .overlay(alignment: .bottomTrailing) {
                                 if theme.isPremium {
                                     Image(systemName: "sparkle")

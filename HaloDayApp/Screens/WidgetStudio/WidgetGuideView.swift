@@ -42,11 +42,7 @@ struct WidgetGuideView: View {
                 TabView(selection: $step) {
                     ForEach(steps.indices, id: \.self) { index in
                         VStack(spacing: 24) {
-                            Image(systemName: illustration(index))
-                                .font(.system(size: 72, weight: .ultraLight))
-                                .symbolRenderingMode(.hierarchical)
-                                .foregroundStyle(palette.accentInk)
-                                .frame(height: 150)
+                            GuideStepIllustration(step: index, home: home, active: step == index)
 
                             Text(LocalizedStringKey(steps[index]))
                                 .haloFont(.displayM)
@@ -60,14 +56,7 @@ struct WidgetGuideView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
 
-                HStack(spacing: 6) {
-                    ForEach(steps.indices, id: \.self) { index in
-                        Capsule()
-                            .fill(index == step ? palette.accent : palette.hairline)
-                            .frame(width: index == step ? 20 : 6, height: 6)
-                    }
-                }
-                .accessibilityHidden(true)
+                HaloPagerIndicator(total: steps.count, selection: step)
 
                 Button("I've added it") { verifyWidgets() }
                     .buttonStyle(HaloButtonStyle())
@@ -92,11 +81,6 @@ struct WidgetGuideView: View {
         .toolbar { Button("Done") { dismiss() } }
         .presentationDetents([.large])
         .presentationCornerRadius(32)
-    }
-
-    private func illustration(_ index: Int) -> String {
-        let symbols = ["hand.tap", "rectangle.bottomthird.inset.filled", "square.grid.2x2", "checkmark.circle"]
-        return symbols[min(index, 3)]
     }
 
     private func verifyWidgets() {
