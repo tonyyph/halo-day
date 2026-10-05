@@ -2,6 +2,17 @@ import XCTest
 
 final class HaloDayUITests: XCTestCase {
     @MainActor
+    func testVietnameseLocalization() throws {
+        let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(vi)", "-AppleLocale", "vi_VN"]
+        app.launch()
+        if app.buttons["Bắt đầu"].waitForExistence(timeout: 5) {
+            XCTAssertTrue(app.staticTexts["Ngày của bạn, đẹp trong từng khoảnh khắc."].exists)
+        } else {
+            XCTAssertTrue(app.tabBars.buttons["Hôm nay"].waitForExistence(timeout: 5))
+        }
+    }
+    @MainActor
     func testPaywallRendersPlanPlaceholders() throws {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]

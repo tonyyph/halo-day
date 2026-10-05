@@ -1,5 +1,5 @@
 {
-  "sourceLanguage" : "en",
+  "sourceLanguage" : "vi",
   "strings" : {
     "–" : {
 
@@ -45,7 +45,14 @@
 
     },
     "%lld day streak" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuỗi %lld ngày"
+          }
+        }
+      }
     },
     "%lld days · %@" : {
       "localizations" : {
@@ -54,14 +61,34 @@
             "state" : "new",
             "value" : "%1$lld days · %2$@"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld ngày · %2$@"
+          }
         }
       }
     },
     "%lld days left" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Còn %lld ngày"
+          }
+        }
+      }
     },
     "%lld min" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld phút"
+          }
+        }
+      }
     },
     "%lld of %lld rituals kept" : {
       "localizations" : {
@@ -69,6 +96,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld of %2$lld rituals kept"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã hoàn thành %1$lld/%2$lld thói quen"
           }
         }
       }
@@ -90,6 +123,12 @@
             "state" : "translated",
             "value" : "25 min"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "25 phút"
+          }
         }
       }
     },
@@ -100,6 +139,12 @@
             "state" : "translated",
             "value" : "50 min"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50 phút"
+          }
         }
       }
     },
@@ -109,6 +154,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "90 min"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "90 phút"
           }
         }
       }
@@ -121,16 +172,27 @@
             "state" : "translated",
             "value" : "A little clarity for the days ahead."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rõ ràng hơn cho những ngày sắp tới."
+          }
         }
       }
     },
     "A little movement" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "A little movement"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vận động một chút"
           }
         }
       }
@@ -142,6 +204,12 @@
             "state" : "translated",
             "value" : "A little space to focus"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một khoảng riêng để tập trung"
+          }
         }
       }
     },
@@ -151,6 +219,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "A little space, just for you."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một khoảng lặng dành riêng cho bạn."
           }
         }
       }
@@ -163,6 +237,12 @@
             "state" : "translated",
             "value" : "A little window into your day."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ô cửa nhỏ nhìn vào ngày của bạn."
+          }
         }
       }
     },
@@ -174,16 +254,27 @@
             "state" : "translated",
             "value" : "A look for every kind of day."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một phong cách cho mỗi ngày."
+          }
         }
       }
     },
     "A page of journaling" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "A page of journaling"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viết vài dòng nhật ký"
           }
         }
       }
@@ -196,6 +287,12 @@
             "state" : "translated",
             "value" : "A quiet nudge before events and rituals. Never noisy."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lời nhắc nhẹ trước sự kiện và thói quen. Không làm phiền."
+          }
         }
       }
     },
@@ -205,6 +302,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "A sample day"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ngày mẫu"
           }
         }
       }
@@ -217,6 +320,12 @@
             "state" : "translated",
             "value" : "A single drop of red on frosted glass."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một chấm đỏ trên lớp kính mờ."
+          }
         }
       }
     },
@@ -228,6 +337,12 @@
             "state" : "translated",
             "value" : "A small beginning"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một khởi đầu nhỏ"
+          }
         }
       }
     },
@@ -238,6 +353,12 @@
             "state" : "translated",
             "value" : "A trip, a birthday, a launch"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuyến đi, sinh nhật hay ngày ra mắt"
+          }
         }
       }
     },
@@ -247,6 +368,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "About"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giới thiệu"
           }
         }
       }
@@ -269,6 +396,12 @@
             "state" : "translated",
             "value" : "Add a ritual"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thêm thói quen"
+          }
         }
       }
     },
@@ -278,6 +411,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add countdown"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thêm đếm ngược"
           }
         }
       }
@@ -289,6 +428,12 @@
             "state" : "translated",
             "value" : "Advanced Home Screen widgets"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget Màn hình chính nâng cao"
+          }
         }
       }
     },
@@ -298,6 +443,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Agenda"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lịch trình"
           }
         }
       }
@@ -309,6 +460,12 @@
             "state" : "translated",
             "value" : "All 8 luxury themes"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cả 8 giao diện cao cấp"
+          }
         }
       }
     },
@@ -318,6 +475,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "All day"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cả ngày"
           }
         }
       }
@@ -329,6 +492,12 @@
             "state" : "translated",
             "value" : "Allow reminders"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cho phép nhắc nhở"
+          }
         }
       }
     },
@@ -338,6 +507,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "An open day"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một ngày thảnh thơi"
           }
         }
       }
@@ -349,6 +524,12 @@
             "state" : "translated",
             "value" : "App theme"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giao diện ứng dụng"
+          }
         }
       }
     },
@@ -358,6 +539,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Appearance"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giao diện"
           }
         }
       }
@@ -369,6 +556,12 @@
             "state" : "translated",
             "value" : "Applied"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã áp dụng"
+          }
         }
       }
     },
@@ -378,6 +571,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apply theme"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Áp dụng giao diện"
           }
         }
       }
@@ -389,6 +588,12 @@
             "state" : "translated",
             "value" : "Back"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quay lại"
+          }
         }
       }
     },
@@ -398,6 +603,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beautifully done."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoàn thành thật đẹp."
           }
         }
       }
@@ -409,6 +620,12 @@
             "state" : "translated",
             "value" : "Beautifully done. Your focus session is complete."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuyệt vời. Phiên tập trung đã hoàn thành."
+          }
         }
       }
     },
@@ -418,6 +635,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Beautifully kept."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duy trì thật tốt."
           }
         }
       }
@@ -429,6 +652,12 @@
             "state" : "translated",
             "value" : "Before events"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trước sự kiện"
+          }
         }
       }
     },
@@ -438,6 +667,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Begin"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bắt đầu"
           }
         }
       }
@@ -450,6 +685,12 @@
             "state" : "translated",
             "value" : "Begin a ritual"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bắt đầu thói quen"
+          }
         }
       }
     },
@@ -459,6 +700,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Begin focus"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bắt đầu tập trung"
           }
         }
       }
@@ -471,6 +718,12 @@
             "state" : "translated",
             "value" : "Black-tie evening. A hint of gold."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đêm thanh lịch, điểm chút ánh vàng."
+          }
         }
       }
     },
@@ -481,6 +734,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Blush silk. A little Paris."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lụa hồng phớt, thoảng nét Paris."
           }
         }
       }
@@ -493,6 +752,12 @@
             "state" : "translated",
             "value" : "Botanical calm. Small daily things."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bình yên xanh mát, từ điều nhỏ mỗi ngày."
+          }
         }
       }
     },
@@ -504,6 +769,12 @@
             "state" : "translated",
             "value" : "Bring in your calendar"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kết nối lịch của bạn"
+          }
         }
       }
     },
@@ -513,6 +784,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Calendar"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lịch"
           }
         }
       }
@@ -524,6 +801,12 @@
             "state" : "translated",
             "value" : "Calendar access is off"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa cấp quyền truy cập lịch"
+          }
         }
       }
     },
@@ -533,6 +816,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Calendar connected"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã kết nối lịch"
           }
         }
       }
@@ -544,6 +833,12 @@
             "state" : "translated",
             "value" : "Calendar sources"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nguồn lịch"
+          }
         }
       }
     },
@@ -554,6 +849,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Champagne Day"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày Champagne"
           }
         }
       }
@@ -576,6 +877,12 @@
             "state" : "translated",
             "value" : "Choose a length and begin."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn thời lượng rồi bắt đầu."
+          }
         }
       }
     },
@@ -585,6 +892,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Choose a saved preset, or follow your active preset."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn mẫu đã lưu hoặc dùng mẫu đang kích hoạt."
           }
         }
       }
@@ -597,6 +910,12 @@
             "state" : "translated",
             "value" : "Choose a starting layout. Make it yours in Studio."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn bố cục ban đầu. Tùy chỉnh theo ý bạn trong Studio."
+          }
         }
       }
     },
@@ -607,6 +926,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Choose Lock Screen, then tap the widget area under the clock."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn Màn hình khóa, rồi chạm vùng widget bên dưới đồng hồ."
           }
         }
       }
@@ -619,6 +944,12 @@
             "state" : "translated",
             "value" : "Choose your style"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn phong cách của bạn"
+          }
         }
       }
     },
@@ -628,6 +959,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Close"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đóng"
           }
         }
       }
@@ -639,11 +976,24 @@
             "state" : "translated",
             "value" : "Coming soon"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sắp ra mắt"
+          }
         }
       }
     },
     "Complete %@" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoàn thành %@"
+          }
+        }
+      }
     },
     "Complete ritual" : {
       "localizations" : {
@@ -651,6 +1001,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Complete ritual"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoàn thành thói quen"
           }
         }
       }
@@ -662,6 +1018,12 @@
             "state" : "translated",
             "value" : "Completed"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã hoàn thành"
+          }
         }
       }
     },
@@ -671,6 +1033,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Connect"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kết nối"
           }
         }
       }
@@ -682,6 +1050,12 @@
             "state" : "translated",
             "value" : "Connect Calendar"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kết nối Lịch"
+          }
         }
       }
     },
@@ -691,6 +1065,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Connect your calendar to see your own events."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kết nối lịch để xem sự kiện của bạn."
           }
         }
       }
@@ -702,6 +1082,12 @@
             "state" : "translated",
             "value" : "Continue"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiếp tục"
+          }
         }
       }
     },
@@ -711,6 +1097,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copy setup steps"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sao chép hướng dẫn"
           }
         }
       }
@@ -722,6 +1114,12 @@
             "state" : "translated",
             "value" : "Could not save your purchase status. Please reopen Halo Day."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể lưu trạng thái mua hàng. Vui lòng mở lại Halo Day."
+          }
         }
       }
     },
@@ -732,6 +1130,12 @@
             "state" : "translated",
             "value" : "Count down to something"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đếm ngược đến một dịp đặc biệt"
+          }
         }
       }
     },
@@ -741,6 +1145,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Count down to this"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đếm ngược đến sự kiện này"
           }
         }
       }
@@ -753,6 +1163,12 @@
             "state" : "translated",
             "value" : "Countdown"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đếm ngược"
+          }
         }
       }
     },
@@ -763,11 +1179,24 @@
             "state" : "translated",
             "value" : "COUNTDOWN"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ĐẾM NGƯỢC"
+          }
         }
       }
     },
     "Custom · %lld min" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tùy chỉnh · %lld phút"
+          }
+        }
+      }
     },
     "Daily Ritual" : {
       "extractionState" : "stale",
@@ -776,6 +1205,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Daily Ritual"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thói quen hằng ngày"
           }
         }
       }
@@ -787,6 +1222,12 @@
             "state" : "translated",
             "value" : "Daily rituals"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thói quen hằng ngày"
+          }
         }
       }
     },
@@ -796,6 +1237,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Date"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày"
           }
         }
       }
@@ -807,6 +1254,12 @@
             "state" : "translated",
             "value" : "Day"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày"
+          }
         }
       }
     },
@@ -816,6 +1269,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Day %1$lld/%2$lld · %3$lld days left"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày %1$lld/%2$lld · còn %3$lld ngày"
           }
         }
       }
@@ -827,6 +1286,12 @@
             "state" : "translated",
             "value" : "Day progress"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiến độ hôm nay"
+          }
         }
       }
     },
@@ -836,6 +1301,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Day progress is measured between these times."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiến độ ngày được tính trong khoảng thời gian này."
           }
         }
       }
@@ -847,6 +1318,12 @@
             "state" : "translated",
             "value" : "Day streak"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuỗi ngày"
+          }
         }
       }
     },
@@ -856,6 +1333,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Deep work"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tập trung sâu"
           }
         }
       }
@@ -867,6 +1350,12 @@
             "state" : "translated",
             "value" : "Delete"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xóa"
+          }
         }
       }
     },
@@ -876,6 +1365,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete preset"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xóa mẫu"
           }
         }
       }
@@ -888,6 +1383,12 @@
             "state" : "translated",
             "value" : "Design review"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duyệt thiết kế"
+          }
         }
       }
     },
@@ -897,6 +1398,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Design review · in 10 minutes"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duyệt thiết kế · 10 phút nữa"
           }
         }
       }
@@ -909,6 +1416,12 @@
             "state" : "translated",
             "value" : "Dinner"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bữa tối"
+          }
         }
       }
     },
@@ -919,16 +1432,27 @@
             "state" : "translated",
             "value" : "Done"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xong"
+          }
         }
       }
     },
     "Drink water" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Drink water"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uống nước"
           }
         }
       }
@@ -940,6 +1464,12 @@
             "state" : "translated",
             "value" : "Duration"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thời lượng"
+          }
         }
       }
     },
@@ -949,6 +1479,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Edit"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chỉnh sửa"
           }
         }
       }
@@ -961,6 +1497,12 @@
             "state" : "translated",
             "value" : "Eight ways to glow"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tám cách để tỏa sáng"
+          }
         }
       }
     },
@@ -971,6 +1513,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Emerald Ritual"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nghi thức Ngọc lục bảo"
           }
         }
       }
@@ -993,6 +1541,12 @@
             "state" : "translated",
             "value" : "End"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kết thúc"
+          }
         }
       }
     },
@@ -1002,6 +1556,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "End focus"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kết thúc tập trung"
           }
         }
       }
@@ -1013,6 +1573,12 @@
             "state" : "translated",
             "value" : "End session"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kết thúc phiên"
+          }
         }
       }
     },
@@ -1023,11 +1589,24 @@
             "state" : "translated",
             "value" : "End this focus session?"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kết thúc phiên tập trung này?"
+          }
         }
       }
     },
     "Ends at %lld:00" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kết thúc lúc %lld:00"
+          }
+        }
+      }
     },
     "Event countdown Live Activities" : {
       "localizations" : {
@@ -1035,6 +1614,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Event countdown Live Activities"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live Activity đếm ngược sự kiện"
           }
         }
       }
@@ -1045,6 +1630,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Explore all themes"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Khám phá mọi giao diện"
           }
         }
       }
@@ -1057,6 +1648,12 @@
             "state" : "translated",
             "value" : "Find Halo Day and tap the widgets you want."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tìm Halo Day và chọn widget bạn muốn."
+          }
         }
       }
     },
@@ -1066,6 +1663,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Focus"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tập trung"
           }
         }
       }
@@ -1077,11 +1680,24 @@
             "state" : "translated",
             "value" : "FOCUS"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TẬP TRUNG"
+          }
         }
       }
     },
     "Focus · %@" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tập trung · %@"
+          }
+        }
+      }
     },
     "Focus on your Lock Screen and Dynamic Island" : {
       "localizations" : {
@@ -1089,6 +1705,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Focus on your Lock Screen and Dynamic Island"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tập trung ngay trên Màn hình khóa và Dynamic Island"
           }
         }
       }
@@ -1101,6 +1723,12 @@
             "state" : "translated",
             "value" : "Focus Session"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên tập trung"
+          }
         }
       }
     },
@@ -1110,6 +1738,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Focus sessions on Lock Screen"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên tập trung trên Màn hình khóa"
           }
         }
       }
@@ -1132,6 +1766,12 @@
             "state" : "translated",
             "value" : "Full theme color in the app, Home Screen widgets and Live Activities. Lock Screen widgets follow your wallpaper."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Màu giao diện hiển thị đầy đủ trong ứng dụng, widget Màn hình chính và Live Activity. Widget Màn hình khóa theo màu hình nền."
+          }
         }
       }
     },
@@ -1142,6 +1782,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gentle reminders"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lời nhắc dịu dàng"
           }
         }
       }
@@ -1154,6 +1800,12 @@
             "state" : "translated",
             "value" : "Golden hour, on warm cream paper."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ánh hoàng hôn trên nền giấy kem ấm."
+          }
         }
       }
     },
@@ -1164,6 +1816,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Good afternoon"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào buổi chiều"
           }
         }
       }
@@ -1176,6 +1834,12 @@
             "state" : "translated",
             "value" : "Good evening"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào buổi tối"
+          }
         }
       }
     },
@@ -1187,6 +1851,12 @@
             "state" : "translated",
             "value" : "Good morning"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào buổi sáng"
+          }
         }
       }
     },
@@ -1197,6 +1867,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Graphite Focus"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tập trung Graphite"
           }
         }
       }
@@ -1219,6 +1895,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Habit Streak"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuỗi thói quen"
           }
         }
       }
@@ -1251,6 +1933,12 @@
             "state" : "translated",
             "value" : "Halo Day reads your calendar to show what's next. It stays on your iPhone. Always."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo Day đọc lịch để hiển thị sự kiện tiếp theo. Dữ liệu luôn ở trên iPhone của bạn."
+          }
         }
       }
     },
@@ -1260,6 +1948,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Halo preset"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mẫu Halo"
           }
         }
       }
@@ -1282,6 +1976,12 @@
             "state" : "translated",
             "value" : "Haptics"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phản hồi xúc giác"
+          }
         }
       }
     },
@@ -1293,6 +1993,12 @@
             "state" : "translated",
             "value" : "Health"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sức khỏe"
+          }
         }
       }
     },
@@ -1302,6 +2008,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Home Screen"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Màn hình chính"
           }
         }
       }
@@ -1313,6 +2025,12 @@
             "state" : "translated",
             "value" : "Home Screen widgets show your theme in full color."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget Màn hình chính hiển thị đầy đủ màu giao diện."
+          }
         }
       }
     },
@@ -1322,6 +2040,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "How to add to Lock Screen"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cách thêm vào Màn hình khóa"
           }
         }
       }
@@ -1333,6 +2057,12 @@
             "state" : "translated",
             "value" : "How to add widgets"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cách thêm widget"
+          }
         }
       }
     },
@@ -1342,6 +2072,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "I've added it"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tôi đã thêm"
           }
         }
       }
@@ -1353,6 +2089,12 @@
             "state" : "translated",
             "value" : "Include all-day events"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bao gồm sự kiện cả ngày"
+          }
         }
       }
     },
@@ -1362,6 +2104,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Included"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã bao gồm"
           }
         }
       }
@@ -1373,6 +2121,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ivory Minimal"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tối giản Ivory"
           }
         }
       }
@@ -1395,6 +2149,12 @@
             "state" : "translated",
             "value" : "Lifetime"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trọn đời"
+          }
         }
       }
     },
@@ -1404,6 +2164,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Live Activities"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live Activity"
           }
         }
       }
@@ -1415,6 +2181,12 @@
             "state" : "translated",
             "value" : "Live Activities are available"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live Activity đã sẵn sàng"
+          }
         }
       }
     },
@@ -1424,6 +2196,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Live Activities are turned off for Halo Day in iOS Settings."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live Activity của Halo Day đang tắt trong Cài đặt iOS."
           }
         }
       }
@@ -1435,6 +2213,12 @@
             "state" : "translated",
             "value" : "Live Activities show your timer on the Lock Screen. Dynamic Island appears on supported iPhones."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Live Activity hiển thị bộ đếm trên Màn hình khóa. Dynamic Island xuất hiện trên iPhone tương thích."
+          }
         }
       }
     },
@@ -1444,6 +2228,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Live countdowns can begin in the hour before an event."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đếm ngược trực tiếp có thể bắt đầu trong vòng một giờ trước sự kiện."
           }
         }
       }
@@ -1455,6 +2245,12 @@
             "state" : "translated",
             "value" : "Load"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tải"
+          }
         }
       }
     },
@@ -1465,6 +2261,12 @@
             "state" : "translated",
             "value" : "Lock Screen"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Màn hình khóa"
+          }
         }
       }
     },
@@ -1474,6 +2276,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lock Screen colors follow your wallpaper. This preview shows the layout."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Màu widget Màn hình khóa theo hình nền. Bản xem trước chỉ minh họa bố cục."
           }
         }
       }
@@ -1486,6 +2294,12 @@
             "state" : "translated",
             "value" : "Lunch with Mai"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ăn trưa với Mai"
+          }
         }
       }
     },
@@ -1496,6 +2310,12 @@
             "state" : "translated",
             "value" : "Make active"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kích hoạt"
+          }
         }
       }
     },
@@ -1505,6 +2325,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Make space to focus"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dành thời gian tập trung"
           }
         }
       }
@@ -1517,6 +2343,12 @@
             "state" : "translated",
             "value" : "Make your iPhone feel personal again."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Để iPhone mang dấu ấn riêng của bạn."
+          }
         }
       }
     },
@@ -1526,6 +2358,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Manage subscription"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quản lý gói đăng ký"
           }
         }
       }
@@ -1537,6 +2375,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Midnight Gold"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vàng Đêm"
           }
         }
       }
@@ -1560,6 +2404,12 @@
             "state" : "translated",
             "value" : "Mini Calendar"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lịch nhỏ"
+          }
         }
       }
     },
@@ -1569,6 +2419,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Minimal"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tối giản"
           }
         }
       }
@@ -1580,6 +2436,12 @@
             "state" : "translated",
             "value" : "minutes, beautifully spent"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "phút trọn vẹn"
+          }
         }
       }
     },
@@ -1589,6 +2451,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Month"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tháng"
           }
         }
       }
@@ -1601,6 +2469,12 @@
             "state" : "translated",
             "value" : "Month Progress"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiến độ tháng"
+          }
         }
       }
     },
@@ -1610,6 +2484,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Monthly"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hằng tháng"
           }
         }
       }
@@ -1622,6 +2502,12 @@
             "state" : "translated",
             "value" : "My first Halo"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo đầu tiên của tôi"
+          }
         }
       }
     },
@@ -1633,6 +2519,12 @@
             "state" : "translated",
             "value" : "My Halo"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo của tôi"
+          }
         }
       }
     },
@@ -1642,6 +2534,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiếp theo"
           }
         }
       }
@@ -1653,6 +2551,12 @@
             "state" : "new",
             "value" : "Next: %1$@ · %2$@"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiếp: %1$@ · %2$@"
+          }
         }
       }
     },
@@ -1663,6 +2567,12 @@
             "state" : "translated",
             "value" : "Not completed"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa hoàn thành"
+          }
         }
       }
     },
@@ -1672,6 +2582,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Not now"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Để sau"
           }
         }
       }
@@ -1684,6 +2600,12 @@
             "state" : "translated",
             "value" : "Nothing on the calendar. Make room for something good."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lịch đang trống. Hãy dành chỗ cho điều thú vị."
+          }
         }
       }
     },
@@ -1695,6 +2617,12 @@
             "state" : "translated",
             "value" : "Nothing scheduled. A rare, open day."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa có lịch trình. Một ngày thật thảnh thơi."
+          }
         }
       }
     },
@@ -1705,6 +2633,12 @@
             "state" : "translated",
             "value" : "NOW"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ĐANG DIỄN RA"
+          }
         }
       }
     },
@@ -1714,6 +2648,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Off"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tắt"
           }
         }
       }
@@ -1735,6 +2675,12 @@
             "state" : "translated",
             "value" : "On your Dynamic Island"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trên Dynamic Island của bạn"
+          }
         }
       }
     },
@@ -1744,6 +2690,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "One small thing at a time."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mỗi lần một điều nhỏ thôi."
           }
         }
       }
@@ -1756,6 +2708,12 @@
             "state" : "translated",
             "value" : "One thing. Your full attention."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một việc. Trọn vẹn sự chú ý."
+          }
         }
       }
     },
@@ -1766,6 +2724,12 @@
             "state" : "translated",
             "value" : "Open Halo Day"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mở Halo Day"
+          }
         }
       }
     },
@@ -1775,6 +2739,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open Settings"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mở Cài đặt"
           }
         }
       }
@@ -1787,6 +2757,12 @@
             "state" : "translated",
             "value" : "Paper and ink. Nothing extra."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giấy và mực. Không gì thừa."
+          }
         }
       }
     },
@@ -1796,6 +2772,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pause"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạm dừng"
           }
         }
       }
@@ -1807,6 +2789,12 @@
             "state" : "translated",
             "value" : "Pause or resume focus"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tạm dừng hoặc tiếp tục tập trung"
+          }
         }
       }
     },
@@ -1816,6 +2804,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Paused"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã tạm dừng"
           }
         }
       }
@@ -1827,6 +2821,12 @@
             "state" : "translated",
             "value" : "Pay once. Yours forever."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thanh toán một lần. Dùng trọn đời."
+          }
         }
       }
     },
@@ -1837,6 +2837,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pearl Halo"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hào quang Ngọc trai"
           }
         }
       }
@@ -1860,6 +2866,12 @@
             "state" : "translated",
             "value" : "Personal"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cá nhân"
+          }
         }
       }
     },
@@ -1871,6 +2883,12 @@
             "state" : "translated",
             "value" : "Pick a look. You can change it anytime."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn phong cách. Bạn có thể đổi bất cứ lúc nào."
+          }
         }
       }
     },
@@ -1878,6 +2896,12 @@
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilates"
+          }
+        },
+        "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pilates"
@@ -1892,6 +2916,12 @@
             "state" : "translated",
             "value" : "Plans are unavailable. Try again later."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Các gói hiện chưa khả dụng. Vui lòng thử lại sau."
+          }
         }
       }
     },
@@ -1901,6 +2931,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premium"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cao cấp"
           }
         }
       }
@@ -1912,6 +2948,12 @@
             "state" : "translated",
             "value" : "Premium preview"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem trước bản cao cấp"
+          }
         }
       }
     },
@@ -1921,6 +2963,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Premium styles can be explored in Studio. Your first Halo starts with Pearl Halo."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Khám phá các phong cách cao cấp trong Studio. Halo đầu tiên bắt đầu với Ngọc trai."
           }
         }
       }
@@ -1932,6 +2980,12 @@
             "state" : "translated",
             "value" : "Preset"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mẫu"
+          }
         }
       }
     },
@@ -1941,6 +2995,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preset name"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tên mẫu"
           }
         }
       }
@@ -1953,6 +3013,12 @@
             "state" : "translated",
             "value" : "Preview"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem trước"
+          }
         }
       }
     },
@@ -1962,6 +3028,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Previous"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trước đó"
           }
         }
       }
@@ -1973,6 +3045,12 @@
             "state" : "translated",
             "value" : "Profile"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hồ sơ"
+          }
         }
       }
     },
@@ -1982,6 +3060,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Progress"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiến độ"
           }
         }
       }
@@ -1993,6 +3077,12 @@
             "state" : "translated",
             "value" : "Purchases are not configured for this build. The free experience is ready to use."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chức năng mua hàng chưa được cấu hình cho bản này. Bạn vẫn có thể dùng các tính năng miễn phí."
+          }
         }
       }
     },
@@ -2002,6 +3092,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Refresh widgets now"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Làm mới widget ngay"
           }
         }
       }
@@ -2013,6 +3109,12 @@
             "state" : "translated",
             "value" : "Reminders"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lời nhắc"
+          }
         }
       }
     },
@@ -2022,6 +3124,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restore is unavailable. Please try again."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa thể khôi phục giao dịch. Vui lòng thử lại."
           }
         }
       }
@@ -2033,6 +3141,12 @@
             "state" : "translated",
             "value" : "Restore purchases"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Khôi phục giao dịch"
+          }
         }
       }
     },
@@ -2042,6 +3156,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Resume"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiếp tục"
           }
         }
       }
@@ -2053,6 +3173,12 @@
             "state" : "translated",
             "value" : "Ritual"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thói quen"
+          }
         }
       }
     },
@@ -2062,6 +3188,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ritual ID"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID thói quen"
           }
         }
       }
@@ -2073,6 +3205,12 @@
             "state" : "translated",
             "value" : "Ritual name"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tên thói quen"
+          }
         }
       }
     },
@@ -2082,6 +3220,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ritual options"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tùy chọn thói quen"
           }
         }
       }
@@ -2093,6 +3237,12 @@
             "state" : "translated",
             "value" : "Rituals"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thói quen"
+          }
         }
       }
     },
@@ -2102,6 +3252,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Rituals · %1$lld/%2$lld beautifully kept"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thói quen · đã hoàn thành %1$lld/%2$lld"
           }
         }
       }
@@ -2114,6 +3270,12 @@
             "state" : "translated",
             "value" : "Rituals, kept gently"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duy trì thói quen nhẹ nhàng"
+          }
         }
       }
     },
@@ -2124,6 +3286,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rose Atelier"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xưởng Hồng"
           }
         }
       }
@@ -2147,6 +3315,12 @@
             "state" : "translated",
             "value" : "Ruby Glass"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kính Ruby"
+          }
         }
       }
     },
@@ -2168,6 +3342,12 @@
             "state" : "translated",
             "value" : "SAMPLE AGENDA"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LỊCH TRÌNH MẪU"
+          }
         }
       }
     },
@@ -2178,6 +3358,12 @@
             "state" : "translated",
             "value" : "Sample day"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày mẫu"
+          }
         }
       }
     },
@@ -2187,6 +3373,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sample event"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sự kiện mẫu"
           }
         }
       }
@@ -2199,6 +3391,12 @@
             "state" : "translated",
             "value" : "Sample events. Your calendar stays on your iPhone."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sự kiện mẫu. Lịch của bạn luôn ở trên iPhone."
+          }
         }
       }
     },
@@ -2208,6 +3406,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save countdown"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu đếm ngược"
           }
         }
       }
@@ -2219,6 +3423,12 @@
             "state" : "translated",
             "value" : "Save my Halo"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu Halo của tôi"
+          }
         }
       }
     },
@@ -2228,6 +3438,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Save preset"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu mẫu"
           }
         }
       }
@@ -2239,6 +3455,12 @@
             "state" : "translated",
             "value" : "Save ritual"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu thói quen"
+          }
         }
       }
     },
@@ -2249,6 +3471,12 @@
             "state" : "translated",
             "value" : "Saved beautifully"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã lưu"
+          }
         }
       }
     },
@@ -2258,6 +3486,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Screen"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Màn hình"
           }
         }
       }
@@ -2270,6 +3504,12 @@
             "state" : "translated",
             "value" : "Search for Halo Day and pick a size."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tìm Halo Day và chọn kích thước."
+          }
         }
       }
     },
@@ -2280,6 +3520,12 @@
             "state" : "translated",
             "value" : "See all"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem tất cả"
+          }
         }
       }
     },
@@ -2289,6 +3535,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cài đặt"
           }
         }
       }
@@ -2301,6 +3553,12 @@
             "state" : "translated",
             "value" : "Small, daily things. A little water, a page, a walk."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Những điều nhỏ mỗi ngày. Uống nước, đọc sách, đi dạo."
+          }
         }
       }
     },
@@ -2311,6 +3569,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Small, daily things. Water, a page, a walk."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Những điều nhỏ mỗi ngày. Nước, vài trang sách, một vòng đi bộ."
           }
         }
       }
@@ -2323,6 +3587,12 @@
             "state" : "translated",
             "value" : "Soft morning light. Quiet luxury."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ánh sáng ban mai. Vẻ đẹp tinh tế."
+          }
         }
       }
     },
@@ -2334,6 +3604,12 @@
             "state" : "translated",
             "value" : "Standup"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Họp nhanh"
+          }
         }
       }
     },
@@ -2343,6 +3619,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Start a countdown in the hour before your event."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bắt đầu đếm ngược trong vòng một giờ trước sự kiện."
           }
         }
       }
@@ -2354,11 +3636,24 @@
             "state" : "translated",
             "value" : "Starter layout"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bố cục ban đầu"
+          }
         }
       }
     },
     "Starts at %lld:00" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bắt đầu lúc %lld:00"
+          }
+        }
+      }
     },
     "Still up" : {
       "extractionState" : "stale",
@@ -2368,12 +3663,24 @@
             "state" : "translated",
             "value" : "Still up"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vẫn thức à"
+          }
         }
       }
     },
     "Studio" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio"
+          }
+        },
+        "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Studio"
@@ -2389,6 +3696,12 @@
             "state" : "translated",
             "value" : "Studio at night. Space to think."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio về đêm. Khoảng riêng để suy nghĩ."
+          }
         }
       }
     },
@@ -2396,6 +3709,12 @@
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio B"
+          }
+        },
+        "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Studio B"
@@ -2410,6 +3729,12 @@
             "state" : "translated",
             "value" : "Subscriptions renew automatically until canceled in App Store Settings. Prices shown are for the selected billing period."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gói đăng ký tự động gia hạn đến khi bạn hủy trong Cài đặt App Store. Giá hiển thị theo kỳ thanh toán đã chọn."
+          }
         }
       }
     },
@@ -2419,6 +3744,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Symbol"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biểu tượng"
           }
         }
       }
@@ -2431,6 +3762,12 @@
             "state" : "translated",
             "value" : "Tap a widget to choose a preset, then tap Done."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chạm widget để chọn mẫu, rồi chạm Xong."
+          }
         }
       }
     },
@@ -2441,6 +3778,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tap Add Widget, then Done."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chạm Thêm widget, rồi chạm Xong."
           }
         }
       }
@@ -2453,6 +3796,12 @@
             "state" : "translated",
             "value" : "Tap Edit, then Add Widget."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chạm Sửa, rồi chọn Thêm widget."
+          }
         }
       }
     },
@@ -2464,6 +3813,12 @@
             "state" : "translated",
             "value" : "The little café"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quán cà phê nhỏ"
+          }
         }
       }
     },
@@ -2473,6 +3828,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The purchase could not be verified."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể xác minh giao dịch."
           }
         }
       }
@@ -2484,6 +3845,12 @@
             "state" : "translated",
             "value" : "The purchase didn't go through. Please try again."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giao dịch chưa hoàn tất. Vui lòng thử lại."
+          }
         }
       }
     },
@@ -2493,6 +3860,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Theme"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giao diện"
           }
         }
       }
@@ -2504,6 +3877,12 @@
             "state" : "translated",
             "value" : "Time well spent"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thời gian thật xứng đáng"
+          }
         }
       }
     },
@@ -2514,6 +3893,12 @@
             "state" : "translated",
             "value" : "Today"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hôm nay"
+          }
         }
       }
     },
@@ -2523,6 +3908,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "TODAY"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HÔM NAY"
           }
         }
       }
@@ -2535,6 +3926,12 @@
             "state" : "translated",
             "value" : "Today Agenda"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lịch trình hôm nay"
+          }
         }
       }
     },
@@ -2546,6 +3943,12 @@
             "state" : "translated",
             "value" : "Touch and hold an empty spot on your Home Screen."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chạm và giữ một vùng trống trên Màn hình chính."
+          }
         }
       }
     },
@@ -2556,6 +3959,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Touch and hold your Lock Screen, then tap Customize."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chạm và giữ Màn hình khóa, rồi chạm Tùy chỉnh."
           }
         }
       }
@@ -2578,6 +3987,12 @@
             "state" : "translated",
             "value" : "Unlimited rituals"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thói quen không giới hạn"
+          }
         }
       }
     },
@@ -2587,6 +4002,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unlimited widget presets"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mẫu widget không giới hạn"
           }
         }
       }
@@ -2598,6 +4019,12 @@
             "state" : "translated",
             "value" : "Unlock in Halo Day"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mở khóa trong Halo Day"
+          }
         }
       }
     },
@@ -2607,6 +4034,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unlock Live Activities"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mở khóa Live Activity"
           }
         }
       }
@@ -2619,6 +4052,12 @@
             "state" : "translated",
             "value" : "Unlock luxury widgets, themes, Live Activities, and unlimited presets."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mở khóa widget cao cấp, giao diện, Live Activity và mẫu không giới hạn."
+          }
         }
       }
     },
@@ -2628,6 +4067,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Untitled event"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sự kiện chưa có tên"
           }
         }
       }
@@ -2639,6 +4084,12 @@
             "state" : "translated",
             "value" : "UP NEXT"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SẮP TỚI"
+          }
         }
       }
     },
@@ -2648,6 +4099,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Upgrade to Premium"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nâng cấp Cao cấp"
           }
         }
       }
@@ -2659,6 +4116,12 @@
             "state" : "translated",
             "value" : "Used only for your greeting."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chỉ dùng để chào bạn."
+          }
         }
       }
     },
@@ -2668,6 +4131,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version 1.0 · MVP"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên bản 1.0 · MVP"
           }
         }
       }
@@ -2679,6 +4148,12 @@
             "state" : "translated",
             "value" : "View"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem"
+          }
         }
       }
     },
@@ -2688,6 +4163,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "We can't see it yet. Widgets sometimes take a moment. Try again."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa thấy widget. Đôi khi cần một chút thời gian; vui lòng thử lại."
           }
         }
       }
@@ -2699,6 +4180,12 @@
             "state" : "translated",
             "value" : "We couldn't find a previous purchase for this Apple ID."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không tìm thấy giao dịch trước đó cho Apple ID này."
+          }
         }
       }
     },
@@ -2708,6 +4195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Week"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuần"
           }
         }
       }
@@ -2720,6 +4213,12 @@
             "state" : "translated",
             "value" : "Week Strip"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dải tuần"
+          }
         }
       }
     },
@@ -2729,6 +4228,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Welcome back. Premium is restored."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào mừng trở lại. Đã khôi phục bản Cao cấp."
           }
         }
       }
@@ -2740,6 +4245,12 @@
             "state" : "translated",
             "value" : "Welcome to Halo Day Premium."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào mừng đến với Halo Day Cao cấp."
+          }
         }
       }
     },
@@ -2750,6 +4261,12 @@
             "state" : "translated",
             "value" : "Widget preview"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem trước widget"
+          }
         }
       }
     },
@@ -2759,6 +4276,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Widget size"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kích thước widget"
           }
         }
       }
@@ -2771,6 +4294,12 @@
             "state" : "translated",
             "value" : "Widget Studio"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio widget"
+          }
         }
       }
     },
@@ -2781,6 +4310,12 @@
             "state" : "translated",
             "value" : "Widget type"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loại widget"
+          }
         }
       }
     },
@@ -2790,6 +4325,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Widgets"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget"
           }
         }
       }
@@ -2802,6 +4343,12 @@
             "state" : "translated",
             "value" : "Work"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Công việc"
+          }
         }
       }
     },
@@ -2811,6 +4358,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Yearly"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hằng năm"
           }
         }
       }
@@ -2823,6 +4376,12 @@
             "state" : "translated",
             "value" : "You choose the widgets. iOS takes care of the Lock Screen."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bạn chọn widget. iOS sắp xếp Màn hình khóa."
+          }
         }
       }
     },
@@ -2832,6 +4391,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your calendar never leaves your iPhone."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lịch của bạn luôn ở trên iPhone."
           }
         }
       }
@@ -2843,6 +4408,12 @@
             "state" : "translated",
             "value" : "Your calendar never leaves your iPhone. Halo Day has no accounts, no tracking, and no servers."
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lịch của bạn luôn ở trên iPhone. Halo Day không yêu cầu tài khoản, không theo dõi và không có máy chủ."
+          }
         }
       }
     },
@@ -2852,6 +4423,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your day"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày của bạn"
           }
         }
       }
@@ -2864,6 +4441,12 @@
             "state" : "translated",
             "value" : "Your day, at a glance"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày của bạn, trong một cái nhìn"
+          }
         }
       }
     },
@@ -2873,6 +4456,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your day, beautifully on display."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày của bạn, đẹp trong từng khoảnh khắc."
           }
         }
       }
@@ -2885,6 +4474,12 @@
             "state" : "translated",
             "value" : "Your first Halo"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo đầu tiên của bạn"
+          }
         }
       }
     },
@@ -2894,6 +4489,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your first name"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tên của bạn"
           }
         }
       }
@@ -2905,6 +4506,12 @@
             "state" : "translated",
             "value" : "Your Halo"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo của bạn"
+          }
         }
       }
     },
@@ -2914,6 +4521,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your Halo is live."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo của bạn đã hiển thị."
           }
         }
       }
@@ -2926,6 +4539,12 @@
             "state" : "translated",
             "value" : "Your Halo, on display"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo của bạn, luôn hiện diện"
+          }
         }
       }
     },
@@ -2936,6 +4555,12 @@
             "state" : "translated",
             "value" : "Your presets"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mẫu đã lưu"
+          }
         }
       }
     },
@@ -2945,6 +4570,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your purchase is awaiting approval."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giao dịch đang chờ phê duyệt."
           }
         }
       }
@@ -2957,6 +4588,12 @@
             "state" : "translated",
             "value" : "Your ritual"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thói quen của bạn"
+          }
         }
       }
     },
@@ -2967,6 +4604,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Your schedule, rituals and focus time on the Lock Screen. Glance, and go."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lịch trình, thói quen và thời gian tập trung trên Màn hình khóa. Chỉ cần liếc nhìn."
           }
         }
       }

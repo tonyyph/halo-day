@@ -62,8 +62,9 @@ enum ThemeRegistry {
 enum HaloTokens {
     enum Space { static let tiny: CGFloat = 4; static let small: CGFloat = 8; static let row: CGFloat = 12; static let card: CGFloat = 16; static let hero: CGFloat = 20; static let section: CGFloat = 24; static let major: CGFloat = 32; static let onboarding: CGFloat = 40 }
     enum Radius { static let small: CGFloat = 10; static let card: CGFloat = 16; static let hero: CGFloat = 22; static let phone: CGFloat = 32 }
-    static let display: Font = .system(.largeTitle, design: .serif)
-    static let title: Font = .system(.title2, design: .serif)
+    // New York gives the editorial hierarchy; native San Francisco keeps small UI legible.
+    static let display: Font = .system(.largeTitle, design: .serif).weight(.medium)
+    static let title: Font = .system(.title2, design: .serif).weight(.semibold)
 }
 extension Color {
     init(hex: String) {

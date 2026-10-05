@@ -35,7 +35,7 @@ struct OnboardingView: View {
                                     Button { themeID = theme.id; model.haptic() } label: {
                                         VStack(alignment: .leading, spacing: HaloTokens.Space.row) {
                                             Image(systemName: "circle.dotted").font(.largeTitle).foregroundStyle(Color(hex: theme.light.accent))
-                                            Text(theme.name).font(HaloTokens.title)
+                                            Text(LocalizedStringKey(theme.name)).font(HaloTokens.title)
                                             if theme.isPremium { PremiumChip(preview: true) }
                                             if theme.id == themeID { Image(systemName: "checkmark.circle.fill") }
                                         }.frame(maxWidth: .infinity, minHeight: 130, alignment: .leading).padding(HaloTokens.Space.card)

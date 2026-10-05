@@ -10,8 +10,8 @@ struct ThemesView: View {
                     NavigationLink { ThemeDetailView(theme: theme) } label: {
                         VStack(alignment: .leading, spacing: HaloTokens.Space.row) {
                             Image(systemName: "circle.dotted").font(.system(size: 44, weight: .ultraLight)).foregroundStyle(Color(hex: theme.light.accent)).frame(maxWidth: .infinity).padding(.vertical, HaloTokens.Space.section)
-                            Text(theme.name).font(HaloTokens.title)
-                            Text(theme.mood).font(.caption).frame(minHeight: 36, alignment: .topLeading)
+                            Text(LocalizedStringKey(theme.name)).font(HaloTokens.title)
+                            Text(LocalizedStringKey(theme.mood)).font(.caption).frame(minHeight: 36, alignment: .topLeading)
                             if theme.isPremium { PremiumChip() }
                             else { Label("Included", systemImage: "checkmark").font(.caption) }
                         }.frame(maxWidth: .infinity, alignment: .leading).padding(HaloTokens.Space.card)

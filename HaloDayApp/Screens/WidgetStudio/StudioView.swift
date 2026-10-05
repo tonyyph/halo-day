@@ -25,7 +25,7 @@ struct StudioView: View {
                         }
                     }
                     Picker("Widget type", selection: $preset.widgetType) { ForEach(WidgetType.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
-                    Picker("Theme", selection: $preset.themeId) { ForEach(ThemeRegistry.all) { Text($0.name).tag($0.id) } }
+                    Picker("Theme", selection: $preset.themeId) { ForEach(ThemeRegistry.all) { Text(LocalizedStringKey($0.name)).tag($0.id) } }
                     TextField("Preset name", text: $preset.name).textFieldStyle(.roundedBorder)
                     NavigationLink { ThemesView() } label: { Label("Explore all themes", systemImage: "paintpalette") }
                     if preset.widgetType == .countdown {
@@ -44,7 +44,7 @@ struct StudioView: View {
                     HaloCard {
                         VStack(alignment: .leading, spacing: HaloTokens.Space.row) {
                             HStack { Text(item.name).font(.headline); Spacer(); Button { model.removePreset(item.id) } label: { Image(systemName: "trash").frame(width: 44, height: 44) }.accessibilityLabel("Delete preset") }
-                            Text("\(ThemeRegistry.theme(item.themeId).name) · \(item.widgetType.title)").font(.caption).foregroundStyle(.secondary)
+                            Text("\(String(localized: String.LocalizationValue(ThemeRegistry.theme(item.themeId).name))) · \(String(localized: String.LocalizationValue(item.widgetType.title)))").font(.caption).foregroundStyle(.secondary)
                             HStack { Button("Load") { preset = item; saved = false }; Spacer(); Button("Make active") { model.activatePreset(item) } }
                         }
                     }
@@ -93,7 +93,7 @@ struct WidgetGuideView: View {
                     }
                 }
             }.buttonStyle(HaloButtonStyle())
-            Button("Copy setup steps") { UIPasteboard.general.string = steps.enumerated().map { "\($0.offset + 1). \($0.element)" }.joined(separator: "\n") }.frame(maxWidth: .infinity, minHeight: 44)
+            Button("Copy setup steps") { UIPasteboard.general.string = steps.enumerated().map { "\($0.offset + 1). \(String(localized: String.LocalizationValue($0.element)))" }.joined(separator: "\n") }.frame(maxWidth: .infinity, minHeight: 44)
             if let message { Text(message).font(.subheadline).foregroundStyle(.secondary) }
         }.toolbar { Button("Done") { dismiss() } }
     }

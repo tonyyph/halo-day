@@ -3,6 +3,7 @@ require 'xcodeproj'
 require 'fileutils'
 root = File.expand_path('..', __dir__)
 project = Xcodeproj::Project.new(File.join(root, 'HaloDay.xcodeproj'))
+project.root_object.development_region = 'vi'
 app = project.new_target(:application, 'HaloDay', :ios, '18.0')
 widgets = project.new_target(:app_extension, 'HaloDayWidgets', :ios, '18.0')
 tests = project.new_target(:unit_test_bundle, 'HaloDayTests', :ios, '18.0')
@@ -47,7 +48,7 @@ project.targets.each do |target|
     settings['TARGETED_DEVICE_FAMILY'] = '1'
     settings['GENERATE_INFOPLIST_FILE'] = 'YES'
     settings['MARKETING_VERSION'] = '1.0'
-    settings['CURRENT_PROJECT_VERSION'] = '1'
+    settings['CURRENT_PROJECT_VERSION'] = '3'
     settings['CODE_SIGN_STYLE'] = 'Automatic'
     settings['PRODUCT_BUNDLE_IDENTIFIER'] = target == app ? 'co.haloday.app' : target == widgets ? 'co.haloday.app.widgets' : 'co.haloday.app.tests'
     settings['IPHONEOS_DEPLOYMENT_TARGET'] = '18.0'
