@@ -4,14 +4,21 @@ import SwiftUI
 final class HaloToastCenter {
     private(set) var message: String?
     private var dismissTask: Task<Void, Never>?
+    private var pending: [String] = []
 
     func show(_ key: String) {
-        dismissTask?.cancel()
-        message = key
+        guard message != key && !pending.contains(key) else { return }
+        pending.append(key)
+        guard dismissTask == nil else { return }
         dismissTask = Task {
-            try? await Task.sleep(for: .seconds(2.2))
-            guard !Task.isCancelled else { return }
-            message = nil
+            while !pending.isEmpty {
+                message = pending.removeFirst()
+                try? await Task.sleep(for: .seconds(2.2))
+                guard !Task.isCancelled else { return }
+                message = nil
+                try? await Task.sleep(for: .milliseconds(180))
+            }
+            dismissTask = nil
         }
     }
 }
@@ -43,6 +50,28 @@ struct HaloToast: View {
             .overlay(Capsule().stroke(palette.glassStroke, lineWidth: 0.5))
             .accessibilityElement(children: .combine)
     }
+}
+
+private struct ToastHost: ViewModifier {
+    var visible: Bool
+    @Environment(\.haloToasts) private var toasts
+    @Environment(\.haloReduceMotion) private var reduceMotion
+
+    func body(content: Content) -> some View {
+        content
+            .overlay(alignment: .top) {
+                if visible, let message = toasts?.message {
+                    HaloToast(message: message)
+                        .padding(.top, 8)
+                        .transition(reduceMotion ? .opacity : .move(edge: .top).combined(with: .opacity))
+                }
+            }
+            .animation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion), value: toasts?.message)
+    }
+}
+
+extension View {
+    func haloToastHost(visible: Bool = true) -> some View { modifier(ToastHost(visible: visible)) }
 }
 
 struct ShimmerPlaceholder: View {

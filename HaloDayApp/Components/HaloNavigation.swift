@@ -73,6 +73,7 @@ private struct HaloSheet: ViewModifier {
 
     func body(content: Content) -> some View {
         content
+            .haloToastHost()
             .presentationDetents(detents)
             .presentationCornerRadius(32)
             .presentationBackground(reduceTransparency ? AnyShapeStyle(palette.bg) : AnyShapeStyle(.thinMaterial))

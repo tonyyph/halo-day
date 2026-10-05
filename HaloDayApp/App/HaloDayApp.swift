@@ -35,14 +35,7 @@ private struct ThemedRoot: View {
             .preferredColorScheme(model.theme.darkOnly ? .dark : nil)
             .animation(Motion.resolve(Motion.gentle, reduceMotion: reduceMotion), value: model.theme.id)
             .animation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion), value: model.purchases.isPremium)
-            .overlay(alignment: .top) {
-                if let message = toasts.message {
-                    HaloToast(message: message)
-                        .padding(.top, 8)
-                        .transition(reduceMotion ? .opacity : .move(edge: .top).combined(with: .opacity))
-                }
-            }
-            .animation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion), value: toasts.message)
+            .haloToastHost(visible: !model.showPaywall && !model.showSettings && !model.showGuide && model.selectedEvent == nil && !(model.focus?.isActive == true && model.tab == 4))
             .onChange(of: model.purchases.isPremium) { old, new in
                 if !old && new && !model.showPaywall { toasts.show("Welcome to Halo Day Premium.") }
             }
