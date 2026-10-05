@@ -7,6 +7,10 @@ enum Motion {
     static let bouncy = Animation.spring(duration: 0.5, bounce: 0.32)
     static let ring = Animation.spring(duration: 0.9, bounce: 0)
 
+    static func timer(_ remaining: TimeInterval) -> Animation {
+        .linear(duration: max(0, remaining))
+    }
+
     static func stagger(_ index: Int) -> Animation {
         smooth.delay(Double(min(index, 8)) * 0.04)
     }

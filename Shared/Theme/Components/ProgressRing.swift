@@ -4,6 +4,7 @@ struct ProgressRing: View {
     var progress: Double
     var width: CGFloat = 7
     var segments: Int = 1
+    var animates = true
 
     @Environment(\.palette) private var palette
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -46,8 +47,8 @@ struct ProgressRing: View {
             }
             .padding(width / 2)
         }
-        .animation(Motion.resolve(Motion.ring, reduceMotion: reduceMotion), value: progress)
-        .animation(Motion.resolve(Motion.ring, reduceMotion: reduceMotion), value: appeared)
+        .animation(animates ? Motion.resolve(Motion.ring, reduceMotion: reduceMotion) : nil, value: progress)
+        .animation(animates ? Motion.resolve(Motion.ring, reduceMotion: reduceMotion) : nil, value: appeared)
         .onAppear { appeared = true }
         .accessibilityLabel(Text("Progress"))
         .accessibilityValue(Text(progress, format: .percent.precision(.fractionLength(0))))

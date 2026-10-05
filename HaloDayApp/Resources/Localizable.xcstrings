@@ -1,16 +1,22 @@
 {
   "sourceLanguage" : "vi",
   "strings" : {
-    "–" : {
-
-    },
-    ", " : {
-      "extractionState" : "stale",
+    " : " : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : ", "
+            "value" : " : "
+          }
+        }
+      }
+    },
+    "%02X%02X%02X" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%02X%02X%02X"
           }
         }
       }
@@ -54,6 +60,16 @@
         }
       }
     },
+    "%lld days left" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Còn %lld ngày"
+          }
+        }
+      }
+    },
     "%lld days · %@" : {
       "localizations" : {
         "en" : {
@@ -66,16 +82,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$lld ngày · %2$@"
-          }
-        }
-      }
-    },
-    "%lld days left" : {
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Còn %lld ngày"
           }
         }
       }
@@ -112,6 +118,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    ", " : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ", "
           }
         }
       }
@@ -374,17 +391,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Giới thiệu"
-          }
-        }
-      }
-    },
-    "activePreset" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "activePreset"
           }
         }
       }
@@ -778,6 +784,22 @@
         }
       }
     },
+    "COUNTDOWN" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "COUNTDOWN"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ĐẾM NGƯỢC"
+          }
+        }
+      }
+    },
     "Calendar" : {
       "localizations" : {
         "en" : {
@@ -859,13 +881,19 @@
         }
       }
     },
-    "champagneDay" : {
+    "Choose Lock Screen, then tap the widget area under the clock." : {
       "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "champagneDay"
+            "value" : "Choose Lock Screen, then tap the widget area under the clock."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn Màn hình khóa, rồi chạm vùng widget bên dưới đồng hồ."
           }
         }
       }
@@ -915,23 +943,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chọn bố cục ban đầu. Tùy chỉnh theo ý bạn trong Studio."
-          }
-        }
-      }
-    },
-    "Choose Lock Screen, then tap the widget area under the clock." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choose Lock Screen, then tap the widget area under the clock."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chọn Màn hình khóa, rồi chạm vùng widget bên dưới đồng hồ."
           }
         }
       }
@@ -1168,22 +1179,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Đếm ngược"
-          }
-        }
-      }
-    },
-    "COUNTDOWN" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "COUNTDOWN"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ĐẾM NGƯỢC"
           }
         }
       }
@@ -1523,17 +1518,6 @@
         }
       }
     },
-    "emeraldRitual" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "emeraldRitual"
-          }
-        }
-      }
-    },
     "End" : {
       "localizations" : {
         "en" : {
@@ -1640,6 +1624,22 @@
         }
       }
     },
+    "FOCUS" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FOCUS"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TẬP TRUNG"
+          }
+        }
+      }
+    },
     "Find Halo Day and tap the widgets you want." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1673,28 +1673,19 @@
         }
       }
     },
-    "FOCUS" : {
+    "Focus Session" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "FOCUS"
+            "value" : "Focus Session"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "TẬP TRUNG"
-          }
-        }
-      }
-    },
-    "Focus · %@" : {
-      "localizations" : {
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tập trung · %@"
+            "value" : "Phiên tập trung"
           }
         }
       }
@@ -1715,23 +1706,6 @@
         }
       }
     },
-    "Focus Session" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Focus Session"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Phiên tập trung"
-          }
-        }
-      }
-    },
     "Focus sessions on Lock Screen" : {
       "localizations" : {
         "en" : {
@@ -1748,13 +1722,12 @@
         }
       }
     },
-    "focusHistory" : {
-      "extractionState" : "stale",
+    "Focus · %@" : {
       "localizations" : {
-        "en" : {
+        "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "focusHistory"
+            "value" : "Tập trung · %@"
           }
         }
       }
@@ -1873,17 +1846,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tập trung Graphite"
-          }
-        }
-      }
-    },
-    "graphiteFocus" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "graphiteFocus"
           }
         }
       }
@@ -2131,17 +2093,6 @@
         }
       }
     },
-    "ivoryMinimal" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ivoryMinimal"
-          }
-        }
-      }
-    },
     "Lifetime" : {
       "localizations" : {
         "en" : {
@@ -2385,17 +2336,6 @@
         }
       }
     },
-    "midnightGold" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "midnightGold"
-          }
-        }
-      }
-    },
     "Mini Calendar" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2425,22 +2365,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tối giản"
-          }
-        }
-      }
-    },
-    "minutes, beautifully spent" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "minutes, beautifully spent"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "phút trọn vẹn"
           }
         }
       }
@@ -2494,6 +2418,23 @@
         }
       }
     },
+    "My Halo" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Halo"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo của tôi"
+          }
+        }
+      }
+    },
     "My first Halo" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2511,19 +2452,18 @@
         }
       }
     },
-    "My Halo" : {
-      "extractionState" : "stale",
+    "NOW" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "My Halo"
+            "value" : "NOW"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Halo của tôi"
+            "value" : "ĐANG DIỄN RA"
           }
         }
       }
@@ -2626,18 +2566,12 @@
         }
       }
     },
-    "NOW" : {
+    "OK" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "NOW"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ĐANG DIỄN RA"
+            "value" : "OK"
           }
         }
       }
@@ -2654,16 +2588,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tắt"
-          }
-        }
-      }
-    },
-    "OK" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "OK"
           }
         }
       }
@@ -2843,17 +2767,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hào quang Ngọc trai"
-          }
-        }
-      }
-    },
-    "pearlHalo" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "pearlHalo"
           }
         }
       }
@@ -3166,6 +3079,26 @@
         }
       }
     },
+    "Ring · AX3 / Dark" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ring · AX3 / Dark"
+          }
+        }
+      }
+    },
+    "Ring · Light" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ring · Light"
+          }
+        }
+      }
+    },
     "Ritual" : {
       "localizations" : {
         "en" : {
@@ -3296,17 +3229,6 @@
         }
       }
     },
-    "roseAtelier" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "roseAtelier"
-          }
-        }
-      }
-    },
     "Ruby Glass" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3320,17 +3242,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kính Ruby"
-          }
-        }
-      }
-    },
-    "rubyGlass" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "rubyGlass"
           }
         }
       }
@@ -3529,6 +3440,16 @@
         }
       }
     },
+    "Segments · Ruby Dark" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Segments · Ruby Dark"
+          }
+        }
+      }
+    },
     "Settings" : {
       "localizations" : {
         "en" : {
@@ -3688,23 +3609,6 @@
         }
       }
     },
-    "Studio at night. Space to think." : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Studio at night. Space to think."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Studio về đêm. Khoảng riêng để suy nghĩ."
-          }
-        }
-      }
-    },
     "Studio B" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3718,6 +3622,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Studio B"
+          }
+        }
+      }
+    },
+    "Studio at night. Space to think." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio at night. Space to think."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio về đêm. Khoảng riêng để suy nghĩ."
           }
         }
       }
@@ -3754,19 +3675,18 @@
         }
       }
     },
-    "Tap a widget to choose a preset, then tap Done." : {
-      "extractionState" : "stale",
+    "TODAY" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tap a widget to choose a preset, then tap Done."
+            "value" : "TODAY"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chạm widget để chọn mẫu, rồi chạm Xong."
+            "value" : "HÔM NAY"
           }
         }
       }
@@ -3801,6 +3721,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chạm Sửa, rồi chọn Thêm widget."
+          }
+        }
+      }
+    },
+    "Tap a widget to choose a preset, then tap Done." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap a widget to choose a preset, then tap Done."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chạm widget để chọn mẫu, rồi chạm Xong."
           }
         }
       }
@@ -3902,22 +3839,6 @@
         }
       }
     },
-    "TODAY" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "TODAY"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "HÔM NAY"
-          }
-        }
-      }
-    },
     "Today Agenda" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3969,13 +3890,18 @@
         }
       }
     },
-    "ultraThinMaterial" : {
-      "extractionState" : "stale",
+    "UP NEXT" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ultraThinMaterial"
+            "value" : "UP NEXT"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SẮP TỚI"
           }
         }
       }
@@ -4012,22 +3938,6 @@
         }
       }
     },
-    "Unlock in Halo Day" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unlock in Halo Day"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mở khóa trong Halo Day"
-          }
-        }
-      }
-    },
     "Unlock Live Activities" : {
       "localizations" : {
         "en" : {
@@ -4040,6 +3950,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mở khóa Live Activity"
+          }
+        }
+      }
+    },
+    "Unlock in Halo Day" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock in Halo Day"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mở khóa trong Halo Day"
           }
         }
       }
@@ -4073,22 +3999,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sự kiện chưa có tên"
-          }
-        }
-      }
-    },
-    "UP NEXT" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UP NEXT"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "SẮP TỚI"
           }
         }
       }
@@ -4254,6 +4164,23 @@
         }
       }
     },
+    "Widget Studio" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget Studio"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Studio widget"
+          }
+        }
+      }
+    },
     "Widget preview" : {
       "localizations" : {
         "en" : {
@@ -4282,23 +4209,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kích thước widget"
-          }
-        }
-      }
-    },
-    "Widget Studio" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Widget Studio"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Studio widget"
           }
         }
       }
@@ -4381,6 +4291,55 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bạn chọn widget. iOS sắp xếp Màn hình khóa."
+          }
+        }
+      }
+    },
+    "Your Halo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Halo"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo của bạn"
+          }
+        }
+      }
+    },
+    "Your Halo is live." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Halo is live."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo của bạn đã hiển thị."
+          }
+        }
+      }
+    },
+    "Your Halo, on display" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Halo, on display"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo của bạn, luôn hiện diện"
           }
         }
       }
@@ -4499,55 +4458,6 @@
         }
       }
     },
-    "Your Halo" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your Halo"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Halo của bạn"
-          }
-        }
-      }
-    },
-    "Your Halo is live." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your Halo is live."
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Halo của bạn đã hiển thị."
-          }
-        }
-      }
-    },
-    "Your Halo, on display" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your Halo, on display"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Halo của bạn, luôn hiện diện"
-          }
-        }
-      }
-    },
     "Your presets" : {
       "localizations" : {
         "en" : {
@@ -4614,6 +4524,143 @@
         }
       }
     },
+    "activePreset" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "activePreset"
+          }
+        }
+      }
+    },
+    "champagneDay" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "champagneDay"
+          }
+        }
+      }
+    },
+    "emeraldRitual" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "emeraldRitual"
+          }
+        }
+      }
+    },
+    "focusHistory" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "focusHistory"
+          }
+        }
+      }
+    },
+    "graphiteFocus" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "graphiteFocus"
+          }
+        }
+      }
+    },
+    "ivoryMinimal" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ivoryMinimal"
+          }
+        }
+      }
+    },
+    "midnightGold" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "midnightGold"
+          }
+        }
+      }
+    },
+    "minutes, beautifully spent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "minutes, beautifully spent"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "phút trọn vẹn"
+          }
+        }
+      }
+    },
+    "pearlHalo" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pearlHalo"
+          }
+        }
+      }
+    },
+    "roseAtelier" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "roseAtelier"
+          }
+        }
+      }
+    },
+    "rubyGlass" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "rubyGlass"
+          }
+        }
+      }
+    },
+    "ultraThinMaterial" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ultraThinMaterial"
+          }
+        }
+      }
+    },
     "yyyy-MM-dd" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -4624,6 +4671,9 @@
           }
         }
       }
+    },
+    "–" : {
+
     }
   },
   "version" : "1.0"
