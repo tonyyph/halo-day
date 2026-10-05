@@ -33,8 +33,8 @@ struct HaloWidgetContent: View {
             case .rectangular: rectangular
             case .small, .medium, .large: home
             }
-        }.foregroundStyle(monochrome ? Color.primary : Color(hex: theme.palette(scheme).ink))
-            .tint(monochrome ? Color.primary : Color(hex: theme.palette(scheme).accent))
+        }.foregroundStyle(monochrome ? Color.primary : PaletteResolver.resolve(theme, scheme: scheme).ink)
+            .tint(monochrome ? Color.primary : PaletteResolver.resolve(theme, scheme: scheme).accent)
             .privacySensitive()
     }
     @ViewBuilder private var inline: some View {
@@ -206,23 +206,23 @@ struct PhonePreview: View {
     var sample = true
     var body: some View {
         let theme = ThemeRegistry.theme(preset.themeId)
-        let palette = theme.light
+        let palette = PaletteResolver.resolve(theme, scheme: theme.darkOnly ? .dark : .light)
         VStack(spacing: HaloTokens.Space.card) {
-            Capsule().fill(Color(hex: palette.ink)).frame(width: 80, height: 23).padding(.top, HaloTokens.Space.small)
+            Capsule().fill(palette.ink).frame(width: 80, height: 23).padding(.top, HaloTokens.Space.small)
             Text(date, format: .dateTime.weekday(.wide).month(.abbreviated).day()).font(.caption)
             Text(date, format: .dateTime.hour().minute()).font(.system(size: 56, weight: .light, design: .rounded)).monospacedDigit()
             HaloWidgetContent(date: date, type: preset.widgetType, size: preset.widgetFamily, theme: theme, events: events, habits: habits, focus: focus, countdown: countdown, sample: sample)
                 .frame(width: previewWidth, height: previewHeight, alignment: .topLeading)
                 .padding(preset.widgetFamily.isAccessory ? 0 : HaloTokens.Space.row)
-                .background(preset.widgetFamily.isAccessory ? Color.clear : Color(hex: palette.surface).opacity(0.85), in: RoundedRectangle(cornerRadius: HaloTokens.Radius.hero))
+                .background(preset.widgetFamily.isAccessory ? Color.clear : palette.surface.opacity(0.85), in: RoundedRectangle(cornerRadius: HaloTokens.Radius.hero, style: .continuous))
                 .environment(\.colorScheme, theme.darkOnly ? .dark : .light)
             Spacer(minLength: HaloTokens.Space.major)
             HStack { Image(systemName: "flashlight.off.fill"); Spacer(); Image(systemName: "camera.fill") }.padding(HaloTokens.Space.hero)
         }.frame(width: 260, height: preset.widgetFamily == .large ? 580 : 430)
-            .foregroundStyle(Color(hex: palette.ink))
-            .background(Color(hex: palette.bg).overlay { RadialGradient(colors: [Color(hex: palette.halo), .clear], center: .top, startRadius: 0, endRadius: 340) })
-            .clipShape(RoundedRectangle(cornerRadius: HaloTokens.Radius.phone))
-            .overlay(RoundedRectangle(cornerRadius: HaloTokens.Radius.phone).stroke(Color(hex: palette.ink).opacity(0.2), lineWidth: 5))
+            .foregroundStyle(palette.ink)
+            .background(palette.bg.overlay { RadialGradient(colors: [palette.halo, .clear], center: .top, startRadius: 0, endRadius: 340) })
+            .clipShape(RoundedRectangle(cornerRadius: HaloTokens.Radius.phone, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: HaloTokens.Radius.phone, style: .continuous).stroke(palette.ink.opacity(0.2), lineWidth: 5))
             .accessibilityElement(children: .combine)
             .accessibilityLabel(Text("Widget preview"))
     }

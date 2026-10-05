@@ -16,7 +16,7 @@ struct HaloFocusLiveActivity: Widget {
                     ActivityTimer(context: context).font(.system(.title, design: .rounded)).monospacedDigit().frame(maxWidth: 115)
                 }
                 if context.state.pausedRemaining == nil && context.state.phase != "finished" {
-                    ProgressView(timerInterval: context.attributes.startDate...max(context.attributes.startDate.addingTimeInterval(1), context.state.endDate), countsDown: false).tint(Color(hex: context.attributes.accentColor))
+                    ProgressView(timerInterval: context.attributes.startDate...max(context.attributes.startDate.addingTimeInterval(1), context.state.endDate), countsDown: false).tint(PaletteResolver.eventAccent(context.attributes.accentColor))
                 }
                 if !context.attributes.isEvent && context.state.phase != "finished" {
                     HStack {
@@ -26,14 +26,14 @@ struct HaloFocusLiveActivity: Widget {
                     }.font(.caption).buttonStyle(.bordered)
                 }
             }.padding(HaloTokens.Space.card)
-                .foregroundStyle(Color(hex: theme.dark.ink))
-                .activityBackgroundTint(Color(hex: theme.dark.bg))
-                .activitySystemActionForegroundColor(Color(hex: theme.dark.ink))
+                .foregroundStyle(PaletteResolver.resolve(theme, scheme: .dark).ink)
+                .activityBackgroundTint(PaletteResolver.resolve(theme, scheme: .dark).bg)
+                .activitySystemActionForegroundColor(PaletteResolver.resolve(theme, scheme: .dark).ink)
                 .widgetURL(URL(string: context.attributes.isEvent ? "haloday://today" : "haloday://focus"))
         } dynamicIsland: { context in
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    Label(context.attributes.isEvent ? "Calendar" : "Focus", systemImage: context.attributes.isEvent ? "calendar" : "timer").font(.caption).foregroundStyle(Color(hex: context.attributes.accentColor))
+                    Label(context.attributes.isEvent ? "Calendar" : "Focus", systemImage: context.attributes.isEvent ? "calendar" : "timer").font(.caption).foregroundStyle(PaletteResolver.eventAccent(context.attributes.accentColor))
                 }
                 DynamicIslandExpandedRegion(.trailing) { ActivityTimer(context: context).font(.title2.monospacedDigit()).frame(maxWidth: 110) }
                 DynamicIslandExpandedRegion(.center) { Text(context.attributes.title).font(.system(.headline, design: .serif)).lineLimit(1) }
@@ -44,15 +44,15 @@ struct HaloFocusLiveActivity: Widget {
                             Spacer()
                             Button(intent: EndFocusIntent()) { Label("End", systemImage: "stop.circle") }
                         } else { Link("Open Halo Day", destination: URL(string: "haloday://today")!) }
-                    }.font(.caption).tint(Color(hex: context.attributes.accentColor))
+                    }.font(.caption).tint(PaletteResolver.eventAccent(context.attributes.accentColor))
                 }
             } compactLeading: {
-                Image(systemName: context.attributes.isEvent ? "calendar" : "timer").foregroundStyle(Color(hex: context.attributes.accentColor))
+                Image(systemName: context.attributes.isEvent ? "calendar" : "timer").foregroundStyle(PaletteResolver.eventAccent(context.attributes.accentColor))
             } compactTrailing: {
                 ActivityTimer(context: context).font(.caption2.monospacedDigit()).frame(width: 48)
             } minimal: {
-                Image(systemName: context.state.pausedRemaining == nil ? "timer" : "pause.circle").foregroundStyle(Color(hex: context.attributes.accentColor))
-            }.keylineTint(Color(hex: context.attributes.accentColor))
+                Image(systemName: context.state.pausedRemaining == nil ? "timer" : "pause.circle").foregroundStyle(PaletteResolver.eventAccent(context.attributes.accentColor))
+            }.keylineTint(PaletteResolver.eventAccent(context.attributes.accentColor))
                 .widgetURL(URL(string: "haloday://focus"))
         }
     }

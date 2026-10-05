@@ -34,13 +34,13 @@ struct OnboardingView: View {
                                 ForEach(ThemeRegistry.all) { theme in
                                     Button { themeID = theme.id; model.haptic() } label: {
                                         VStack(alignment: .leading, spacing: HaloTokens.Space.row) {
-                                            Image(systemName: "circle.dotted").font(.largeTitle).foregroundStyle(Color(hex: theme.light.accent))
+                                            Image(systemName: "circle.dotted").font(.largeTitle).foregroundStyle(PaletteResolver.resolve(theme, scheme: .light).accent)
                                             Text(LocalizedStringKey(theme.name)).font(HaloTokens.title)
                                             if theme.isPremium { PremiumChip(preview: true) }
                                             if theme.id == themeID { Image(systemName: "checkmark.circle.fill") }
                                         }.frame(maxWidth: .infinity, minHeight: 130, alignment: .leading).padding(HaloTokens.Space.card)
-                                            .foregroundStyle(Color(hex: theme.light.ink)).background(Color(hex: theme.light.bg), in: RoundedRectangle(cornerRadius: HaloTokens.Radius.card))
-                                            .overlay(RoundedRectangle(cornerRadius: HaloTokens.Radius.card).stroke(Color(hex: theme.light.hairline), lineWidth: theme.id == themeID ? 3 : 1))
+                                            .foregroundStyle(PaletteResolver.resolve(theme, scheme: .light).ink).background(PaletteResolver.resolve(theme, scheme: .light).bg, in: RoundedRectangle(cornerRadius: HaloTokens.Radius.card, style: .continuous))
+                                            .overlay(RoundedRectangle(cornerRadius: HaloTokens.Radius.card, style: .continuous).stroke(PaletteResolver.resolve(theme, scheme: .light).hairline, lineWidth: theme.id == themeID ? 3 : 1))
                                     }.buttonStyle(.plain)
                                 }
                             }
@@ -66,7 +66,7 @@ struct OnboardingView: View {
                 if step == 3 || step == 4 { Button("Not now") { advance(1) }.frame(minHeight: 44) }
             }.padding(.bottom, HaloTokens.Space.card)
         }.environment(\.haloTheme, step < 2 ? ThemeRegistry.all[0] : previewTheme)
-            .tint(Color(hex: previewTheme.light.accentInk)).preferredColorScheme(previewTheme.darkOnly ? .dark : nil)
+            .tint(PaletteResolver.resolve(previewTheme, scheme: previewTheme.darkOnly ? .dark : .light).accentInk).preferredColorScheme(previewTheme.darkOnly ? .dark : nil)
     }
     private var cta: String {
         switch step { case 0: String(localized: "Begin"); case 3: String(localized: "Connect Calendar"); case 4: String(localized: "Allow reminders"); case 5: String(localized: "Save my Halo"); default: String(localized: "Continue") }

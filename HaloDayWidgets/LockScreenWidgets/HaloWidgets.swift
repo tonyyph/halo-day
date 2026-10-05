@@ -83,7 +83,7 @@ struct HaloWidgetView: View {
             } else {
                 HaloWidgetContent(date: entry.date, type: entry.preset.widgetType, size: size, theme: theme, events: entry.snapshot.events, habits: entry.habits, focus: entry.focus, countdown: entry.countdown, sample: entry.snapshot.isSample, interactive: !size.isAccessory && entry.premium)
             }
-        }.containerBackground(for: .widget) { Color(hex: theme.palette(scheme).bg) }
+        }.containerBackground(for: .widget) { PaletteResolver.resolve(theme, scheme: scheme).bg }
             .widgetURL(URL(string: "haloday://\(destination)"))
     }
 }

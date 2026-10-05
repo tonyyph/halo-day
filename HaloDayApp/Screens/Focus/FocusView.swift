@@ -44,11 +44,11 @@ struct FocusView: View {
                 VStack(alignment: .leading, spacing: HaloTokens.Space.card) {
                     HStack { Text("On your Dynamic Island").font(.headline); Spacer(); if !model.purchases.isPremium { PremiumChip() } }
                     HStack {
-                        Image(systemName: "timer").foregroundStyle(Color(hex: model.theme.dark.accent))
+                        Image(systemName: "timer").foregroundStyle(PaletteResolver.resolve(model.theme, scheme: .dark).accent)
                         Text(model.focus?.isActive == true ? model.focus!.title : String(localized: "Deep work")).lineLimit(1)
                         Spacer()
                         Text(model.focus?.isActive == true ? Duration.seconds(model.focus!.remaining()).formatted(.time(pattern: .minuteSecond)) : "50:00").monospacedDigit()
-                    }.font(.caption).foregroundStyle(Color(hex: model.theme.dark.ink)).padding(HaloTokens.Space.card).background(Color(hex: ThemeRegistry.theme("graphiteFocus").dark.bg), in: Capsule())
+                    }.font(.caption).foregroundStyle(PaletteResolver.resolve(model.theme, scheme: .dark).ink).padding(HaloTokens.Space.card).background(PaletteResolver.resolve(ThemeRegistry.theme("graphiteFocus"), scheme: .dark).bg, in: Capsule())
                     Text("Live Activities show your timer on the Lock Screen. Dynamic Island appears on supported iPhones.").font(.caption).foregroundStyle(.secondary)
                     if !model.purchases.isPremium { Button("Unlock Live Activities") { model.showPaywall = true } }
                     else if !model.activities.enabled { Text("Live Activities are turned off for Halo Day in iOS Settings.").font(.caption) }

@@ -62,15 +62,8 @@ enum ThemeRegistry {
 enum HaloTokens {
     enum Space { static let tiny: CGFloat = 4; static let small: CGFloat = 8; static let row: CGFloat = 12; static let card: CGFloat = 16; static let hero: CGFloat = 20; static let section: CGFloat = 24; static let major: CGFloat = 32; static let onboarding: CGFloat = 40 }
     enum Radius { static let small: CGFloat = 10; static let card: CGFloat = 16; static let hero: CGFloat = 22; static let phone: CGFloat = 32 }
-    // New York gives the editorial hierarchy; native San Francisco keeps small UI legible.
-    static let display: Font = .system(.largeTitle, design: .serif).weight(.medium)
-    static let title: Font = .system(.title2, design: .serif).weight(.semibold)
-}
-extension Color {
-    init(hex: String) {
-        let number = UInt64(hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted), radix: 16) ?? 0
-        self.init(.sRGB, red: Double((number >> 16) & 255) / 255, green: Double((number >> 8) & 255) / 255, blue: Double(number & 255) / 255, opacity: 1)
-    }
+    static let display = HaloFont.displayL
+    static let title = HaloFont.displayM
 }
 private struct HaloThemeKey: EnvironmentKey { static let defaultValue = ThemeRegistry.all[0] }
 extension EnvironmentValues {

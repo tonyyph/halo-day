@@ -9,15 +9,15 @@ struct ThemesView: View {
                 ForEach(ThemeRegistry.all) { theme in
                     NavigationLink { ThemeDetailView(theme: theme) } label: {
                         VStack(alignment: .leading, spacing: HaloTokens.Space.row) {
-                            Image(systemName: "circle.dotted").font(.system(size: 44, weight: .ultraLight)).foregroundStyle(Color(hex: theme.light.accent)).frame(maxWidth: .infinity).padding(.vertical, HaloTokens.Space.section)
+                            Image(systemName: "circle.dotted").font(.system(size: 44, weight: .ultraLight)).foregroundStyle(PaletteResolver.resolve(theme, scheme: .light).accent).frame(maxWidth: .infinity).padding(.vertical, HaloTokens.Space.section)
                             Text(LocalizedStringKey(theme.name)).font(HaloTokens.title)
                             Text(LocalizedStringKey(theme.mood)).font(.caption).frame(minHeight: 36, alignment: .topLeading)
                             if theme.isPremium { PremiumChip() }
                             else { Label("Included", systemImage: "checkmark").font(.caption) }
                         }.frame(maxWidth: .infinity, alignment: .leading).padding(HaloTokens.Space.card)
-                            .foregroundStyle(Color(hex: theme.light.ink))
-                            .background(Color(hex: theme.light.bg), in: RoundedRectangle(cornerRadius: HaloTokens.Radius.hero))
-                            .overlay(RoundedRectangle(cornerRadius: HaloTokens.Radius.hero).stroke(Color(hex: theme.light.hairline)))
+                            .foregroundStyle(PaletteResolver.resolve(theme, scheme: .light).ink)
+                            .background(PaletteResolver.resolve(theme, scheme: .light).bg, in: RoundedRectangle(cornerRadius: HaloTokens.Radius.hero, style: .continuous))
+                            .overlay(RoundedRectangle(cornerRadius: HaloTokens.Radius.hero, style: .continuous).stroke(PaletteResolver.resolve(theme, scheme: .light).hairline))
                     }.buttonStyle(.plain)
                 }
             }

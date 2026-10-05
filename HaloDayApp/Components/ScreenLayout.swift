@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct HaloScreen<Content: View>: View {
-    @Environment(\.haloTheme) private var theme
-    @Environment(\.colorScheme) private var scheme
+    @Environment(\.palette) private var palette
     @ViewBuilder var content: Content
     var body: some View {
         ZStack {
@@ -11,8 +10,9 @@ struct HaloScreen<Content: View>: View {
                 VStack(alignment: .leading, spacing: HaloTokens.Space.section) { content }
                     .frame(maxWidth: 600).padding(HaloTokens.Space.card).frame(maxWidth: .infinity)
             }
-        }.foregroundStyle(Color(hex: theme.palette(scheme).ink))
-            .tint(Color(hex: theme.palette(scheme).accentInk))
+        }
+        .foregroundStyle(palette.ink)
+        .tint(palette.accentInk)
     }
 }
 struct SectionTitle: View {

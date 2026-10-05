@@ -7,14 +7,30 @@ struct HaloDayApp: App {
     @Environment(\.scenePhase) private var phase
     var body: some Scene {
         WindowGroup {
-            RootView().environment(model).environment(\.haloTheme, model.theme)
-                .tint(Color(hex: model.theme.light.accentInk))
-                .preferredColorScheme(model.theme.darkOnly ? .dark : nil)
+            ThemedRoot(model: model)
                 .task { await model.purchases.start(); await model.refresh() }
                 .onChange(of: phase) { _, value in if value == .active { Task { await model.refresh() } } }
                 .onReceive(NotificationCenter.default.publisher(for: .EKEventStoreChanged)) { _ in Task { await model.refresh() } }
                 .onOpenURL { model.route($0) }
         }
+    }
+}
+
+private struct ThemedRoot: View {
+    var model: HaloModel
+    @Environment(\.colorScheme) private var scheme
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        let palette = PaletteResolver.resolve(model.theme, scheme: scheme)
+        RootView()
+            .environment(model)
+            .environment(\.haloTheme, model.theme)
+            .environment(\.palette, palette)
+            .environment(\.haloHapticsEnabled, model.settings.haptics)
+            .tint(palette.accentInk)
+            .preferredColorScheme(model.theme.darkOnly ? .dark : nil)
+            .animation(Motion.resolve(Motion.gentle, reduceMotion: reduceMotion), value: model.theme.id)
     }
 }
 

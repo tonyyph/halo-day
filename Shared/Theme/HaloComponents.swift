@@ -1,46 +1,42 @@
 import SwiftUI
 
 struct ThemeBackground: View {
-    @Environment(\.haloTheme) private var theme
-    @Environment(\.colorScheme) private var scheme
+    @Environment(\.palette) private var palette
     var body: some View {
         GeometryReader { geometry in
-            let palette = theme.palette(scheme)
-            Color(hex: palette.bg).overlay {
-                RadialGradient(colors: [Color(hex: palette.halo), .clear], center: UnitPoint(x: 0.5, y: -0.1), startRadius: 0, endRadius: geometry.size.width * 0.9)
+            palette.bg.overlay {
+                RadialGradient(colors: [palette.halo, .clear], center: UnitPoint(x: 0.5, y: -0.1), startRadius: 0, endRadius: geometry.size.width * 0.9)
             }
         }.ignoresSafeArea()
     }
 }
 struct HaloCard<Content: View>: View {
-    @Environment(\.haloTheme) private var theme
+    @Environment(\.palette) private var palette
     @Environment(\.colorScheme) private var scheme
     @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     var hero = false
     @ViewBuilder var content: Content
     var body: some View {
-        let palette = theme.palette(scheme)
         let shape = RoundedRectangle(cornerRadius: hero ? HaloTokens.Radius.hero : HaloTokens.Radius.card, style: .continuous)
         content.frame(maxWidth: .infinity, alignment: .leading)
             .padding(hero ? HaloTokens.Space.hero : HaloTokens.Space.card)
             .background {
                 if hero && !reduceTransparency { shape.fill(.ultraThinMaterial) }
-                else { shape.fill(Color(hex: palette.surface)) }
+                else { shape.fill(palette.surface) }
             }
-            .overlay(shape.stroke(Color(hex: palette.hairline), lineWidth: 0.5))
-            .shadow(color: Color(hex: palette.shadowTint).opacity(scheme == .dark ? 0 : 0.06), radius: 12, y: 4)
+            .overlay(shape.stroke(palette.hairline, lineWidth: 0.5))
+            .shadow(color: palette.shadowTint.opacity(scheme == .dark ? 0 : 0.06), radius: 12, y: 4)
     }
 }
 struct HaloButtonStyle: ButtonStyle {
-    @Environment(\.haloTheme) private var theme
-    @Environment(\.colorScheme) private var scheme
+    @Environment(\.palette) private var palette
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     func makeBody(configuration: Configuration) -> some View {
-        let palette = theme.palette(scheme)
         configuration.label.font(.headline).frame(maxWidth: .infinity).frame(minHeight: 54)
-            .foregroundStyle(Color(hex: palette.accentOn))
-            .background(Color(hex: palette.accent), in: Capsule())
+            .foregroundStyle(palette.accentOn)
+            .background(palette.accent, in: Capsule())
             .scaleEffect(configuration.isPressed && !reduceMotion ? 0.98 : 1)
+            .animation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion), value: configuration.isPressed)
     }
 }
 struct ProgressRing: View {
@@ -81,7 +77,7 @@ struct AgendaRow: View {
             Group {
                 if event.isAllDay { Text("All day") } else { Text(event.startDate, style: .time) }
             }.font(.caption.monospacedDigit()).foregroundStyle(.secondary).frame(width: 65, alignment: .leading)
-            Capsule().fill(Color(hex: event.accentColor)).frame(width: 3, height: 36)
+            Capsule().fill(PaletteResolver.eventAccent(event.accentColor)).frame(width: 3, height: 36)
             VStack(alignment: .leading, spacing: HaloTokens.Space.tiny) {
                 Text(event.title).font(.headline)
                 Text(event.location ?? event.calendarName).font(.caption).foregroundStyle(.secondary)
@@ -105,7 +101,7 @@ struct WeekStrip: View {
                         Text(day, format: .dateTime.weekday(.narrow)).font(.caption)
                         Text(day, format: .dateTime.day()).font(.headline.monospacedDigit())
                     }.frame(maxWidth: .infinity).frame(minHeight: 64)
-                        .background(calendar.isDate(day, inSameDayAs: selected) ? AnyShapeStyle(.tint.opacity(0.15)) : AnyShapeStyle(.clear), in: RoundedRectangle(cornerRadius: HaloTokens.Radius.small))
+                        .background(calendar.isDate(day, inSameDayAs: selected) ? AnyShapeStyle(.tint.opacity(0.15)) : AnyShapeStyle(.clear), in: RoundedRectangle(cornerRadius: HaloTokens.Radius.small, style: .continuous))
                 }.buttonStyle(.plain).accessibilityLabel(Text(day, format: .dateTime.weekday().month().day()))
             }
         }
