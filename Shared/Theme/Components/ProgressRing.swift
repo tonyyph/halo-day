@@ -8,25 +8,28 @@ struct ProgressRing: View {
 
     @Environment(\.palette) private var palette
     @Environment(\.haloReduceMotion) private var reduceMotion
+    @Environment(\.haloWidgetContext) private var widgetContext
     @State private var appeared = false
 
     var body: some View {
         GeometryReader { geometry in
-            let value = appeared ? min(1, max(0, progress)) : 0
+            let value = appeared || widgetContext ? min(1, max(0, progress)) : 0
             ZStack {
-                Circle()
-                    .stroke(palette.hairline, lineWidth: width)
-
                 if segments > 1 {
                     ForEach(0..<segments, id: \.self) { index in
                         let start = Double(index) / Double(segments) + 0.004
                         let end = Double(index + 1) / Double(segments) - 0.004
+                        Circle()
+                            .trim(from: start, to: end)
+                            .stroke(palette.hairline, style: StrokeStyle(lineWidth: width, lineCap: .round))
+                            .rotationEffect(.degrees(-90))
                         Circle()
                             .trim(from: start, to: max(start, min(end, value)))
                             .stroke(palette.accent, style: StrokeStyle(lineWidth: width, lineCap: .round))
                             .rotationEffect(.degrees(-90))
                     }
                 } else {
+                    Circle().stroke(palette.hairline, lineWidth: width)
                     Circle()
                         .trim(from: 0, to: value)
                         .stroke(
@@ -40,15 +43,15 @@ struct ProgressRing: View {
                     Circle()
                         .fill(palette.accent)
                         .frame(width: width, height: width)
-                        .shadow(color: palette.accent.opacity(0.45), radius: width)
+                        .shadow(color: palette.accent.opacity(widgetContext ? 0 : 0.45), radius: width)
                         .offset(y: -(geometry.size.height - width) / 2)
                         .rotationEffect(.degrees(value * 360))
                 }
             }
             .padding(width / 2)
         }
-        .animation(animates && !reduceMotion ? Motion.ring : nil, value: progress)
-        .animation(animates && !reduceMotion ? Motion.ring : nil, value: appeared)
+        .animation(animates && !reduceMotion && !widgetContext ? Motion.ring : nil, value: progress)
+        .animation(animates && !reduceMotion && !widgetContext ? Motion.ring : nil, value: appeared)
         .onAppear { appeared = true }
         .accessibilityLabel(Text("Progress"))
         .accessibilityValue(Text(progress, format: .percent.precision(.fractionLength(0))))

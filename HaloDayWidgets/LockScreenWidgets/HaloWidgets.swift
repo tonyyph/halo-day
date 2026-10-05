@@ -79,11 +79,16 @@ struct HaloWidgetView: View {
         let theme = ThemeRegistry.theme(entry.preset.themeId)
         Group {
             if locked {
-                Label("Unlock in Halo Day", systemImage: "sparkle").font(.caption)
+                ZStack {
+                    HaloWidgetContent(date: entry.date, type: entry.preset.widgetType, size: size, theme: theme, events: entry.snapshot.events, habits: entry.habits, focus: entry.focus, countdown: entry.countdown)
+                        .blur(radius: 3).opacity(0.25)
+                    Label("Unlock in Halo Day", systemImage: "sparkle").font(.caption).multilineTextAlignment(.center)
+                }
             } else {
                 HaloWidgetContent(date: entry.date, type: entry.preset.widgetType, size: size, theme: theme, events: entry.snapshot.events, habits: entry.habits, focus: entry.focus, countdown: entry.countdown, sample: entry.snapshot.isSample, interactive: !size.isAccessory && entry.premium)
             }
-        }.containerBackground(for: .widget) { PaletteResolver.resolve(theme, scheme: scheme).bg }
+        }.containerBackground(for: .widget) { PaletteResolver.resolve(theme, scheme: scheme).surface }
+            .environment(\.haloWidgetContext, true)
             .widgetURL(URL(string: "haloday://\(destination)"))
     }
 }
@@ -95,7 +100,7 @@ struct HaloPlannerWidget: Widget {
         AppIntentConfiguration(kind: "Halo.\(type.rawValue)", intent: HaloConfigurationIntent.self, provider: HaloTimelineProvider(type: type)) { HaloWidgetView(entry: $0) }
             .configurationDisplayName(LocalizedStringKey(type.title))
             .description("Your day, beautifully on display.")
-            .supportedFamilies([.accessoryInline, .accessoryCircular, .accessoryRectangular, .systemSmall, .systemMedium, .systemLarge])
+            .supportedFamilies(type.supportedSizes.map(\.kitFamily))
     }
 }
 

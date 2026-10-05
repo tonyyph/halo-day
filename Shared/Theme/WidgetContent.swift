@@ -1,198 +1,211 @@
 import SwiftUI
 import WidgetKit
 
-/// The exact renderer is compiled into both targets. Accessory previews are
-/// deliberately monochrome: iOS, not Halo Day, chooses Lock Screen widget tint.
+/// Shared by WidgetKit and the in-app studio. Accessory previews are monochrome.
 struct HaloWidgetContent: View {
-    var date: Date
-    var type: WidgetType
-    var size: WidgetSize
-    var theme: HaloTheme
-    var events: [CalendarEvent]
-    var habits: [Habit]
-    var focus: FocusSession?
-    var countdown: Countdown?
-    var sample = false
-    var interactive = false
+    let date: Date
+    let type: WidgetType
+    let size: WidgetSize
+    let theme: HaloTheme
+    let habits: [Habit]
+    let focus: FocusSession?
+    let countdown: Countdown?
+    let sample: Bool
+    let interactive: Bool
+    private let data: WidgetPresentation
+    private let style: WidgetStyle
     @Environment(\.colorScheme) private var scheme
     @Environment(\.widgetRenderingMode) private var renderingMode
-    private var accessory: Bool { size.isAccessory }
-    private var monochrome: Bool { accessory || renderingMode != .fullColor }
-    private var nextEvent: CalendarEvent? {
-        events.filter { Calendar.current.isDate($0.startDate, inSameDayAs: date) || ($0.startDate <= date && $0.endDate > date) }
-            .sorted { $0.startDate < $1.startDate }.first { $0.endDate > date }
+
+    init(date: Date, type: WidgetType, size: WidgetSize, theme: HaloTheme, events: [CalendarEvent], habits: [Habit], focus: FocusSession?, countdown: Countdown?, sample: Bool = false, interactive: Bool = false) {
+        self.date = date; self.type = type; self.size = size; self.theme = theme
+        self.habits = habits; self.focus = focus; self.countdown = countdown
+        self.sample = sample; self.interactive = interactive
+        data = WidgetPresentation(date: date, events: events, habits: habits, focus: focus, countdown: countdown)
+        style = WidgetStyle(theme: theme)
     }
-    private var dayNumber: Int { Calendar.current.component(.day, from: date) }
-    private var monthDays: Int { Calendar.current.range(of: .day, in: .month, for: date)!.count }
-    private var completed: Int { habits.filter { $0.isCompleted(on: date) }.count }
+
+    private var monochrome: Bool { size.isAccessory || renderingMode != .fullColor }
+
     var body: some View {
         Group {
             switch size {
             case .inline: inline
             case .circular: circular
             case .rectangular: rectangular
-            case .small, .medium, .large: home
+            case .small, .medium, .large:
+                HomeWidgetContent(date: date, type: type, size: size, data: data, style: style,
+                                  habits: habits, focus: focus, countdown: countdown, sample: sample, interactive: interactive)
             }
-        }.foregroundStyle(monochrome ? Color.primary : PaletteResolver.resolve(theme, scheme: scheme).ink)
-            .tint(monochrome ? Color.primary : PaletteResolver.resolve(theme, scheme: scheme).accent)
-            .environment(\.palette, monochrome ? PaletteResolver.vibrant(scheme) : PaletteResolver.resolve(theme, scheme: scheme))
-            .privacySensitive()
+        }
+        .foregroundStyle(monochrome ? Color.primary : PaletteResolver.resolve(theme, scheme: scheme).ink)
+        .tint(monochrome ? Color.primary : PaletteResolver.resolve(theme, scheme: scheme).accent)
+        .environment(\.palette, monochrome ? PaletteResolver.vibrant(scheme) : PaletteResolver.resolve(theme, scheme: scheme))
+        .accessibilityElement(children: interactive || size == .medium || size == .large ? .contain : .combine)
+        .accessibilityLabel(Text(LocalizedStringKey(type.title)))
     }
+
     @ViewBuilder private var inline: some View {
         switch type {
         case .agenda:
-            if let event = nextEvent { Text("Next: \(event.title) · \(event.startDate.formatted(date: .omitted, time: .shortened))") }
+            if let event = data.next { Text("Next: \(event.title) · \(data.nextTime)").privacySensitive() }
             else { Text("An open day") }
-        case .month: Text("Day \(dayNumber)/\(monthDays) · \(monthDays - dayNumber) days left")
-        case .habit, .ritual: Text("Rituals · \(completed)/\(habits.count) beautifully kept")
+        case .month:
+            Text("Day \(data.day)/\(data.monthDays) · \(data.daysLeft) days left")
+        case .habit, .ritual:
+            Text("Rituals · \(data.completed)/\(habits.count) beautifully kept")
         case .focus:
-            if let focus, focus.isActive { Text("Focus · \(focus.title)") } else { Text("Make space to focus") }
-        case .countdown: countdownText
-        case .week, .mini: Text(date, format: .dateTime.month(.abbreviated).day().weekday())
+            if let focus, focus.isActive { Text("Focus · \(focus.title)") }
+            else { Text("Make space to focus") }
+        case .countdown:
+            if let countdown { Text("\(data.countdownDays) days · \(countdown.title)") }
+            else { Text("Count down to something") }
+        case .week, .mini:
+            Text(date, format: .dateTime.month(.abbreviated).day().weekday())
         }
     }
+
     private var circular: some View {
         ZStack {
-            ProgressRing(progress: ringProgress, width: 4)
+            if style.lockScreenBackground { AccessoryWidgetBackground() }
+            if type != .countdown {
+                ProgressRing(progress: ringProgress, width: 4, segments: type == .ritual ? max(1, min(6, habits.count)) : 1)
+                    .widgetAccentable()
+            }
             VStack(spacing: 0) {
-                if type == .habit {
-                    Image(systemName: "flame").font(.caption)
-                    Text(habits.first?.streak(asOf: date) ?? 0, format: .number).font(.title3.monospacedDigit())
-                } else if type == .focus, let focus, focus.isActive {
-                    Image(systemName: "timer").font(.caption)
-                    if focus.isPaused { Text("Paused").font(.caption2) }
-                    else if focus.endDate > date { Text(timerInterval: date...focus.endDate, countsDown: true).font(.caption.monospacedDigit()) }
-                    else { Text("Done").font(.caption) }
-                } else if type == .ritual {
-                    Text("\(completed)/\(habits.count)").font(.headline)
-                } else {
-                    Text(date, format: .dateTime.month(.abbreviated)).font(.caption2)
-                    Text(dayNumber, format: .number).font(.system(.title2, design: .rounded))
+                switch type {
+                case .habit:
+                    Image(systemName: "sparkle").font(.caption2)
+                    Text(data.streak, format: .number).font(.system(.title3, design: style.numeralDesign))
+                        .contentTransition(.numericText())
+                case .ritual:
+                    Text("\(data.completed)/\(habits.count)").font(.headline).monospacedDigit()
+                        .contentTransition(.numericText())
+                case .focus:
+                    Image(systemName: "timer").font(.caption2)
+                    WidgetFocusTimer(focus: focus, date: date).font(.caption.monospacedDigit()).lineLimit(1)
+                case .countdown:
+                    if data.countdownDays > 99 { Text("\(data.countdownMonths) mo").font(.caption) }
+                    else { Text(data.countdownDays, format: .number).font(.title3.monospacedDigit()) }
+                    Text("DAYS").font(.caption2)
+                default:
+                    Text(data.day, format: .number).font(.system(.title2, design: style.numeralDesign)).fontWeight(style.numeralWeight)
+                    Text(date, format: .dateTime.month(.abbreviated)).font(.caption2).textCase(.uppercase)
                 }
             }
+            .padding(5)
+            .minimumScaleFactor(0.65)
         }
     }
+
     private var ringProgress: Double {
         switch type {
-        case .habit, .ritual: Double(completed) / Double(max(1, habits.count))
-        case .focus: focus.map { 1 - $0.remaining(at: date) / Double($0.durationMinutes * 60) } ?? 0
-        default: Double(dayNumber) / Double(monthDays)
+        case .habit, .ritual: data.ritualProgress
+        case .focus: data.focusProgress
+        default: data.monthProgress
         }
     }
+
     private var rectangular: some View {
-        VStack(alignment: .leading, spacing: 3) {
+        VStack(alignment: .leading, spacing: 4) {
             switch type {
             case .agenda:
-                Text(sample ? "SAMPLE AGENDA" : "TODAY").font(.caption2.bold()).widgetAccentable()
-                let upcoming = events.filter { $0.endDate > date && Calendar.current.isDate($0.startDate, inSameDayAs: date) }.prefix(2)
-                if upcoming.isEmpty { Text("An open day").font(.headline) }
-                ForEach(Array(upcoming)) { event in
-                    HStack {
-                        Text(event.title).font(.caption).lineLimit(1)
-                        Spacer(minLength: 2)
-                        Text(event.startDate, style: .time).font(.caption.monospacedDigit())
+                if let event = data.next {
+                    HStack(spacing: 6) {
+                        WidgetNowMarker(style: style.nowMarker)
+                        Text(event.title).font(.system(.headline, design: style.titleDesign)).lineLimit(1).privacySensitive()
                     }
-                }
+                    HStack(spacing: 3) {
+                        Text(event.startDate, style: .time)
+                        Text("–")
+                        Text(event.endDate, style: .time)
+                    }
+                    .font(.caption.monospacedDigit()).opacity(0.6)
+                    if let next = data.upcoming.dropFirst().first {
+                        HStack(spacing: 6) {
+                            Text(next.startDate, style: .time).monospacedDigit()
+                            Text(next.title).lineLimit(1).privacySensitive()
+                        }
+                        .font(.caption).opacity(0.6)
+                        .transition(.push(from: .bottom))
+                    }
+                } else { Text("An open day").font(.system(.headline, design: style.titleDesign)) }
             case .month:
-                Text(date, format: .dateTime.month(.wide)).font(.system(.headline, design: .serif))
-                ProgressView(value: Double(dayNumber), total: Double(monthDays))
-                Text("\(monthDays - dayNumber) days left").font(.caption)
+                HStack {
+                    Text(date, format: .dateTime.month(.wide)).font(.system(.headline, design: style.titleDesign))
+                    Spacer(minLength: 0)
+                    Text(data.monthProgress, format: .percent.precision(.fractionLength(0))).font(.caption.monospacedDigit())
+                        .contentTransition(.numericText())
+                }
+                ProgressView(value: data.monthProgress).widgetAccentable()
+                Text("\(data.daysLeft) days left").font(.caption).opacity(0.6)
             case .ritual, .habit:
-                Text("Daily rituals").font(.headline)
+                HStack {
+                    Text("Daily rituals").font(.headline)
+                    Spacer(minLength: 0)
+                    Text("\(data.completed)/\(habits.count)").font(.caption.monospacedDigit()).contentTransition(.numericText())
+                }
                 ForEach(habits.prefix(2)) { habit in
-                    Label(habit.title, systemImage: habit.isCompleted(on: date) ? "checkmark.circle.fill" : habit.icon).font(.caption).lineLimit(1)
+                    Label(habit.title, systemImage: habit.isCompleted(on: date) ? "checkmark.circle.fill" : habit.icon)
+                        .font(.caption).lineLimit(1).opacity(habit.isCompleted(on: date) ? 1 : 0.6)
                 }
             case .focus:
-                Text(focus?.title ?? String(localized: "Make space to focus")).font(.headline).lineLimit(1)
-                focusTimer
-            case .countdown: countdownText.font(.headline)
-            case .mini: Text(date, format: .dateTime.month(.wide).day()).font(.headline); weekRow
-            case .week: weekRow
-            }
-        }
-    }
-    private var home: some View {
-        VStack(alignment: .leading, spacing: HaloTokens.Space.small) {
-            HStack {
-                Text(date, format: .dateTime.month(.abbreviated).day()).font(.system(size == .small ? .title2 : .title, design: theme.widgetStyle == "technical" ? .rounded : .serif)).widgetAccentable()
-                Spacer(minLength: 0)
-                Image(systemName: "circle.dotted").foregroundStyle(.tint)
-            }
-            if sample { Text("Sample day").font(.caption2).foregroundStyle(.secondary) }
-            switch type {
-            case .agenda:
-                if let event = nextEvent {
-                    Text(event.startDate, style: .time).font(.caption.monospacedDigit()).foregroundStyle(.secondary)
-                    Text(event.title).font(.headline).lineLimit(2)
-                } else { Text("An open day").font(.headline) }
-                if size != .small { agendaRows }
-            case .month:
-                Spacer(minLength: 0)
-                Text(Double(dayNumber) / Double(monthDays), format: .percent.precision(.fractionLength(0))).font(.system(.largeTitle, design: .rounded)).widgetAccentable()
-                ProgressView(value: Double(dayNumber), total: Double(monthDays))
-                Text("\(monthDays - dayNumber) days left").font(.caption)
-            case .week: weekRow; if size != .small { agendaRows }
-            case .mini:
-                MiniMonthGrid(month: date, highlights: Set(events.filter { Calendar.current.isDate($0.startDate, equalTo: date, toGranularity: .month) }.map { Calendar.current.component(.day, from: $0.startDate) }))
-            case .habit:
-                Image(systemName: "flame").font(.title).foregroundStyle(.tint)
-                Text(habits.first?.streak(asOf: date) ?? 0, format: .number).font(.system(.largeTitle, design: .rounded))
-                Text("Day streak").font(.caption)
-            case .ritual:
-                ForEach(habits.prefix(size == .small ? 2 : 4)) { habit in
-                    if interactive {
-                        Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) {
-                            ritualRow(habit)
-                        }.buttonStyle(.plain)
-                    } else { ritualRow(habit) }
+                Label(focus?.title ?? String(localized: "Make space to focus"), systemImage: "timer")
+                    .font(.headline).lineLimit(1)
+                WidgetFocusTimer(focus: focus, date: date).font(.system(.title2, design: style.numeralDesign)).monospacedDigit()
+                if let focus, focus.isActive, !focus.isPaused, focus.endDate > date {
+                    ProgressView(timerInterval: focus.startDate...focus.endDate, countsDown: false).widgetAccentable()
                 }
-            case .focus:
-                Text(focus?.title ?? String(localized: "Deep work")).font(.headline)
-                focusTimer
-                if let focus { ProgressView(value: 1 - focus.remaining(at: date) / Double(focus.durationMinutes * 60)) }
-            case .countdown: countdownText.font(.system(.title2, design: .serif))
-            }
-            if size == .large {
-                Divider(); Text("Your day, beautifully on display.").font(.caption).foregroundStyle(.secondary)
-                if type != .agenda && type != .week { agendaRows }
-                ForEach(habits.prefix(3)) { ritualRow($0) }
-            }
-            Spacer(minLength: 0)
-        }
-    }
-    private func ritualRow(_ habit: Habit) -> some View {
-        Label(habit.title, systemImage: habit.isCompleted(on: date) ? "checkmark.circle.fill" : "circle")
-            .font(.caption).lineLimit(1).foregroundStyle(habit.isCompleted(on: date) ? AnyShapeStyle(.tint) : AnyShapeStyle(.primary))
-    }
-    private var agendaRows: some View {
-        ForEach(Array(events.filter { Calendar.current.isDate($0.startDate, inSameDayAs: date) }.prefix(size == .large ? 5 : 2))) { event in
-            HStack { Text(event.startDate, style: .time).font(.caption.monospacedDigit()); Text(event.title).font(.caption).lineLimit(1) }
-        }
-    }
-    private var weekRow: some View {
-        let calendar = Calendar.current
-        let start = calendar.dateInterval(of: .weekOfYear, for: date)!.start
-        return HStack(spacing: 3) {
-            ForEach(0..<7) { offset in
-                let day = calendar.date(byAdding: .day, value: offset, to: start)!
-                VStack(spacing: 4) {
-                    Text(day, format: .dateTime.weekday(.narrow)).font(.caption2)
-                    Text(day, format: .dateTime.day()).font(.caption.monospacedDigit())
-                }.frame(maxWidth: .infinity).opacity(calendar.isDate(day, inSameDayAs: date) ? 1 : 0.6)
+            case .countdown:
+                if let countdown {
+                    Text(countdown.title).font(.system(.headline, design: style.titleDesign)).lineLimit(1)
+                    Text("\(data.countdownDays) days").font(.title2.monospacedDigit()).contentTransition(.numericText())
+                } else { Text("Count down to something").font(.headline) }
+            case .week, .mini:
+                WidgetWeekStrip(days: data.week, style: style)
             }
         }
     }
-    @ViewBuilder private var focusTimer: some View {
+}
+
+struct WidgetFocusTimer: View {
+    var focus: FocusSession?
+    var date: Date
+    @ViewBuilder var body: some View {
         if let focus, focus.isActive {
-            if let remaining = focus.pausedRemaining { Text(Duration.seconds(remaining), format: .time(pattern: .minuteSecond)).font(.title2.monospacedDigit()) }
-            else if focus.endDate > date { Text(timerInterval: date...focus.endDate, countsDown: true).font(.title2.monospacedDigit()) }
-            else { Text("Beautifully done.").font(.headline) }
-        } else { Text("Choose a length and begin.").font(.caption) }
+            if let remaining = focus.pausedRemaining { Text(Duration.seconds(remaining), format: .time(pattern: .minuteSecond)) }
+            else if focus.endDate > date { Text(timerInterval: focus.startDate...focus.endDate, countsDown: true) }
+            else { Text("Done") }
+        } else { Text("50") }
     }
-    @ViewBuilder private var countdownText: some View {
-        if let countdown {
-            let days = max(0, Calendar.current.dateComponents([.day], from: Calendar.current.startOfDay(for: date), to: Calendar.current.startOfDay(for: countdown.targetDate)).day ?? 0)
-            Text("\(days) days · \(countdown.title)")
-        } else { Text("Count down to something") }
+}
+
+struct WidgetNowMarker: View {
+    var style: WidgetStyle.Marker
+    @Environment(\.palette) private var palette
+    var body: some View {
+        Group {
+            switch style {
+            case .bar: Capsule().fill(palette.accent).frame(width: 3, height: 17)
+            case .dot: Circle().fill(palette.accent).frame(width: 5, height: 5)
+            case .ring: Circle().stroke(palette.accent, lineWidth: 1.5).frame(width: 6, height: 6)
+            }
+        }.widgetAccentable()
+    }
+}
+
+#Preview("Accessories · Pearl") {
+    DesignPreview {
+        VStack(spacing: 24) {
+            HaloWidgetContent(date: .now, type: .month, size: .inline, theme: ThemeRegistry.all[0], events: MockData.events(), habits: MockData.habits, focus: nil, countdown: nil)
+            HaloWidgetContent(date: .now, type: .ritual, size: .circular, theme: ThemeRegistry.all[0], events: [], habits: MockData.habits, focus: nil, countdown: nil).frame(width: 72, height: 72)
+            HaloWidgetContent(date: .now, type: .agenda, size: .rectangular, theme: ThemeRegistry.all[0], events: MockData.events(), habits: [], focus: nil, countdown: nil).frame(height: 76)
+        }
+    }
+}
+
+#Preview("Accessories · Gold Empty AX3") {
+    DesignPreview(themeID: "midnightGold", scheme: .dark, accessibility: true, reduceMotion: true) {
+        HaloWidgetContent(date: .now, type: .agenda, size: .rectangular, theme: ThemeRegistry.theme("midnightGold"), events: [], habits: [], focus: nil, countdown: nil)
     }
 }

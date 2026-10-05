@@ -164,7 +164,7 @@ struct MiniMonthGrid: View {
         let first = calendar.dateInterval(of: .month, for: month)!.start
         let count = calendar.range(of: .day, in: .month, for: month)!.count
         let offset = (calendar.component(.weekday, from: first) - calendar.firstWeekday + 7) % 7
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 2), count: 7), spacing: 6) {
+        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 2), count: 7), spacing: selection == nil ? 2 : 6) {
             ForEach(0..<(count + offset), id: \.self) { index in
                 if index < offset { Color.clear.frame(height: selection == nil ? 18 : 44) }
                 else {
@@ -181,8 +181,8 @@ struct MiniMonthGrid: View {
         let compact = selection == nil
         return VStack(spacing: compact ? 0 : 2) {
             Text(number, format: .number)
-                .font(.caption.monospacedDigit())
-                .frame(width: compact ? 18 : 24, height: compact ? 16 : 24)
+                .font((compact ? Font.caption2 : Font.caption).monospacedDigit())
+                .frame(width: compact ? 18 : 24, height: compact ? 14 : 24)
                 .background(
                     Calendar.current.isDate(day, inSameDayAs: month)
                         ? AnyShapeStyle(.tint.opacity(0.16)) : AnyShapeStyle(.clear),
@@ -190,7 +190,7 @@ struct MiniMonthGrid: View {
                 )
             Circle()
                 .fill(highlights.contains(number) ? AnyShapeStyle(.tint) : AnyShapeStyle(.clear))
-                .frame(width: compact ? 3 : 4, height: compact ? 3 : 4)
+                .frame(width: compact ? 2 : 4, height: compact ? 2 : 4)
         }
         .frame(maxWidth: .infinity)
             .foregroundStyle(Calendar.current.isDateInToday(day) ? AnyShapeStyle(.tint) : AnyShapeStyle(.primary))
