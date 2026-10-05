@@ -2,14 +2,29 @@ import SwiftUI
 import WidgetKit
 
 struct WidgetAgendaRows: View {
-    var events: [CalendarEvent]
+    private struct Row: Identifiable {
+        let event: CalendarEvent
+        let url: URL
+        var id: String { event.id }
+    }
+    private let rows: [Row]
     var date: Date
     var style: WidgetStyle
     @Environment(\.palette) private var palette
 
+    init(events: [CalendarEvent], date: Date, style: WidgetStyle) {
+        self.date = date; self.style = style
+        let allowed = CharacterSet.urlPathAllowed.subtracting(CharacterSet(charactersIn: "/"))
+        rows = events.map { event in
+            let path = event.id.addingPercentEncoding(withAllowedCharacters: allowed) ?? ""
+            return Row(event: event, url: URL(string: "haloday://event/\(path)")!)
+        }
+    }
+
     var body: some View {
-        ForEach(events) { event in
-            Link(destination: URL(string: "haloday://today")!) {
+        ForEach(rows) { row in
+            let event = row.event
+            Link(destination: row.url) {
                 HStack(alignment: .top, spacing: 7) {
                     Text(event.startDate, style: .time)
                         .font(.caption.monospacedDigit())
@@ -33,7 +48,7 @@ struct WidgetAgendaRows: View {
             }
             .transition(.push(from: .bottom))
         }
-        if events.isEmpty { Text("An open day").font(.headline) }
+        if rows.isEmpty { Text("An open day").font(.headline) }
     }
 }
 

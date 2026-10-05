@@ -117,6 +117,8 @@ struct EmptyState: View {
     }
 }
 struct AgendaRow: View {
+    @Environment(\.palette) private var palette
+    @Environment(\.dynamicTypeSize) private var dynamicType
     var event: CalendarEvent
     var date: Date = .now
     var body: some View {
@@ -124,9 +126,13 @@ struct AgendaRow: View {
             Group {
                 if event.isAllDay { Text("All day") } else { Text(event.startDate, style: .time) }
             }.font(.caption.monospacedDigit()).foregroundStyle(.secondary).frame(width: 65, alignment: .leading)
-            Capsule().fill(PaletteResolver.eventAccent(event.accentColor)).frame(width: 3, height: 36)
+            Rectangle().fill(palette.hairline).frame(width: 1, height: 64)
+                .overlay(alignment: .top) {
+                    Circle().fill(PaletteResolver.eventAccent(event.accentColor)).frame(width: 7, height: 7).offset(y: 7)
+                }
+                .frame(width: 9, height: 40)
             VStack(alignment: .leading, spacing: HaloTokens.Space.tiny) {
-                Text(event.title).font(.headline)
+                Text(event.title).font(.headline).lineLimit(dynamicType.isAccessibilitySize ? nil : 1)
                 Text(event.location ?? event.calendarName).font(.caption).foregroundStyle(.secondary)
             }
             Spacer(minLength: 0)

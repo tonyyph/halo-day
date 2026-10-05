@@ -27,12 +27,15 @@ final class HaloModel {
     var theme: HaloTheme { ThemeRegistry.theme(settings.selectedThemeId) }
     var isSample: Bool { !settings.calendarPermissionGranted }
     var todayEvents: [CalendarEvent] { events(on: .now) }
-    var nextEvent: CalendarEvent? { todayEvents.first { $0.endDate > .now } }
-    var completedHabits: Int { habits.filter { $0.isCompleted() }.count }
-    var progress: Double {
-        let hour = Double(Calendar.current.component(.hour, from: .now)) + Double(Calendar.current.component(.minute, from: .now)) / 60
+    var nextEvent: CalendarEvent? { nextEvent(at: .now) }
+    var completedHabits: Int { completedHabits(on: .now) }
+    var progress: Double { progress(at: .now) }
+    func nextEvent(at date: Date) -> CalendarEvent? { events(on: date).first { $0.endDate > date } }
+    func completedHabits(on date: Date) -> Int { habits.filter { $0.isCompleted(on: date) }.count }
+    func progress(at date: Date) -> Double {
+        let hour = Double(Calendar.current.component(.hour, from: date)) + Double(Calendar.current.component(.minute, from: date)) / 60
         let elapsed = min(1, max(0, (hour - Double(settings.dayStartHour)) / Double(max(1, settings.dayEndHour - settings.dayStartHour))))
-        return habits.isEmpty ? elapsed : elapsed * 0.5 + Double(completedHabits) / Double(habits.count) * 0.5
+        return habits.isEmpty ? elapsed : elapsed * 0.5 + Double(completedHabits(on: date)) / Double(habits.count) * 0.5
     }
     init() {
         let storage = AppGroupStorage.shared
