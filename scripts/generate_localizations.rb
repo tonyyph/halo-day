@@ -11,6 +11,10 @@ end
 # Mechanical extraction supplements Xcode's String Catalog extraction. Includes
 # dynamic English keys (screen titles, enum labels and onboarding arrays).
 keys = []
+# The manifest preserves explicit dynamic keys (including printf placeholders)
+# that the mechanical Swift scanner cannot infer without type information.
+manifest = File.join(__dir__, 'vi_translations.json')
+keys.concat(JSON.parse(File.read(manifest)).keys) if File.exist?(manifest)
 Dir.glob(File.join(root, '{HaloDayApp,HaloDayWidgets,Shared}', '**', '*.swift')).each do |path|
   source = File.read(path)
   source.scan(/"((?:[^"\\]|\\.)*)"/).flatten.each do |value|

@@ -30,6 +30,7 @@ private struct ThemedRoot: View {
             .environment(\.palette, palette)
             .environment(\.haloHapticsEnabled, model.settings.haptics)
             .environment(toasts)
+            .environment(\.haloToasts, toasts)
             .tint(palette.accentInk)
             .preferredColorScheme(model.theme.darkOnly ? .dark : nil)
             .animation(Motion.resolve(Motion.gentle, reduceMotion: reduceMotion), value: model.theme.id)

@@ -16,6 +16,15 @@ final class HaloToastCenter {
     }
 }
 
+private struct ToastCenterKey: EnvironmentKey { static let defaultValue: HaloToastCenter? = nil }
+
+extension EnvironmentValues {
+    var haloToasts: HaloToastCenter? {
+        get { self[ToastCenterKey.self] }
+        set { self[ToastCenterKey.self] = newValue }
+    }
+}
+
 struct HaloToast: View {
     var message: String
     @Environment(\.palette) private var palette

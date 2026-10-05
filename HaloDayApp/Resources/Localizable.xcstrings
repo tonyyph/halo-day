@@ -57,6 +57,28 @@
             "state" : "translated",
             "value" : "Chuỗi %lld ngày"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld day streak"
+          }
+        }
+      }
+    },
+    "%lld days completed" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld days completed"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã hoàn thành %lld ngày"
+          }
         }
       }
     },
@@ -67,6 +89,12 @@
             "state" : "translated",
             "value" : "Còn %lld ngày"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld days left"
+          }
         }
       }
     },
@@ -74,8 +102,8 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld days · %2$@"
+            "state" : "translated",
+            "value" : "%lld days · %@"
           }
         },
         "vi" : {
@@ -93,6 +121,12 @@
             "state" : "translated",
             "value" : "%lld phút"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld min"
+          }
         }
       }
     },
@@ -100,8 +134,8 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld of %2$lld rituals kept"
+            "state" : "translated",
+            "value" : "%lld of %lld rituals kept"
           }
         },
         "vi" : {
@@ -507,6 +541,22 @@
         }
       }
     },
+    "All done today" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All done today"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hôm nay đã hoàn thành tất cả"
+          }
+        }
+      }
+    },
     "Allow reminders" : {
       "localizations" : {
         "en" : {
@@ -535,6 +585,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Một ngày thảnh thơi"
+          }
+        }
+      }
+    },
+    "Anytime" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anytime"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bất kỳ lúc nào"
           }
         }
       }
@@ -748,6 +814,22 @@
         }
       }
     },
+    "Best streak" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best streak"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuỗi tốt nhất"
+          }
+        }
+      }
+    },
     "Black-tie evening. A hint of gold." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -811,6 +893,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bình yên xanh mát, từ điều nhỏ mỗi ngày."
+          }
+        }
+      }
+    },
+    "Breathe" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Breathe"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hít thở"
           }
         }
       }
@@ -1071,6 +1169,12 @@
             "state" : "translated",
             "value" : "Hoàn thành %@"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Complete %@"
+          }
         }
       }
     },
@@ -1102,6 +1206,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Đã hoàn thành"
+          }
+        }
+      }
+    },
+    "Completion rate" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completion rate"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tỷ lệ hoàn thành"
           }
         }
       }
@@ -1166,6 +1286,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tiếp tục"
+          }
+        }
+      }
+    },
+    "Cooking" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cooking"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nấu ăn"
           }
         }
       }
@@ -1251,12 +1387,66 @@
         }
       }
     },
+    "Creativity" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Creativity"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sáng tạo"
+          }
+        }
+      }
+    },
+    "Current streak" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current streak"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuỗi hiện tại"
+          }
+        }
+      }
+    },
     "Custom · %lld min" : {
       "localizations" : {
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tùy chỉnh · %lld phút"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom · %lld min"
+          }
+        }
+      }
+    },
+    "Cycling" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cycling"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đạp xe"
           }
         }
       }
@@ -1330,8 +1520,8 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Day %1$lld/%2$lld · %3$lld days left"
+            "state" : "translated",
+            "value" : "Day %lld/%lld · %lld days left"
           }
         },
         "vi" : {
@@ -1450,6 +1640,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Xóa mẫu này?"
+          }
+        }
+      }
+    },
+    "Delete ritual?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete ritual?"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xóa thói quen này?"
           }
         }
       }
@@ -1673,6 +1879,12 @@
             "state" : "translated",
             "value" : "Kết thúc lúc %lld:00"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ends at %lld:00"
+          }
         }
       }
     },
@@ -1688,6 +1900,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Live Activity đếm ngược sự kiện"
+          }
+        }
+      }
+    },
+    "Exercise" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exercise"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tập luyện"
           }
         }
       }
@@ -1720,6 +1948,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "TẬP TRUNG"
+          }
+        }
+      }
+    },
+    "Family" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Family"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gia đình"
           }
         }
       }
@@ -1832,6 +2076,44 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tập trung · %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Focus · %@"
+          }
+        }
+      }
+    },
+    "Food" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Food"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ăn uống"
+          }
+        }
+      }
+    },
+    "Fresh air" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fresh air"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không khí trong lành"
           }
         }
       }
@@ -1954,6 +2236,22 @@
         }
       }
     },
+    "Gratitude" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gratitude"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biết ơn"
+          }
+        }
+      }
+    },
     "Habit Streak" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2068,6 +2366,42 @@
         }
       }
     },
+    "History · Emerald Dark" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History · Emerald Dark"
+          }
+        }
+      }
+    },
+    "History · Empty AX3 Reduced Motion" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History · Empty AX3 Reduced Motion"
+          }
+        }
+      }
+    },
+    "Home" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ở nhà"
+          }
+        }
+      }
+    },
     "Home Screen" : {
       "localizations" : {
         "en" : {
@@ -2128,6 +2462,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cách thêm widget"
+          }
+        }
+      }
+    },
+    "Hydration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hydration"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bổ sung nước"
           }
         }
       }
@@ -2193,6 +2543,70 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tối giản Ivory"
+          }
+        }
+      }
+    },
+    "Journal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Journal"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viết nhật ký"
+          }
+        }
+      }
+    },
+    "Language" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngoại ngữ"
+          }
+        }
+      }
+    },
+    "Last 12 weeks" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last 12 weeks"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "12 tuần gần đây"
+          }
+        }
+      }
+    },
+    "Learning" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learning"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Học tập"
           }
         }
       }
@@ -2423,6 +2837,22 @@
         }
       }
     },
+    "Medication" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medication"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uống thuốc"
+          }
+        }
+      }
+    },
     "Midnight Gold" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2522,6 +2952,22 @@
         }
       }
     },
+    "Music" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Music"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Âm nhạc"
+          }
+        }
+      }
+    },
     "My Halo" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2592,8 +3038,8 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Next: %1$@ · %2$@"
+            "state" : "translated",
+            "value" : "Next: %@ · %@"
           }
         },
         "vi" : {
@@ -2777,6 +3223,22 @@
         }
       }
     },
+    "Painting" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Painting"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vẽ"
+          }
+        }
+      }
+    },
     "Paper and ink. Nothing extra." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2912,6 +3374,22 @@
         }
       }
     },
+    "Photography" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photography"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chụp ảnh"
+          }
+        }
+      }
+    },
     "Pick a look. You can change it anytime." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2958,6 +3436,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Các gói hiện chưa khả dụng. Vui lòng thử lại sau."
+          }
+        }
+      }
+    },
+    "Plants" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plants"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chăm cây"
           }
         }
       }
@@ -3139,6 +3633,38 @@
         }
       }
     },
+    "Quiet time" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quiet time"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Khoảng lặng"
+          }
+        }
+      }
+    },
+    "Reading" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đọc sách"
+          }
+        }
+      }
+    },
     "Refresh widgets now" : {
       "localizations" : {
         "en" : {
@@ -3167,6 +3693,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lời nhắc"
+          }
+        }
+      }
+    },
+    "Rest" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rest"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nghỉ ngơi"
           }
         }
       }
@@ -3271,6 +3813,26 @@
         }
       }
     },
+    "Ritual editor · Pearl AX3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritual editor · Pearl AX3"
+          }
+        }
+      }
+    },
+    "Ritual editor · Ruby Dark" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritual editor · Ruby Dark"
+          }
+        }
+      }
+    },
     "Ritual name" : {
       "localizations" : {
         "en" : {
@@ -3299,6 +3861,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tùy chọn thói quen"
+          }
+        }
+      }
+    },
+    "Ritual rows · Emerald AX3 Reduced Motion" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritual rows · Emerald AX3 Reduced Motion"
+          }
+        }
+      }
+    },
+    "Ritual rows · Light" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ritual rows · Light"
           }
         }
       }
@@ -3343,14 +3925,34 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Rituals · %1$lld/%2$lld beautifully kept"
+            "state" : "translated",
+            "value" : "Rituals · %lld/%lld beautifully kept"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thói quen · đã hoàn thành %1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "Rituals · Emerald AX3" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituals · Emerald AX3"
+          }
+        }
+      }
+    },
+    "Rituals · Light" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rituals · Light"
           }
         }
       }
@@ -3402,6 +4004,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kính Ruby"
+          }
+        }
+      }
+    },
+    "Running" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Running"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chạy bộ"
           }
         }
       }
@@ -3567,6 +4185,22 @@
         }
       }
     },
+    "Screen break" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Screen break"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nghỉ dùng màn hình"
+          }
+        }
+      }
+    },
     "Search for Halo Day and pick a size." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3610,6 +4244,22 @@
         }
       }
     },
+    "Self care" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Self care"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chăm sóc bản thân"
+          }
+        }
+      }
+    },
     "Settings" : {
       "localizations" : {
         "en" : {
@@ -3622,6 +4272,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cài đặt"
+          }
+        }
+      }
+    },
+    "Shopping" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shopping"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mua sắm"
+          }
+        }
+      }
+    },
+    "Sleep" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sleep"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngủ"
           }
         }
       }
@@ -3656,6 +4338,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Những điều nhỏ mỗi ngày. Nước, vài trang sách, một vòng đi bộ."
+          }
+        }
+      }
+    },
+    "Smile" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smile"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mỉm cười"
           }
         }
       }
@@ -3733,6 +4431,12 @@
             "state" : "translated",
             "value" : "Bắt đầu lúc %lld:00"
           }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starts at %lld:00"
+          }
         }
       }
     },
@@ -3749,6 +4453,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vẫn thức à"
+          }
+        }
+      }
+    },
+    "Stretching" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stretching"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giãn cơ"
           }
         }
       }
@@ -3819,6 +4539,22 @@
         }
       }
     },
+    "Sunshine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sunshine"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ánh nắng"
+          }
+        }
+      }
+    },
     "Surface" : {
       "localizations" : {
         "en" : {
@@ -3831,6 +4567,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bề mặt"
+          }
+        }
+      }
+    },
+    "Swimming" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swimming"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bơi"
           }
         }
       }
@@ -3914,6 +4666,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chạm widget để chọn mẫu, rồi chạm Xong."
+          }
+        }
+      }
+    },
+    "Tea" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tea"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uống trà"
           }
         }
       }
@@ -4122,6 +4890,22 @@
         }
       }
     },
+    "Travel" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Du lịch"
+          }
+        }
+      }
+    },
     "UP NEXT" : {
       "localizations" : {
         "en" : {
@@ -4315,6 +5099,38 @@
         }
       }
     },
+    "Walk" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Walk"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đi bộ"
+          }
+        }
+      }
+    },
+    "Water" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uống nước"
+          }
+        }
+      }
+    },
     "We can't see it yet. Widgets sometimes take a moment. Try again." : {
       "localizations" : {
         "en" : {
@@ -4408,6 +5224,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chào mừng đến với Halo Day Cao cấp."
+          }
+        }
+      }
+    },
+    "Wellbeing" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wellbeing"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sức khỏe"
           }
         }
       }
@@ -4510,6 +5342,22 @@
         }
       }
     },
+    "Writing" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Writing"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viết"
+          }
+        }
+      }
+    },
     "Yearly" : {
       "localizations" : {
         "en" : {
@@ -4522,6 +5370,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Hằng năm"
+          }
+        }
+      }
+    },
+    "Yoga" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yoga"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yoga"
           }
         }
       }
@@ -4823,6 +5687,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "graphiteFocus"
+          }
+        }
+      }
+    },
+    "halo.lastRitualCelebration" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "halo.lastRitualCelebration"
           }
         }
       }
