@@ -28,12 +28,12 @@ xcrun simctl status_bar "$SIMULATOR_ID" override \
 TEMP_DIR="$(mktemp -d "${TMPDIR:-/tmp}/halo-day-screenshots.XXXXXX")"
 RESULT_BUNDLE="$TEMP_DIR/HaloDay-Screenshots.xcresult"
 ATTACHMENTS="$TEMP_DIR/attachments"
-OUTPUT_DIR="$ROOT/docs/screenshots"
+OUTPUT_DIR="$ROOT/docs/screenshots/v2/day"
 mkdir -p "$OUTPUT_DIR"
 
 xcodebuild -project "$ROOT/HaloDay.xcodeproj" -scheme HaloDay \
   -destination "id=$SIMULATOR_ID" \
-  -only-testing:HaloDayUITests/HaloDayUITests/testScreenshotMatrix \
+  -only-testing:HaloDayUITests/HaloDayUITests/testDayScreenshotMatrix \
   -resultBundlePath "$RESULT_BUNDLE" CODE_SIGNING_ALLOWED=NO test
 
 xcrun xcresulttool export attachments --path "$RESULT_BUNDLE" --output-path "$ATTACHMENTS"
@@ -45,13 +45,13 @@ ruby -rjson -rfileutils -e '
   count = 0
   rows.each do |row|
     name = row.fetch("suggestedHumanReadableName", "")
-    match = name.match(/\A(en|vi)-(Pearl|Ruby|MidnightGold)-(Today|Calendar|Studio|Rituals|Focus|Settings|Themes|Paywall|Onboarding)_0_.*\.png\z/)
+    match = name.match(/\A(en|vi)-(LivingSky|Celestial|Instrument)-(\d{4})-(Day|Focus|Event)_0_.*\.png\z/)
     next unless match
     source = File.join(attachments, row.fetch("exportedFileName"))
-    destination = File.join(output, "#{match[1]}-#{match[2]}-#{match[3]}.png")
+    destination = File.join(output, "#{match[1]}-#{match[2]}-#{match[3]}-#{match[4]}.png")
     FileUtils.cp(source, destination)
     count += 1
   end
-  abort "Expected 54 screenshots, exported #{count}." unless count == 54
+  abort "Expected 28 screenshots, exported #{count}." unless count == 28
   puts "Exported #{count} screenshots to #{output}"
 ' "$ROOT" "$ATTACHMENTS" "$OUTPUT_DIR"

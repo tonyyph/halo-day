@@ -1,6 +1,9 @@
 import XCTest
 
 final class HaloDayUITests: XCTestCase {
+    private let skies = [(theme: "pearlHalo", name: "LivingSky"), (theme: "midnightGold", name: "Celestial"), (theme: "ivoryMinimal", name: "Instrument")]
+    private let languages = [(code: "en", locale: "en_US"), (code: "vi", locale: "vi_VN")]
+
     @MainActor
     func testVietnameseLocalization() throws {
         let app = XCUIApplication()
@@ -9,58 +12,86 @@ final class HaloDayUITests: XCTestCase {
         if app.buttons["Bắt đầu"].waitForExistence(timeout: 5) {
             XCTAssertTrue(app.staticTexts["Ngày của bạn, đẹp trong từng khoảnh khắc."].exists)
         } else {
-            XCTAssertTrue(app.tabBars.buttons["Hôm nay"].waitForExistence(timeout: 5))
+            XCTAssertTrue(app.tabBars.buttons["Ngày"].waitForExistence(timeout: 5))
         }
     }
 
     @MainActor
-    func testScreenshotMatrix() throws {
-        let themes = [
-            (id: "pearlHalo", appearance: "light", name: "Pearl"),
-            (id: "rubyGlass", appearance: "dark", name: "Ruby"),
-            (id: "midnightGold", appearance: "dark", name: "MidnightGold")
-        ]
-        let languages = [(code: "en", locale: "en_US"), (code: "vi", locale: "vi_VN")]
+    func testDayRitualEventAndFocusJourney() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "day", language: ("en", "en_US"))
+        XCTAssertTrue(app.buttons["orbit-now"].waitForExistence(timeout: 10))
 
-        for theme in themes {
+        let bead = app.buttons["bead-10000000-0000-0000-0000-000000000003"]
+        XCTAssertTrue(bead.exists)
+        XCTAssertEqual(bead.value as? String, "Not done")
+        bead.tap()
+        XCTAssertEqual(bead.value as? String, "Done")
+
+        let review = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'arc-' AND label CONTAINS 'Design review'")).firstMatch
+        XCTAssertTrue(review.exists)
+        review.tap()
+        XCTAssertTrue(app.buttons["Count down on Lock Screen"].waitForExistence(timeout: 5))
+        app.buttons["Done"].tap()
+
+        app.buttons["orbit-now"].tap()
+        XCTAssertTrue(app.buttons["focus-start"].waitForExistence(timeout: 5))
+        app.buttons["focus-start"].tap()
+        let pause = app.buttons["focus-pause"]
+        XCTAssertTrue(pause.waitForExistence(timeout: 5))
+        pause.tap()
+        XCTAssertEqual(pause.label, "Resume")
+        app.buttons["focus-end"].tap()
+        XCTAssertTrue(app.buttons["orbit-now"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testDayScreenshotMatrix() throws {
+        for sky in skies {
             for language in languages {
-                var app = launchFixture(theme: theme.id, appearance: theme.appearance, screen: "today", language: language)
-                XCTAssertTrue(tabButton(app, 0, language: language.code).waitForExistence(timeout: 10))
-                capture(app, "\(language.code)-\(theme.name)-Today")
-                app.terminate()
-                app = launchFixture(theme: theme.id, appearance: theme.appearance, screen: "calendar", language: language)
-                XCTAssertTrue(app.descendants(matching: .any)["calendar-month-grid"].waitForExistence(timeout: 10))
-                capture(app, "\(language.code)-\(theme.name)-Calendar")
-                captureTab(app, 2, language: language.code, name: "\(language.code)-\(theme.name)-Studio")
-                captureTab(app, 3, language: language.code, name: "\(language.code)-\(theme.name)-Rituals")
-                XCTAssertTrue(app.staticTexts[language.code == "vi" ? "ngày liên tiếp" : "day streak"].exists)
-                captureTab(app, 4, language: language.code, name: "\(language.code)-\(theme.name)-Focus")
-
-                tabButton(app, 0, language: language.code).tap()
-                app.buttons["settings-open"].tap()
-                XCTAssertTrue(app.buttons["settings-theme"].waitForExistence(timeout: 5))
-                capture(app, "\(language.code)-\(theme.name)-Settings")
-                app.buttons["settings-theme"].tap()
-                XCTAssertTrue(app.buttons["theme-pearlHalo"].waitForExistence(timeout: 5))
-                capture(app, "\(language.code)-\(theme.name)-Themes")
-                app.navigationBars.buttons.element(boundBy: 0).tap()
-                app.buttons["settings-upgrade"].tap()
-                XCTAssertTrue(app.buttons["paywall-close"].waitForExistence(timeout: 5))
-                capture(app, "\(language.code)-\(theme.name)-Paywall")
-                app.buttons["paywall-close"].tap()
-                app.terminate()
-
-                let onboarding = launchFixture(theme: theme.id, appearance: theme.appearance, screen: "onboarding", language: language)
-                XCTAssertTrue(onboarding.buttons["onboarding-primary"].waitForExistence(timeout: 10))
-                capture(onboarding, "\(language.code)-\(theme.name)-Onboarding")
-                onboarding.terminate()
+                for time in ["06:10", "10:05", "18:20", "22:30"] {
+                    let app = launchFixture(theme: sky.theme, screen: "day", time: time, language: language)
+                    XCTAssertTrue(app.buttons["orbit-now"].waitForExistence(timeout: 10))
+                    capture(app, "\(language.code)-\(sky.name)-\(time.replacingOccurrences(of: ":", with: ""))-Day")
+                    app.terminate()
+                }
             }
         }
+        for language in languages {
+            let focus = launchFixture(theme: "pearlHalo", screen: "focus", language: language)
+            XCTAssertTrue(focus.buttons["focus-start"].waitForExistence(timeout: 10))
+            capture(focus, "\(language.code)-LivingSky-1005-Focus")
+            focus.terminate()
+
+            let day = launchFixture(theme: "pearlHalo", screen: "day", language: language)
+            XCTAssertTrue(day.buttons["orbit-now"].waitForExistence(timeout: 10))
+            day.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'arc-' AND label CONTAINS[c] %@", language.code == "vi" ? "thiết kế" : "Design review")).firstMatch.tap()
+            XCTAssertTrue(day.buttons[language.code == "vi" ? "Đếm ngược trên Màn khóa" : "Count down on Lock Screen"].waitForExistence(timeout: 5))
+            capture(day, "\(language.code)-LivingSky-1005-Event")
+            day.terminate()
+        }
+    }
+
+    @MainActor
+    func testOnboardingThenEveryTab() throws {
+        let app = XCUIApplication()
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
+        app.launch()
+        finishOnboardingIfNeeded(app)
+        XCTAssertTrue(app.buttons["orbit-now"].waitForExistence(timeout: 8))
+        tabButton(app, 1, language: "en").tap()
+        let month = app.segmentedControls.buttons["Month"]
+        XCTAssertTrue(month.waitForExistence(timeout: 3))
+        month.tap()
+        XCTAssertTrue(app.descendants(matching: .any)["calendar-month-grid"].waitForExistence(timeout: 5))
+        tabButton(app, 2, language: "en").tap()
+        XCTAssertTrue(app.staticTexts["Widget Studio"].waitForExistence(timeout: 3))
+        tabButton(app, 3, language: "en").tap()
+        XCTAssertTrue(app.staticTexts["Rituals, kept gently"].waitForExistence(timeout: 3))
     }
 
     @MainActor
     func testRecordOnboardingMotion() throws {
-        let app = launchFixture(theme: "pearlHalo", appearance: "light", screen: "onboarding", language: ("en", "en_US"))
+        let app = launchFixture(theme: "pearlHalo", screen: "onboarding", language: ("en", "en_US"))
         XCTAssertTrue(app.buttons["onboarding-primary"].waitForExistence(timeout: 10))
         app.buttons["onboarding-primary"].tap()
         app.buttons["onboarding-primary"].tap()
@@ -74,7 +105,7 @@ final class HaloDayUITests: XCTestCase {
 
     @MainActor
     func testRecordStudioThemeAndTypeSwitching() throws {
-        let app = launchFixture(theme: "pearlHalo", appearance: "light", screen: "studio", language: ("en", "en_US"))
+        let app = launchFixture(theme: "pearlHalo", screen: "studio", language: ("en", "en_US"))
         XCTAssertTrue(app.staticTexts["Widget Studio"].waitForExistence(timeout: 10))
         let ruby = app.buttons["theme-orb-rubyGlass"]
         app.swipeUp()
@@ -88,7 +119,7 @@ final class HaloDayUITests: XCTestCase {
 
     @MainActor
     func testRecordFinalRitualCompletion() throws {
-        let app = launchFixture(theme: "emeraldRitual", appearance: "dark", screen: "rituals", language: ("en", "en_US"))
+        let app = launchFixture(theme: "emeraldRitual", screen: "rituals", language: ("en", "en_US"))
         XCTAssertTrue(app.staticTexts["Rituals, kept gently"].waitForExistence(timeout: 10))
         let finalHabit = app.buttons["habit-check-10000000-0000-0000-0000-000000000003"]
         XCTAssertTrue(finalHabit.waitForExistence(timeout: 5))
@@ -106,8 +137,8 @@ final class HaloDayUITests: XCTestCase {
         app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         app.launch()
         finishOnboardingIfNeeded(app)
-        app.tabBars.buttons["Today"].tap()
-        app.buttons["Settings"].tap()
+        tabButton(app, 3, language: "en").tap()
+        app.buttons["settings-open"].tap()
         app.buttons["Upgrade to Premium"].tap()
         XCTAssertTrue(app.staticTexts["Make every glance beautiful."].waitForExistence(timeout: 5))
         for _ in 0..<4 where !app.staticTexts["Yearly"].exists {
@@ -118,42 +149,8 @@ final class HaloDayUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Lifetime"].exists)
         XCTAssertTrue(app.buttons["Restore Purchase"].exists)
         XCTAssertTrue(app.buttons["Close"].exists)
-        capture(app, "Paywall")
     }
-    @MainActor
-    func testOnboardingStudioCalendarRitualsAndFocus() throws {
-        let app = XCUIApplication()
-        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
-        app.launch()
-        finishOnboardingIfNeeded(app)
-        XCTAssertTrue(app.tabBars.buttons["Today"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["DAY PROGRESS"].exists)
-        capture(app, "Today")
-        app.tabBars.buttons["Calendar"].tap()
-        let month = app.segmentedControls.buttons["Month"]
-        XCTAssertTrue(month.waitForExistence(timeout: 3))
-        month.tap()
-        XCTAssertTrue(app.descendants(matching: .any)["calendar-month-grid"].waitForExistence(timeout: 5))
-        capture(app, "Calendar")
-        app.tabBars.buttons["Studio"].tap()
-        XCTAssertTrue(app.staticTexts["Widget Studio"].waitForExistence(timeout: 3))
-        capture(app, "Studio")
-        app.tabBars.buttons["Rituals"].tap()
-        XCTAssertTrue(app.staticTexts["Rituals, kept gently"].waitForExistence(timeout: 3))
-        let complete = app.buttons["Complete Drink water"]
-        XCTAssertTrue(complete.exists); complete.tap()
-        capture(app, "Rituals")
-        app.tabBars.buttons["Focus"].tap()
-        if app.buttons["Begin focus"].exists { app.buttons["Begin focus"].tap() }
-        XCTAssertTrue(app.buttons["Pause"].waitForExistence(timeout: 3))
-        app.buttons["Pause"].tap()
-        XCTAssertTrue(app.buttons["Resume"].waitForExistence(timeout: 3))
-        app.buttons["Resume"].tap()
-        capture(app, "Focus")
-        app.buttons["End"].tap()
-        app.buttons["End session"].tap()
-        XCTAssertTrue(app.buttons["Begin focus"].waitForExistence(timeout: 3))
-    }
+
     @MainActor private func finishOnboardingIfNeeded(_ app: XCUIApplication) {
         if app.buttons["Begin"].waitForExistence(timeout: 5) {
             app.buttons["Begin"].tap()
@@ -166,41 +163,22 @@ final class HaloDayUITests: XCTestCase {
         }
     }
 
-    @MainActor private func launchFixture(
-        theme: String,
-        appearance: String,
-        screen: String,
-        language: (String, String)
-    ) -> XCUIApplication {
+    @MainActor private func launchFixture(theme: String, screen: String, time: String = "10:05", language: (String, String)) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = [
-            "-UITestScreenshotMode", "-UITestTheme", theme,
-            "-UITestAppearance", appearance, "-UITestScreen", screen,
+            "-UITestScreenshotMode", "-UITestTheme", theme, "-UITestScreen", screen, "-UITestTime", time,
             "-AppleLanguages", "(\(language.0))", "-AppleLocale", language.1
         ]
         app.launch()
         return app
     }
 
-    @MainActor private func captureTab(_ app: XCUIApplication, _ tab: Int, language: String, name: String) {
-        let button = tabButton(app, tab, language: language)
-        XCTAssertTrue(button.waitForExistence(timeout: 5))
-        button.tap()
-        if tab == 1 {
-            let month = app.segmentedControls.buttons[language == "vi" ? "Tháng" : "Month"]
-            XCTAssertTrue(month.waitForExistence(timeout: 5))
-            month.tap()
-            XCTAssertTrue(month.isSelected)
-            XCTAssertTrue(app.descendants(matching: .any)["calendar-month-grid"].waitForExistence(timeout: 5))
-        }
-        capture(app, name)
-    }
-
     @MainActor private func tabButton(_ app: XCUIApplication, _ tab: Int, language: String) -> XCUIElement {
-        let english = ["Today", "Calendar", "Studio", "Rituals", "Focus"]
-        let vietnamese = ["Hôm nay", "Lịch", "Studio", "Thói quen", "Tập trung"]
+        let english = ["Day", "Calendar", "Studio", "You"]
+        let vietnamese = ["Ngày", "Lịch", "Studio", "Bạn"]
         return app.tabBars.buttons[(language == "vi" ? vietnamese : english)[tab]]
     }
+
     @MainActor private func capture(_ app: XCUIApplication, _ name: String) {
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = name; attachment.lifetime = .keepAlways

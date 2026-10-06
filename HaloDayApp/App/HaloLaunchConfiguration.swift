@@ -91,9 +91,9 @@ private enum HaloFixtureData {
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: day)!
         let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: day)!
         return [
-            Habit(id: UUID(uuidString: "10000000-0000-0000-0000-000000000001")!, title: String(localized: "Drink water"), icon: "drop", accentColor: ThemeRegistry.all[0].light.accent, completedDates: [day, yesterday, twoDaysAgo]),
-            Habit(id: UUID(uuidString: "10000000-0000-0000-0000-000000000002")!, title: String(localized: "A page of journaling"), icon: "book.closed", accentColor: ThemeRegistry.all[1].light.accent, completedDates: [day, yesterday]),
-            Habit(id: UUID(uuidString: "10000000-0000-0000-0000-000000000003")!, title: String(localized: "A little movement"), icon: "figure.walk", accentColor: ThemeRegistry.all[4].light.accent, completedDates: [yesterday])
+            Habit(id: UUID(uuidString: "10000000-0000-0000-0000-000000000001")!, title: String(localized: "Drink water"), icon: "drop", accentColor: ThemeRegistry.all[0].light.accent, completedDates: [day, yesterday, twoDaysAgo], timeOfDay: .morning),
+            Habit(id: UUID(uuidString: "10000000-0000-0000-0000-000000000002")!, title: String(localized: "A page of journaling"), icon: "book.closed", accentColor: ThemeRegistry.all[1].light.accent, completedDates: [day, yesterday], timeOfDay: .evening),
+            Habit(id: UUID(uuidString: "10000000-0000-0000-0000-000000000003")!, title: String(localized: "A little movement"), icon: "figure.walk", accentColor: ThemeRegistry.all[4].light.accent, completedDates: [yesterday], timeOfDay: .afternoon)
         ]
     }
 }

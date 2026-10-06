@@ -24,7 +24,9 @@ struct DayEventSheet: View {
                         .frame(maxWidth: .infinity)
                     VStack(alignment: .leading, spacing: DS.Space.s) {
                         Text(event.title).font(DS.Typeface.display(30, relativeTo: .title)).fixedSize(horizontal: false, vertical: true)
-                        Text(event.startDate.formatted(date: .abbreviated, time: .shortened) + " – " + event.endDate.formatted(date: .omitted, time: .shortened))
+                        Text(event.startDate, format: .dateTime.weekday(.wide).day().month(.wide))
+                            .font(.headline)
+                        Text(event.startDate.formatted(date: .omitted, time: .shortened) + " – " + event.endDate.formatted(date: .omitted, time: .shortened))
                             .font(.headline)
                         if let location = event.location { Label(location, systemImage: "mappin.and.ellipse") }
                         Label(event.calendarName, systemImage: "calendar").opacity(SkyEngine.secondaryOpacity)
