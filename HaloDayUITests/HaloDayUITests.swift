@@ -209,7 +209,7 @@ final class HaloDayUITests: XCTestCase {
         app.buttons["zoom-month"].tap()
         XCTAssertTrue(app.descendants(matching: .any)["month-grid"].waitForExistence(timeout: 5))
         tabButton(app, 1, language: "en").tap()
-        XCTAssertTrue(app.staticTexts["Widget Studio"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.buttons["studio-slot-0"].waitForExistence(timeout: 5))
         tabButton(app, 2, language: "en").tap()
         XCTAssertTrue(app.buttons["ritual-new"].waitForExistence(timeout: 3))
     }
