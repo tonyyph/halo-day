@@ -8,6 +8,8 @@ struct SettingsView: View {
     @Environment(\.haloToasts) private var toasts
     @Environment(\.haloReferenceDate) private var referenceDate
     @State private var manageSubscriptions = false
+    @State private var locating = false
+    @State private var locationMessage: String?
     private let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
     private let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "3"
 
@@ -50,9 +52,25 @@ struct SettingsView: View {
                     SettingsLabel(title: "Sky", symbol: "sun.horizon")
                 }
                 .accessibilityIdentifier("settings-sky")
-                Toggle(isOn: Binding(get: { model.settings.approxCoordinate != nil },
-                                     set: { enabled in Task { await model.useLocationForSky(enabled) } })) {
-                    SettingsLabel(title: "Match the sky to my location", symbol: "location")
+                Toggle(isOn: Binding(get: { locating || model.settings.approxCoordinate != nil },
+                                     set: { enabled in
+                                         guard !locating else { return }
+                                         locating = enabled
+                                         locationMessage = nil
+                                         Task {
+                                             locationMessage = await model.useLocationForSky(enabled)
+                                             locating = false
+                                         }
+                                     })) {
+                    HStack {
+                        SettingsLabel(title: "Match the sky to my location", symbol: "location")
+                        if locating { ProgressView().padding(.leading, 4) }
+                    }
+                }
+                .disabled(locating)
+                .accessibilityIdentifier("settings-location")
+                if let locationMessage {
+                    Text(locationMessage).font(.footnote).accessibilityIdentifier("settings-location-message")
                 }
                 Toggle(isOn: $model.settings.haptics) {
                     SettingsLabel(title: "Haptics", symbol: "waveform")
@@ -134,7 +152,8 @@ struct SettingsView: View {
         }
         .scrollContentBackground(.hidden)
         .background { SkyBackground(state: sky) }
-        .tint(sky.inkColor.color)
+        // Toggles need a colour that differs from the thumb on every sky; text tint stays the ink.
+        .tint(OrbitPalette.ritualColor(sky: sky))
         .environment(\.colorScheme, sky.ink == .light ? .dark : .light)
         .toolbarColorScheme(sky.ink == .light ? .dark : .light, for: .navigationBar)
         .navigationTitle("Settings")

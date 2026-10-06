@@ -119,13 +119,20 @@ struct RitualEditorView: View {
         }
     }
 
-    private func save() {
-        var value = habit ?? Habit(title: trimmed, icon: icon, accentColor: color, timeOfDay: time)
-        value.title = trimmed
+    /// Applies only the edited fields to the latest stored ritual, so completions recorded meanwhile
+    /// (for example by the widget) are kept.
+    static func merged(latest: Habit?, original: Habit?, title: String, icon: String, color: String, time: TimeOfDay) -> Habit {
+        var value = latest ?? original ?? Habit(title: title, icon: icon, accentColor: color, timeOfDay: time)
+        value.title = title
         value.icon = icon
         value.accentColor = color
         value.timeOfDay = time
-        HaloViewActions.save(value, model: model, fixture: fixture)
+        return value
+    }
+
+    private func save() {
+        let latest = habit.flatMap { original in model.habits.first { $0.id == original.id } }
+        HaloViewActions.save(Self.merged(latest: latest, original: habit, title: trimmed, icon: icon, color: color, time: time), model: model, fixture: fixture)
         dismiss()
     }
 }

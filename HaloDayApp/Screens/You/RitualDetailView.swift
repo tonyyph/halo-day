@@ -5,6 +5,7 @@ struct RitualDetailView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.dismiss) private var dismiss
     @Environment(\.haloScreenshotMode) private var fixture
+    @Environment(\.haloReferenceDate) private var referenceDate
     var habitID: UUID
     @State private var editing = false
     @State private var confirmDelete = false
@@ -25,6 +26,18 @@ struct RitualDetailView: View {
                             }
                             .font(.subheadline)
                             .opacity(SkyEngine.secondaryOpacity)
+                            let keptToday = habit.isCompleted(on: now)
+                            Button {
+                                HaloViewActions.toggle(habit, model: model, date: Calendar.current.startOfDay(for: now), fixture: fixture)
+                            } label: {
+                                Label(keptToday ? "Kept today" : "Mark today as kept", systemImage: keptToday ? "checkmark.circle.fill" : "circle")
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .buttonStyle(GlassPillStyle(sky: sky))
+                            .accessibilityAddTraits(keptToday ? [.isButton, .isSelected] : .isButton)
+                            .accessibilityIdentifier("ritual-today")
+                            .sensoryFeedback(.success, trigger: keptToday) { old, new in !old && new && model.settings.haptics }
                             RitualHistoryDots(grid: RitualHistoryBuilder.grid(for: habit, endingOn: now),
                                               color: (SkyColor(hexString: habit.accentColor) ?? sky.glow).color, sky: sky)
                             Button { editing = true } label: { Label("Edit", systemImage: "pencil").frame(maxWidth: .infinity) }

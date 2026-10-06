@@ -29,7 +29,7 @@ final class HaloModel {
     var dayZoom: ZoomLevel = .day
     private var focusTimer: Task<Void, Never>?
     var skyCoordinate: GeoCoordinate { settings.approxCoordinate ?? TimeZoneLocator.approximateCoordinate(for: .current) }
-    let location = LocationService()
+    var location: any LocationProviding = LocationService()
     /// The active session (if any) followed by history, newest first.
     var focusSessions: [FocusSession] { (focus.map { $0.isActive ? [$0] : [] } ?? []) + focusHistory }
     var selectedEvent: CalendarEvent?
@@ -93,6 +93,7 @@ final class HaloModel {
         return events.filter { $0.startDate < interval.end && $0.endDate > interval.start }
     }
     func requestCalendar() async {
+        persist()
         do { settings.calendarPermissionGranted = try await calendarService.requestAccess(); persist(); await refresh() }
         catch { self.error = error.localizedDescription }
     }
@@ -139,10 +140,18 @@ final class HaloModel {
         settings.skyChoice = sky
         persist()
     }
-    func useLocationForSky(_ enabled: Bool) async {
-        guard enabled else { settings.approxCoordinate = nil; persist(); return }
-        do { settings.approxCoordinate = try await location.approximateCoordinate(); persist() }
-        catch { self.error = error.localizedDescription }
+    /// Turns the location-matched sky on or off. Returns a message to show in place (not via the global alert,
+    /// which would dismiss Settings). Unsaved edits are persisted first: the permission prompt triggers a refresh.
+    func useLocationForSky(_ enabled: Bool) async -> String? {
+        persist()
+        guard enabled else { settings.approxCoordinate = nil; persist(); return nil }
+        do {
+            settings.approxCoordinate = try await location.approximateCoordinate()
+            persist()
+            return nil
+        } catch {
+            return error.localizedDescription
+        }
     }
     func removeCountdown(_ id: UUID) {
         countdowns.removeAll { $0.id == id }

@@ -261,6 +261,19 @@ final class HaloDayUITests: XCTestCase {
     }
 
     @MainActor
+    func testRitualCanBeKeptFromItsDetail() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "you", language: ("en", "en_US"))
+        let row = app.buttons["ritual-row-10000000-0000-0000-0000-000000000003"]
+        XCTAssertTrue(row.waitForExistence(timeout: 10))
+        row.tap()
+        let keep = app.buttons["ritual-today"]
+        XCTAssertTrue(keep.waitForExistence(timeout: 5))
+        XCTAssertFalse(keep.isSelected)
+        keep.tap()
+        XCTAssertTrue(keep.isSelected)
+    }
+
+    @MainActor
     func testAddCountdownAndPickASky() throws {
         let app = launchFixture(theme: "pearlHalo", screen: "you", language: ("en", "en_US"))
         let add = app.buttons["countdown-new"]

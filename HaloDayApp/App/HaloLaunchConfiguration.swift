@@ -95,7 +95,6 @@ struct HaloLaunchConfiguration {
         }
         model.showSettings = screen == "settings" || screen == "themes"
         model.showPaywall = screen == "paywall"
-        UserDefaults.standard.removeObject(forKey: "halo.lastRitualCelebration")
         return model
     }
 }

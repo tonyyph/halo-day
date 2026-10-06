@@ -1,8 +1,13 @@
 import CoreLocation
 
+@MainActor
+protocol LocationProviding: AnyObject {
+    func approximateCoordinate() async throws -> GeoCoordinate
+}
+
 /// One reduced-accuracy fix, used only to place the sun. Rounded to 0.1° and kept on device.
 @MainActor
-final class LocationService: NSObject, CLLocationManagerDelegate {
+final class LocationService: NSObject, CLLocationManagerDelegate, LocationProviding {
     enum LocationError: LocalizedError {
         case denied, unavailable
         var errorDescription: String? {
@@ -14,7 +19,8 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
     }
 
     private let manager = CLLocationManager()
-    private var continuation: CheckedContinuation<GeoCoordinate, any Error>?
+    /// Everyone waiting for the one in-flight request; a second call joins it instead of cancelling it.
+    private var waiters: [CheckedContinuation<GeoCoordinate, any Error>] = []
 
     override init() {
         super.init()
@@ -27,9 +33,9 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
     }
 
     func approximateCoordinate() async throws -> GeoCoordinate {
-        finish(.failure(LocationError.unavailable))
-        return try await withCheckedThrowingContinuation { continuation in
-            self.continuation = continuation
+        try await withCheckedThrowingContinuation { continuation in
+            waiters.append(continuation)
+            guard waiters.count == 1 else { return }
             switch manager.authorizationStatus {
             case .notDetermined: manager.requestWhenInUseAuthorization()
             case .denied, .restricted: finish(.failure(LocationError.denied))
@@ -39,13 +45,13 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
     }
 
     private func finish(_ result: Result<GeoCoordinate, any Error>) {
-        guard let continuation else { return }
-        self.continuation = nil
-        continuation.resume(with: result)
+        let waiting = waiters
+        waiters = []
+        waiting.forEach { $0.resume(with: result) }
     }
 
     private func authorizationChanged() {
-        guard continuation != nil else { return }
+        guard !waiters.isEmpty else { return }
         switch manager.authorizationStatus {
         case .notDetermined: break
         case .denied, .restricted: finish(.failure(LocationError.denied))
