@@ -16,22 +16,37 @@ struct HaloDayApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ThemedRoot(model: model, launch: launch)
-                .task {
-                    guard !launch.isScreenshotMode else { return }
-                    await model.purchases.start()
-                    await model.refresh()
-                }
-                .onChange(of: phase) { _, value in
-                    guard !launch.isScreenshotMode, value == .active else { return }
-                    Task { await model.refresh() }
-                }
-                .onReceive(NotificationCenter.default.publisher(for: .EKEventStoreChanged)) { _ in
-                    guard !launch.isScreenshotMode else { return }
-                    Task { await model.refresh() }
-                }
-                .onOpenURL { model.route($0) }
+            #if DEBUG
+            if launch.skyLab {
+                SkyLabView(minutes: launch.skyLabMinutes ?? 605,
+                           sky: launch.skyLabSky.flatMap(SkyID.init(rawValue:)) ?? .livingSky,
+                           place: launch.skyLabPlace.flatMap(SkyLabPlace.init(rawValue:)) ?? .hanoi,
+                           season: launch.skyLabSeason.flatMap(SkyLabSeason.init(rawValue:)) ?? .october)
+            } else {
+                app
+            }
+            #else
+            app
+            #endif
         }
+    }
+
+    private var app: some View {
+        ThemedRoot(model: model, launch: launch)
+            .task {
+                guard !launch.isScreenshotMode else { return }
+                await model.purchases.start()
+                await model.refresh()
+            }
+            .onChange(of: phase) { _, value in
+                guard !launch.isScreenshotMode, value == .active else { return }
+                Task { await model.refresh() }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .EKEventStoreChanged)) { _ in
+                guard !launch.isScreenshotMode else { return }
+                Task { await model.refresh() }
+            }
+            .onOpenURL { model.route($0) }
     }
 }
 

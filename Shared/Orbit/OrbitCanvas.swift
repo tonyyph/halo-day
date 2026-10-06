@@ -51,7 +51,8 @@ struct OrbitCanvas: View {
 
     private func eventColor(_ hex: String) -> Color {
         let base = SkyColor(hexString: hex) ?? sky.glow
-        return (style == .glow ? base.mixed(with: sky.glow, 0.12) : base.mixed(with: sky.inkColor, 0.15)).color
+        // Light skies deepen event colors toward the ink so pastels stay visible; dark skies tint them with the glow.
+        return (sky.ink == .dark ? base.mixed(with: sky.inkColor, 0.22) : base.mixed(with: sky.glow, 0.12)).color
     }
 
     private func draw(in context: inout GraphicsContext, metrics: OrbitMetrics, pulse: Double) {

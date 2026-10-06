@@ -8,6 +8,11 @@ struct HaloLaunchConfiguration {
     let screen: String?
     let reduceMotion: Bool
     let reduceTransparency: Bool
+    let skyLab: Bool
+    let skyLabMinutes: Int?
+    let skyLabSky: String?
+    let skyLabPlace: String?
+    let skyLabSeason: String?
 
     static let current: HaloLaunchConfiguration = {
         let arguments = ProcessInfo.processInfo.arguments
@@ -35,7 +40,12 @@ struct HaloLaunchConfiguration {
             colorScheme: value(after: "-UITestAppearance"),
             screen: value(after: "-UITestScreen"),
             reduceMotion: arguments.contains("-UITestReduceMotion"),
-            reduceTransparency: arguments.contains("-UITestReduceTransparency")
+            reduceTransparency: arguments.contains("-UITestReduceTransparency"),
+            skyLab: arguments.contains("-SkyLab"),
+            skyLabMinutes: value(after: "-SkyLabMinutes").flatMap(Int.init),
+            skyLabSky: value(after: "-SkyLabSky"),
+            skyLabPlace: value(after: "-SkyLabPlace"),
+            skyLabSeason: value(after: "-SkyLabSeason")
         )
     }()
 
