@@ -71,6 +71,7 @@ enum SkyKeyframes {
         case .mist: SkyKeyframe(0, 0xD9DCE0, 0xE4E6E8, 0xEEEFF0, glow: 0xFFFFFF)
         }
     }
+    static let focusGlow = SkyColor(hex: 0xFFC48A)
     static let darkInk = SkyColor(hex: 0x161A2B)
     static let lightInk = SkyColor(hex: 0xFBF7F0)
 }

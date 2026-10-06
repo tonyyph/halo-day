@@ -18,6 +18,10 @@ final class HaloModel {
     var showSettings = false
     var showGuide = false
     var error: String?
+    var showFocus = false
+    var skyCoordinate: GeoCoordinate { TimeZoneLocator.approximateCoordinate(for: .current) }
+    /// The active session (if any) followed by history, newest first.
+    var focusSessions: [FocusSession] { (focus.map { $0.isActive ? [$0] : [] } ?? []) + focusHistory }
     var selectedEvent: CalendarEvent?
     var purchases = PurchaseService()
     private let storage = AppGroupStorage.shared

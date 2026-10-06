@@ -67,6 +67,20 @@ enum SkyEngine {
         }
     }
 
+    /// The dimmed "focus dusk": the current sky pulled 35% toward night with a warm glow, always light ink.
+    static func focusDusk(_ state: SkyState) -> SkyState {
+        let night = SkyKeyframes.night
+        let pulled = zip(state.stops, [night.top, night.mid, night.bottom]).map { $0.mixed(with: $1, 0.35) }
+        let (_, stops, glow) = legible(pulled, glow: state.glow.mixed(with: SkyKeyframes.focusGlow, 0.5), forcing: .light)
+        var dusk = state
+        dusk.top = stops[0]; dusk.mid = stops[1]; dusk.bottom = stops[2]
+        dusk.glow = glow
+        dusk.ink = .light
+        dusk.inkColor = lightInk
+        dusk.stars = max(state.stars, 0.3)
+        return dusk
+    }
+
     /// Polar night holds the night phase and polar day holds daylight (spec §8).
     private static func effectiveAltitude(at date: Date, coordinate: GeoCoordinate, calendar: Calendar) -> Double {
         let altitude = SolarCalculator.sunAltitude(at: date, coordinate: coordinate)
@@ -111,7 +125,7 @@ enum SkyEngine {
 
     /// Chooses the ink needing the smaller correction, nudges each stop just enough that primary and
     /// secondary ink pass `minimumContrast`, then tones the glow so text over sky glow + Orbit halo still passes.
-    private static func legible(_ stops: [SkyColor], glow: SkyColor) -> (InkScheme, [SkyColor], SkyColor) {
+    private static func legible(_ stops: [SkyColor], glow: SkyColor, forcing forced: InkScheme? = nil) -> (InkScheme, [SkyColor], SkyColor) {
         func passes(_ ink: SkyColor) -> (SkyColor) -> Bool {
             { stop in
                 SkyColor.contrast(ink, stop) >= minimumContrast + 0.01
@@ -123,7 +137,7 @@ enum SkyEngine {
         func cost(_ adjusted: [SkyColor]) -> Double {
             zip(stops, adjusted).reduce(0) { $0 + abs($1.0.luminance - $1.1.luminance) }
         }
-        let ink: InkScheme = cost(forLight) <= cost(forDark) ? .light : .dark
+        let ink: InkScheme = forced ?? (cost(forLight) <= cost(forDark) ? .light : .dark)
         let adjusted = ink == .light ? forLight : forDark
         let check = passes(ink == .light ? lightInk : darkInk)
         let toned = glow.adjusted(towards: ink == .light ? .black : .white) { candidate in
