@@ -212,7 +212,7 @@ final class HaloModel {
         do {
             try storage.write(session, key: "focus")
             try await notifications.plan(events: events, focus: session, minutes: settings.eventReminderMinutes)
-            if purchases.isPremium && settings.liveActivities { try await activities.start(focus: session, theme: theme) }
+            if purchases.isPremium && settings.liveActivities { try await activities.start(focus: session, sky: settings.skyID) }
         } catch { self.error = error.localizedDescription }
         scheduleFocusCompletion()
         WidgetCenter.shared.reloadAllTimelines()
@@ -266,7 +266,7 @@ final class HaloModel {
     func countDown(_ event: CalendarEvent) async {
         guard purchases.isPremium else { showPaywall = true; return }
         if focus?.isActive == true { await stopFocus() }
-        do { try await activities.eventCountdown(event, theme: theme) } catch { self.error = error.localizedDescription }
+        do { try await activities.eventCountdown(event, sky: settings.skyID) } catch { self.error = error.localizedDescription }
     }
     func route(_ url: URL) {
         let query = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems

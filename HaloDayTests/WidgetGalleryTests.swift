@@ -58,6 +58,23 @@ final class WidgetGalleryTests: XCTestCase {
         }
     }
 
+    func testLiveActivityRendersEveryState() throws {
+        let start = day.addingTimeInterval(10 * 3600)
+        let focus = HaloActivityAttributes(title: "Write the Q4 proposal", startDate: start, endDate: start.addingTimeInterval(1500), themeId: SkyID.livingSky.rawValue, accentColor: "D4AF6A")
+        let event = HaloActivityAttributes(title: "Design review", startDate: start, endDate: start.addingTimeInterval(1500), themeId: SkyID.celestial.rawValue, accentColor: "5B74D6", isEvent: true)
+        let states: [(String, HaloActivityAttributes, HaloActivityAttributes.ContentState)] = [
+            ("running", focus, .init(endDate: start.addingTimeInterval(1500), phase: "running")),
+            ("paused", focus, .init(endDate: start.addingTimeInterval(1500), pausedRemaining: 900, phase: "paused")),
+            ("finished", focus, .init(endDate: start.addingTimeInterval(1500), phase: "finished")),
+            ("event", event, .init(endDate: start.addingTimeInterval(1500), phase: "countdown"))
+        ]
+        for (name, attributes, state) in states {
+            let view = FocusActivityView(attributes: attributes, state: state, now: start.addingTimeInterval(600))
+                .frame(width: 364)
+            try attach(view, name: "activity-\(name)")
+        }
+    }
+
     func attach(_ view: some View, name: String) throws {
         let renderer = ImageRenderer(content: view)
         renderer.scale = 3

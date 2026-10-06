@@ -2,70 +2,61 @@ import ActivityKit
 import WidgetKit
 import SwiftUI
 
+/// Focus sessions and event countdowns on the Lock Screen and in the Dynamic Island, over the focus-dusk sky.
 struct HaloFocusLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: HaloActivityAttributes.self) { context in
-            let colors = PaletteResolver.resolve(ThemeRegistry.theme(context.attributes.themeId), scheme: .dark)
-            HaloActivityBanner(attributes: context.attributes, state: context.state)
-                .activityBackgroundTint(colors.surface.opacity(0.85))
-                .activitySystemActionForegroundColor(colors.accent)
-                .widgetURL(URL(string: context.attributes.isEvent ? "haloday://today" : "haloday://focus"))
+            FocusActivityView(attributes: context.attributes, state: context.state)
+                .activityBackgroundTint(.clear)
+                .activitySystemActionForegroundColor(.white)
+                .widgetURL(URL(string: context.attributes.isEvent ? "haloday://day" : "haloday://focus"))
         } dynamicIsland: { context in
-            let colors = PaletteResolver.resolve(ThemeRegistry.theme(context.attributes.themeId), scheme: .dark)
+            let glow = OrbitPalette.ritualColor(sky: FocusActivityView.sky(for: context.attributes, at: context.attributes.startDate))
+            let running = context.state.pausedRemaining == nil && context.state.phase != "finished"
             return DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    VStack(spacing: 4) {
-                        Image(systemName: context.attributes.isEvent ? "calendar" : "timer")
-                            .foregroundStyle(colors.accent)
-                            .frame(width: 36, height: 36)
-                            .background(colors.accentSoft, in: Circle())
-                        Text(context.attributes.isEvent ? "Calendar" : "Focus").font(.caption2)
-                    }
+                    FocusActivityRing(attributes: context.attributes, state: context.state, now: nil, glow: glow)
+                        .frame(width: 44, height: 44)
+                        .padding(.leading, 4)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    timer(context).font(.system(.title2, design: .rounded)).monospacedDigit().frame(maxWidth: 110)
+                    FocusActivityTimer(attributes: context.attributes, state: context.state)
+                        .font(DS.Typeface.clock(30))
+                        .monospacedDigit()
+                        .frame(maxWidth: 110)
                 }
                 DynamicIslandExpandedRegion(.center) {
-                    Text(context.attributes.title).font(.system(.headline, design: .serif)).lineLimit(1)
+                    Text(context.attributes.title).font(DS.Typeface.title(16, relativeTo: .headline)).lineLimit(1)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    VStack(spacing: 10) {
-                        if context.state.pausedRemaining == nil && context.state.phase != "finished" {
-                            ProgressView(timerInterval: context.attributes.startDate...max(context.attributes.startDate.addingTimeInterval(1), context.state.endDate), countsDown: false)
-                                .tint(colors.accent)
+                    HStack {
+                        if !context.attributes.isEvent && context.state.phase != "finished" {
+                            Button(intent: PauseFocusIntent()) {
+                                Label(running ? "Pause" : "Resume", systemImage: running ? "pause.fill" : "play.fill")
+                            }
+                            Spacer()
+                            Button(intent: EndFocusIntent()) { Label("End", systemImage: "stop.fill") }
+                        } else {
+                            Link(destination: URL(string: "haloday://day")!) { Label("Open Halo Day", systemImage: "arrow.up.right") }
                         }
-                        HStack {
-                            if !context.attributes.isEvent && context.state.phase != "finished" {
-                                Button(intent: PauseFocusIntent()) { ActivityControlLabel(paused: context.state.pausedRemaining != nil) }
-                                Spacer()
-                                Button(intent: EndFocusIntent()) { Label("End", systemImage: "stop.fill") }
-                            } else { Link("Open Halo Day", destination: URL(string: "haloday://today")!) }
-                        }
-                        .font(.caption)
-                        .buttonStyle(.bordered)
-                        .tint(colors.accent)
                     }
+                    .font(.caption.weight(.semibold))
+                    .buttonStyle(.bordered)
+                    .tint(glow)
                 }
             } compactLeading: {
-                Image(systemName: context.attributes.isEvent ? "calendar" : "timer").foregroundStyle(colors.accent)
+                FocusActivityRing(attributes: context.attributes, state: context.state, now: nil, glow: glow)
+                    .frame(width: 22, height: 22)
             } compactTrailing: {
-                timer(context).font(.caption2.monospacedDigit()).frame(width: 52)
+                FocusActivityTimer(attributes: context.attributes, state: context.state)
+                    .font(.caption2.monospacedDigit())
+                    .frame(width: 48)
             } minimal: {
-                if context.state.phase == "finished" { Image(systemName: "checkmark.circle").foregroundStyle(colors.accent) }
-                else if context.state.pausedRemaining != nil { Image(systemName: "pause.circle").foregroundStyle(colors.accent) }
-                else {
-                    ProgressView(timerInterval: context.attributes.startDate...max(context.attributes.startDate.addingTimeInterval(1), context.state.endDate), countsDown: false)
-                        .progressViewStyle(.circular)
-                        .tint(colors.accent)
-                }
+                FocusActivityRing(attributes: context.attributes, state: context.state, now: nil, glow: glow)
+                    .frame(width: 22, height: 22)
             }
-            .keylineTint(colors.accent)
-            .widgetURL(URL(string: "haloday://focus"))
+            .keylineTint(glow)
+            .widgetURL(URL(string: context.attributes.isEvent ? "haloday://day" : "haloday://focus"))
         }
-    }
-
-    private func timer(_ context: ActivityViewContext<HaloActivityAttributes>) -> some View {
-        HaloActivityTimer(start: context.attributes.startDate, end: context.state.endDate,
-                          remaining: context.state.pausedRemaining, phase: context.state.phase)
     }
 }

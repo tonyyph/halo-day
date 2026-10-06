@@ -3,24 +3,24 @@ import Foundation
 
 @MainActor
 protocol LiveActivityProviding {
-    func start(focus: FocusSession, theme: HaloTheme) async throws
+    func start(focus: FocusSession, sky: SkyID) async throws
     func update(focus: FocusSession) async
     func end() async
 }
 @MainActor
 final class LiveActivityService: LiveActivityProviding {
     var enabled: Bool { ActivityAuthorizationInfo().areActivitiesEnabled }
-    func start(focus: FocusSession, theme: HaloTheme) async throws {
+    func start(focus: FocusSession, sky: SkyID) async throws {
         guard enabled else { throw LiveActivityError.disabled }
         await end()
-        let attributes = HaloActivityAttributes(title: focus.title, startDate: focus.startDate, endDate: focus.endDate, themeId: theme.id, accentColor: theme.dark.accent)
+        let attributes = HaloActivityAttributes(title: focus.title, startDate: focus.startDate, endDate: focus.endDate, themeId: sky.rawValue, accentColor: focus.accentColor)
         _ = try Activity.request(attributes: attributes, content: ActivityContent(state: .init(endDate: focus.endDate, phase: "running"), staleDate: focus.endDate), pushType: nil)
     }
-    func eventCountdown(_ event: CalendarEvent, theme: HaloTheme) async throws {
+    func eventCountdown(_ event: CalendarEvent, sky: SkyID) async throws {
         guard enabled else { throw LiveActivityError.disabled }
         guard event.startDate > .now, event.startDate.timeIntervalSinceNow <= 3600 else { throw LiveActivityError.tooEarly }
         await end()
-        _ = try Activity.request(attributes: HaloActivityAttributes(title: event.title, startDate: .now, endDate: event.startDate, themeId: theme.id, accentColor: theme.dark.accent, isEvent: true), content: ActivityContent(state: .init(endDate: event.startDate, phase: "countdown"), staleDate: event.startDate), pushType: nil)
+        _ = try Activity.request(attributes: HaloActivityAttributes(title: event.title, startDate: .now, endDate: event.startDate, themeId: sky.rawValue, accentColor: event.accentColor, isEvent: true), content: ActivityContent(state: .init(endDate: event.startDate, phase: "countdown"), staleDate: event.startDate), pushType: nil)
     }
     func update(focus: FocusSession) async {
         for activity in Activity<HaloActivityAttributes>.activities where !activity.attributes.isEvent {

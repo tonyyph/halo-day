@@ -41,6 +41,26 @@
         }
       }
     },
+    " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n\n    var body: some View {\n        ZStack {\n            content\n                .blur(radius: locked ? 6 : 0)\n                .opacity(locked ? 0.35 : 1)\n            if locked {\n                Label(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n\n    var body: some View {\n        ZStack {\n            content\n                .blur(radius: locked ? 6 : 0)\n                .opacity(locked ? 0.35 : 1)\n            if locked {\n                Label("
+          }
+        }
+      }
+    },
+    " iPhone, points); the whole layout is then scaled to fit,\n    /// so text and widgets keep their true proportions instead of being squeezed into a small card.\n    static let screen = CGSize(width: 393, height: 852)\n\n    var body: some View {\n        let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)\n        GeometryReader { proxy in\n            let scale = proxy.size.width / Self.screen.width\n            ZStack(alignment: .topLeading) {\n                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)\n                lockScreen(sky: sky)\n                    .frame(width: Self.screen.width, height: Self.screen.height)\n                    .scaleEffect(scale, anchor: .topLeading)\n                    // scaleEffect doesn't change layout size; pin the layout to the card so it doesn't grow to 393×852.\n                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: .topLeading)\n            }\n            .frame(width: proxy.size.width, height: proxy.size.height)\n            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))\n            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))\n        }\n        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.\n    private func lockScreen(sky: SkyState) -> some View {\n        VStack(spacing: 10) {\n            slotButton(.inline, label: setup.inline.map { " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " iPhone, points); the whole layout is then scaled to fit,\n    /// so text and widgets keep their true proportions instead of being squeezed into a small card.\n    static let screen = CGSize(width: 393, height: 852)\n\n    var body: some View {\n        let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)\n        GeometryReader { proxy in\n            let scale = proxy.size.width / Self.screen.width\n            ZStack(alignment: .topLeading) {\n                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)\n                lockScreen(sky: sky)\n                    .frame(width: Self.screen.width, height: Self.screen.height)\n                    .scaleEffect(scale, anchor: .topLeading)\n                    // scaleEffect doesn't change layout size; pin the layout to the card so it doesn't grow to 393×852.\n                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: .topLeading)\n            }\n            .frame(width: proxy.size.width, height: proxy.size.height)\n            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))\n            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))\n        }\n        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.\n    private func lockScreen(sky: SkyState) -> some View {\n        VStack(spacing: 10) {\n            slotButton(.inline, label: setup.inline.map { "
+          }
+        }
+      }
+    },
     " iPhone, points); the whole layout is then scaled to fit,\n    /// so text and widgets keep their true proportions instead of being squeezed into a small card.\n    static let screen = CGSize(width: 393, height: 852)\n\n    var body: some View {\n        let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)\n        GeometryReader { proxy in\n            let scale = proxy.size.width / Self.screen.width\n            ZStack(alignment: .topLeading) {\n                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)\n                lockScreen(sky: sky)\n                    .frame(width: Self.screen.width, height: Self.screen.height)\n                    .scaleEffect(scale, anchor: .topLeading)\n            }\n            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))\n            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))\n        }\n        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.\n    private func lockScreen(sky: SkyState) -> some View {\n        VStack(spacing: 10) {\n            slotButton(.inline, label: setup.inline.map { " : {
       "localizations" : {
         "en" : {
@@ -462,12 +482,42 @@
         }
       }
     },
+    ")\n                    .font(.caption.weight(.semibold))\n                    .multilineTextAlignment(.center)\n            }\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    @ViewBuilder\n    private var content: some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge\n        case (.orbit, _): orbitSmall\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge\n        case (.rhythm, _): rhythmMedium\n        case (.rituals, .medium): ritualsMedium\n        case (.rituals, _): ritualsSmall\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: sky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ")\n                    .font(.caption.weight(.semibold))\n                    .multilineTextAlignment(.center)\n            }\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    @ViewBuilder\n    private var content: some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge\n        case (.orbit, _): orbitSmall\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge\n        case (.rhythm, _): rhythmMedium\n        case (.rituals, .medium): ritualsMedium\n        case (.rituals, _): ritualsSmall\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: sky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: "
+          }
+        }
+      }
+    },
+    ") : time(event.startDate)\n    }\n\n    private func row(_ event: CalendarEvent) -> some View {\n        HStack(spacing: 8) {\n            Circle().fill(OrbitPalette.eventColor(event.accentColor, sky: sky)).frame(width: 7, height: 7)\n            Text(time(event.startDate)).font(.caption.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n            Text(event.title).font(.subheadline.weight(.medium)).lineLimit(1)\n            Spacer(minLength: 0)\n        }\n    }\n\n    private var sampleNote: some View {\n        Group { if data.isSample { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ") : time(event.startDate)\n    }\n\n    private func row(_ event: CalendarEvent) -> some View {\n        HStack(spacing: 8) {\n            Circle().fill(OrbitPalette.eventColor(event.accentColor, sky: sky)).frame(width: 7, height: 7)\n            Text(time(event.startDate)).font(.caption.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n            Text(event.title).font(.subheadline.weight(.medium)).lineLimit(1)\n            Spacer(minLength: 0)\n        }\n    }\n\n    private var sampleNote: some View {\n        Group { if data.isSample { Text("
+          }
+        }
+      }
+    },
     ") {\n                        AccessoryView(kind: slot.kind, family: slot.family, data: data, tint: tint(index + 1, sky))\n                            .padding(slot.family == .circular ? 2 : 6)\n                            .frame(width: slot.family == .circular ? 72 : 158, height: 72)\n                    }\n                }\n                if setup.remainingUnits > 0 {\n                    slotButton(.add, label: String(localized: " : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ") {\n                        AccessoryView(kind: slot.kind, family: slot.family, data: data, tint: tint(index + 1, sky))\n                            .padding(slot.family == .circular ? 2 : 6)\n                            .frame(width: slot.family == .circular ? 72 : 158, height: 72)\n                    }\n                }\n                if setup.remainingUnits > 0 {\n                    slotButton(.add, label: String(localized: "
+          }
+        }
+      }
+    },
+    ") }\n        let minutes = Int(event.startDate.timeIntervalSince(data.date) / 60)\n        return minutes < 90 ? String(localized: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ") }\n        let minutes = Int(event.startDate.timeIntervalSince(data.date) / 60)\n        return minutes < 90 ? String(localized: "
           }
         }
       }
@@ -492,12 +542,172 @@
         }
       }
     },
+    ").font(.caption)\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption)\n                Text("
+          }
+        }
+      }
+    },
+    ").font(.caption).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private var rhythmMedium: some View {\n        HStack(spacing: 14) {\n            orbit(130)\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.weekday(.wide).day()).font(DS.Typeface.title(15, relativeTo: .headline))\n                let rows = data.upcoming(limit: 4)\n                if rows.isEmpty { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private var rhythmMedium: some View {\n        HStack(spacing: 14) {\n            orbit(130)\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.weekday(.wide).day()).font(DS.Typeface.title(15, relativeTo: .headline))\n                let rows = data.upcoming(limit: 4)\n                if rows.isEmpty { Text("
+          }
+        }
+      }
+    },
+    ").font(.caption.monospacedDigit())\n                if let location = event.location { Text(location).font(.caption2).lineLimit(1).opacity(SkyEngine.secondaryOpacity) }\n            } else {\n                Text(data.date, format: .dateTime.weekday(.wide)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption.monospacedDigit())\n                if let location = event.location { Text(location).font(.caption2).lineLimit(1).opacity(SkyEngine.secondaryOpacity) }\n            } else {\n                Text(data.date, format: .dateTime.weekday(.wide)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text("
+          }
+        }
+      }
+    },
+    ").font(.caption.weight(.semibold))\n                Spacer(minLength: 0)\n                Text(countdown.title).font(DS.Typeface.title(17, relativeTo: .headline)).lineLimit(2)\n                Text(countdown.targetDate, format: .dateTime.day().month(.wide)).font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            } else {\n                Image(systemName: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption.weight(.semibold))\n                Spacer(minLength: 0)\n                Text(countdown.title).font(DS.Typeface.title(17, relativeTo: .headline)).lineLimit(2)\n                Text(countdown.targetDate, format: .dateTime.day().month(.wide)).font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            } else {\n                Image(systemName: "
+          }
+        }
+      }
+    },
+    ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private var ritualsMedium: some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 90, height: 90)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private var ritualsMedium: some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 90, height: 90)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text("
+          }
+        }
+      }
+    },
+    ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private var monthMedium: some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(sky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: sky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private var monthMedium: some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(sky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: sky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text("
+          }
+        }
+      }
+    },
+    ").font(.caption2).opacity(SkyEngine.secondaryOpacity) } }\n    }\n\n    // MARK: Kinds\n\n    private var orbitSmall: some View {\n        ZStack {\n            orbit(150)\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption))\n                if !data.habits.isEmpty {\n                    Text(verbatim: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity) } }\n    }\n\n    // MARK: Kinds\n\n    private var orbitSmall: some View {\n        ZStack {\n            orbit(150)\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption))\n                if !data.habits.isEmpty {\n                    Text(verbatim: "
+          }
+        }
+      }
+    },
+    ").font(.caption2.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n                }\n            }\n        }\n    }\n\n    private var orbitLarge: some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(sky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(200).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: 3)\n            if rows.isEmpty { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption2.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n                }\n            }\n        }\n    }\n\n    private var orbitLarge: some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(sky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(200).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: 3)\n            if rows.isEmpty { Text("
+          }
+        }
+      }
+    },
+    ").font(.subheadline) }\n                ForEach(data.habits.prefix(4)) { habit in\n                    HStack(spacing: 10) {\n                        toggle(habit)\n                        Text(habit.title).font(.subheadline.weight(.medium)).lineLimit(1)\n                        Spacer(minLength: 0)\n                    }\n                }\n            }\n        }\n    }\n\n    private var countdownSmall: some View {\n        VStack(alignment: .leading, spacing: 2) {\n            if let countdown = data.countdown, let days = data.countdownDays {\n                Text(verbatim: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.subheadline) }\n                ForEach(data.habits.prefix(4)) { habit in\n                    HStack(spacing: 10) {\n                        toggle(habit)\n                        Text(habit.title).font(.subheadline.weight(.medium)).lineLimit(1)\n                        Spacer(minLength: 0)\n                    }\n                }\n            }\n        }\n    }\n\n    private var countdownSmall: some View {\n        VStack(alignment: .leading, spacing: 2) {\n            if let countdown = data.countdown, let days = data.countdownDays {\n                Text(verbatim: "
+          }
+        }
+      }
+    },
+    ").font(.subheadline) }\n                ForEach(rows) { row($0) }\n                Spacer(minLength: 0)\n                sampleNote\n            }\n        }\n    }\n\n    private var rhythmLarge: some View {\n        VStack(alignment: .leading, spacing: 8) {\n            Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n            orbit(160).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: 6)\n            if rows.isEmpty { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.subheadline) }\n                ForEach(rows) { row($0) }\n                Spacer(minLength: 0)\n                sampleNote\n            }\n        }\n    }\n\n    private var rhythmLarge: some View {\n        VStack(alignment: .leading, spacing: 8) {\n            Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n            orbit(160).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: 6)\n            if rows.isEmpty { Text("
+          }
+        }
+      }
+    },
+    ").font(.title)\n                Spacer(minLength: 0)\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.title)\n                Spacer(minLength: 0)\n                Text("
+          }
+        }
+      }
+    },
     ").font(.title2).frame(width: 72, height: 72)\n                    }\n                }\n            }\n            Spacer()\n        }\n        .padding(.top, 64)\n        .frame(maxWidth: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .dynamicTypeSize(.large)\n    }\n\n    /// Vibrant = single ink as iOS draws it; otherwise each slot gets its own colour.\n    private func tint(_ index: Int, _ sky: SkyState) -> Color? {\n        vibrant ? nil : OrbitPalette.eventColor(Habit.palette[index % Habit.palette.count], sky: sky)\n    }\n\n    private func slotButton<Content: View>(_ position: SlotTarget.Position, label: String, @ViewBuilder content: () -> Content) -> some View {\n        let id: String = switch position {\n        case .inline: " : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ").font(.title2).frame(width: 72, height: 72)\n                    }\n                }\n            }\n            Spacer()\n        }\n        .padding(.top, 64)\n        .frame(maxWidth: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .dynamicTypeSize(.large)\n    }\n\n    /// Vibrant = single ink as iOS draws it; otherwise each slot gets its own colour.\n    private func tint(_ index: Int, _ sky: SkyState) -> Color? {\n        vibrant ? nil : OrbitPalette.eventColor(Habit.palette[index % Habit.palette.count], sky: sky)\n    }\n\n    private func slotButton<Content: View>(_ position: SlotTarget.Position, label: String, @ViewBuilder content: () -> Content) -> some View {\n        let id: String = switch position {\n        case .inline: "
+          }
+        }
+      }
+    },
+    ").font(DS.Typeface.clock(54)).minimumScaleFactor(0.5).lineLimit(1)\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(DS.Typeface.clock(54)).minimumScaleFactor(0.5).lineLimit(1)\n                Text("
+          }
+        }
+      }
+    },
+    ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            Spacer(minLength: 0)\n            sampleNote\n        }\n    }\n\n    private func bead(_ habit: Habit) -> some View {\n        let done = habit.isCompleted(on: data.date)\n        let color = (SkyColor(hexString: habit.accentColor) ?? .white).color\n        return ZStack {\n            Circle().fill(done ? color : .clear)\n            Circle().strokeBorder(color, lineWidth: 2)\n            Image(systemName: habit.icon).font(.system(size: 13, weight: .medium)).foregroundStyle(done ? Color.white : color)\n        }\n        .frame(width: 34, height: 34)\n    }\n\n    @ViewBuilder\n    private func toggle(_ habit: Habit) -> some View {\n        if interactive {\n            Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) { bead(habit) }.buttonStyle(.plain)\n        } else {\n            bead(habit)\n        }\n    }\n\n    private var ritualsSmall: some View {\n        VStack(spacing: 10) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 74, height: 74)\n            if data.habits.isEmpty {\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            Spacer(minLength: 0)\n            sampleNote\n        }\n    }\n\n    private func bead(_ habit: Habit) -> some View {\n        let done = habit.isCompleted(on: data.date)\n        let color = (SkyColor(hexString: habit.accentColor) ?? .white).color\n        return ZStack {\n            Circle().fill(done ? color : .clear)\n            Circle().strokeBorder(color, lineWidth: 2)\n            Image(systemName: habit.icon).font(.system(size: 13, weight: .medium)).foregroundStyle(done ? Color.white : color)\n        }\n        .frame(width: 34, height: 34)\n    }\n\n    @ViewBuilder\n    private func toggle(_ habit: Habit) -> some View {\n        if interactive {\n            Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) { bead(habit) }.buttonStyle(.plain)\n        } else {\n            bead(habit)\n        }\n    }\n\n    private var ritualsSmall: some View {\n        VStack(spacing: 10) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 74, height: 74)\n            if data.habits.isEmpty {\n                Text("
+          }
+        }
+      }
+    },
+    ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            sampleNote\n        }\n    }\n\n    private var nextUpSmall: some View {\n        VStack(alignment: .leading, spacing: 4) {\n            if let event = data.nextEvent {\n                Text(badge(event)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(event.title).font(DS.Typeface.title(20, relativeTo: .headline)).lineLimit(2)\n                Spacer(minLength: 0)\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            sampleNote\n        }\n    }\n\n    private var nextUpSmall: some View {\n        VStack(alignment: .leading, spacing: 4) {\n            if let event = data.nextEvent {\n                Text(badge(event)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(event.title).font(DS.Typeface.title(20, relativeTo: .headline)).lineLimit(2)\n                Spacer(minLength: 0)\n                Text("
+          }
+        }
+      }
+    },
+    ").font(DS.Typeface.title(17, relativeTo: .headline))\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(DS.Typeface.title(17, relativeTo: .headline))\n                Text("
+          }
+        }
+      }
+    },
+    ").font(DS.Typeface.title(20, relativeTo: .headline))\n                Spacer(minLength: 0)\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(DS.Typeface.title(20, relativeTo: .headline))\n                Spacer(minLength: 0)\n                Text("
           }
         }
       }
@@ -525,6 +735,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : ", "
+          }
+        }
+      }
+    },
+    ", systemImage: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ", systemImage: "
           }
         }
       }
@@ -1147,6 +1367,22 @@
         }
       }
     },
+    "Add a ritual in Halo Day" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a ritual in Halo Day"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thêm nghi thức trong Halo Day"
+          }
+        }
+      }
+    },
     "Add a widget" : {
       "localizations" : {
         "en" : {
@@ -1764,6 +2000,22 @@
         }
       }
     },
+    "Birthdays, trips, launches." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Birthdays, trips, launches."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sinh nhật, chuyến đi, ngày ra mắt."
+          }
+        }
+      }
+    },
     "Black-tie evening. A hint of gold." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2214,6 +2466,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chọn mẫu đã lưu hoặc dùng mẫu đang kích hoạt."
+          }
+        }
+      }
+    },
+    "Choose a setup from Studio, or follow the one in use." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a setup from Studio, or follow the one in use."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn một bộ trong Studio, hoặc theo bộ đang dùng."
           }
         }
       }
@@ -2990,6 +3258,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chuỗi ngày"
+          }
+        }
+      }
+    },
+    "Days to what matters." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Days to what matters."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đếm ngày tới điều quan trọng."
           }
         }
       }
@@ -4322,6 +4606,22 @@
         }
       }
     },
+    "Halo setup" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo setup"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bộ Halo"
+          }
+        }
+      }
+    },
     "Halo today" : {
       "localizations" : {
         "en" : {
@@ -4769,6 +5069,22 @@
         }
       }
     },
+    "Keep your rituals with a tap." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keep your rituals with a tap."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giữ nghi thức chỉ bằng một chạm."
+          }
+        }
+      }
+    },
     "Kept today" : {
       "localizations" : {
         "en" : {
@@ -4887,6 +5203,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sáng"
+          }
+        }
+      }
+    },
+    "Lisbon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisbon"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lisbon"
           }
         }
       }
@@ -7558,6 +7890,22 @@
         }
       }
     },
+    "Setup" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Setup"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bộ"
+          }
+        }
+      }
+    },
     "Shape" : {
       "localizations" : {
         "en" : {
@@ -7966,6 +8314,22 @@
         }
       }
     },
+    "Starts at %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starts at %@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bắt đầu lúc %@"
+          }
+        }
+      }
+    },
     "Starts at %lld:00" : {
       "localizations" : {
         "vi" : {
@@ -7978,6 +8342,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Starts at %lld:00"
+          }
+        }
+      }
+    },
+    "Starts soon" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starts soon"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sắp bắt đầu"
           }
         }
       }
@@ -8399,6 +8779,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Bầu trời thật, theo từng giờ."
+          }
+        }
+      }
+    },
+    "The rest of your day." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The rest of your day."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phần còn lại của ngày."
           }
         }
       }
@@ -9178,6 +9574,22 @@
         }
       }
     },
+    "What's next, at a glance." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What's next, at a glance."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Việc tiếp theo, chỉ cần liếc."
+          }
+        }
+      }
+    },
     "When" : {
       "localizations" : {
         "en" : {
@@ -9190,6 +9602,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Khi nào"
+          }
+        }
+      }
+    },
+    "Where you are in the month." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Where you are in the month."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bạn đang ở đâu trong tháng."
           }
         }
       }
@@ -9498,6 +9926,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ngày của bạn"
+          }
+        }
+      }
+    },
+    "Your day as a ring of light." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your day as a ring of light."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày của bạn như một vòng sáng."
           }
         }
       }
