@@ -39,6 +39,7 @@ struct OrbitCanvas: View {
     private var ink: Color { sky.inkColor.color }
 
     private func ring(_ metrics: OrbitMetrics, radius: CGFloat, from start: Double, to end: Double) -> Path {
+        guard end > start else { return Path() }
         if end - start >= 24 {
             return Path(ellipseIn: CGRect(x: metrics.center.x - radius, y: metrics.center.y - radius, width: radius * 2, height: radius * 2))
         }
@@ -102,8 +103,11 @@ struct OrbitCanvas: View {
                            style: StrokeStyle(lineWidth: track, lineCap: .round))
         }
         for marker in content.layout.overflow {
-            let p = OrbitGeometry.point(forHour: marker.hour, radius: metrics.laneRadius(3), center: center)
-            context.draw(Text(verbatim: "+\(marker.count)").font(.system(size: max(7, size * 0.035), weight: .semibold)).foregroundStyle(ink.opacity(0.8)), at: p)
+            // A small badge on the outermost lane, so it never leaves the Orbit's square.
+            let p = OrbitGeometry.point(forHour: marker.hour, radius: metrics.laneRadius(2), center: center)
+            let badge = CGRect(x: p.x - track * 0.9, y: p.y - track * 0.55, width: track * 1.8, height: track * 1.1)
+            context.fill(Path(roundedRect: badge, cornerRadius: track * 0.55), with: .color(sky.mid.color))
+            context.draw(Text(verbatim: "+\(marker.count)").font(.system(size: max(6, track * 0.7), weight: .semibold)).foregroundStyle(ink), at: p)
         }
 
         // 4. Focus sessions

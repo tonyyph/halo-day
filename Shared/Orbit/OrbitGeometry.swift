@@ -28,12 +28,13 @@ enum OrbitHit: Equatable { case now, bead(UUID), arc(String) }
 struct OrbitMetrics {
     var size: CGFloat
     var center: CGPoint { CGPoint(x: size / 2, y: size / 2) }
-    var radius: CGFloat { size * 0.39 }
+    /// Sized so the outermost lane (2) and its stroke stay inside the square: Canvas does not clip.
+    var radius: CGFloat { size * 0.34 }
     var trackWidth: CGFloat { size * 0.052 }
     var beadRadius: CGFloat { radius - size * 0.085 }
     var focusRadius: CGFloat { radius - size * 0.05 }
     var hitTolerance: CGFloat { 22 }
-    func laneRadius(_ lane: Int) -> CGFloat { radius + CGFloat(lane) * trackWidth * 1.15 }
+    func laneRadius(_ lane: Int) -> CGFloat { radius + CGFloat(lane) * trackWidth * 1.1 }
 }
 
 /// Events for one day, laid out on the 24-hour ring. All-day events are excluded;
@@ -52,8 +53,8 @@ struct OrbitLayout: Sendable {
         var arcs: [OrbitArc] = []
         var overflow: [OrbitOverflow] = []
         for event in timed {
-            let start = max(0, event.startDate.timeIntervalSince(dayStart) / 3600)
-            let rawEnd = min(24, event.endDate.timeIntervalSince(dayStart) / 3600)
+            let start = min(24 - minimumSpan, max(0, OrbitGeometry.wallHours(of: event.startDate, relativeTo: dayStart, calendar: calendar)))
+            let rawEnd = OrbitGeometry.wallHours(of: event.endDate, relativeTo: dayStart, calendar: calendar)
             let end = min(24, max(rawEnd, start + minimumSpan))
             if let lane = (0..<maxLanes).first(where: { $0 >= laneEnds.count || laneEnds[$0] <= start }) {
                 if lane < laneEnds.count { laneEnds[lane] = end } else { laneEnds.append(end) }
@@ -90,7 +91,16 @@ enum OrbitGeometry {
     }
 
     static func hours(of date: Date, calendar: Calendar) -> Double {
-        date.timeIntervalSince(calendar.startOfDay(for: date)) / 3600
+        wallHours(of: date, relativeTo: date, calendar: calendar)
+    }
+
+    /// Wall-clock hours of `date` measured from the start of `day` (negative before it, ≥ 24 after it),
+    /// so 23- and 25-hour DST days still put 12:00 at the top of the ring.
+    static func wallHours(of date: Date, relativeTo day: Date, calendar: Calendar) -> Double {
+        let dayOffset = calendar.dateComponents([.day], from: calendar.startOfDay(for: day), to: calendar.startOfDay(for: date)).day ?? 0
+        let time = calendar.dateComponents([.hour, .minute, .second, .nanosecond], from: date)
+        let seconds = Double(time.second ?? 0) + Double(time.nanosecond ?? 0) / 1e9
+        return Double(dayOffset * 24) + Double(time.hour ?? 0) + Double(time.minute ?? 0) / 60 + seconds / 3600
     }
 
     static func nightSpans(_ day: SolarDay, calendar: Calendar) -> [ClosedRange<Double>] {
@@ -98,7 +108,14 @@ enum OrbitGeometry {
         case .polarDay: return []
         case .polarNight: return [0...24]
         case let .normal(sunrise, sunset):
-            return [0...hours(of: sunrise, calendar: calendar), hours(of: sunset, calendar: calendar)...24]
+            // Solar noon is always inside the day being viewed; sunset may fall after midnight (subpolar summer).
+            let day = sunrise.addingTimeInterval(sunset.timeIntervalSince(sunrise) / 2)
+            let rise = wallHours(of: sunrise, relativeTo: day, calendar: calendar)
+            let set = wallHours(of: sunset, relativeTo: day, calendar: calendar)
+            var spans: [ClosedRange<Double>] = []
+            if rise > 0 { spans.append(0...min(rise, 24)) }
+            if set < 24 { spans.append(max(set, 0)...24) }
+            return spans
         }
     }
 

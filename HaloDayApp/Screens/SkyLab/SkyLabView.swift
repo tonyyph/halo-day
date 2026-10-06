@@ -82,7 +82,7 @@ struct SkyLabView: View {
                     OrbitCanvas(content: content, sky: state, style: sky.orbitStyle, breathing: true)
                     VStack(spacing: 2) {
                         Text(String(format: "%02d:%02d", Int(minutes) / 60, Int(minutes) % 60))
-                            .font(DS.Typeface.clock(54))
+                            .font(DS.Typeface.clock(320 * 0.14))
                         Text(state.moment.title)
                             .font(DS.Typeface.moment(17))
                             .opacity(SkyEngine.secondaryOpacity)

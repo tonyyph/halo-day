@@ -39,15 +39,19 @@ enum SkyEngine {
     /// Secondary text is the ink at this opacity; legibility is enforced for it too.
     static let secondaryOpacity = 0.8
     static let minimumContrast = 4.5
+    /// Peak combined opacity of the sky glow and the Orbit halo behind text (0.35 sky glow under a 0.4 halo).
+    static let maximumGlowOpacity = 1 - (1 - 0.35) * (1 - 0.4)
 
     static func state(sky: SkyID, at date: Date, coordinate: GeoCoordinate, calendar: Calendar = .current) -> SkyState {
-        let altitude = SolarCalculator.sunAltitude(at: date, coordinate: coordinate)
-        let rising = SolarCalculator.sunAltitude(at: date.addingTimeInterval(300), coordinate: coordinate) >= altitude
-        let frame = sky.followsSun ? interpolate(rising ? SkyKeyframes.rising : SkyKeyframes.setting, altitude: altitude) : SkyKeyframes.fixed(sky)
-        let (ink, stops) = legible([frame.top, frame.mid, frame.bottom])
+        let altitude = effectiveAltitude(at: date, coordinate: coordinate, calendar: calendar)
+        let slope = SolarCalculator.sunAltitude(at: date.addingTimeInterval(300), coordinate: coordinate)
+            - SolarCalculator.sunAltitude(at: date.addingTimeInterval(-300), coordinate: coordinate)
+        let rising = slope >= 0
+        let frame = sky.followsSun ? blended(altitude: altitude, slope: slope) : SkyKeyframes.fixed(sky)
+        let (ink, stops, glow) = legible([frame.top, frame.mid, frame.bottom], glow: frame.glow)
         let components = calendar.dateComponents([.hour, .minute], from: date)
         let hour = Double(components.hour ?? 0) + Double(components.minute ?? 0) / 60
-        return SkyState(top: stops[0], mid: stops[1], bottom: stops[2], glow: frame.glow, stars: frame.stars,
+        return SkyState(top: stops[0], mid: stops[1], bottom: stops[2], glow: glow, stars: frame.stars,
                         ink: ink, inkColor: ink == .light ? lightInk : darkInk,
                         moment: moment(altitude: altitude, rising: rising, hour: hour),
                         sunAltitude: altitude, isRising: rising)
@@ -61,6 +65,31 @@ enum SkyEngine {
         case ..<10: rising ? .dawn : .goldenHour
         default: hour < 11 ? .morning : hour < 14.5 ? .midday : .afternoon
         }
+    }
+
+    /// Polar night holds the night phase and polar day holds daylight (spec §8).
+    private static func effectiveAltitude(at date: Date, coordinate: GeoCoordinate, calendar: Calendar) -> Double {
+        let altitude = SolarCalculator.sunAltitude(at: date, coordinate: coordinate)
+        switch SolarCalculator.day(containing: date, coordinate: coordinate, calendar: calendar) {
+        case .polarNight: return min(altitude, -18)
+        case .polarDay: return max(altitude, 12)
+        case .normal: return altitude
+        }
+    }
+
+    /// Blends the morning and evening tracks by how fast the sun is climbing, so the sky never
+    /// snaps between them at solar noon or midnight when the sun culminates low.
+    private static func blended(altitude: Double, slope: Double) -> SkyKeyframe {
+        let risingWeight = 0.5 + 0.5 * min(1, max(-1, slope / 1.5))
+        let morning = interpolate(SkyKeyframes.rising, altitude: altitude)
+        let evening = interpolate(SkyKeyframes.setting, altitude: altitude)
+        var frame = evening
+        frame.top = evening.top.mixed(with: morning.top, risingWeight)
+        frame.mid = evening.mid.mixed(with: morning.mid, risingWeight)
+        frame.bottom = evening.bottom.mixed(with: morning.bottom, risingWeight)
+        frame.glow = evening.glow.mixed(with: morning.glow, risingWeight)
+        frame.stars = evening.stars + (morning.stars - evening.stars) * risingWeight
+        return frame
     }
 
     private static func interpolate(_ frames: [SkyKeyframe], altitude: Double) -> SkyKeyframe {
@@ -80,9 +109,9 @@ enum SkyEngine {
         return frame
     }
 
-    /// Chooses the ink needing the smaller correction, then nudges each stop just enough
-    /// that primary and secondary ink both pass `minimumContrast`.
-    private static func legible(_ stops: [SkyColor]) -> (InkScheme, [SkyColor]) {
+    /// Chooses the ink needing the smaller correction, nudges each stop just enough that primary and
+    /// secondary ink pass `minimumContrast`, then tones the glow so text over sky glow + Orbit halo still passes.
+    private static func legible(_ stops: [SkyColor], glow: SkyColor) -> (InkScheme, [SkyColor], SkyColor) {
         func passes(_ ink: SkyColor) -> (SkyColor) -> Bool {
             { stop in
                 SkyColor.contrast(ink, stop) >= minimumContrast + 0.01
@@ -94,6 +123,12 @@ enum SkyEngine {
         func cost(_ adjusted: [SkyColor]) -> Double {
             zip(stops, adjusted).reduce(0) { $0 + abs($1.0.luminance - $1.1.luminance) }
         }
-        return cost(forLight) <= cost(forDark) ? (.light, forLight) : (.dark, forDark)
+        let ink: InkScheme = cost(forLight) <= cost(forDark) ? .light : .dark
+        let adjusted = ink == .light ? forLight : forDark
+        let check = passes(ink == .light ? lightInk : darkInk)
+        let toned = glow.adjusted(towards: ink == .light ? .black : .white) { candidate in
+            adjusted.allSatisfy { check(candidate.composited(over: $0, opacity: maximumGlowOpacity)) }
+        }
+        return (ink, adjusted, toned)
     }
 }

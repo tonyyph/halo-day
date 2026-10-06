@@ -55,7 +55,7 @@ final class OrbitGeometryTests: XCTestCase {
         func at(_ hour: Double, _ radius: CGFloat) -> CGPoint { OrbitGeometry.point(forHour: hour, radius: radius, center: metrics.center) }
         XCTAssertEqual(OrbitGeometry.hitTest(at(10.1, metrics.radius), metrics: metrics, layout: layout, beads: [bead], nowHour: 10.08), .now)
         XCTAssertEqual(OrbitGeometry.hitTest(at(7, metrics.beadRadius), metrics: metrics, layout: layout, beads: [bead], nowHour: 10.08), .bead(bead.id))
-        XCTAssertEqual(OrbitGeometry.hitTest(at(10.9, metrics.radius), metrics: metrics, layout: layout, beads: [bead], nowHour: 10.08), .arc("review"))
+        XCTAssertEqual(OrbitGeometry.hitTest(at(11.1, metrics.radius), metrics: metrics, layout: layout, beads: [bead], nowHour: 10.08), .arc("review"))
         XCTAssertNil(OrbitGeometry.hitTest(metrics.center, metrics: metrics, layout: layout, beads: [bead], nowHour: 10.08))
     }
 }
