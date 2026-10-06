@@ -77,6 +77,8 @@ struct HaloLaunchConfiguration {
             return Array(all.prefix(weekend ? abs(offset) % 2 : 1 + abs(offset * 7) % 4))
         }
         model.countdowns = []
+        model.setups = [.starter(name: String(localized: "My Halo"), sky: settings.skyChoice ?? settings.skyID)]
+        model.activeSetupID = model.setups.first?.id
         if let sky = ProcessInfo.processInfo.arguments.firstIndex(of: "-UITestSky").flatMap({ ProcessInfo.processInfo.arguments.indices.contains($0 + 1) ? SkyID(rawValue: ProcessInfo.processInfo.arguments[$0 + 1]) : nil }) {
             model.settings.skyChoice = sky
         }

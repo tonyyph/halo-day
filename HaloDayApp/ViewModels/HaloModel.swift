@@ -10,6 +10,9 @@ final class HaloModel {
     var settings: UserSettings
     var habits: [Habit]
     var presets: [WidgetPreset]
+    /// v2 Lock Screen setups (replace presets).
+    var setups: [LockSetup]
+    var activeSetupID: UUID?
     var events: [CalendarEvent] = []
     var focus: FocusSession?
     var focusHistory: [FocusSession]
@@ -54,6 +57,7 @@ final class HaloModel {
     init() {
         let storage = AppGroupStorage.shared
         settings = storage.settings; habits = storage.habits; presets = storage.presets; focus = storage.focus
+        setups = storage.setups; activeSetupID = storage.activeSetupID
         focusHistory = storage.read("focusHistory", fallback: [])
         countdowns = storage.countdowns
     }
@@ -134,6 +138,35 @@ final class HaloModel {
     func removeHabit(_ id: UUID) {
         habits.removeAll { $0.id == id }
         do { try storage.write(habits, key: "habits"); WidgetCenter.shared.reloadAllTimelines() } catch { self.error = error.localizedDescription }
+    }
+    /// Saves (inserts or replaces) a setup. Free: one setup, free skies and kinds only.
+    @discardableResult
+    func saveSetup(_ setup: LockSetup) -> Bool {
+        let isNew = !setups.contains { $0.id == setup.id }
+        guard purchases.isPremium || (!setup.isPremium && (!isNew || setups.isEmpty)) else { showPaywall = true; return false }
+        guard setup.isValid else { return false }
+        if let index = setups.firstIndex(where: { $0.id == setup.id }) { setups[index] = setup } else { setups.append(setup) }
+        if activeSetupID == nil { activeSetupID = setup.id }
+        do {
+            try storage.write(setups, key: "setups.v2")
+            try storage.write(activeSetupID?.uuidString ?? "", key: "activeSetup.v2")
+            WidgetCenter.shared.reloadAllTimelines()
+            return true
+        } catch { self.error = error.localizedDescription; return false }
+    }
+    func removeSetup(_ id: UUID) {
+        setups.removeAll { $0.id == id }
+        if activeSetupID == id { activeSetupID = setups.first?.id }
+        do {
+            try storage.write(setups, key: "setups.v2")
+            try storage.write(activeSetupID?.uuidString ?? "", key: "activeSetup.v2")
+            WidgetCenter.shared.reloadAllTimelines()
+        } catch { self.error = error.localizedDescription }
+    }
+    func activateSetup(_ id: UUID) {
+        activeSetupID = id
+        do { try storage.write(id.uuidString, key: "activeSetup.v2"); WidgetCenter.shared.reloadAllTimelines() }
+        catch { self.error = error.localizedDescription }
     }
     func applySky(_ sky: SkyID) {
         guard !sky.isPremium || purchases.isPremium else { showSettings = false; showPaywall = true; return }

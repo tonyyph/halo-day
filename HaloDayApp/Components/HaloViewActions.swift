@@ -40,6 +40,25 @@ import SwiftUI
         #endif
         model.removeCountdown(countdown.id)
     }
+    @discardableResult
+    static func saveSetup(_ setup: LockSetup, model: HaloModel, fixture: Bool) -> Bool {
+        #if DEBUG
+        if fixture {
+            let isNew = !model.setups.contains { $0.id == setup.id }
+            guard model.purchases.isPremium || (!setup.isPremium && (!isNew || model.setups.isEmpty)) else { model.showPaywall = true; return false }
+            guard setup.isValid else { return false }
+            if let index = model.setups.firstIndex(where: { $0.id == setup.id }) { model.setups[index] = setup } else { model.setups.append(setup) }
+            return true
+        }
+        #endif
+        return model.saveSetup(setup)
+    }
+    static func removeSetup(_ setup: LockSetup, model: HaloModel, fixture: Bool) {
+        #if DEBUG
+        if fixture { model.setups.removeAll { $0.id == setup.id }; return }
+        #endif
+        model.removeSetup(setup.id)
+    }
     static func applySky(_ sky: SkyID, model: HaloModel, fixture: Bool) {
         #if DEBUG
         if fixture {

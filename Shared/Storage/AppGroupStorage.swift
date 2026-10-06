@@ -52,4 +52,13 @@ struct AppGroupStorage: Sendable {
     var focus: FocusSession? { read("focus", fallback: Optional<FocusSession>.none) }
     var snapshot: CalendarSnapshot { read("calendar", fallback: CalendarSnapshot(events: MockData.events())) }
     var countdowns: [Countdown] { read("countdowns", fallback: []) }
+    /// v2 setups; the first read after the update migrates v1 presets once.
+    var setups: [LockSetup] {
+        let stored: [LockSetup]? = read("setups.v2", fallback: nil)
+        if let stored { return stored }
+        let migrated = presets.map(LockSetup.init(legacy:))
+        try? write(migrated, key: "setups.v2")
+        return migrated
+    }
+    var activeSetupID: UUID? { UUID(uuidString: read("activeSetup.v2", fallback: "")) }
 }
