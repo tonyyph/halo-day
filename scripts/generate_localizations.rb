@@ -20,6 +20,7 @@ Dir.glob(File.join(root, '{HaloDayApp,HaloDayWidgets,Shared}', '**', '*.swift'))
   source.scan(/"((?:[^"\\]|\\.)*)"/).flatten.each do |value|
     next if value.include?('\\(') || value.include?('\\n') || value.empty?
     next if value.match?(/\A[0-9A-F]{6}\z/) || value.match?(/\A[a-z0-9_.:\/-]+\z/)
+    next if value.match?(/\A[A-Za-z_]+(\/[A-Za-z_]+)+\z/) || !value.match?(/[A-Za-z]/)
     keys << value if value.match?(/[A-Z]/) || value.include?(' ')
   end
 end
