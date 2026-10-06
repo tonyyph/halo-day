@@ -28,7 +28,8 @@ final class HaloModel {
     /// Orbit Zoom level on the Day tab.
     var dayZoom: ZoomLevel = .day
     private var focusTimer: Task<Void, Never>?
-    var skyCoordinate: GeoCoordinate { TimeZoneLocator.approximateCoordinate(for: .current) }
+    var skyCoordinate: GeoCoordinate { settings.approxCoordinate ?? TimeZoneLocator.approximateCoordinate(for: .current) }
+    let location = LocationService()
     /// The active session (if any) followed by history, newest first.
     var focusSessions: [FocusSession] { (focus.map { $0.isActive ? [$0] : [] } ?? []) + focusHistory }
     var selectedEvent: CalendarEvent?
@@ -132,6 +133,20 @@ final class HaloModel {
     func removeHabit(_ id: UUID) {
         habits.removeAll { $0.id == id }
         do { try storage.write(habits, key: "habits"); WidgetCenter.shared.reloadAllTimelines() } catch { self.error = error.localizedDescription }
+    }
+    func applySky(_ sky: SkyID) {
+        guard !sky.isPremium || purchases.isPremium else { showSettings = false; showPaywall = true; return }
+        settings.skyChoice = sky
+        persist()
+    }
+    func useLocationForSky(_ enabled: Bool) async {
+        guard enabled else { settings.approxCoordinate = nil; persist(); return }
+        do { settings.approxCoordinate = try await location.approximateCoordinate(); persist() }
+        catch { self.error = error.localizedDescription }
+    }
+    func removeCountdown(_ id: UUID) {
+        countdowns.removeAll { $0.id == id }
+        do { try storage.write(countdowns, key: "countdowns"); WidgetCenter.shared.reloadAllTimelines() } catch { self.error = error.localizedDescription }
     }
     func saveCountdown(_ countdown: Countdown) {
         guard purchases.isPremium || countdowns.isEmpty else { showPaywall = true; return }

@@ -67,6 +67,9 @@ struct Habit: Identifiable, Codable, Hashable, Sendable {
 }
 
 extension Habit {
+    /// Ritual colours offered in the editor (stored as hex like v1 accent colours).
+    static let palette = ["E0904A", "E2607D", "5B74D6", "4FAE86", "9B6FD0", "C9A227"]
+
     /// Tolerant decoding: habits saved before v2 have no `timeOfDay`.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -144,11 +147,16 @@ struct UserSettings: Codable, Sendable {
     var enabledCalendarIDs: [String] = []
     var includeAllDay = true
     var liveActivities = true
+    /// v2 sky; nil until the person picks one (then the v1 theme maps to a sky).
+    var skyChoice: SkyID?
+    /// Approximate location for the sun, rounded to 0.1°; nil uses the time zone.
+    var approxCoordinate: GeoCoordinate?
 }
 extension UserSettings {
     /// v1 themes map onto v2 skies until settings migrate in Phase 4.
     var skyID: SkyID {
-        switch selectedThemeId {
+        if let skyChoice { return skyChoice }
+        return switch selectedThemeId {
         case "graphiteFocus", "midnightGold": .celestial
         case "champagneDay": .goldenHour
         case "ivoryMinimal": .instrument

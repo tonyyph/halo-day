@@ -76,6 +76,10 @@ struct HaloLaunchConfiguration {
             let weekend = Calendar.current.isDateInWeekend(day)
             return Array(all.prefix(weekend ? abs(offset) % 2 : 1 + abs(offset * 7) % 4))
         }
+        model.countdowns = []
+        if let sky = ProcessInfo.processInfo.arguments.firstIndex(of: "-UITestSky").flatMap({ ProcessInfo.processInfo.arguments.indices.contains($0 + 1) ? SkyID(rawValue: ProcessInfo.processInfo.arguments[$0 + 1]) : nil }) {
+            model.settings.skyChoice = sky
+        }
         model.presets = [WidgetPreset(name: "Pearl Agenda", themeId: settings.selectedThemeId)]
         model.selectedDate = referenceDate
         model.tab = switch screen {

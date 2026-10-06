@@ -15,6 +15,16 @@ enum SkyID: String, CaseIterable, Codable, Sendable, Identifiable {
         case .mist: String(localized: "Mist")
         }
     }
+    var mood: String {
+        switch self {
+        case .livingSky: String(localized: "The real sky, hour by hour.")
+        case .celestial: String(localized: "Always a starry night.")
+        case .instrument: String(localized: "Warm paper and an engraved dial.")
+        case .aurora: String(localized: "Northern lights, moving slowly.")
+        case .goldenHour: String(localized: "Golden hour, all day long.")
+        case .mist: String(localized: "Silver haze, very still.")
+        }
+    }
     var isPremium: Bool { self != .livingSky && self != .celestial }
     var followsSun: Bool { self == .livingSky }
     var orbitStyle: OrbitStyle {
