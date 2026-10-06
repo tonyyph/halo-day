@@ -35,7 +35,7 @@ struct WeekRecapView: View {
                         .position(x: center.x + radius * cos(angle), y: center.y + radius * sin(angle))
                     }
                     VStack(spacing: 2) {
-                        Text(Duration.seconds(recap.focusMinutes * 60).formatted(.units(allowed: [.hours, .minutes], width: .narrow)))
+                        Text(focusText)
                             .font(DS.Typeface.clock(size * 0.11))
                         Text("focused").font(DS.Typeface.moment(size * 0.05)).opacity(SkyEngine.secondaryOpacity)
                     }
@@ -61,9 +61,15 @@ struct WeekRecapView: View {
         .haloGlass(RoundedRectangle(cornerRadius: DS.Radius.glass, style: .continuous), tint: sky.mid.color)
     }
 
+    /// Under an hour reads as minutes (25′), like the rest of Halo Day; longer spans read 3h 20m.
+    private var focusText: String {
+        recap.focusMinutes < 60 ? "\(recap.focusMinutes)′"
+            : Duration.seconds(recap.focusMinutes * 60).formatted(.units(allowed: [.hours, .minutes], width: .narrow))
+    }
+
     @ViewBuilder
     private var stats: some View {
-        stat(value: Duration.seconds(recap.focusMinutes * 60).formatted(.units(allowed: [.hours, .minutes], width: .narrow)), label: "Focus")
+        stat(value: focusText, label: "Focus")
         stat(value: recap.ritualRate.map { $0.formatted(.percent.precision(.fractionLength(0))) } ?? "–", label: "Rituals")
         stat(value: recap.busiestHour.flatMap { Calendar.current.date(bySettingHour: $0, minute: 0, second: 0, of: .now) }
                 .map { $0.formatted(date: .omitted, time: .shortened) } ?? "–", label: "Busiest")

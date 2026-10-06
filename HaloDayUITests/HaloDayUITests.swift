@@ -151,6 +151,30 @@ final class HaloDayUITests: XCTestCase {
                 }
             }
         }
+        for sky in skies {
+            for language in languages {
+                let you = launchFixture(theme: sky.theme, screen: "you", language: language)
+                XCTAssertTrue(you.buttons["ritual-new"].waitForExistence(timeout: 10))
+                capture(you, "\(language.code)-\(sky.name)-1005-You")
+                you.terminate()
+            }
+        }
+        for language in languages {
+            let ritual = launchFixture(theme: "pearlHalo", screen: "you", language: language)
+            ritual.buttons["ritual-row-10000000-0000-0000-0000-000000000001"].tap()
+            XCTAssertTrue(ritual.buttons["ritual-edit"].waitForExistence(timeout: 5))
+            capture(ritual, "\(language.code)-LivingSky-1005-Ritual")
+            ritual.terminate()
+
+            let settings = launchFixture(theme: "pearlHalo", screen: "you", language: language)
+            settings.buttons["settings-open"].tap()
+            XCTAssertTrue(settings.buttons["settings-sky"].waitForExistence(timeout: 5))
+            capture(settings, "\(language.code)-LivingSky-1005-Settings")
+            settings.buttons["settings-sky"].tap()
+            XCTAssertTrue(settings.buttons["sky-livingSky"].waitForExistence(timeout: 5))
+            capture(settings, "\(language.code)-LivingSky-1005-Skies")
+            settings.terminate()
+        }
         for language in languages {
             let focus = launchFixture(theme: "pearlHalo", screen: "focus", language: language)
             XCTAssertTrue(focus.buttons["focus-start"].waitForExistence(timeout: 10))
