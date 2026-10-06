@@ -68,16 +68,27 @@ struct HaloLaunchConfiguration {
         settings.isPremium = false
         model.settings = settings
         model.habits = HaloFixtureData.habits(on: referenceDate)
-        model.events = MockData.events(on: referenceDate)
+        // A month of varied sample days so the week strip and month grid have texture.
+        model.events = (-35...35).flatMap { offset -> [CalendarEvent] in
+            let day = Calendar.current.date(byAdding: .day, value: offset, to: referenceDate)!
+            let all = MockData.events(on: day)
+            if offset == 0 { return all }
+            let weekend = Calendar.current.isDateInWeekend(day)
+            return Array(all.prefix(weekend ? abs(offset) % 2 : 1 + abs(offset * 7) % 4))
+        }
         model.presets = [WidgetPreset(name: "Pearl Agenda", themeId: settings.selectedThemeId)]
         model.selectedDate = referenceDate
         model.tab = switch screen {
-        case "calendar": .calendar
         case "studio": .studio
         case "rituals", "you": .you
         default: .day
         }
         model.showFocus = screen == "focus"
+        model.dayZoom = switch screen {
+        case "calendar", "month": .month
+        case "week": .week
+        default: .day
+        }
         model.showSettings = screen == "settings" || screen == "themes"
         model.showPaywall = screen == "paywall"
         UserDefaults.standard.removeObject(forKey: "halo.lastRitualCelebration")

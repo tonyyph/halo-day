@@ -3,7 +3,7 @@ import Observation
 import WidgetKit
 import EventKit
 
-enum AppTab: Hashable { case day, calendar, studio, you }
+enum AppTab: Hashable { case day, studio, you }
 
 @MainActor @Observable
 final class HaloModel {
@@ -25,6 +25,8 @@ final class HaloModel {
     var completedFocus: FocusSession?
     /// The day the Day tab shows; nil follows today.
     var viewedDay: Date?
+    /// Orbit Zoom level on the Day tab.
+    var dayZoom: ZoomLevel = .day
     private var focusTimer: Task<Void, Never>?
     var skyCoordinate: GeoCoordinate { TimeZoneLocator.approximateCoordinate(for: .current) }
     /// The active session (if any) followed by history, newest first.
@@ -201,15 +203,16 @@ final class HaloModel {
                 let formatter = DateFormatter(); formatter.dateFormat = "yyyy-MM-dd"
                 return formatter.date(from: value)
             }
-            tab = url.host == "calendar" ? .calendar : .day
-            if url.host == "day" { viewedDay = date }
+            tab = .day
+            dayZoom = url.host == "calendar" ? .month : .day
+            if url.host == "day" || date != nil { viewedDay = date }
             if let date { selectedDate = date }
         case "studio": tab = .studio
         case "rituals", "you": tab = .you
         case "focus": tab = .day; showFocus = true
         case "paywall": showPaywall = true
         case "event": tab = .day; selectedEvent = events.first { $0.id == url.lastPathComponent }
-        default: tab = .day; viewedDay = nil
+        default: tab = .day; dayZoom = .day; viewedDay = nil
         }
     }
 }

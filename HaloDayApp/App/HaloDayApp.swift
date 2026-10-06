@@ -104,10 +104,8 @@ struct RootView: View {
         TabView(selection: $model.tab) {
             DayView()
                 .tabItem { tabLabel("Day", symbol: "sun.horizon", tab: .day, index: 0) }.tag(AppTab.day)
-            NavigationStack { CalendarView() }.haloTabMotion(selected: model.tab == .calendar)
-                .tabItem { tabLabel("Calendar", symbol: "calendar", tab: .calendar, index: 1) }.tag(AppTab.calendar)
             NavigationStack { StudioView() }.haloTabMotion(selected: model.tab == .studio)
-                .tabItem { tabLabel("Studio", symbol: "square.on.square.dashed", tab: .studio, index: 2) }.tag(AppTab.studio)
+                .tabItem { tabLabel("Studio", symbol: "square.on.square.dashed", tab: .studio, index: 1) }.tag(AppTab.studio)
             NavigationStack {
                 RitualsView().toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
@@ -118,7 +116,7 @@ struct RootView: View {
                 }
             }
             .haloTabMotion(selected: model.tab == .you)
-            .tabItem { tabLabel("You", symbol: "person.crop.circle", tab: .you, index: 3) }.tag(AppTab.you)
+            .tabItem { tabLabel("You", symbol: "person.crop.circle", tab: .you, index: 2) }.tag(AppTab.you)
         }
         .fullScreenCover(isPresented: Binding(get: { !model.settings.hasCompletedOnboarding }, set: { _ in })) { OnboardingView() }
         .sheet(isPresented: $model.showPaywall) { PaywallView().haloSheet([.large]) }
