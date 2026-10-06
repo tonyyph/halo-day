@@ -29,7 +29,9 @@ struct MiniOrbit: View {
             if let nowHour {
                 let point = OrbitGeometry.point(forHour: nowHour, radius: radius, center: center)
                 let dot = side * 0.07
-                context.fill(Path(ellipseIn: CGRect(x: point.x - dot, y: point.y - dot, width: dot * 2, height: dot * 2)), with: .color(.white))
+                let disc = Path(ellipseIn: CGRect(x: point.x - dot, y: point.y - dot, width: dot * 2, height: dot * 2))
+                context.fill(disc, with: .color(.white))
+                context.stroke(disc, with: .color(ink.opacity(0.6)), lineWidth: max(0.75, side * 0.015))
             }
         }
         .accessibilityHidden(true)

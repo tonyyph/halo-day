@@ -67,9 +67,7 @@ final class HaloModel {
         settings = storage.settings; habits = storage.habits; focus = storage.focus
         settings.calendarPermissionGranted = calendarService.isAuthorized
         settings.notificationPermissionGranted = await notifications.isAuthorized()
-        let month = Calendar.current.dateInterval(of: .month, for: selectedDate)!
-        let current = Calendar.current.dateInterval(of: .month, for: .now)!
-        let interval = DateInterval(start: min(month.start, current.start), end: max(month.end, current.end).addingTimeInterval(7 * 86400))
+        let interval = Self.loadInterval(selected: selectedDate, now: .now)
         events = calendarService.events(in: interval, calendarIDs: settings.enabledCalendarIDs)
         if !settings.includeAllDay { events.removeAll { $0.isAllDay } }
         do {
@@ -80,6 +78,14 @@ final class HaloModel {
         await completeFocusIfDue()
         scheduleFocusCompletion()
         WidgetCenter.shared.reloadAllTimelines()
+    }
+    /// The selected month and the current month, widened to whole weeks plus a week either side,
+    /// so week strips and the month grid's leading/trailing days always have their events.
+    nonisolated static func loadInterval(selected: Date, now: Date, calendar: Calendar = .current) -> DateInterval {
+        let months = [selected, now].map { calendar.dateInterval(of: .month, for: $0)! }
+        let firstWeek = calendar.dateInterval(of: .weekOfYear, for: months.map(\.start).min()!)!.start
+        let lastWeek = calendar.dateInterval(of: .weekOfYear, for: months.map(\.end).max()!.addingTimeInterval(-1))!.end
+        return DateInterval(start: calendar.date(byAdding: .day, value: -7, to: firstWeek)!, end: calendar.date(byAdding: .day, value: 7, to: lastWeek)!)
     }
     func events(on date: Date) -> [CalendarEvent] {
         let interval = Calendar.current.dateInterval(of: .day, for: date)!
@@ -200,12 +206,17 @@ final class HaloModel {
         switch url.host {
         case "calendar", "day":
             let date = query?.first(where: { $0.name == "date" })?.value.flatMap { value -> Date? in
-                let formatter = DateFormatter(); formatter.dateFormat = "yyyy-MM-dd"
+                // Deep-link dates are always Gregorian ISO days, whatever the device calendar.
+                let formatter = DateFormatter()
+                formatter.locale = Locale(identifier: "en_US_POSIX")
+                formatter.calendar = Calendar(identifier: .gregorian)
+                formatter.dateFormat = "yyyy-MM-dd"
                 return formatter.date(from: value)
             }
             tab = .day
             dayZoom = url.host == "calendar" ? .month : .day
-            if url.host == "day" || date != nil { viewedDay = date }
+            // Today is shown by following the clock (viewedDay = nil), never as a pinned date.
+            if url.host == "day" || date != nil { viewedDay = date.flatMap { Calendar.current.isDateInToday($0) ? nil : $0 } }
             if let date { selectedDate = date }
         case "studio": tab = .studio
         case "rituals", "you": tab = .you

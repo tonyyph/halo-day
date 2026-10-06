@@ -40,7 +40,7 @@ struct MonthGrid: View {
             }
         }
         .contentShape(Rectangle())
-        .gesture(DragGesture(minimumDistance: 30).onEnded { value in
+        .simultaneousGesture(DragGesture(minimumDistance: 30).onEnded { value in
             if abs(value.translation.width) > 60, abs(value.translation.width) > abs(value.translation.height) * 1.5 {
                 onPage(value.translation.width < 0 ? 1 : -1)
             }
@@ -68,6 +68,7 @@ struct MonthGrid: View {
                     MiniOrbit(mini: mini, sky: sky, nowHour: mini.isToday ? nowHour : nil)
                     Text(mini.day, format: .dateTime.day())
                         .font(.caption.weight(mini.isToday || isSelected ? .bold : .regular))
+                        .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                 }
                 .frame(width: 46, height: 46)
             }

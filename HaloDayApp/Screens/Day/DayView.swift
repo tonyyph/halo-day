@@ -13,6 +13,10 @@ struct DayView: View {
         TimelineView(.everyMinute) { context in
             content(now: referenceDate ?? context.date)
         }
+        // Load the month being viewed whenever it changes — from paging, swiping or a deep link.
+        .onChange(of: Calendar.current.dateInterval(of: .month, for: model.selectedDate)?.start) { _, _ in
+            if !fixture { Task { await model.refresh() } }
+        }
         .fullScreenCover(isPresented: Binding(get: { model.showFocus }, set: { model.showFocus = $0 })) {
             FocusModeView()
         }
@@ -55,9 +59,9 @@ struct DayView: View {
                         if !scene.allDay.isEmpty { allDay(scene.allDay, sky: sky) }
                     case .week:
                         WeekStrip(week: ZoomBuilder.week(containing: day, now: now, events: model.events, habits: model.habits, calendar: calendar),
-                                  selected: day, sky: sky, nowHour: scene.orbit.nowHour ?? OrbitGeometry.hours(of: now, calendar: calendar)) { picked in
-                            select(picked, now: now, then: .day)
-                        }
+                                  selected: day, sky: sky, nowHour: scene.orbit.nowHour ?? OrbitGeometry.hours(of: now, calendar: calendar),
+                                  onSelect: { picked in select(picked, now: now, then: .day) },
+                                  onPage: { step in select(calendar.date(byAdding: .day, value: 7 * step, to: day)!, now: now) })
                         .padding(.horizontal, DS.Space.l)
                         .transition(.scale(scale: 0.9).combined(with: .opacity))
                     case .month:
@@ -163,12 +167,14 @@ struct DayView: View {
     private func page(from day: Date, by step: Int, now: Date) {
         let calendar = Calendar.current
         let month = calendar.dateInterval(of: .month, for: day)!.start
-        select(calendar.date(byAdding: .month, value: step, to: month)!, now: now)
+        let target = calendar.date(byAdding: .month, value: step, to: month)!
+        // Paging back into the current month lands on today, not the 1st.
+        select(calendar.isDate(target, equalTo: now, toGranularity: .month) ? now : target, now: now)
     }
 
+    /// Points the model at the viewed month; the `.onChange` above refreshes when the month changes.
     private func ensureLoaded(_ date: Date) {
         guard !Calendar.current.isDate(date, equalTo: model.selectedDate, toGranularity: .month) else { return }
         model.selectedDate = date
-        if !fixture { Task { await model.refresh() } }
     }
 }

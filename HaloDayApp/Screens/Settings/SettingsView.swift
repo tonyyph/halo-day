@@ -79,6 +79,10 @@ struct SettingsView: View {
                 Button("Open Settings") {
                     if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
                 }
+                NavigationLink { CalendarSourcesView() } label: {
+                    SettingsLabel(title: "Calendars", symbol: "list.bullet")
+                }
+                .accessibilityIdentifier("settings-calendars")
                 Toggle("Include all-day events", isOn: $model.settings.includeAllDay)
             }
             .listRowBackground(palette.surface)

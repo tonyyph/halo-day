@@ -13,7 +13,7 @@ struct ZoomScaleBar: View {
                     Text(item.title)
                         .font(.footnote.weight(item == level ? .semibold : .regular))
                         .padding(.horizontal, DS.Space.m)
-                        .frame(minHeight: 36)
+                        .frame(minHeight: 44)
                         .background { if item == level { Capsule().fill(sky.inkColor.color.opacity(0.12)) } }
                 }
                 .buttonStyle(.plain)

@@ -101,6 +101,37 @@ final class HaloDayUITests: XCTestCase {
     }
 
     @MainActor
+    func testMonthGridScrollsToTheAgenda() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "month", language: ("en", "en_US"))
+        let grid = app.descendants(matching: .any)["month-grid"]
+        XCTAssertTrue(grid.waitForExistence(timeout: 10))
+        let dinner = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'column-' AND label CONTAINS 'Dinner'")).firstMatch
+        XCTAssertFalse(dinner.isHittable)
+        grid.swipeUp()
+        XCTAssertTrue(dinner.isHittable)
+    }
+
+    @MainActor
+    func testWeekPagesForward() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "week", language: ("en", "en_US"))
+        XCTAssertTrue(app.buttons["week-day-2026-10-05"].waitForExistence(timeout: 10))
+        app.buttons["week-next"].tap()
+        XCTAssertTrue(app.buttons["week-day-2026-10-12"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testSettingsLetYouChooseCalendars() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "you", language: ("en", "en_US"))
+        XCTAssertTrue(app.buttons["settings-open"].waitForExistence(timeout: 10))
+        app.buttons["settings-open"].tap()
+        let row = app.buttons["settings-calendars"]
+        for _ in 0..<4 where !row.exists { app.swipeUp() }
+        XCTAssertTrue(row.exists)
+        row.tap()
+        XCTAssertTrue(app.navigationBars["Calendars"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testDayScreenshotMatrix() throws {
         for sky in skies {
             for language in languages {

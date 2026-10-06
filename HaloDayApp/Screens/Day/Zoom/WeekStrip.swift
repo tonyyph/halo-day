@@ -7,8 +7,34 @@ struct WeekStrip: View {
     var sky: SkyState
     var nowHour: Double?
     var onSelect: (Date) -> Void
+    var onPage: (Int) -> Void
 
     var body: some View {
+        VStack(spacing: DS.Space.s) {
+            HStack {
+                Button { onPage(-1) } label: { Image(systemName: "chevron.left").frame(width: 44, height: 44) }
+                    .accessibilityLabel(Text("Previous week"))
+                    .accessibilityIdentifier("week-previous")
+                Spacer()
+                if let first = week.first?.day, let last = week.last?.day {
+                    Text(first.formatted(.dateTime.day().month(.abbreviated)) + " – " + last.formatted(.dateTime.day().month(.abbreviated)))
+                        .font(DS.Typeface.title(18, relativeTo: .headline))
+                }
+                Spacer()
+                Button { onPage(1) } label: { Image(systemName: "chevron.right").frame(width: 44, height: 44) }
+                    .accessibilityLabel(Text("Next week"))
+                    .accessibilityIdentifier("week-next")
+            }
+            strip
+        }
+        .simultaneousGesture(DragGesture(minimumDistance: 30).onEnded { value in
+            if abs(value.translation.width) > 60, abs(value.translation.width) > abs(value.translation.height) * 1.5 {
+                onPage(value.translation.width < 0 ? 1 : -1)
+            }
+        })
+    }
+
+    private var strip: some View {
         GeometryReader { proxy in
             let width = proxy.size.width
             let slot = width / 7
@@ -28,9 +54,12 @@ struct WeekStrip: View {
                             MiniOrbit(mini: mini, sky: sky, nowHour: mini.isToday ? nowHour : nil)
                             Text(mini.day, format: .dateTime.day())
                                 .font(mini.isToday ? .callout.weight(.bold) : .callout)
+                                .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
                         }
                         .frame(width: side, height: side)
                     }
+                    .frame(minWidth: 44, minHeight: 44)
+                    .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
                 .position(x: x, y: proxy.size.height * 0.36 + t * t * proxy.size.height * 0.28)
