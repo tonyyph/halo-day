@@ -153,6 +153,15 @@ final class HaloDayUITests: XCTestCase {
         }
         for sky in skies {
             for language in languages {
+                let studio = launchFixture(theme: sky.theme, screen: "studio", language: language)
+                XCTAssertTrue(studio.buttons["studio-slot-0"].waitForExistence(timeout: 10))
+                capture(studio, "\(language.code)-\(sky.name)-1005-Studio")
+                if sky.name == "LivingSky" {
+                    studio.buttons["studio-slot-1"].tap()
+                    XCTAssertTrue(studio.buttons["kind-orbit"].waitForExistence(timeout: 5))
+                    capture(studio, "\(language.code)-\(sky.name)-1005-Slots")
+                }
+                studio.terminate()
                 let you = launchFixture(theme: sky.theme, screen: "you", language: language)
                 XCTAssertTrue(you.buttons["ritual-new"].waitForExistence(timeout: 10))
                 capture(you, "\(language.code)-\(sky.name)-1005-You")
