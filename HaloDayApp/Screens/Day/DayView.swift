@@ -33,23 +33,43 @@ struct DayView: View {
             ScrollView {
                 VStack(spacing: DS.Space.xl) {
                     header(scene, sky: sky)
-                    OrbitDial(scene: scene, sky: sky, style: model.settings.skyID.orbitStyle, now: now, habits: model.habits, events: events,
-                              celebration: celebration,
-                              onEvent: { id in model.selectedEvent = events.first { $0.id == id } },
-                              onBead: { id in toggle(id, scene: scene) },
-                              onNow: { if scene.isToday { model.showFocus = true } },
-                              onSwipe: { step in changeDay(from: day, by: step, now: now) })
-                        .id(scene.day)
-                        .transition(.opacity.combined(with: .scale(scale: 0.96)))
-                        .padding(.horizontal, DS.Space.l)
-                    if model.isSample {
-                        Button { Task { await model.requestCalendar() } } label: {
-                            Label("Sample day · Connect calendar", systemImage: "calendar.badge.plus")
+                    ZoomScaleBar(level: model.dayZoom, sky: sky) { zoom(to: $0) }
+                    switch model.dayZoom {
+                    case .day:
+                        OrbitDial(scene: scene, sky: sky, style: model.settings.skyID.orbitStyle, now: now, habits: model.habits, events: events,
+                                  celebration: celebration,
+                                  onEvent: { id in model.selectedEvent = events.first { $0.id == id } },
+                                  onBead: { id in toggle(id, scene: scene) },
+                                  onNow: { if scene.isToday { model.showFocus = true } },
+                                  onSwipe: { step in changeDay(from: day, by: step, now: now) })
+                            .id(scene.day)
+                            .transition(.scale(scale: 0.9).combined(with: .opacity))
+                            .padding(.horizontal, DS.Space.l)
+                        if model.isSample {
+                            Button { Task { await model.requestCalendar() } } label: {
+                                Label("Sample day · Connect calendar", systemImage: "calendar.badge.plus")
+                            }
+                            .buttonStyle(GlassPillStyle(sky: sky))
+                            .accessibilityIdentifier("connect-calendar")
                         }
-                        .buttonStyle(GlassPillStyle(sky: sky))
-                        .accessibilityIdentifier("connect-calendar")
+                        if !scene.allDay.isEmpty { allDay(scene.allDay, sky: sky) }
+                    case .week:
+                        WeekStrip(week: ZoomBuilder.week(containing: day, now: now, events: model.events, habits: model.habits, calendar: calendar),
+                                  selected: day, sky: sky, nowHour: scene.orbit.nowHour ?? OrbitGeometry.hours(of: now, calendar: calendar)) { picked in
+                            select(picked, now: now, then: .day)
+                        }
+                        .padding(.horizontal, DS.Space.l)
+                        .transition(.scale(scale: 0.9).combined(with: .opacity))
+                    case .month:
+                        MonthGrid(rows: ZoomBuilder.month(containing: day, now: now, events: model.events, habits: model.habits, calendar: calendar),
+                                  month: day, selected: day, sky: sky, nowHour: OrbitGeometry.hours(of: now, calendar: calendar),
+                                  onSelect: { picked in
+                                      if calendar.isDate(picked, inSameDayAs: day) { zoom(to: .day) } else { select(picked, now: now) }
+                                  },
+                                  onPage: { step in page(from: day, by: step, now: now) })
+                            .padding(.horizontal, DS.Space.l)
+                            .transition(.scale(scale: 0.9).combined(with: .opacity))
                     }
-                    if !scene.allDay.isEmpty { allDay(scene.allDay, sky: sky) }
                     LightColumn(scene: scene, sky: sky, now: now, focus: model.focus,
                                 onEvent: { model.selectedEvent = $0 }, onFocus: { model.showFocus = true })
                         .padding(.horizontal, DS.Space.xl)
@@ -57,6 +77,10 @@ struct DayView: View {
                 .padding(.bottom, DS.Space.hero)
             }
             .scrollIndicators(.hidden)
+            .simultaneousGesture(MagnifyGesture().onEnded { value in
+                if value.magnification < 0.8 { zoom(to: model.dayZoom.zoomedOut) }
+                else if value.magnification > 1.25 { zoom(to: model.dayZoom.zoomedIn) }
+            })
         }
         .foregroundStyle(sky.inkColor.color)
         .tint(sky.inkColor.color)
@@ -118,14 +142,33 @@ struct DayView: View {
     }
 
     private func changeDay(from day: Date, by step: Int, now: Date) {
+        select(Calendar.current.date(byAdding: .day, value: step, to: day)!, now: now)
+    }
+
+    private func zoom(to level: ZoomLevel) {
+        guard level != model.dayZoom else { return }
+        withAnimation(DS.Motion.resolve(DS.Motion.morph, reduceMotion: reduceMotion)) { model.dayZoom = level }
+    }
+
+    /// Shows `date` (nil when it is today), optionally zooming, and loads its month if needed.
+    private func select(_ date: Date, now: Date, then level: ZoomLevel? = nil) {
         let calendar = Calendar.current
-        let target = calendar.date(byAdding: .day, value: step, to: day)!
         withAnimation(DS.Motion.resolve(DS.Motion.standard, reduceMotion: reduceMotion)) {
-            model.viewedDay = calendar.isDate(target, inSameDayAs: now) ? nil : target
+            model.viewedDay = calendar.isDate(date, inSameDayAs: now) ? nil : date
+            if let level { model.dayZoom = level }
         }
-        if !Calendar.current.isDate(target, equalTo: model.selectedDate, toGranularity: .month) {
-            model.selectedDate = target
-            if !fixture { Task { await model.refresh() } }
-        }
+        ensureLoaded(date)
+    }
+
+    private func page(from day: Date, by step: Int, now: Date) {
+        let calendar = Calendar.current
+        let month = calendar.dateInterval(of: .month, for: day)!.start
+        select(calendar.date(byAdding: .month, value: step, to: month)!, now: now)
+    }
+
+    private func ensureLoaded(_ date: Date) {
+        guard !Calendar.current.isDate(date, equalTo: model.selectedDate, toGranularity: .month) else { return }
+        model.selectedDate = date
+        if !fixture { Task { await model.refresh() } }
     }
 }

@@ -84,6 +84,23 @@ final class HaloDayUITests: XCTestCase {
     }
 
     @MainActor
+    func testZoomWeekMonthAndBack() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "day", language: ("en", "en_US"))
+        XCTAssertTrue(app.buttons["zoom-week"].waitForExistence(timeout: 10))
+        app.buttons["zoom-week"].tap()
+        XCTAssertTrue(app.buttons["week-day-2026-10-07"].waitForExistence(timeout: 5))
+        app.buttons["zoom-month"].tap()
+        let target = app.buttons["month-day-2026-10-20"]
+        XCTAssertTrue(target.waitForExistence(timeout: 5))
+        target.tap()
+        target.tap()
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'October 20'")).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Today"].exists)
+        app.buttons["Today"].tap()
+        XCTAssertTrue(app.buttons["orbit-now"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testDayScreenshotMatrix() throws {
         for sky in skies {
             for language in languages {
@@ -91,6 +108,14 @@ final class HaloDayUITests: XCTestCase {
                     let app = launchFixture(theme: sky.theme, screen: "day", time: time, language: language)
                     XCTAssertTrue(app.buttons["orbit-now"].waitForExistence(timeout: 10))
                     capture(app, "\(language.code)-\(sky.name)-\(time.replacingOccurrences(of: ":", with: ""))-Day")
+                    if time == "10:05" {
+                        app.buttons["zoom-week"].tap()
+                        XCTAssertTrue(app.buttons["week-day-2026-10-05"].waitForExistence(timeout: 5))
+                        capture(app, "\(language.code)-\(sky.name)-1005-Week")
+                        app.buttons["zoom-month"].tap()
+                        XCTAssertTrue(app.buttons["month-day-2026-10-05"].waitForExistence(timeout: 5))
+                        capture(app, "\(language.code)-\(sky.name)-1005-Month")
+                    }
                     app.terminate()
                 }
             }
@@ -117,14 +142,11 @@ final class HaloDayUITests: XCTestCase {
         app.launch()
         finishOnboardingIfNeeded(app)
         XCTAssertTrue(app.buttons["orbit-now"].waitForExistence(timeout: 8))
+        app.buttons["zoom-month"].tap()
+        XCTAssertTrue(app.descendants(matching: .any)["month-grid"].waitForExistence(timeout: 5))
         tabButton(app, 1, language: "en").tap()
-        let month = app.segmentedControls.buttons["Month"]
-        XCTAssertTrue(month.waitForExistence(timeout: 3))
-        month.tap()
-        XCTAssertTrue(app.descendants(matching: .any)["calendar-month-grid"].waitForExistence(timeout: 5))
-        tabButton(app, 2, language: "en").tap()
         XCTAssertTrue(app.staticTexts["Widget Studio"].waitForExistence(timeout: 3))
-        tabButton(app, 3, language: "en").tap()
+        tabButton(app, 2, language: "en").tap()
         XCTAssertTrue(app.staticTexts["Rituals, kept gently"].waitForExistence(timeout: 3))
     }
 
@@ -176,7 +198,7 @@ final class HaloDayUITests: XCTestCase {
         app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         app.launch()
         finishOnboardingIfNeeded(app)
-        tabButton(app, 3, language: "en").tap()
+        tabButton(app, 2, language: "en").tap()
         app.buttons["settings-open"].tap()
         app.buttons["Upgrade to Premium"].tap()
         XCTAssertTrue(app.staticTexts["Make every glance beautiful."].waitForExistence(timeout: 5))
@@ -213,8 +235,8 @@ final class HaloDayUITests: XCTestCase {
     }
 
     @MainActor private func tabButton(_ app: XCUIApplication, _ tab: Int, language: String) -> XCUIElement {
-        let english = ["Day", "Calendar", "Studio", "You"]
-        let vietnamese = ["Ngày", "Lịch", "Studio", "Bạn"]
+        let english = ["Day", "Studio", "You"]
+        let vietnamese = ["Ngày", "Studio", "Bạn"]
         return app.tabBars.buttons[(language == "vi" ? vietnamese : english)[tab]]
     }
 

@@ -2,23 +2,6 @@ import XCTest
 @testable import HaloDay
 
 final class HaloDayTests: XCTestCase {
-    func testCalendarOverlapUsesSharedColumnsAndClipsAllDayEvents() {
-        let day = Calendar.current.startOfDay(for: .now)
-        func event(_ id: String, _ start: Double, _ end: Double, allDay: Bool = false) -> CalendarEvent {
-            CalendarEvent(id: id, title: id, startDate: day.addingTimeInterval(start * 3600),
-                          endDate: day.addingTimeInterval(end * 3600), calendarName: "Work",
-                          accentColor: ThemeRegistry.all[0].accentColor, isAllDay: allDay)
-        }
-        let layout = CalendarDayLayout(date: day, events: [
-            event("a", 9, 10), event("b", 9.5, 10.5), event("c", 10, 11),
-            event("d", 12, 13), event("all-day", 0, 24, allDay: true)
-        ])
-        XCTAssertEqual(layout.placements.count, 4)
-        XCTAssertEqual(Array(layout.placements.prefix(3)).map(\.columns), [2, 2, 2])
-        XCTAssertEqual(layout.placements[0].column, layout.placements[2].column)
-        XCTAssertEqual(layout.placements[3].columns, 1)
-        XCTAssertEqual(layout.placements[0].y, 9 * 56, accuracy: 0.01)
-    }
     @MainActor func testLocalStoreKitCatalogMatchesProductIDs() throws {
         let url = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "HaloDay", withExtension: "storekit"))
         let data = try Data(contentsOf: url)

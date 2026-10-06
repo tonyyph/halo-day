@@ -142,25 +142,6 @@ struct AgendaRow: View {
             .opacity(event.endDate < date ? 0.6 : 1)
     }
 }
-struct WeekStrip: View {
-    @Binding var selected: Date
-    var body: some View {
-        let calendar = Calendar.current
-        let start = calendar.dateInterval(of: .weekOfYear, for: selected)!.start
-        HStack(spacing: HaloTokens.Space.tiny) {
-            ForEach(0..<7) { offset in
-                let day = calendar.date(byAdding: .day, value: offset, to: start)!
-                Button { selected = day } label: {
-                    VStack(spacing: HaloTokens.Space.small) {
-                        Text(day, format: .dateTime.weekday(.narrow)).font(.caption)
-                        Text(day, format: .dateTime.day()).font(.headline.monospacedDigit())
-                    }.frame(maxWidth: .infinity).frame(minHeight: 64)
-                        .background(calendar.isDate(day, inSameDayAs: selected) ? AnyShapeStyle(.tint.opacity(0.15)) : AnyShapeStyle(.clear), in: RoundedRectangle(cornerRadius: HaloTokens.Radius.small, style: .continuous))
-                }.buttonStyle(.plain).accessibilityLabel(Text(day, format: .dateTime.weekday().month().day()))
-            }
-        }
-    }
-}
 struct MiniMonthGrid: View {
     var month: Date
     var highlights: Set<Int> = []

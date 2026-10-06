@@ -34,6 +34,22 @@
         }
       }
     },
+    "%@, %lld events, %lld of %lld rituals" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %lld events, %lld of %lld rituals"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$lld sự kiện, %3$lld/%4$lld nghi thức"
+          }
+        }
+      }
+    },
     "%@/month" : {
       "localizations" : {
         "en" : {
@@ -142,6 +158,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$lld ngày · %2$@"
+          }
+        }
+      }
+    },
+    "%lld events, %lld of %lld rituals" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld events, %lld of %lld rituals"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$lld sự kiện, %2$lld/%3$lld nghi thức"
           }
         }
       }
@@ -443,6 +475,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "-UITestTime"
+          }
+        }
+      }
+    },
+    "10:30 PM" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10:30 PM"
           }
         }
       }
@@ -4526,6 +4568,22 @@
         }
       }
     },
+    "Next day" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next day"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày sau"
+          }
+        }
+      }
+    },
     "Next event · Empty AX3" : {
       "localizations" : {
         "en" : {
@@ -4542,6 +4600,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Next event · Ruby"
+          }
+        }
+      }
+    },
+    "Next month" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next month"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tháng sau"
           }
         }
       }
@@ -5371,6 +5445,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trước đó"
+          }
+        }
+      }
+    },
+    "Previous day" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous day"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngày trước"
+          }
+        }
+      }
+    },
+    "Previous month" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous month"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tháng trước"
           }
         }
       }
