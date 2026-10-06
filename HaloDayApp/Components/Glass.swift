@@ -4,7 +4,7 @@ import SwiftUI
 struct HaloGlass<S: InsettableShape>: ViewModifier {
     var shape: S
     var tint: Color
-    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
+    @Environment(\.haloReduceTransparency) private var reduceTransparency
 
     func body(content: Content) -> some View {
         if reduceTransparency {

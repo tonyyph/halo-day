@@ -1,7 +1,14 @@
 import SwiftUI
 
+/// The Orbit's clock text, in the locale's own hour cycle ("22:30", "10:30 PM").
+enum DayClock {
+    static func string(_ date: Date, locale: Locale = .current, timeZone: TimeZone = .current) -> String {
+        date.formatted(Date.FormatStyle(date: .omitted, time: .shortened, locale: locale, timeZone: timeZone))
+    }
+}
+
 /// The interactive Orbit: tap beads/arcs/now, hold for focus, swipe to change day.
-/// Every interactive element also has an invisible 44 pt button for VoiceOver and UI tests.
+/// Taps all go through `OrbitGeometry.hitTest` (now first); invisible 44 pt elements exist only for VoiceOver and UI tests.
 struct OrbitDial: View {
     var scene: DayScene
     var sky: SkyState
@@ -16,7 +23,7 @@ struct OrbitDial: View {
     var onSwipe: (Int) -> Void
     @State private var drawn: CGFloat = 0
     @State private var glow: Double = 0
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
 
     var body: some View {
         GeometryReader { proxy in
@@ -52,7 +59,7 @@ struct OrbitDial: View {
     private func center(size: CGFloat) -> some View {
         VStack(spacing: size * 0.012) {
             if scene.isToday {
-                Text(now, format: .dateTime.hour(.twoDigits(amPM: .omitted)).minute(.twoDigits))
+                Text(DayClock.string(now))
                     .font(DS.Typeface.clock(size * 0.15))
                 Text(sky.moment.title).font(DS.Typeface.moment(size * 0.055)).opacity(SkyEngine.secondaryOpacity)
             } else {
@@ -65,6 +72,9 @@ struct OrbitDial: View {
         .frame(width: size * 0.44)
         .allowsHitTesting(false)
         .accessibilityElement(children: .combine)
+        .accessibilityAction(named: Text("Previous day")) { onSwipe(-1) }
+        .accessibilityAction(named: Text("Next day")) { onSwipe(1) }
+        .accessibilityIdentifier("orbit-center")
     }
 
     @ViewBuilder
@@ -81,17 +91,21 @@ struct OrbitDial: View {
                 .accessibilityIdentifier("arc-\(arc.id)")
         }
         ForEach(scene.orbit.beads) { bead in
-            target(at: OrbitGeometry.point(forHour: bead.hour, radius: metrics.beadRadius, center: metrics.center)) { onBead(bead.id) }
+            target(at: OrbitGeometry.point(forHour: bead.hour, radius: metrics.beadRadius, center: metrics.center), enabled: scene.isToday) { onBead(bead.id) }
                 .accessibilityLabel(Text(habits.first { $0.id == bead.id }?.title ?? ""))
                 .accessibilityValue(bead.isDone ? Text("Done") : Text("Not done"))
                 .accessibilityIdentifier("bead-\(bead.id.uuidString)")
         }
     }
 
-    private func target(at point: CGPoint, action: @escaping () -> Void) -> some View {
-        Button(action: action) { Color.clear.frame(width: 44, height: 44).contentShape(Circle()) }
-            .buttonStyle(.plain)
+    private func target(at point: CGPoint, enabled: Bool = true, action: @escaping () -> Void) -> some View {
+        Color.clear
+            .frame(width: 44, height: 44)
+            .accessibilityElement()
+            .accessibilityAddTraits(enabled ? .isButton : [])
+            .accessibilityAction { if enabled { action() } }
             .position(point)
+            .allowsHitTesting(false)
     }
 
     private func tap(_ location: CGPoint, metrics: OrbitMetrics) {

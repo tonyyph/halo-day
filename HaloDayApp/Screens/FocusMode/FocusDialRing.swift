@@ -107,6 +107,8 @@ struct FocusCountdownRing: View {
     var now: Date
     var sky: SkyState
     @State private var fraction: Double = 1
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.haloReferenceDate) private var referenceDate
 
     var body: some View {
         GeometryReader { proxy in
@@ -144,12 +146,14 @@ struct FocusCountdownRing: View {
         .aspectRatio(1, contentMode: .fit)
         .onAppear(perform: sync)
         .onChange(of: session) { _, _ in sync() }
+        // Animation time stops while the phone sleeps; resync with the clock when the app comes back.
+        .onChange(of: scenePhase) { _, phase in if phase == .active { sync() } }
         .accessibilityElement(children: .combine)
     }
 
     private func sync() {
         let total = Double(max(1, session.durationMinutes) * 60)
-        let remaining = session.remaining(at: now)
+        let remaining = session.remaining(at: referenceDate ?? .now)
         var still = Transaction()
         still.disablesAnimations = true
         withTransaction(still) { fraction = remaining / total }

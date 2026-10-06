@@ -21,6 +21,11 @@ final class HaloModel {
     var showGuide = false
     var error: String?
     var showFocus = false
+    /// A session that just finished while the app was open; the focus cover shows its bloom.
+    var completedFocus: FocusSession?
+    /// The day the Day tab shows; nil follows today.
+    var viewedDay: Date?
+    private var focusTimer: Task<Void, Never>?
     var skyCoordinate: GeoCoordinate { TimeZoneLocator.approximateCoordinate(for: .current) }
     /// The active session (if any) followed by history, newest first.
     var focusSessions: [FocusSession] { (focus.map { $0.isActive ? [$0] : [] } ?? []) + focusHistory }
@@ -70,7 +75,8 @@ final class HaloModel {
             try storage.write(settings, key: "settings")
             try await notifications.plan(events: events, focus: focus, minutes: settings.eventReminderMinutes)
         } catch { self.error = error.localizedDescription }
-        if let focus, focus.isActive, !focus.isPaused, focus.endDate <= .now { await stopFocus(completed: true) }
+        await completeFocusIfDue()
+        scheduleFocusCompletion()
         WidgetCenter.shared.reloadAllTimelines()
     }
     func events(on date: Date) -> [CalendarEvent] {
@@ -133,6 +139,7 @@ final class HaloModel {
             try await notifications.plan(events: events, focus: session, minutes: settings.eventReminderMinutes)
             if purchases.isPremium && settings.liveActivities { try await activities.start(focus: session, theme: theme) }
         } catch { self.error = error.localizedDescription }
+        scheduleFocusCompletion()
         WidgetCenter.shared.reloadAllTimelines()
     }
     func pauseFocus() async {
@@ -141,10 +148,37 @@ final class HaloModel {
         else { session.pausedRemaining = session.remaining() }
         focus = session
         do { try storage.write(session, key: "focus"); try await notifications.plan(events: events, focus: session, minutes: settings.eventReminderMinutes) } catch { self.error = error.localizedDescription }
+        scheduleFocusCompletion()
         await activities.update(focus: session); WidgetCenter.shared.reloadAllTimelines()
     }
+    /// Completes a running session whose time is up. One that ended over a minute ago (the app was closed) completes quietly.
+    func completeFocusIfDue(now: Date = .now) async {
+        guard let session = focus, session.isActive, !session.isPaused, session.endDate <= now else { return }
+        await stopFocus(completed: true)
+        if now.timeIntervalSince(session.endDate) < 60, let finished = focus, !finished.isActive {
+            completedFocus = finished
+            showFocus = true
+        }
+    }
+    /// Opens the focus cover at launch for a session that is still running or paused.
+    func presentRunningFocus(now: Date = .now) {
+        guard let session = focus, session.isActive, session.isPaused || session.endDate > now else { return }
+        showFocus = true
+    }
+    /// The end-of-session timer lives here, not in a view, so minimizing the cover cannot cancel it.
+    func scheduleFocusCompletion() {
+        focusTimer?.cancel()
+        guard let session = focus, session.isActive, !session.isPaused else { return }
+        focusTimer = Task { [weak self] in
+            let remaining = session.endDate.timeIntervalSinceNow
+            if remaining > 0 { try? await Task.sleep(for: .seconds(remaining)) }
+            guard !Task.isCancelled else { return }
+            await self?.completeFocusIfDue()
+        }
+    }
     func stopFocus(completed: Bool = false) async {
-        if var session = storage.focus, session.isActive {
+        focusTimer?.cancel()
+        if var session = focus, session.isActive {
             session.isActive = false
             if !completed { session.endDate = .now }
             focus = session; focusHistory.insert(session, at: 0)
@@ -163,17 +197,19 @@ final class HaloModel {
         let query = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
         switch url.host {
         case "calendar", "day":
-            tab = url.host == "calendar" ? .calendar : .day
-            if let value = query?.first(where: { $0.name == "date" })?.value {
+            let date = query?.first(where: { $0.name == "date" })?.value.flatMap { value -> Date? in
                 let formatter = DateFormatter(); formatter.dateFormat = "yyyy-MM-dd"
-                if let date = formatter.date(from: value) { selectedDate = date }
+                return formatter.date(from: value)
             }
+            tab = url.host == "calendar" ? .calendar : .day
+            if url.host == "day" { viewedDay = date }
+            if let date { selectedDate = date }
         case "studio": tab = .studio
         case "rituals", "you": tab = .you
         case "focus": tab = .day; showFocus = true
         case "paywall": showPaywall = true
         case "event": tab = .day; selectedEvent = events.first { $0.id == url.lastPathComponent }
-        default: tab = .day
+        default: tab = .day; viewedDay = nil
         }
     }
 }

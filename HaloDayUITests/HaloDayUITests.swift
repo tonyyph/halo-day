@@ -45,6 +45,45 @@ final class HaloDayUITests: XCTestCase {
     }
 
     @MainActor
+    func testOrbitNowOffCentreOpensFocus() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "day", language: ("en", "en_US"))
+        let now = app.descendants(matching: .any)["orbit-now"]
+        XCTAssertTrue(now.waitForExistence(timeout: 10))
+        for dx in [10.0, -10.0] {
+            now.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).withOffset(CGVector(dx: dx, dy: 0)).tap()
+            XCTAssertTrue(app.buttons["focus-close"].waitForExistence(timeout: 5), "offset \(dx)")
+            app.buttons["focus-close"].tap()
+            XCTAssertTrue(now.waitForExistence(timeout: 5))
+        }
+    }
+
+    @MainActor
+    func testMinimizedFocusStaysMinimizedAcrossTabs() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "focus", language: ("en", "en_US"))
+        XCTAssertTrue(app.buttons["focus-start"].waitForExistence(timeout: 10))
+        app.buttons["focus-start"].tap()
+        XCTAssertTrue(app.buttons["focus-minimize"].waitForExistence(timeout: 5))
+        app.buttons["focus-minimize"].tap()
+        tabButton(app, 1, language: "en").tap()
+        tabButton(app, 0, language: "en").tap()
+        XCTAssertTrue(app.buttons["column-focus"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["focus-minimize"].exists)
+    }
+
+    @MainActor
+    func testFocusSetupFitsAtTheLargestTextSize() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-UITestScreenshotMode", "-UITestTheme", "pearlHalo", "-UITestScreen", "focus", "-UITestTime", "10:05",
+                               "-AppleLanguages", "(en)", "-AppleLocale", "en_US",
+                               "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        app.launch()
+        let start = app.buttons["focus-start"]
+        XCTAssertTrue(start.waitForExistence(timeout: 10))
+        for _ in 0..<4 where !start.isHittable { app.swipeUp() }
+        XCTAssertTrue(start.isHittable)
+    }
+
+    @MainActor
     func testDayScreenshotMatrix() throws {
         for sky in skies {
             for language in languages {

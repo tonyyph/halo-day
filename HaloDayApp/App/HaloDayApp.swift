@@ -37,6 +37,7 @@ struct HaloDayApp: App {
                 guard !launch.isScreenshotMode else { return }
                 await model.purchases.start()
                 await model.refresh()
+                model.presentRunningFocus()
             }
             .onChange(of: phase) { _, value in
                 guard !launch.isScreenshotMode, value == .active else { return }

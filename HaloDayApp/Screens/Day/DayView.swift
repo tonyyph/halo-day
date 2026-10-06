@@ -5,8 +5,7 @@ struct DayView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.haloReferenceDate) private var referenceDate
     @Environment(\.haloScreenshotMode) private var fixture
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
-    @State private var dayOffset = 0
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var celebration = 0
     @State private var beadTaps = 0
 
@@ -17,14 +16,13 @@ struct DayView: View {
         .fullScreenCover(isPresented: Binding(get: { model.showFocus }, set: { model.showFocus = $0 })) {
             FocusModeView()
         }
-        .onAppear { if model.focus?.isActive == true { model.showFocus = true } }
     }
 
     @ViewBuilder
     private func content(now: Date) -> some View {
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: now)
-        let day = calendar.date(byAdding: .day, value: dayOffset, to: today)!
+        let day = model.viewedDay.map { calendar.startOfDay(for: $0) } ?? today
         let coordinate = model.skyCoordinate
         let sky = SkyEngine.state(sky: model.settings.skyID, at: day.addingTimeInterval(now.timeIntervalSince(today)), coordinate: coordinate, calendar: calendar)
         let events = model.events(on: day)
@@ -40,7 +38,7 @@ struct DayView: View {
                               onEvent: { id in model.selectedEvent = events.first { $0.id == id } },
                               onBead: { id in toggle(id, scene: scene) },
                               onNow: { if scene.isToday { model.showFocus = true } },
-                              onSwipe: { step in changeDay(by: step, now: now) })
+                              onSwipe: { step in changeDay(from: day, by: step, now: now) })
                         .id(scene.day)
                         .transition(.opacity.combined(with: .scale(scale: 0.96)))
                         .padding(.horizontal, DS.Space.l)
@@ -78,8 +76,8 @@ struct DayView: View {
                 Text(summary(scene)).font(.subheadline).opacity(SkyEngine.secondaryOpacity)
             }
             Spacer()
-            if dayOffset != 0 {
-                Button("Today") { withAnimation(DS.Motion.resolve(DS.Motion.standard, reduceMotion: reduceMotion)) { dayOffset = 0 } }
+            if model.viewedDay != nil {
+                Button("Today") { withAnimation(DS.Motion.resolve(DS.Motion.standard, reduceMotion: reduceMotion)) { model.viewedDay = nil } }
                     .buttonStyle(GlassPillStyle(sky: sky))
             }
         }
@@ -119,9 +117,12 @@ struct DayView: View {
         if !wasComplete, done > 0, done == model.habits.count { celebration += 1 }
     }
 
-    private func changeDay(by step: Int, now: Date) {
-        withAnimation(DS.Motion.resolve(DS.Motion.standard, reduceMotion: reduceMotion)) { dayOffset += step }
-        let target = Calendar.current.date(byAdding: .day, value: dayOffset, to: now)!
+    private func changeDay(from day: Date, by step: Int, now: Date) {
+        let calendar = Calendar.current
+        let target = calendar.date(byAdding: .day, value: step, to: day)!
+        withAnimation(DS.Motion.resolve(DS.Motion.standard, reduceMotion: reduceMotion)) {
+            model.viewedDay = calendar.isDate(target, inSameDayAs: now) ? nil : target
+        }
         if !Calendar.current.isDate(target, equalTo: model.selectedDate, toGranularity: .month) {
             model.selectedDate = target
             if !fixture { Task { await model.refresh() } }

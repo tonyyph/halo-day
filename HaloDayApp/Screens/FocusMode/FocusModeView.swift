@@ -5,10 +5,9 @@ struct FocusModeView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.haloReferenceDate) private var referenceDate
     @Environment(\.haloScreenshotMode) private var fixture
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var minutes = 25
     @State private var title = ""
-    @State private var completed: FocusSession?
     @State private var bloom = false
 
     var body: some View {
@@ -17,7 +16,7 @@ struct FocusModeView: View {
         ZStack {
             SkyBackground(state: sky)
             Group {
-                if let completed {
+                if let completed = model.completedFocus {
                     completion(completed, sky: sky)
                 } else if let session = model.focus, session.isActive {
                     running(session, now: now, sky: sky)
@@ -30,10 +29,6 @@ struct FocusModeView: View {
         .foregroundStyle(sky.inkColor.color)
         .tint(sky.inkColor.color)
         .environment(\.colorScheme, .dark)
-        .onChange(of: model.focus) { old, new in
-            guard let old, old.isActive, !old.isPaused, let new, !new.isActive, new.id == old.id else { return }
-            if new.endDate >= old.endDate.addingTimeInterval(-1) { completed = new }
-        }
     }
 
     // MARK: Setup
@@ -99,13 +94,6 @@ struct FocusModeView: View {
                     .accessibilityIdentifier("focus-end")
             }
         }
-        .task(id: "\(session.endDate.timeIntervalSince1970)-\(session.isPaused)") {
-            guard !fixture, !session.isPaused else { return }
-            let remaining = session.endDate.timeIntervalSinceNow
-            if remaining > 0 { try? await Task.sleep(for: .seconds(remaining)) }
-            guard !Task.isCancelled, let current = model.focus, current.id == session.id, current.isActive, !current.isPaused else { return }
-            await model.stopFocus(completed: true)
-        }
     }
 
     // MARK: Completion
@@ -128,7 +116,7 @@ struct FocusModeView: View {
             Text("Time well spent.").font(DS.Typeface.title(24, relativeTo: .title2))
             Text("\(today)′ of focus today").opacity(SkyEngine.secondaryOpacity)
             Spacer()
-            Button { completed = nil; bloom = false; model.showFocus = false } label: { Text("Done").font(.headline).frame(maxWidth: .infinity) }
+            Button { model.completedFocus = nil; bloom = false; model.showFocus = false } label: { Text("Done").font(.headline).frame(maxWidth: .infinity) }
                 .buttonStyle(GlassPillStyle(sky: sky))
                 .accessibilityIdentifier("focus-done")
         }

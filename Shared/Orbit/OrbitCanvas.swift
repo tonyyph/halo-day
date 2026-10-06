@@ -15,7 +15,7 @@ struct OrbitCanvas: View {
     var sky: SkyState
     var style: OrbitStyle
     var breathing = false
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.haloReduceMotion) private var reduceMotion
 
     var body: some View {
         if breathing && !reduceMotion {
