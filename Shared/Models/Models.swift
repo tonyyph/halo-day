@@ -13,6 +13,28 @@ struct CalendarEvent: Identifiable, Codable, Hashable, Sendable {
     var source: String = "calendar"
 }
 
+enum TimeOfDay: String, Codable, CaseIterable, Sendable, Identifiable {
+    case morning, afternoon, evening, anytime
+    var id: String { rawValue }
+    var title: String {
+        switch self {
+        case .morning: String(localized: "Morning")
+        case .afternoon: String(localized: "Afternoon")
+        case .evening: String(localized: "Evening")
+        case .anytime: String(localized: "Anytime")
+        }
+    }
+    /// Where this slot sits on the 24-hour Orbit.
+    var anchorHour: Double {
+        switch self {
+        case .morning: 7.5
+        case .afternoon: 13.5
+        case .evening: 20
+        case .anytime: 12
+        }
+    }
+}
+
 struct Habit: Identifiable, Codable, Hashable, Sendable {
     var id: UUID = UUID()
     var title: String
@@ -20,6 +42,8 @@ struct Habit: Identifiable, Codable, Hashable, Sendable {
     var accentColor: String
     var completedDates: [Date] = []
     var targetFrequency: Int = 1
+    var timeOfDay: TimeOfDay = .anytime
+    enum CodingKeys: String, CodingKey { case id, title, icon, accentColor, completedDates, targetFrequency, timeOfDay }
     func isCompleted(on date: Date = .now) -> Bool {
         completedDates.contains { Calendar.current.isDate($0, inSameDayAs: date) }
     }
@@ -39,6 +63,20 @@ struct Habit: Identifiable, Codable, Hashable, Sendable {
         if isCompleted(on: date) {
             completedDates.removeAll { Calendar.current.isDate($0, inSameDayAs: date) }
         } else { completedDates.append(Calendar.current.startOfDay(for: date)) }
+    }
+}
+
+extension Habit {
+    /// Tolerant decoding: habits saved before v2 have no `timeOfDay`.
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        title = try container.decode(String.self, forKey: .title)
+        icon = try container.decode(String.self, forKey: .icon)
+        accentColor = try container.decode(String.self, forKey: .accentColor)
+        completedDates = try container.decodeIfPresent([Date].self, forKey: .completedDates) ?? []
+        targetFrequency = try container.decodeIfPresent(Int.self, forKey: .targetFrequency) ?? 1
+        timeOfDay = try container.decodeIfPresent(TimeOfDay.self, forKey: .timeOfDay) ?? .anytime
     }
 }
 
@@ -106,6 +144,17 @@ struct UserSettings: Codable, Sendable {
     var enabledCalendarIDs: [String] = []
     var includeAllDay = true
     var liveActivities = true
+}
+extension UserSettings {
+    /// v1 themes map onto v2 skies until settings migrate in Phase 4.
+    var skyID: SkyID {
+        switch selectedThemeId {
+        case "graphiteFocus", "midnightGold": .celestial
+        case "champagneDay": .goldenHour
+        case "ivoryMinimal": .instrument
+        default: .livingSky
+        }
+    }
 }
 struct CalendarSnapshot: Codable, Sendable {
     var generatedAt: Date = .now
