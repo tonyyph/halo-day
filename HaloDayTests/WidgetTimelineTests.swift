@@ -54,3 +54,20 @@ final class WidgetTimelineTests: XCTestCase {
         XCTAssertEqual(WidgetKind.nextUp.url(for: empty).absoluteString, "haloday://day")
     }
 }
+
+final class EndFocusStorageTests: XCTestCase {
+    func testEndingFocusFromTheWidgetRecordsHistory() throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let storage = AppGroupStorage(directory: directory)
+        let start = Date(timeIntervalSince1970: 1_791_170_000)
+        try storage.write(FocusSession(title: "Write", startDate: start, endDate: start.addingTimeInterval(1500), durationMinutes: 25, accentColor: "D4AF6A"), key: "focus")
+        try storage.endFocus(at: start.addingTimeInterval(600))
+        XCTAssertEqual(storage.focus?.isActive, false)
+        let history: [FocusSession] = storage.read("focusHistory", fallback: [])
+        XCTAssertEqual(history.count, 1)
+        XCTAssertEqual(history[0].endDate, start.addingTimeInterval(600))
+        try storage.endFocus(at: start.addingTimeInterval(700))
+        XCTAssertEqual((storage.read("focusHistory", fallback: []) as [FocusSession]).count, 1, "ending twice records once")
+    }
+}

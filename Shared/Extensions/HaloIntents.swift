@@ -43,7 +43,7 @@ struct EndFocusIntent: LiveActivityIntent {
     static let title: LocalizedStringResource = "End focus"
     func perform() async throws -> some IntentResult {
         let storage = AppGroupStorage.shared
-        if var focus = storage.focus { focus.isActive = false; try storage.write(focus, key: "focus") }
+        try storage.endFocus()
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["halo.focus"])
         for activity in Activity<HaloActivityAttributes>.activities {
             await activity.end(ActivityContent(state: .init(endDate: .now, phase: "finished"), staleDate: nil), dismissalPolicy: .immediate)

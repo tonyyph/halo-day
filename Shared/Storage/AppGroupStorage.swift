@@ -46,6 +46,17 @@ struct AppGroupStorage: Sendable {
         if let error = coordinationError ?? mutationError as NSError? { throw error }
         WidgetCenter.shared.reloadAllTimelines()
     }
+    /// Ends the active focus session (from a widget or Live Activity) and records it in history once.
+    func endFocus(at date: Date = .now) throws {
+        guard var session = focus, session.isActive else { return }
+        session.isActive = false
+        session.endDate = min(session.endDate, date)
+        session.pausedRemaining = nil
+        var history: [FocusSession] = read("focusHistory", fallback: [])
+        history.insert(session, at: 0)
+        try write(session, key: "focus")
+        try write(history, key: "focusHistory")
+    }
     var settings: UserSettings { read("settings", fallback: UserSettings()) }
     var habits: [Habit] { read("habits", fallback: MockData.habits) }
     var presets: [WidgetPreset] { read("presets", fallback: []) }
