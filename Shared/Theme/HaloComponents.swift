@@ -165,35 +165,65 @@ struct MiniMonthGrid: View {
     var month: Date
     var highlights: Set<Int> = []
     var selection: ((Date) -> Void)?
+    @Namespace private var selectedDay
+    @Environment(\.dynamicTypeSize) private var dynamicType
+    @Environment(\.haloReduceMotion) private var reduceMotion
     var body: some View {
         let calendar = Calendar.current
         let first = calendar.dateInterval(of: .month, for: month)!.start
         let count = calendar.range(of: .day, in: .month, for: month)!.count
         let offset = (calendar.component(.weekday, from: first) - calendar.firstWeekday + 7) % 7
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 2), count: 7), spacing: selection == nil ? 2 : 6) {
-            ForEach(0..<(count + offset), id: \.self) { index in
-                if index < offset { Color.clear.frame(height: selection == nil ? 18 : 44) }
-                else {
-                    let number = index - offset + 1
-                    let day = calendar.date(byAdding: .day, value: number - 1, to: first)!
-                    if let selection {
-                        Button { selection(day) } label: { dayCell(number, day: day).frame(minHeight: 44) }.buttonStyle(.plain)
-                    } else { dayCell(number, day: day) }
+        let weekStart = calendar.date(byAdding: .day, value: -offset, to: first)!
+        VStack(spacing: selection == nil ? 2 : 6) {
+            if selection != nil {
+                HStack(spacing: 2) {
+                    ForEach(0..<7, id: \.self) { weekdayIndex in
+                        let weekday = calendar.date(byAdding: .day, value: weekdayIndex, to: weekStart)!
+                        Text(weekday, format: .dateTime.weekday(.narrow))
+                            .font(.caption2.weight(.medium))
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, minHeight: 24)
+                    }
+                }
+                .accessibilityHidden(true)
+            }
+
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 2), count: 7), spacing: selection == nil ? 2 : 6) {
+                ForEach(0..<(count + offset), id: \.self) { index in
+                    if index < offset { Color.clear.frame(height: selection == nil ? 18 : 44) }
+                    else {
+                        let number = index - offset + 1
+                        let day = calendar.date(byAdding: .day, value: number - 1, to: first)!
+                        if let selection {
+                            Button { selection(day) } label: {
+                                dayCell(number, day: day)
+                                    .frame(minHeight: dynamicType.isAccessibilitySize ? 52 : 44)
+                            }
+                            .buttonStyle(PressableStyle())
+                        } else { dayCell(number, day: day) }
+                    }
                 }
             }
         }
     }
     private func dayCell(_ number: Int, day: Date) -> some View {
         let compact = selection == nil
+        let selected = !compact && Calendar.current.isDate(day, inSameDayAs: month)
+        let diameter: CGFloat = compact ? 18 : dynamicType.isAccessibilitySize ? 38 : 28
         return VStack(spacing: compact ? 0 : 2) {
             Text(number, format: .number)
-                .font((compact ? Font.caption2 : Font.caption).monospacedDigit())
-                .frame(width: compact ? 18 : 24, height: compact ? 14 : 24)
-                .background(
-                    Calendar.current.isDate(day, inSameDayAs: month)
-                        ? AnyShapeStyle(.tint.opacity(0.16)) : AnyShapeStyle(.clear),
-                    in: Circle()
-                )
+                .font((compact ? Font.caption2 : dynamicType.isAccessibilitySize ? Font.body : Font.caption).monospacedDigit())
+                .frame(width: diameter, height: diameter)
+                .background {
+                    if selected {
+                        Circle()
+                            .fill(Color.accentColor.opacity(0.16))
+                            .matchedGeometryEffect(
+                                id: "selected-day", in: selectedDay,
+                                properties: reduceMotion ? [] : .frame
+                            )
+                    }
+                }
             Circle()
                 .fill(highlights.contains(number) ? AnyShapeStyle(.tint) : AnyShapeStyle(.clear))
                 .frame(width: compact ? 2 : 4, height: compact ? 2 : 4)

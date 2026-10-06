@@ -22,6 +22,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(PressableStyle())
                 .accessibilityLabel(model.purchases.isPremium ? Text("Halo Day Premium") : Text("Upgrade to Premium"))
+                .accessibilityIdentifier("settings-upgrade")
 
                 Button { Task { await model.purchases.restore() } } label: {
                     SettingsLabel(title: "Restore purchases", symbol: "arrow.clockwise")
@@ -48,6 +49,7 @@ struct SettingsView: View {
                 } label: {
                     SettingsLabel(title: "App theme", symbol: "paintpalette")
                 }
+                .accessibilityIdentifier("settings-theme")
                 Toggle(isOn: $model.settings.haptics) {
                     SettingsLabel(title: "Haptics", symbol: "waveform")
                 }

@@ -4,6 +4,7 @@ struct OnboardingView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.haloReduceMotion) private var reduceMotion
     @Environment(\.haloHapticsEnabled) private var haptics
+    @Environment(\.haloScreenshotMode) private var screenshotMode
     @State private var step = 0
     @State private var direction = 1
     @State private var themeID = "pearlHalo"
@@ -165,7 +166,7 @@ struct OnboardingView: View {
             finishing = true
             try? await Task.sleep(for: .milliseconds(350))
             model.settings.hasCompletedOnboarding = true
-            model.persist()
+            if !screenshotMode { model.persist() }
             try? await Task.sleep(for: .milliseconds(350))
             model.showGuide = true
             busy = false

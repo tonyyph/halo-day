@@ -85,12 +85,14 @@ struct RitualDetailView: View {
     var habit: Habit
     var onEdit: () -> Void
     private let history: RitualHistory
+    private let date: Date
     @Environment(\.dismiss) private var dismiss
 
-    init(habit: Habit, onEdit: @escaping () -> Void) {
+    init(habit: Habit, date: Date = .now, onEdit: @escaping () -> Void) {
         self.habit = habit
         self.onEdit = onEdit
-        history = RitualHistory(habit: habit)
+        self.date = date
+        history = RitualHistory(habit: habit, date: date)
     }
 
     var body: some View {
@@ -101,7 +103,7 @@ struct RitualDetailView: View {
                 RitualHistoryGrid(days: history.days)
                 HaloCard {
                     VStack(alignment: .leading, spacing: 16) {
-                        statistic("Current streak", value: habit.streakCount)
+                        statistic("Current streak", value: habit.streak(asOf: date))
                         statistic("Best streak", value: history.bestStreak)
                         HStack {
                             Text("Completion rate")

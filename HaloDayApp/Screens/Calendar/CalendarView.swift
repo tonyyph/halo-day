@@ -5,6 +5,7 @@ struct CalendarView: View {
     @Environment(\.palette) private var palette
     @Environment(\.haloNavigation) private var navigation
     @Environment(\.haloScreenshotMode) private var fixture
+    @Environment(\.haloScreenshotScreen) private var screenshotScreen
     @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var mode = 0
     @State private var showSources = false
@@ -73,6 +74,7 @@ struct CalendarView: View {
         .animation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion), value: mode)
         .animation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion), value: model.selectedDate)
         .onChange(of: model.selectedDate) { _, _ in if !fixture { Task { await model.refresh() } } }
+        .onAppear { if screenshotScreen == "calendar" { mode = 2 } }
         .sheet(isPresented: $showSources) { sourcesSheet }
     }
 
@@ -102,6 +104,7 @@ struct CalendarView: View {
 
     private var monthView: some View {
         CalendarMonthPager(selected: selectedBinding, events: model.events)
+            .accessibilityIdentifier("calendar-month-grid")
     }
 
     private var agenda: some View {
@@ -186,4 +189,20 @@ struct CalendarView: View {
             to: model.selectedDate
         )!
     }
+}
+
+#Preview("Calendar · Month, Pearl Light") {
+    CalendarView()
+        .environment(HaloModel())
+        .haloTheme(ThemeRegistry.theme("pearlHalo"))
+        .environment(\.haloReferenceDate, Date(timeIntervalSince1970: 1_791_187_500))
+}
+
+#Preview("Calendar · Ruby Dark AX3") {
+    CalendarView()
+        .environment(HaloModel())
+        .haloTheme(ThemeRegistry.theme("rubyGlass"))
+        .environment(\.dynamicTypeSize, .accessibility3)
+        .environment(\.haloReduceMotionOverride, true)
+        .preferredColorScheme(.dark)
 }

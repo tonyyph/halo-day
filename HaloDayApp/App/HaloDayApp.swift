@@ -3,14 +3,32 @@ import EventKit
 
 @main
 struct HaloDayApp: App {
-    @State private var model = HaloModel()
+    private let launch: HaloLaunchConfiguration
+    @State private var model: HaloModel
     @Environment(\.scenePhase) private var phase
+
+    init() {
+        let configuration = HaloLaunchConfiguration.current
+        launch = configuration
+        _model = State(initialValue: configuration.makeModel())
+    }
+
     var body: some Scene {
         WindowGroup {
-            ThemedRoot(model: model)
-                .task { await model.purchases.start(); await model.refresh() }
-                .onChange(of: phase) { _, value in if value == .active { Task { await model.refresh() } } }
-                .onReceive(NotificationCenter.default.publisher(for: .EKEventStoreChanged)) { _ in Task { await model.refresh() } }
+            ThemedRoot(model: model, launch: launch)
+                .task {
+                    guard !launch.isScreenshotMode else { return }
+                    await model.purchases.start()
+                    await model.refresh()
+                }
+                .onChange(of: phase) { _, value in
+                    guard !launch.isScreenshotMode, value == .active else { return }
+                    Task { await model.refresh() }
+                }
+                .onReceive(NotificationCenter.default.publisher(for: .EKEventStoreChanged)) { _ in
+                    guard !launch.isScreenshotMode else { return }
+                    Task { await model.refresh() }
+                }
                 .onOpenURL { model.route($0) }
         }
     }
@@ -18,6 +36,7 @@ struct HaloDayApp: App {
 
 private struct ThemedRoot: View {
     var model: HaloModel
+    var launch: HaloLaunchConfiguration
     @Environment(\.colorScheme) private var scheme
     @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var toasts = HaloToastCenter()
@@ -29,10 +48,15 @@ private struct ThemedRoot: View {
             .environment(\.haloTheme, model.theme)
             .environment(\.palette, palette)
             .environment(\.haloHapticsEnabled, model.settings.haptics)
+            .environment(\.haloReferenceDate, launch.referenceDate)
+            .environment(\.haloScreenshotMode, launch.isScreenshotMode)
+            .environment(\.haloScreenshotScreen, launch.screen)
+            .environment(\.haloReduceMotionOverride, launch.reduceMotion)
+            .environment(\.haloReduceTransparencyOverride, launch.reduceTransparency)
             .environment(toasts)
             .environment(\.haloToasts, toasts)
             .tint(palette.accentInk)
-            .preferredColorScheme(model.theme.darkOnly ? .dark : nil)
+            .preferredColorScheme(preferredColorScheme)
             .animation(Motion.resolve(Motion.gentle, reduceMotion: reduceMotion), value: model.theme.id)
             .animation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion), value: model.purchases.isPremium)
             .haloToastHost(visible: !model.showPaywall && !model.showSettings && !model.showGuide && model.selectedEvent == nil && !(model.focus?.isActive == true && model.tab == 4))
@@ -47,6 +71,12 @@ private struct ThemedRoot: View {
             .sensoryFeedback(.selection, trigger: model.selectedEvent?.id) { _, new in
                 new != nil && model.settings.haptics
             }
+    }
+
+    private var preferredColorScheme: ColorScheme? {
+        if launch.colorScheme == "dark" || model.theme.darkOnly { return .dark }
+        if launch.colorScheme == "light" { return .light }
+        return nil
     }
 }
 
@@ -90,5 +120,6 @@ struct RootView: View {
         } icon: {
             Image(systemName: symbol).symbolEffect(.bounce, value: reduceMotion ? false : model.tab == tab)
         }
+        .accessibilityIdentifier("tab-\(tab)")
     }
 }

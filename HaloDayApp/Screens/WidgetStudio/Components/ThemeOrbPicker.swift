@@ -40,6 +40,7 @@ struct ThemeOrbPicker: View {
                     }
                     .buttonStyle(PressableStyle())
                     .accessibilityLabel(Text(LocalizedStringKey(theme.name)))
+                    .accessibilityIdentifier("theme-orb-\(theme.id)")
                     .accessibilityAddTraits(selection == theme.id ? [.isSelected] : [])
                 }
             }

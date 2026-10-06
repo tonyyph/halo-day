@@ -26,7 +26,7 @@ struct HaloChip: View {
                 .haloFont(.subhead)
                 .foregroundStyle(selected ? palette.accentOn : palette.ink)
                 .padding(.horizontal, 14)
-                .frame(minHeight: 36)
+                .frame(minHeight: 44)
                 .background(selected ? palette.accent : palette.surfaceSunken, in: Capsule())
         }
         .buttonStyle(PressableStyle())
@@ -58,12 +58,15 @@ struct ChipGroup<Value: Hashable>: View {
                             .haloFont(.subhead)
                             .foregroundStyle(selection == option.value ? palette.accentOn : palette.ink)
                             .padding(.horizontal, 14)
-                            .frame(minHeight: 36)
+                            .frame(minHeight: 44)
                             .background {
                                 if selection == option.value {
                                     Capsule()
                                         .fill(palette.accent)
-                                        .matchedGeometryEffect(id: "selected", in: indicator)
+                                        .matchedGeometryEffect(
+                                            id: "selected", in: indicator,
+                                            properties: reduceMotion ? [] : .frame
+                                        )
                                 } else {
                                     Capsule().fill(palette.surfaceSunken)
                                 }
@@ -71,9 +74,11 @@ struct ChipGroup<Value: Hashable>: View {
                     }
                     .buttonStyle(PressableStyle())
                     .accessibilityAddTraits(selection == option.value ? [.isSelected] : [])
+                    .accessibilityIdentifier("chip-\(String(describing: option.value))")
                 }
             }
             .padding(.horizontal, 2)
+            .scrollTargetLayout()
         }
         .scrollIndicators(.hidden)
         .scrollTargetBehavior(.viewAligned)
@@ -107,7 +112,10 @@ struct HaloSegmented<Value: Hashable>: View {
                             if selection == option.value {
                                 Capsule()
                                     .fill(palette.surface)
-                                    .matchedGeometryEffect(id: "thumb", in: thumb)
+                                    .matchedGeometryEffect(
+                                        id: "thumb", in: thumb,
+                                        properties: reduceMotion ? [] : .frame
+                                    )
                                     .shadow(color: palette.shadowTint.opacity(0.1), radius: 4, y: 2)
                             }
                         }

@@ -5,6 +5,7 @@ struct ThemeGalleryCard: View {
     var events: [CalendarEvent]
     var habits: [Habit]
     var premium = false
+    var date: Date = .now
     @Environment(\.haloReduceMotion) private var reduceMotion
     @Environment(\.colorScheme) private var scheme
 
@@ -15,7 +16,7 @@ struct ThemeGalleryCard: View {
             ZStack {
                 ThemeBackground()
                 HaloWidgetContent(
-                    date: .now, type: .agenda, size: .medium, theme: theme,
+                    date: date, type: .agenda, size: .medium, theme: theme,
                     events: events, habits: habits, focus: nil, countdown: nil
                 )
                 .padding(12)

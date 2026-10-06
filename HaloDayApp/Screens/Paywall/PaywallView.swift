@@ -127,6 +127,7 @@ struct PaywallView: View {
                         Image(systemName: "xmark").frame(width: 44, height: 44)
                     }
                     .accessibilityLabel("Close")
+                    .accessibilityIdentifier("paywall-close")
                 }
             }
         }

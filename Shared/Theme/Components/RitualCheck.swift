@@ -21,7 +21,7 @@ struct RitualCheck: View {
                     .rotationEffect(.degrees(-90))
                 Circle()
                     .fill(palette.accent)
-                    .scaleEffect(completed ? 1 : 0)
+                    .scaleEffect(reduceMotion ? 1 : (completed ? 1 : 0))
                     .opacity(completed ? 1 : 0)
                 Image(systemName: "checkmark")
                     .font(.system(size: 12, weight: .semibold))

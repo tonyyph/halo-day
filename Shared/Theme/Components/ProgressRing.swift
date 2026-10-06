@@ -61,11 +61,12 @@ struct ProgressRing: View {
 struct RollingNumber: View {
     var value: Int
     var suffix: String = ""
+    @Environment(\.haloReduceMotion) private var reduceMotion
 
     var body: some View {
         Text("\(value)\(suffix)")
             .monospacedDigit()
-            .contentTransition(.numericText(value: Double(value)))
+            .contentTransition(reduceMotion ? .opacity : .numericText(value: Double(value)))
     }
 }
 

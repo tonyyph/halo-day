@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RitualRow: View {
     var habit: Habit
+    var date: Date = .now
     var onDetail: () -> Void
     var onToggle: () -> Void
     @Environment(\.palette) private var palette
@@ -21,8 +22,8 @@ struct RitualRow: View {
                             .foregroundStyle(palette.ink)
                         HStack(spacing: 4) {
                             Image(systemName: "sparkle")
-                            Text("\(habit.streakCount) day streak")
-                                .contentTransition(.numericText())
+                            RollingNumber(value: habit.streak(asOf: date))
+                            Text("day streak")
                         }
                         .haloFont(.caption)
                         .foregroundStyle(palette.ink2)
@@ -32,7 +33,7 @@ struct RitualRow: View {
             }
             .buttonStyle(PressableStyle())
             RitualCheck(
-                completed: habit.isCompleted(),
+                completed: habit.isCompleted(on: date),
                 label: String(localized: "Complete \(habit.title)"),
                 feedbackEnabled: false,
                 action: onToggle
@@ -45,6 +46,7 @@ struct RitualRow: View {
 
 struct RitualDailyHero: View {
     var habits: [Habit]
+    var date: Date = .now
     var celebrating = false
     private let done: Int
     private let summary: RitualSummary
@@ -52,11 +54,12 @@ struct RitualDailyHero: View {
     @Environment(\.dynamicTypeSize) private var dynamicType
     @Environment(\.haloReduceMotion) private var reduceMotion
 
-    init(habits: [Habit], celebrating: Bool = false) {
+    init(habits: [Habit], date: Date = .now, celebrating: Bool = false) {
         self.habits = habits
+        self.date = date
         self.celebrating = celebrating
-        done = habits.filter { $0.isCompleted() }.count
-        summary = RitualSummary(habits: habits)
+        done = habits.filter { $0.isCompleted(on: date) }.count
+        summary = RitualSummary(habits: habits, date: date)
     }
 
     var body: some View {
@@ -114,7 +117,7 @@ struct RitualDailyHero: View {
 private struct RitualSummary {
     let streak: Int
 
-    init(habits: [Habit]) {
+    init(habits: [Habit], date: Date) {
         guard !habits.isEmpty else { streak = 0; return }
         let calendar = Calendar.current
         var counts: [Date: Int] = [:]
@@ -123,7 +126,7 @@ private struct RitualSummary {
                 counts[day, default: 0] += 1
             }
         }
-        var day = calendar.startOfDay(for: .now)
+        var day = calendar.startOfDay(for: date)
         let threshold = Int(ceil(Double(habits.count) * 0.8))
         if counts[day, default: 0] < threshold { day = calendar.date(byAdding: .day, value: -1, to: day)! }
         var total = 0

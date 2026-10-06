@@ -78,6 +78,7 @@ struct TodayView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button { model.showSettings = true } label: { Image(systemName: "gearshape").frame(width: 44, height: 44) }
                     .accessibilityLabel("Settings")
+                    .accessibilityIdentifier("settings-open")
             }
         }
         .overlay(alignment: .top) { DelayedShimmer(loading: refreshing, height: 3).allowsHitTesting(false) }

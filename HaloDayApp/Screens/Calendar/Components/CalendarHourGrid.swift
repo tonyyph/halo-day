@@ -61,7 +61,9 @@ struct CalendarHourGrid: View {
                 ForEach(layout.hours.indices, id: \.self) { index in
                     HStack(alignment: .top, spacing: 8) {
                         Text(layout.hours[index], style: .time)
-                            .font(.caption.monospacedDigit())
+                            .font(.caption2.monospacedDigit())
+                            .lineLimit(1)
+                            .fixedSize(horizontal: true, vertical: false)
                             .foregroundStyle(palette.ink3)
                             .frame(width: 52, alignment: .trailing)
                         Rectangle().fill(palette.hairline).frame(height: 0.5).padding(.top, 6)

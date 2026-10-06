@@ -73,3 +73,10 @@ struct FocusDial: View {
     FocusDial(minutes: $minutes)
         .padding()
 }
+
+#Preview("Dial · Midnight Gold AX3 Reduced Motion") {
+    @Previewable @State var minutes = 90
+    DesignPreview(themeID: "midnightGold", scheme: .dark, accessibility: true, reduceMotion: true) {
+        FocusDial(minutes: $minutes)
+    }
+}

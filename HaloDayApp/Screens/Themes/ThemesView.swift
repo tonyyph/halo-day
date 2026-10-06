@@ -3,6 +3,9 @@ import SwiftUI
 struct ThemesView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.dynamicTypeSize) private var dynamicType
+    @Environment(\.haloReferenceDate) private var referenceDate
+
+    private var date: Date { referenceDate ?? .now }
 
     private var columns: [GridItem] {
         Array(repeating: GridItem(.flexible(), spacing: 16), count: dynamicType.isAccessibilitySize ? 1 : 2)
@@ -19,9 +22,10 @@ struct ThemesView: View {
                     } label: {
                         ThemeGalleryCard(
                             theme: theme,
-                            events: model.todayEvents,
+                            events: model.events(on: date),
                             habits: model.habits,
-                            premium: model.purchases.isPremium
+                            premium: model.purchases.isPremium,
+                            date: date
                         )
                     }
                     .buttonStyle(PressableStyle())
@@ -37,6 +41,7 @@ struct ThemeDetailView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.colorScheme) private var scheme
     @Environment(\.haloReduceMotion) private var reduceMotion
+    @Environment(\.haloReferenceDate) private var referenceDate
     @Environment(\.haloHapticsEnabled) private var haptics
     @State private var page = 0
     @State private var selectedToken: Int?
@@ -86,7 +91,7 @@ struct ThemeDetailView: View {
     private func phone(_ size: WidgetSize) -> some View {
         PhonePreview(
             preset: WidgetPreset(name: theme.name, widgetFamily: size, themeId: theme.id),
-            events: model.todayEvents,
+            events: model.events(on: referenceDate ?? .now),
             habits: model.habits,
             focus: model.focus,
             countdown: model.countdowns.first,
@@ -97,7 +102,7 @@ struct ThemeDetailView: View {
     }
 
     private var activityPreview: some View {
-        let start = Date.now
+        let start = referenceDate ?? .now
         return HaloActivityBanner(
             attributes: HaloActivityAttributes(
                 title: String(localized: "Deep work"), startDate: start,
