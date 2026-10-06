@@ -3,6 +3,8 @@ import Observation
 import WidgetKit
 import EventKit
 
+enum AppTab: Hashable { case day, calendar, studio, you }
+
 @MainActor @Observable
 final class HaloModel {
     var settings: UserSettings
@@ -13,7 +15,7 @@ final class HaloModel {
     var focusHistory: [FocusSession]
     var countdowns: [Countdown]
     var selectedDate = Date.now
-    var tab = 0
+    var tab: AppTab = .day
     var showPaywall = false
     var showSettings = false
     var showGuide = false
@@ -158,19 +160,20 @@ final class HaloModel {
         do { try await activities.eventCountdown(event, theme: theme) } catch { self.error = error.localizedDescription }
     }
     func route(_ url: URL) {
+        let query = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
         switch url.host {
-        case "calendar":
-            tab = 1
-            if let value = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "date" })?.value {
+        case "calendar", "day":
+            tab = url.host == "calendar" ? .calendar : .day
+            if let value = query?.first(where: { $0.name == "date" })?.value {
                 let formatter = DateFormatter(); formatter.dateFormat = "yyyy-MM-dd"
                 if let date = formatter.date(from: value) { selectedDate = date }
             }
-        case "studio": tab = 2
-        case "rituals": tab = 3
-        case "focus": tab = 4
+        case "studio": tab = .studio
+        case "rituals", "you": tab = .you
+        case "focus": tab = .day; showFocus = true
         case "paywall": showPaywall = true
-        case "event": tab = 0; selectedEvent = events.first { $0.id == url.lastPathComponent }
-        default: tab = 0
+        case "event": tab = .day; selectedEvent = events.first { $0.id == url.lastPathComponent }
+        default: tab = .day
         }
     }
 }

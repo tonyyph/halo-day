@@ -31,6 +31,11 @@ struct HaloLaunchConfiguration {
             components.day = 5
             components.hour = 10
             components.minute = 5
+            if let time = value(after: "-UITestTime")?.split(separator: ":"), time.count == 2,
+               let hour = Int(time[0]), let minute = Int(time[1]) {
+                components.hour = hour
+                components.minute = minute
+            }
             referenceDate = components.date
         }
         return HaloLaunchConfiguration(
@@ -67,12 +72,12 @@ struct HaloLaunchConfiguration {
         model.presets = [WidgetPreset(name: "Pearl Agenda", themeId: settings.selectedThemeId)]
         model.selectedDate = referenceDate
         model.tab = switch screen {
-        case "calendar": 1
-        case "studio": 2
-        case "rituals": 3
-        case "focus": 4
-        default: 0
+        case "calendar": .calendar
+        case "studio": .studio
+        case "rituals", "you": .you
+        default: .day
         }
+        model.showFocus = screen == "focus"
         model.showSettings = screen == "settings" || screen == "themes"
         model.showPaywall = screen == "paywall"
         UserDefaults.standard.removeObject(forKey: "halo.lastRitualCelebration")
