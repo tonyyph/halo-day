@@ -54,7 +54,11 @@ struct HaloToast: View {
 
 private struct ToastHost: ViewModifier {
     var visible: Bool
-    @Environment(\.haloToasts) private var toasts
+    /// The center to show. Pass it when the host sits outside the view that injects `haloToasts`
+    /// (environment values flow inward, so an outer modifier cannot read them).
+    var center: HaloToastCenter?
+    @Environment(\.haloToasts) private var environmentToasts
+    private var toasts: HaloToastCenter? { center ?? environmentToasts }
     @Environment(\.haloReduceMotion) private var reduceMotion
 
     func body(content: Content) -> some View {
@@ -71,7 +75,7 @@ private struct ToastHost: ViewModifier {
 }
 
 extension View {
-    func haloToastHost(visible: Bool = true) -> some View { modifier(ToastHost(visible: visible)) }
+    func haloToastHost(visible: Bool = true, center: HaloToastCenter? = nil) -> some View { modifier(ToastHost(visible: visible, center: center)) }
 }
 
 struct ShimmerPlaceholder: View {

@@ -76,7 +76,7 @@ private struct ThemedRoot: View {
             .preferredColorScheme(preferredColorScheme)
             .animation(Motion.resolve(Motion.gentle, reduceMotion: reduceMotion), value: model.theme.id)
             .animation(Motion.resolve(Motion.smooth, reduceMotion: reduceMotion), value: model.purchases.isPremium)
-            .haloToastHost(visible: !model.showPaywall && !model.showSettings && !model.showGuide && model.selectedEvent == nil && !model.showFocus)
+            .haloToastHost(visible: !model.showPaywall && !model.showSettings && !model.showGuide && model.selectedEvent == nil && !model.showFocus, center: toasts)
             .onChange(of: model.purchases.isPremium) { old, new in
                 if !old && new && !model.showPaywall { toasts.show("Welcome to Halo Day Premium.") }
             }

@@ -29,6 +29,8 @@ final class SettingsSkyTests: XCTestCase {
         model.applySky(.celestial)
         XCTAssertEqual(model.settings.skyChoice, .celestial)
         XCTAssertFalse(model.showPaywall)
+        model.settings.skyChoice = nil
+        model.persist()
     }
     func testLocationIsRoundedToATenthOfADegree() {
         let coordinate = LocationService.rounded(CLLocationCoordinate2D(latitude: 21.02851, longitude: 105.85417))

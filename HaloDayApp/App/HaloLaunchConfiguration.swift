@@ -66,6 +66,9 @@ struct HaloLaunchConfiguration {
         settings.calendarPermissionGranted = false
         settings.notificationPermissionGranted = false
         settings.isPremium = false
+        // Fixtures never inherit choices persisted by other runs (unit tests share the simulator's App Group).
+        settings.skyChoice = nil
+        settings.approxCoordinate = nil
         model.settings = settings
         model.habits = HaloFixtureData.habits(on: referenceDate)
         // A month of varied sample days so the week strip and month grid have texture.

@@ -222,15 +222,34 @@ final class HaloDayUITests: XCTestCase {
     @MainActor
     func testRecordStudioThemeAndTypeSwitching() throws {
         let app = launchFixture(theme: "pearlHalo", screen: "studio", language: ("en", "en_US"))
-        XCTAssertTrue(app.staticTexts["Widget Studio"].waitForExistence(timeout: 10))
-        let ruby = app.buttons["theme-orb-rubyGlass"]
-        app.swipeUp()
-        XCTAssertTrue(ruby.waitForExistence(timeout: 5))
-        ruby.tap()
-        let month = app.buttons["chip-month"]
-        XCTAssertTrue(month.waitForExistence(timeout: 5))
-        month.tap()
-        XCTAssertTrue(app.buttons["Save preset"].exists)
+        let slot = app.buttons["studio-slot-1"]
+        XCTAssertTrue(slot.waitForExistence(timeout: 10))
+        slot.tap()
+        let countdown = app.buttons["kind-countdown"]
+        XCTAssertTrue(countdown.waitForExistence(timeout: 5))
+        countdown.tap()
+        XCTAssertTrue(app.buttons["studio-slot-1"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["studio-slot-1"].label.contains("Countdown"))
+        let celestial = app.buttons["studio-sky-celestial"]
+        for _ in 0..<4 where !celestial.isHittable { app.swipeUp() }
+        celestial.tap()
+        XCTAssertTrue(celestial.isSelected)
+        let vibrant = app.switches["studio-vibrant"]
+        XCTAssertTrue(vibrant.exists)
+    }
+
+    @MainActor
+    func testStudioSavesWallpaperAndShares() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "studio", language: ("en", "en_US"))
+        let dawn = app.buttons["studio-moment-dawn"]
+        XCTAssertTrue(dawn.waitForExistence(timeout: 10))
+        for _ in 0..<4 where !dawn.isHittable { app.swipeUp() }
+        dawn.tap()
+        let save = app.buttons["studio-save-wallpaper"]
+        for _ in 0..<4 where !save.isHittable { app.swipeUp() }
+        save.tap()
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS %@", "Wallpaper saved to Photos")).firstMatch.waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["studio-share"].exists)
     }
 
     @MainActor
