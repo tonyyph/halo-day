@@ -248,6 +248,36 @@ final class HaloDayUITests: XCTestCase {
     }
 
     @MainActor
+    func testSlotCanChangeFamilyWhenThereIsRoom() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "studio", language: ("en", "en_US"))
+        XCTAssertTrue(app.buttons["studio-slot-1"].waitForExistence(timeout: 10))
+        app.buttons["studio-slot-1"].tap()
+        app.buttons["slot-remove"].tap()
+        XCTAssertTrue(app.buttons["studio-slot-1"].waitForExistence(timeout: 5))
+        app.buttons["studio-slot-1"].tap()
+        let rectangular = app.buttons["family-rectangular"]
+        XCTAssertTrue(rectangular.waitForExistence(timeout: 5))
+        rectangular.tap()
+        XCTAssertTrue(app.buttons["studio-slot-1"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["studio-slot-1"].label.contains("Rectangular"))
+    }
+
+    @MainActor
+    func testPremiumWidgetUpsellStaysInTheSheetThenOpensThePaywall() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "studio", language: ("en", "en_US"))
+        XCTAssertTrue(app.buttons["studio-slot-1"].waitForExistence(timeout: 10))
+        app.buttons["studio-slot-1"].tap()
+        let rituals = app.buttons["kind-rituals"]
+        XCTAssertTrue(rituals.waitForExistence(timeout: 5))
+        rituals.tap()
+        let upsell = app.alerts.buttons["See Premium"]
+        XCTAssertTrue(upsell.waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["paywall-close"].exists)
+        upsell.tap()
+        XCTAssertTrue(app.buttons["paywall-close"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
     func testStudioSavesWallpaperAndShares() throws {
         let app = launchFixture(theme: "pearlHalo", screen: "studio", language: ("en", "en_US"))
         let dawn = app.buttons["studio-moment-dawn"]

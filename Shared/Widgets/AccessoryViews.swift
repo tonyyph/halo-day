@@ -76,9 +76,11 @@ struct AccessoryView: View {
         let days = data.countdownDays ?? 0
         return ZStack {
             Circle().stroke(.primary.opacity(0.25), lineWidth: 3)
-            Circle().trim(from: 0, to: max(0.04, 1 - min(Double(days), 60) / 60))
-                .stroke(style: StrokeStyle(lineWidth: 3, lineCap: .round))
-                .rotationEffect(.degrees(-90))
+            if data.countdown != nil {
+                Circle().trim(from: 0, to: max(0.04, 1 - min(Double(days), 60) / 60))
+                    .stroke(style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+            }
             if data.countdown == nil {
                 Image(systemName: "hourglass").font(.title3)
             } else {
@@ -175,7 +177,11 @@ struct AccessoryRitualRing: View {
                                    style: StrokeStyle(lineWidth: side * 0.09, lineCap: .round))
                 }
             }
-            Text(verbatim: "\(done)/\(total)").font(.caption.weight(.semibold).monospacedDigit())
+            if total == 0 {
+                Image(systemName: "plus").font(.caption.weight(.semibold))
+            } else {
+                Text(verbatim: "\(done)/\(total)").font(.caption.weight(.semibold).monospacedDigit())
+            }
         }
         .accessibilityLabel(Text("\(done) of \(total) rituals"))
     }

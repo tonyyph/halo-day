@@ -40,6 +40,7 @@ struct RitualLine: View {
             Image(systemName: "chevron.right").font(.footnote).opacity(SkyEngine.secondaryOpacity).accessibilityHidden(true)
         }
         .padding(DS.Space.m)
+        .contentShape(RoundedRectangle(cornerRadius: DS.Radius.glass, style: .continuous))
         .haloGlass(RoundedRectangle(cornerRadius: DS.Radius.glass, style: .continuous), tint: sky.mid.color)
         .accessibilityElement(children: .combine)
     }

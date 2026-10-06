@@ -44,8 +44,7 @@ import SwiftUI
     static func saveSetup(_ setup: LockSetup, model: HaloModel, fixture: Bool) -> Bool {
         #if DEBUG
         if fixture {
-            let isNew = !model.setups.contains { $0.id == setup.id }
-            guard model.purchases.isPremium || (!setup.isPremium && (!isNew || model.setups.isEmpty)) else { model.showPaywall = true; return false }
+            guard model.canSave(setup) else { model.showPaywall = true; return false }
             guard setup.isValid else { return false }
             if let index = model.setups.firstIndex(where: { $0.id == setup.id }) { model.setups[index] = setup } else { model.setups.append(setup) }
             return true

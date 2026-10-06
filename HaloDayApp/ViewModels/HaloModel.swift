@@ -139,11 +139,21 @@ final class HaloModel {
         habits.removeAll { $0.id == id }
         do { try storage.write(habits, key: "habits"); WidgetCenter.shared.reloadAllTimelines() } catch { self.error = error.localizedDescription }
     }
+    /// A setup sheet asked for the paywall; present it once the sheet is gone (sheets cannot stack).
+    var paywallAfterSheet = false
+
+    /// Free: one setup, and no premium sky or kind added beyond what the setup already had.
+    func canSave(_ setup: LockSetup) -> Bool {
+        if purchases.isPremium { return true }
+        let stored = setups.first { $0.id == setup.id }
+        if stored == nil && !setups.isEmpty { return false }
+        return !setup.addsPremium(over: stored)
+    }
+
     /// Saves (inserts or replaces) a setup. Free: one setup, free skies and kinds only.
     @discardableResult
     func saveSetup(_ setup: LockSetup) -> Bool {
-        let isNew = !setups.contains { $0.id == setup.id }
-        guard purchases.isPremium || (!setup.isPremium && (!isNew || setups.isEmpty)) else { showPaywall = true; return false }
+        guard canSave(setup) else { showPaywall = true; return false }
         guard setup.isValid else { return false }
         if let index = setups.firstIndex(where: { $0.id == setup.id }) { setups[index] = setup } else { setups.append(setup) }
         if activeSetupID == nil { activeSetupID = setup.id }

@@ -1,12 +1,62 @@
 {
   "sourceLanguage" : "vi",
   "strings" : {
+    "\n        case .add: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\n        case .add: "
+          }
+        }
+      }
+    },
+    "\n        case let .slot(index): " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\n        case let .slot(index): "
+          }
+        }
+      }
+    },
+    "\n        }\n        return Button { onSlot(position) } label: {\n            content()\n                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [4, 3])).opacity(0.45))\n                .contentShape(Rectangle())\n        }\n        .buttonStyle(.plain)\n        .accessibilityLabel(Text(label))\n        .accessibilityHint(Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\n        }\n        return Button { onSlot(position) } label: {\n            content()\n                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [4, 3])).opacity(0.45))\n                .contentShape(Rectangle())\n        }\n        .buttonStyle(.plain)\n        .accessibilityLabel(Text(label))\n        .accessibilityHint(Text("
+          }
+        }
+      }
+    },
     " : " : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : " : "
+          }
+        }
+      }
+    },
+    " iPhone, points); the whole layout is then scaled to fit,\n    /// so text and widgets keep their true proportions instead of being squeezed into a small card.\n    static let screen = CGSize(width: 393, height: 852)\n\n    var body: some View {\n        let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)\n        GeometryReader { proxy in\n            let scale = proxy.size.width / Self.screen.width\n            ZStack(alignment: .topLeading) {\n                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)\n                lockScreen(sky: sky)\n                    .frame(width: Self.screen.width, height: Self.screen.height)\n                    .scaleEffect(scale, anchor: .topLeading)\n            }\n            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))\n            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))\n        }\n        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.\n    private func lockScreen(sky: SkyState) -> some View {\n        VStack(spacing: 10) {\n            slotButton(.inline, label: setup.inline.map { " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " iPhone, points); the whole layout is then scaled to fit,\n    /// so text and widgets keep their true proportions instead of being squeezed into a small card.\n    static let screen = CGSize(width: 393, height: 852)\n\n    var body: some View {\n        let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)\n        GeometryReader { proxy in\n            let scale = proxy.size.width / Self.screen.width\n            ZStack(alignment: .topLeading) {\n                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)\n                lockScreen(sky: sky)\n                    .frame(width: Self.screen.width, height: Self.screen.height)\n                    .scaleEffect(scale, anchor: .topLeading)\n            }\n            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))\n            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))\n        }\n        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.\n    private func lockScreen(sky: SkyState) -> some View {\n        VStack(spacing: 10) {\n            slotButton(.inline, label: setup.inline.map { "
+          }
+        }
+      }
+    },
+    " } ?? String(localized: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " } ?? String(localized: "
           }
         }
       }
@@ -412,6 +462,46 @@
         }
       }
     },
+    ") {\n                        AccessoryView(kind: slot.kind, family: slot.family, data: data, tint: tint(index + 1, sky))\n                            .padding(slot.family == .circular ? 2 : 6)\n                            .frame(width: slot.family == .circular ? 72 : 158, height: 72)\n                    }\n                }\n                if setup.remainingUnits > 0 {\n                    slotButton(.add, label: String(localized: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ") {\n                        AccessoryView(kind: slot.kind, family: slot.family, data: data, tint: tint(index + 1, sky))\n                            .padding(slot.family == .circular ? 2 : 6)\n                            .frame(width: slot.family == .circular ? 72 : 158, height: 72)\n                    }\n                }\n                if setup.remainingUnits > 0 {\n                    slotButton(.add, label: String(localized: "
+          }
+        }
+      }
+    },
+    ")) {\n                        Image(systemName: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ")) {\n                        Image(systemName: "
+          }
+        }
+      }
+    },
+    ")) {\n                HStack(spacing: 6) {\n                    Text(now, format: .dateTime.weekday(.abbreviated).day())\n                    if let inline = setup.inline {\n                        AccessoryView(kind: inline, family: .inline, data: data, tint: tint(0, sky))\n                    }\n                }\n                .font(.system(size: 19, weight: .semibold))\n                .lineLimit(1)\n                .padding(.horizontal, 10)\n                .frame(maxWidth: 330, minHeight: 30)\n            }\n            Text(now, format: .dateTime.hour(.defaultDigits(amPM: .omitted)).minute())\n                .font(.system(size: 96, weight: .semibold))\n                .monospacedDigit()\n                .lineLimit(1)\n                .accessibilityLabel(Text(now, format: .dateTime.hour().minute()))\n            HStack(spacing: 10) {\n                ForEach(Array(setup.slots.enumerated()), id: \\.element.id) { index, slot in\n                    slotButton(.slot(index), label: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ")) {\n                HStack(spacing: 6) {\n                    Text(now, format: .dateTime.weekday(.abbreviated).day())\n                    if let inline = setup.inline {\n                        AccessoryView(kind: inline, family: .inline, data: data, tint: tint(0, sky))\n                    }\n                }\n                .font(.system(size: 19, weight: .semibold))\n                .lineLimit(1)\n                .padding(.horizontal, 10)\n                .frame(maxWidth: 330, minHeight: 30)\n            }\n            Text(now, format: .dateTime.hour(.defaultDigits(amPM: .omitted)).minute())\n                .font(.system(size: 96, weight: .semibold))\n                .monospacedDigit()\n                .lineLimit(1)\n                .accessibilityLabel(Text(now, format: .dateTime.hour().minute()))\n            HStack(spacing: 10) {\n                ForEach(Array(setup.slots.enumerated()), id: \\.element.id) { index, slot in\n                    slotButton(.slot(index), label: "
+          }
+        }
+      }
+    },
+    ").font(.title2).frame(width: 72, height: 72)\n                    }\n                }\n            }\n            Spacer()\n        }\n        .padding(.top, 64)\n        .frame(maxWidth: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .dynamicTypeSize(.large)\n    }\n\n    /// Vibrant = single ink as iOS draws it; otherwise each slot gets its own colour.\n    private func tint(_ index: Int, _ sky: SkyState) -> Color? {\n        vibrant ? nil : OrbitPalette.eventColor(Habit.palette[index % Habit.palette.count], sky: sky)\n    }\n\n    private func slotButton<Content: View>(_ position: SlotTarget.Position, label: String, @ViewBuilder content: () -> Content) -> some View {\n        let id: String = switch position {\n        case .inline: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.title2).frame(width: 72, height: 72)\n                    }\n                }\n            }\n            Spacer()\n        }\n        .padding(.top, 64)\n        .frame(maxWidth: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .dynamicTypeSize(.large)\n    }\n\n    /// Vibrant = single ink as iOS draws it; otherwise each slot gets its own colour.\n    private func tint(_ index: Int, _ sky: SkyState) -> Color? {\n        vibrant ? nil : OrbitPalette.eventColor(Habit.palette[index % Habit.palette.count], sky: sky)\n    }\n\n    private func slotButton<Content: View>(_ position: SlotTarget.Position, label: String, @ViewBuilder content: () -> Content) -> some View {\n        let id: String = switch position {\n        case .inline: "
+          }
+        }
+      }
+    },
     "+%lld more today" : {
       "localizations" : {
         "en" : {
@@ -623,6 +713,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "90 phút"
+          }
+        }
+      }
+    },
+    "A Premium widget" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Premium widget"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Widget Premium"
           }
         }
       }
@@ -1243,6 +1349,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mọi giao diện, widget nâng cao và Hoạt động trực tiếp. Ngày của bạn, đẹp theo cách riêng."
+          }
+        }
+      }
+    },
+    "Allow Halo Day to add to Photos" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow Halo Day to add to Photos"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cho phép Halo Day thêm vào Ảnh"
           }
         }
       }
@@ -4151,6 +4273,22 @@
         }
       }
     },
+    "Halo Day only adds the wallpapers you save. It never reads your photos." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo Day only adds the wallpapers you save. It never reads your photos."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo Day chỉ thêm hình nền bạn lưu. Ứng dụng không bao giờ đọc ảnh của bạn."
+          }
+        }
+      }
+    },
     "Halo Day reads your calendar to show what's next. It stays on your iPhone. Always." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -5000,6 +5138,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Đẹp trong từng cái nhìn."
+          }
+        }
+      }
+    },
+    "Make room first: a wide widget takes two spaces." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make room first: a wide widget takes two spaces."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hãy chừa chỗ trước: widget rộng chiếm hai ô."
           }
         }
       }
@@ -7400,6 +7554,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings · Ruby Dark AX3"
+          }
+        }
+      }
+    },
+    "Shape" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shape"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hình dạng"
           }
         }
       }

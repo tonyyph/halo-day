@@ -8,9 +8,13 @@ enum PhotoSaver {
         var errorDescription: String? { String(localized: "Halo Day can't add to Photos. Allow it in Settings › Privacy › Photos.") }
     }
 
-    static func save(_ image: UIImage) async throws {
+    /// Ask before rendering, so a denial doesn't waste a full-resolution render.
+    static func authorize() async throws {
         let status = await PHPhotoLibrary.requestAuthorization(for: .addOnly)
         guard status == .authorized || status == .limited else { throw Failure.denied }
+    }
+
+    static func save(_ image: UIImage) async throws {
         try await PHPhotoLibrary.shared().performChanges {
             PHAssetChangeRequest.creationRequestForAsset(from: image)
         }

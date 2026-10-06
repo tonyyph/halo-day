@@ -28,56 +28,70 @@ struct LockPreview: View {
     var coordinate: GeoCoordinate
     var onSlot: (SlotTarget.Position) -> Void
 
+    /// The real Lock Screen this preview is laid out at (6.1" iPhone, points); the whole layout is then scaled to fit,
+    /// so text and widgets keep their true proportions instead of being squeezed into a small card.
+    static let screen = CGSize(width: 393, height: 852)
+
     var body: some View {
         let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)
         GeometryReader { proxy in
-            let width = proxy.size.width
-            ZStack(alignment: .top) {
+            let scale = proxy.size.width / Self.screen.width
+            ZStack(alignment: .topLeading) {
                 WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)
-                VStack(spacing: width * 0.025) {
-                    slotButton(.inline, label: setup.inline.map { "\($0.title), \(AccessoryFamily.inline.title)" } ?? String(localized: "Date")) {
-                        Group {
-                            if let inline = setup.inline {
-                                AccessoryView(kind: inline, family: .inline, data: data, tint: tint(0, sky))
-                            } else {
-                                Text(now, format: .dateTime.weekday(.wide).day().month(.wide))
-                            }
-                        }
-                        .font(.system(size: width * 0.045, weight: .semibold))
-                        .lineLimit(1)
-                        .padding(.horizontal, width * 0.03)
-                        .frame(height: width * 0.075)
-                    }
-                    Text(now, format: .dateTime.hour(.defaultDigits(amPM: .omitted)).minute())
-                        .font(.system(size: width * 0.25, weight: .semibold, design: .rounded))
-                        .monospacedDigit()
-                        .minimumScaleFactor(0.5)
-                        .lineLimit(1)
-                        .accessibilityLabel(Text(now, format: .dateTime.hour().minute()))
-                    HStack(spacing: width * 0.03) {
-                        ForEach(Array(setup.slots.enumerated()), id: \.element.id) { index, slot in
-                            slotButton(.slot(index), label: "\(slot.kind.title), \(slot.family.title)") {
-                                AccessoryView(kind: slot.kind, family: slot.family, data: data, tint: tint(index + 1, sky))
-                                    .padding(slot.family == .circular ? width * 0.01 : width * 0.02)
-                                    .frame(width: slot.family == .circular ? width * 0.17 : width * 0.37, height: width * 0.17)
-                            }
-                        }
-                        if setup.remainingUnits > 0 {
-                            slotButton(.add, label: String(localized: "Add a widget")) {
-                                Image(systemName: "plus").font(.title3).frame(width: width * 0.17, height: width * 0.17)
-                            }
-                        }
-                    }
-                    Spacer()
-                }
-                .padding(.top, width * 0.14)
-                .foregroundStyle(sky.inkColor.color)
+                lockScreen(sky: sky)
+                    .frame(width: Self.screen.width, height: Self.screen.height)
+                    .scaleEffect(scale, anchor: .topLeading)
+                    // scaleEffect doesn't change layout size; pin the layout to the card so it doesn't grow to 393×852.
+                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: .topLeading)
             }
-            .clipShape(RoundedRectangle(cornerRadius: width * 0.12, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))
         }
-        .aspectRatio(9 / 19.5, contentMode: .fit)
+        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)
         .environment(\.colorScheme, sky.ink == .light ? .dark : .light)
+    }
+
+    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.
+    private func lockScreen(sky: SkyState) -> some View {
+        VStack(spacing: 10) {
+            slotButton(.inline, label: setup.inline.map { "\($0.title), \(AccessoryFamily.inline.title)" } ?? String(localized: "Date")) {
+                HStack(spacing: 6) {
+                    Text(now, format: .dateTime.weekday(.abbreviated).day())
+                    if let inline = setup.inline {
+                        AccessoryView(kind: inline, family: .inline, data: data, tint: tint(0, sky))
+                    }
+                }
+                .font(.system(size: 19, weight: .semibold))
+                .lineLimit(1)
+                .padding(.horizontal, 10)
+                .frame(maxWidth: 330, minHeight: 30)
+            }
+            Text(now, format: .dateTime.hour(.defaultDigits(amPM: .omitted)).minute())
+                .font(.system(size: 96, weight: .semibold))
+                .monospacedDigit()
+                .lineLimit(1)
+                .accessibilityLabel(Text(now, format: .dateTime.hour().minute()))
+            HStack(spacing: 10) {
+                ForEach(Array(setup.slots.enumerated()), id: \.element.id) { index, slot in
+                    slotButton(.slot(index), label: "\(slot.kind.title), \(slot.family.title)") {
+                        AccessoryView(kind: slot.kind, family: slot.family, data: data, tint: tint(index + 1, sky))
+                            .padding(slot.family == .circular ? 2 : 6)
+                            .frame(width: slot.family == .circular ? 72 : 158, height: 72)
+                    }
+                }
+                if setup.remainingUnits > 0 {
+                    slotButton(.add, label: String(localized: "Add a widget")) {
+                        Image(systemName: "plus").font(.title2).frame(width: 72, height: 72)
+                    }
+                }
+            }
+            Spacer()
+        }
+        .padding(.top, 64)
+        .frame(maxWidth: .infinity)
+        .foregroundStyle(sky.inkColor.color)
+        .dynamicTypeSize(.large)
     }
 
     /// Vibrant = single ink as iOS draws it; otherwise each slot gets its own colour.

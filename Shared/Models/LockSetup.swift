@@ -83,6 +83,15 @@ struct LockSetup: Codable, Hashable, Sendable, Identifiable {
     }
     var isPremium: Bool { skyID.isPremium || slots.contains { $0.kind.isPremium } || inline?.isPremium == true }
 
+    /// Premium content this version adds over the stored one. Content a person already had (for example migrated
+    /// from v1, or kept after Premium lapsed) is not re-gated, so ordinary edits never hit the paywall.
+    func addsPremium(over stored: LockSetup?) -> Bool {
+        let kept = Set((stored?.slots.map(\.kind) ?? []) + [stored?.inline].compactMap { $0 })
+        if skyID.isPremium && skyID != stored?.skyID { return true }
+        if let inline, inline.isPremium && !kept.contains(inline) { return true }
+        return slots.contains { $0.kind.isPremium && !kept.contains($0.kind) }
+    }
+
     static func starter(name: String, sky: SkyID) -> LockSetup {
         LockSetup(name: name, skyID: sky, inline: .month,
                   slots: [LockSlot(kind: .nextUp, family: .rectangular), LockSlot(kind: .orbit, family: .circular), LockSlot(kind: .countdown, family: .circular)])
@@ -99,5 +108,19 @@ struct LockSetup: Codable, Hashable, Sendable, Identifiable {
         let kind = WidgetKind(legacy: preset.widgetType)
         let family: AccessoryFamily = kind.families.contains(.rectangular) && preset.widgetFamily != .circular ? .rectangular : (kind.families.first { $0 != .inline } ?? .rectangular)
         self.init(id: preset.id, name: preset.name, skyID: settings.skyID, inline: .month, slots: [LockSlot(kind: kind, family: family)])
+    }
+}
+
+extension LockSetup {
+    private enum CodingKeys: String, CodingKey { case id, name, skyID, inline, slots, wallpaperShowsOrbit }
+    /// Tolerant decoding: fields added later (or dropped) fall back to defaults instead of failing the whole list.
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.init(id: try container.decode(UUID.self, forKey: .id),
+                  name: try container.decodeIfPresent(String.self, forKey: .name) ?? String(localized: "My Halo"),
+                  skyID: (try? container.decodeIfPresent(SkyID.self, forKey: .skyID)) ?? .livingSky,
+                  inline: try? container.decodeIfPresent(WidgetKind.self, forKey: .inline),
+                  slots: (try? container.decodeIfPresent([LockSlot].self, forKey: .slots)) ?? [],
+                  wallpaperShowsOrbit: try container.decodeIfPresent(Bool.self, forKey: .wallpaperShowsOrbit) ?? true)
     }
 }

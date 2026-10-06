@@ -123,6 +123,7 @@ struct YouView: View {
                 Image(systemName: "chevron.right").font(.footnote).accessibilityHidden(true)
             }
             .padding(DS.Space.l)
+            .contentShape(RoundedRectangle(cornerRadius: DS.Radius.glass, style: .continuous))
             .haloGlass(RoundedRectangle(cornerRadius: DS.Radius.glass, style: .continuous), tint: sky.mid.color)
         }
         .buttonStyle(.plain)

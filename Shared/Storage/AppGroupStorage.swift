@@ -53,12 +53,27 @@ struct AppGroupStorage: Sendable {
     var snapshot: CalendarSnapshot { read("calendar", fallback: CalendarSnapshot(events: MockData.events())) }
     var countdowns: [Countdown] { read("countdowns", fallback: []) }
     /// v2 setups; the first read after the update migrates v1 presets once.
+    /// v2 setups. Migration from v1 presets runs only when the file has never existed, inside one coordinated
+    /// write (app and widget extension may race); an unreadable file is never replaced.
     var setups: [LockSetup] {
-        let stored: [LockSetup]? = read("setups.v2", fallback: nil)
-        if let stored { return stored }
-        let migrated = presets.map(LockSetup.init(legacy:))
-        try? write(migrated, key: "setups.v2")
-        return migrated
+        let url = directory.appendingPathComponent("setups.v2.json")
+        if FileManager.default.fileExists(atPath: url.path) { return read("setups.v2", fallback: []) }
+        var result: [LockSetup] = []
+        let legacy = presets
+        let legacyActive = read("activePreset", fallback: "")
+        try? FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        NSFileCoordinator().coordinate(writingItemAt: url, options: [], error: nil) { path in
+            if let data = try? Data(contentsOf: path) {
+                result = (try? JSONDecoder().decode([LockSetup].self, from: data)) ?? []
+                return
+            }
+            result = legacy.map(LockSetup.init(legacy:))
+            try? JSONEncoder().encode(result).write(to: path, options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
+        }
+        if !legacyActive.isEmpty, activeSetupID == nil, result.contains(where: { $0.id.uuidString == legacyActive }) {
+            try? write(legacyActive, key: "activeSetup.v2")
+        }
+        return result
     }
     var activeSetupID: UUID? { UUID(uuidString: read("activeSetup.v2", fallback: "")) }
 }

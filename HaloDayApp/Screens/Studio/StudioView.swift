@@ -12,6 +12,7 @@ struct StudioView: View {
     @State private var sharing = false
     @State private var saving = false
     @State private var confirmDelete = false
+    @State private var photosDenied = false
 
     var body: some View {
         SkyScreen { sky, now in
@@ -28,8 +29,9 @@ struct StudioView: View {
                                 LockPreview(setup: setup, data: data, now: now, moment: moment, vibrant: vibrant, coordinate: model.skyCoordinate) {
                                     editing = SlotTarget(setupID: setup.id, position: $0)
                                 }
-                                .frame(maxHeight: 540)
-                                .padding(.horizontal, DS.Space.xl)
+                                // A whole Lock Screen at its true 393×852 proportions, sized to the carousel.
+                                .frame(width: 520 * LockPreview.screen.width / LockPreview.screen.height, height: 520)
+                                .shadow(color: .black.opacity(0.18), radius: 24, y: 12)
                                 .tag(Optional(setup.id))
                             }
                         }
@@ -45,11 +47,21 @@ struct StudioView: View {
             }
             .scrollIndicators(.hidden)
         }
-        .sheet(item: $editing) { SlotEditorSheet(target: $0) }
+        .sheet(item: $editing, onDismiss: {
+            if model.paywallAfterSheet { model.paywallAfterSheet = false; model.showPaywall = true }
+        }) { SlotEditorSheet(target: $0) }
+        .alert("Allow Halo Day to add to Photos", isPresented: $photosDenied) {
+            Button("Open Settings") { if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) } }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Halo Day only adds the wallpapers you save. It never reads your photos.")
+        }
         .sheet(isPresented: $sharing) { ShareCardSheet() }
         .onAppear {
             if model.setups.isEmpty {
-                HaloViewActions.saveSetup(.starter(name: String(localized: "My Halo"), sky: model.settings.skyID), model: model, fixture: fixture)
+                // A lapsed Premium sky must not make the very first setup hit the paywall on every visit.
+                let sky = model.purchases.isPremium || !model.settings.skyID.isPremium ? model.settings.skyID : .livingSky
+                HaloViewActions.saveSetup(.starter(name: String(localized: "My Halo"), sky: sky), model: model, fixture: fixture)
             }
             if selection == nil { selection = model.activeSetupID ?? model.setups.first?.id }
         }
@@ -191,13 +203,21 @@ struct StudioView: View {
     private func saveWallpaper(_ setup: LockSetup, data: WidgetData, now: Date) {
         guard model.purchases.isPremium || WallpaperMoment.isFree(sky: setup.skyID, moment: moment) else { model.showPaywall = true; return }
         let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: model.skyCoordinate)
-        guard let image = ArtRenderer.wallpaper(WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)) else { return }
-        if fixture { toasts?.show("Wallpaper saved to Photos."); return }
+        let art = WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)
+        if fixture { _ = ArtRenderer.wallpaper(art); toasts?.show("Wallpaper saved to Photos."); return }
         saving = true
         Task {
-            do { try await PhotoSaver.save(image); toasts?.show("Wallpaper saved to Photos.") }
-            catch { model.error = error.localizedDescription }
-            saving = false
+            defer { saving = false }
+            do {
+                try await PhotoSaver.authorize()
+                guard let image = ArtRenderer.wallpaper(art) else { return }
+                try await PhotoSaver.save(image)
+                toasts?.show("Wallpaper saved to Photos.")
+            } catch PhotoSaver.Failure.denied {
+                photosDenied = true
+            } catch {
+                model.error = error.localizedDescription
+            }
         }
     }
 }
@@ -206,8 +226,8 @@ struct StudioView: View {
 struct ShareCardSheet: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.haloReferenceDate) private var referenceDate
     @State private var showTitles = false
+    @State private var card: UIImage?
 
     var body: some View {
         NavigationStack {
@@ -226,7 +246,7 @@ struct ShareCardSheet: View {
                         Toggle("Show event names", isOn: $showTitles)
                             .tint(OrbitPalette.ritualColor(sky: sky))
                             .accessibilityIdentifier("studio-share-titles")
-                        if let image = ArtRenderer.shareCard(art) {
+                        if let image = card {
                             ShareLink(item: Image(uiImage: image), preview: SharePreview(String(localized: "Halo today"), image: Image(uiImage: image))) {
                                 Label("Share", systemImage: "square.and.arrow.up").frame(maxWidth: .infinity)
                             }
@@ -236,6 +256,8 @@ struct ShareCardSheet: View {
                     }
                     .padding(DS.Space.xl)
                 }
+                // Render the 1080×1920 card only when what it shows changes, not on every minute tick.
+                .task(id: showTitles) { card = ArtRenderer.shareCard(art) }
             }
             .navigationTitle("Halo today")
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
