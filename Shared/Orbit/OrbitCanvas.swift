@@ -39,22 +39,10 @@ struct OrbitCanvas: View {
     private var ink: Color { sky.inkColor.color }
 
     private func ring(_ metrics: OrbitMetrics, radius: CGFloat, from start: Double, to end: Double) -> Path {
-        guard end > start else { return Path() }
-        if end - start >= 24 {
-            return Path(ellipseIn: CGRect(x: metrics.center.x - radius, y: metrics.center.y - radius, width: radius * 2, height: radius * 2))
-        }
-        return Path { path in
-            path.addArc(center: metrics.center, radius: radius,
-                        startAngle: .radians(OrbitGeometry.angle(forHour: start)),
-                        endAngle: .radians(OrbitGeometry.angle(forHour: end)), clockwise: false)
-        }
+        OrbitPath.arc(center: metrics.center, radius: radius, from: start, to: end)
     }
 
-    private func eventColor(_ hex: String) -> Color {
-        let base = SkyColor(hexString: hex) ?? sky.glow
-        // Light skies deepen event colors toward the ink so pastels stay visible; dark skies tint them with the glow.
-        return (sky.ink == .dark ? base.mixed(with: sky.inkColor, 0.22) : base.mixed(with: sky.glow, 0.12)).color
-    }
+    private func eventColor(_ hex: String) -> Color { OrbitPalette.eventColor(hex, sky: sky) }
 
     private func draw(in context: inout GraphicsContext, metrics: OrbitMetrics, pulse: Double) {
         let center = metrics.center, size = metrics.size
