@@ -106,15 +106,7 @@ struct RootView: View {
                 .tabItem { tabLabel("Day", symbol: "sun.horizon", tab: .day, index: 0) }.tag(AppTab.day)
             NavigationStack { StudioView() }.haloTabMotion(selected: model.tab == .studio)
                 .tabItem { tabLabel("Studio", symbol: "square.on.square.dashed", tab: .studio, index: 1) }.tag(AppTab.studio)
-            NavigationStack {
-                RitualsView().toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button { model.showSettings = true } label: { Image(systemName: "gearshape").frame(width: 44, height: 44) }
-                            .accessibilityLabel("Settings")
-                            .accessibilityIdentifier("settings-open")
-                    }
-                }
-            }
+            NavigationStack { YouView() }
             .haloTabMotion(selected: model.tab == .you)
             .tabItem { tabLabel("You", symbol: "person.crop.circle", tab: .you, index: 2) }.tag(AppTab.you)
         }

@@ -6,12 +6,14 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.palette) private var palette
     @Environment(\.haloToasts) private var toasts
+    @Environment(\.haloReferenceDate) private var referenceDate
     @State private var manageSubscriptions = false
     private let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
     private let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "3"
 
     var body: some View {
         @Bindable var model = model
+        let sky = SkyEngine.state(sky: model.settings.skyID, at: referenceDate ?? .now, coordinate: model.skyCoordinate)
         Form {
             Section {
                 Button {
@@ -31,7 +33,7 @@ struct SettingsView: View {
                     SettingsLabel(title: "Manage subscription", symbol: "creditcard")
                 }
             }
-            .listRowBackground(palette.surface)
+            .listRowBackground(sky.mid.color)
 
             Section {
                 TextField("Your first name", text: $model.settings.firstName)
@@ -41,34 +43,26 @@ struct SettingsView: View {
             } footer: {
                 Text("Used only for your greeting.")
             }
-            .listRowBackground(palette.surface)
+            .listRowBackground(sky.mid.color)
 
-            Section("Appearance") {
-                NavigationLink {
-                    ThemesView()
-                } label: {
-                    SettingsLabel(title: "App theme", symbol: "paintpalette")
+            Section {
+                NavigationLink { SkyPickerView() } label: {
+                    SettingsLabel(title: "Sky", symbol: "sun.horizon")
                 }
-                .accessibilityIdentifier("settings-theme")
+                .accessibilityIdentifier("settings-sky")
+                Toggle(isOn: Binding(get: { model.settings.approxCoordinate != nil },
+                                     set: { enabled in Task { await model.useLocationForSky(enabled) } })) {
+                    SettingsLabel(title: "Match the sky to my location", symbol: "location")
+                }
                 Toggle(isOn: $model.settings.haptics) {
                     SettingsLabel(title: "Haptics", symbol: "waveform")
                 }
-            }
-            .listRowBackground(palette.surface)
-
-            Section {
-                Stepper(value: $model.settings.dayStartHour, in: 0...max(0, model.settings.dayEndHour - 1)) {
-                    Label { Text("Starts at \(model.settings.dayStartHour):00") } icon: { SettingsGlyph(symbol: "sunrise") }
-                }
-                Stepper(value: $model.settings.dayEndHour, in: min(23, model.settings.dayStartHour + 1)...24) {
-                    Label { Text("Ends at \(model.settings.dayEndHour):00") } icon: { SettingsGlyph(symbol: "sunset") }
-                }
             } header: {
-                Text("Your day")
+                Text("Appearance")
             } footer: {
-                Text("Day progress is measured between these times.")
+                Text("Rounded to about 10 km and kept on this iPhone.")
             }
-            .listRowBackground(palette.surface)
+            .listRowBackground(sky.mid.color)
 
             Section("Calendar") {
                 SettingsLabel(
@@ -85,7 +79,7 @@ struct SettingsView: View {
                 .accessibilityIdentifier("settings-calendars")
                 Toggle("Include all-day events", isOn: $model.settings.includeAllDay)
             }
-            .listRowBackground(palette.surface)
+            .listRowBackground(sky.mid.color)
 
             Section("Reminders") {
                 Button { Task { await model.requestNotifications() } } label: {
@@ -96,7 +90,7 @@ struct SettingsView: View {
                     ForEach([5, 10, 15, 30], id: \.self) { Text("\($0) min").tag($0) }
                 }
             }
-            .listRowBackground(palette.surface)
+            .listRowBackground(sky.mid.color)
 
             Section("Live Activities") {
                 Toggle(isOn: $model.settings.liveActivities) {
@@ -106,9 +100,9 @@ struct SettingsView: View {
                     ? "Live Activities are available"
                     : "Live Activities are turned off for Halo Day in iOS Settings."))
                     .haloFont(.footnote)
-                    .foregroundStyle(palette.ink2)
+                    .opacity(SkyEngine.secondaryOpacity)
             }
-            .listRowBackground(palette.surface)
+            .listRowBackground(sky.mid.color)
 
             Section("Widgets") {
                 Button {
@@ -126,20 +120,23 @@ struct SettingsView: View {
                     SettingsLabel(title: "Refresh widgets now", symbol: "arrow.triangle.2.circlepath")
                 }
             }
-            .listRowBackground(palette.surface)
+            .listRowBackground(sky.mid.color)
 
             Section("About") {
                 Text("Your calendar never leaves your iPhone. Halo Day has no accounts, no tracking, and no servers.")
                     .haloFont(.footnote)
+                NavigationLink { LicensesView() } label: { SettingsLabel(title: "Licenses", symbol: "doc.text") }
                 Text("Version \(version) (\(build))")
                     .haloFont(.caption)
-                    .foregroundStyle(palette.ink2)
+                    .opacity(SkyEngine.secondaryOpacity)
             }
-            .listRowBackground(palette.surface)
+            .listRowBackground(sky.mid.color)
         }
         .scrollContentBackground(.hidden)
-        .background { ThemeBackground() }
-        .tint(palette.accentInk)
+        .background { SkyBackground(state: sky) }
+        .tint(sky.inkColor.color)
+        .environment(\.colorScheme, sky.ink == .light ? .dark : .light)
+        .toolbarColorScheme(sky.ink == .light ? .dark : .light, for: .navigationBar)
         .navigationTitle("Settings")
         .toolbar {
             Button("Done") {

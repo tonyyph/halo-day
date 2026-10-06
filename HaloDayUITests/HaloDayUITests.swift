@@ -178,7 +178,7 @@ final class HaloDayUITests: XCTestCase {
         tabButton(app, 1, language: "en").tap()
         XCTAssertTrue(app.staticTexts["Widget Studio"].waitForExistence(timeout: 3))
         tabButton(app, 2, language: "en").tap()
-        XCTAssertTrue(app.staticTexts["Rituals, kept gently"].waitForExistence(timeout: 3))
+        XCTAssertTrue(app.buttons["ritual-new"].waitForExistence(timeout: 3))
     }
 
     @MainActor
@@ -211,16 +211,52 @@ final class HaloDayUITests: XCTestCase {
 
     @MainActor
     func testRecordFinalRitualCompletion() throws {
-        let app = launchFixture(theme: "emeraldRitual", screen: "rituals", language: ("en", "en_US"))
-        XCTAssertTrue(app.staticTexts["Rituals, kept gently"].waitForExistence(timeout: 10))
-        let finalHabit = app.buttons["habit-check-10000000-0000-0000-0000-000000000003"]
-        XCTAssertTrue(finalHabit.waitForExistence(timeout: 5))
-        XCTAssertEqual(finalHabit.value as? String, "Not completed")
-        finalHabit.tap()
-        let celebration = app.descendants(matching: .any)
-            .matching(NSPredicate(format: "label CONTAINS %@", "All done today"))
-            .firstMatch
-        XCTAssertTrue(celebration.waitForExistence(timeout: 5))
+        let app = launchFixture(theme: "emeraldRitual", screen: "day", language: ("en", "en_US"))
+        let finalBead = app.buttons["bead-10000000-0000-0000-0000-000000000003"]
+        XCTAssertTrue(finalBead.waitForExistence(timeout: 10))
+        XCTAssertEqual(finalBead.value as? String, "Not done")
+        finalBead.tap()
+        XCTAssertEqual(finalBead.value as? String, "Done")
+    }
+
+    @MainActor
+    func testEditRitualTimeAndSeeTheFreeLimit() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "you", language: ("en", "en_US"))
+        let row = app.buttons["ritual-row-10000000-0000-0000-0000-000000000003"]
+        XCTAssertTrue(row.waitForExistence(timeout: 10))
+        row.tap()
+        XCTAssertTrue(app.buttons["ritual-edit"].waitForExistence(timeout: 5))
+        app.buttons["ritual-edit"].tap()
+        XCTAssertTrue(app.buttons["time-morning"].waitForExistence(timeout: 5))
+        app.buttons["time-morning"].tap()
+        app.buttons["ritual-save"].tap()
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Morning'")).firstMatch.waitForExistence(timeout: 5))
+        app.buttons["Done"].tap()
+        app.buttons["ritual-new"].tap()
+        XCTAssertTrue(app.buttons["ritual-limit"].waitForExistence(timeout: 5))
+    }
+
+    @MainActor
+    func testAddCountdownAndPickASky() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "you", language: ("en", "en_US"))
+        let add = app.buttons["countdown-new"]
+        XCTAssertTrue(add.waitForExistence(timeout: 10))
+        for _ in 0..<4 where !add.isHittable { app.swipeUp() }
+        add.tap()
+        let name = app.textFields["countdown-name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 5))
+        name.tap(); name.typeText("Lisbon")
+        app.buttons["countdown-save"].tap()
+        XCTAssertTrue(app.staticTexts["Lisbon"].waitForExistence(timeout: 5))
+        for _ in 0..<4 where !app.buttons["settings-open"].isHittable { app.swipeDown() }
+        app.buttons["settings-open"].tap()
+        let sky = app.buttons["settings-sky"]
+        XCTAssertTrue(sky.waitForExistence(timeout: 5))
+        sky.tap()
+        let celestial = app.buttons["sky-celestial"]
+        XCTAssertTrue(celestial.waitForExistence(timeout: 5))
+        celestial.tap()
+        XCTAssertTrue(celestial.isSelected)
     }
 
     @MainActor
