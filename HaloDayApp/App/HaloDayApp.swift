@@ -8,6 +8,7 @@ struct HaloDayApp: App {
     @Environment(\.scenePhase) private var phase
 
     init() {
+        HaloFonts.registerIfNeeded()
         let configuration = HaloLaunchConfiguration.current
         launch = configuration
         _model = State(initialValue: configuration.makeModel())

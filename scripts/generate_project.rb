@@ -54,6 +54,10 @@ Dir.glob(File.join(root, 'Shared', '**', '*.swift')).sort.each do |file|
   ref = shared.new_file(file.delete_prefix(File.join(root, 'Shared') + '/'))
   [app, widgets].each { |target| target.source_build_phase.add_file_reference(ref) }
 end
+Dir.glob(File.join(root, 'Shared', 'Fonts', '*.{ttf,txt}')).sort.each do |file|
+  ref = shared.new_file(file.delete_prefix(File.join(root, 'Shared') + '/'))
+  [app, widgets].each { |target| target.resources_build_phase.add_file_reference(ref) }
+end
 embed = app.new_copy_files_build_phase('Embed App Extensions')
 embed.dst_subfolder_spec = '13'
 embedded = embed.add_file_reference(widgets.product_reference)

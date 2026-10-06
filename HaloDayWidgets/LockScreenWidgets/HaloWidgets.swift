@@ -106,6 +106,7 @@ struct HaloPlannerWidget: Widget {
 
 @main
 struct HaloWidgetBundle: WidgetBundle {
+    init() { HaloFonts.registerIfNeeded() }
     var body: some Widget {
         HaloPlannerWidget(type: .agenda)
         HaloPlannerWidget(type: .month)
