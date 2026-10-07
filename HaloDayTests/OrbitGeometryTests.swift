@@ -30,7 +30,13 @@ final class OrbitGeometryTests: XCTestCase {
         ], calendar: calendar)
         XCTAssertEqual(layout.arcs.map(\.id), ["a", "b", "c", "f"])
         XCTAssertEqual(layout.arcs.map(\.lane), [0, 1, 2, 0])
-        XCTAssertEqual(layout.overflow, [OrbitOverflow(hour: 10.2, count: 2)])
+        XCTAssertEqual(layout.overflow, [OrbitOverflow(hour: 10.2, count: 2, eventIDs: ["d", "e"])])
+    }
+    func testOverflowKeepsItsEventsSoVoiceOverCanReachThem() {
+        let layout = OrbitLayout(day: day, events: [
+            event("a", 9, 11), event("b", 9.5, 10.5), event("c", 10, 12), event("d", 10.2, 10.4), event("e", 10.25, 10.75)
+        ], calendar: calendar)
+        XCTAssertEqual(layout.overflow.first?.eventIDs, ["d", "e"])
     }
     func testMidnightCrossingIsClippedAndFlaggedAndTinyEventsStayVisible() {
         let layout = OrbitLayout(day: day, events: [event("late", 23, 26), event("early", -2, 1), event("blip", 15, 15)], calendar: calendar)

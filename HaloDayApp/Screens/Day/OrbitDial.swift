@@ -64,6 +64,12 @@ struct OrbitDial: View {
             ForEach(scene.orbit.layout.arcs.sorted { $0.start < $1.start }) { arc in
                 AccessibilityRotorEntry(Text(eventLabel(arc.id)), id: arc.id, in: rotorSpace)
             }
+            // Events folded into a "+n" badge land on that badge.
+            ForEach(Array(scene.orbit.layout.overflow.enumerated()), id: \.offset) { index, marker in
+                ForEach(marker.eventIDs, id: \.self) { id in
+                    AccessibilityRotorEntry(Text(eventLabel(id)), id: "overflow-\(index)", in: rotorSpace)
+                }
+            }
         }
         .accessibilityRotor("Rituals") {
             ForEach(scene.orbit.beads.sorted { $0.hour < $1.hour }) { bead in
@@ -106,6 +112,14 @@ struct OrbitDial: View {
                 .accessibilityLabel(Text(eventLabel(arc.id)))
                 .accessibilityRotorEntry(id: arc.id, in: rotorSpace)
                 .accessibilityIdentifier("arc-\(arc.id)")
+        }
+        ForEach(Array(scene.orbit.layout.overflow.enumerated()), id: \.offset) { index, marker in
+            target(at: OrbitGeometry.point(forHour: marker.hour, radius: metrics.laneRadius(2), center: metrics.center)) {
+                if let first = marker.eventIDs.first { onEvent(first) }
+            }
+            .accessibilityLabel(Text("\(marker.count) more events: \(marker.eventIDs.map(eventLabel).joined(separator: "; "))"))
+            .accessibilityRotorEntry(id: "overflow-\(index)", in: rotorSpace)
+            .accessibilityIdentifier("overflow-\(index)")
         }
         ForEach(scene.orbit.beads) { bead in
             target(at: OrbitGeometry.point(forHour: bead.hour, radius: metrics.beadRadius, center: metrics.center), enabled: scene.isToday) { onBead(bead.id) }

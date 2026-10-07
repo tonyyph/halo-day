@@ -19,7 +19,8 @@ final class HaloModel {
     var countdowns: [Countdown]
     var selectedDate = Date.now
     var tab: AppTab = .day
-    var showPaywall = false
+    /// Opening the paywall starts with no leftover purchase outcome from an earlier visit.
+    var showPaywall = false { didSet { if showPaywall && !oldValue { purchases.message = nil } } }
     var showSettings = false
     var showGuide = false
     var error: String?
@@ -170,7 +171,8 @@ final class HaloModel {
     /// a free starter setup exists, and the flag is saved. Fixture mode changes memory only.
     func completeOnboarding(rituals: [Habit], fixture: Bool = false) {
         let untouchedSamples = habits.map(\.id) == MockData.habits.map(\.id) && habits.allSatisfy { $0.completedDates.isEmpty }
-        if untouchedSamples {
+        // Picking none keeps the samples, so Day never opens with an empty ring.
+        if untouchedSamples, !rituals.isEmpty {
             habits = rituals
         } else {
             for ritual in rituals where !habits.contains(where: { $0.title.caseInsensitiveCompare(ritual.title) == .orderedSame }) {

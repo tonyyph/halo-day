@@ -17,6 +17,12 @@ final class OnboardingTests: XCTestCase {
         XCTAssertNotNil(model.activeSetupID)
         XCTAssertTrue(model.settings.hasCompletedOnboarding)
     }
+    func testSkippingRitualsKeepsTheSamplesInsteadOfAnEmptyDay() {
+        let model = HaloModel()
+        model.habits = MockData.habits
+        model.completeOnboarding(rituals: [], fixture: true)
+        XCTAssertEqual(model.habits.map(\.id), MockData.habits.map(\.id))
+    }
     func testOnboardingKeepsRitualsSomeoneAlreadyHas() {
         let model = HaloModel()
         var mine = pick("Stretch", .morning)
@@ -25,5 +31,11 @@ final class OnboardingTests: XCTestCase {
         model.completeOnboarding(rituals: [pick("Stretch", .morning), pick("Read", .evening)], fixture: true)
         XCTAssertEqual(model.habits.map(\.title), ["Stretch", "Read"])
         XCTAssertEqual(model.habits[0].completedDates, mine.completedDates)
+    }
+    func testOpeningThePaywallClearsAnEarlierPurchaseOutcome() {
+        let model = HaloModel()
+        model.purchases.message = "Your purchase is awaiting approval."
+        model.showPaywall = true
+        XCTAssertNil(model.purchases.message)
     }
 }

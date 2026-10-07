@@ -132,9 +132,6 @@ struct PaywallView: View {
                              ? String(localized: "Purchases are not configured for this build. The free experience is ready to use.")
                              : String(localized: "Subscriptions renew automatically until canceled in App Store Settings. Prices shown are for the selected billing period."))
                             .font(.footnote).opacity(SkyEngine.secondaryOpacity)
-                        if let message = model.purchases.message {
-                            Text(message).font(.footnote).opacity(SkyEngine.secondaryOpacity)
-                        }
                     }
                     .padding(DS.Space.xl)
                 }
@@ -223,6 +220,11 @@ struct PaywallView: View {
             .buttonStyle(GlassPillStyle(sky: sky))
             .disabled(selectedProduct == nil || model.purchases.isLoading)
             .accessibilityIdentifier("paywall-purchase")
+            // Purchase and restore outcomes sit next to the buttons that caused them, never below the fold.
+            if let message = model.purchases.message {
+                Text(message).font(.footnote.weight(.semibold)).multilineTextAlignment(.center)
+                    .accessibilityIdentifier("paywall-message")
+            }
             if let trialCopy {
                 Text(trialCopy).font(.footnote).opacity(SkyEngine.secondaryOpacity).multilineTextAlignment(.center)
             }

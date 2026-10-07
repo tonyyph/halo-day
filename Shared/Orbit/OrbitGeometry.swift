@@ -14,6 +14,8 @@ struct OrbitArc: Identifiable, Hashable, Sendable {
 struct OrbitOverflow: Hashable, Sendable {
     var hour: Double
     var count: Int
+    /// The events folded into this "+n" badge, so VoiceOver can still reach them.
+    var eventIDs: [String] = []
 }
 
 struct OrbitBead: Identifiable, Hashable, Sendable {
@@ -62,8 +64,9 @@ struct OrbitLayout: Sendable {
                                      continuesBefore: event.startDate < dayStart, continuesAfter: event.endDate > dayEnd))
             } else if let last = overflow.last, start - last.hour < 1 {
                 overflow[overflow.count - 1].count += 1
+                overflow[overflow.count - 1].eventIDs.append(event.id)
             } else {
-                overflow.append(OrbitOverflow(hour: start, count: 1))
+                overflow.append(OrbitOverflow(hour: start, count: 1, eventIDs: [event.id]))
             }
         }
         self.arcs = arcs
