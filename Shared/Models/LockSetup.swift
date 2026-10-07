@@ -73,6 +73,8 @@ struct LockSetup: Codable, Hashable, Sendable, Identifiable {
     var inline: WidgetKind? = .month
     var slots: [LockSlot] = []
     var wallpaperShowsOrbit = true
+    /// When set, the wallpaper carries the agenda (week, month or Orbit) instead of the plain sky.
+    var agenda: AgendaWallpaper?
 
     var usedUnits: Int { slots.reduce(0) { $0 + $1.family.units } }
     var remainingUnits: Int { max(0, Self.rowUnits - usedUnits) }
@@ -97,8 +99,9 @@ struct LockSetup: Codable, Hashable, Sendable, Identifiable {
                   slots: [LockSlot(kind: .nextUp, family: .rectangular), LockSlot(kind: .orbit, family: .circular), LockSlot(kind: .countdown, family: .circular)])
     }
 
-    init(id: UUID = UUID(), name: String, skyID: SkyID = .livingSky, inline: WidgetKind? = .month, slots: [LockSlot] = [], wallpaperShowsOrbit: Bool = true) {
+    init(id: UUID = UUID(), name: String, skyID: SkyID = .livingSky, inline: WidgetKind? = .month, slots: [LockSlot] = [], wallpaperShowsOrbit: Bool = true, agenda: AgendaWallpaper? = nil) {
         self.id = id; self.name = name; self.skyID = skyID; self.inline = inline; self.slots = slots; self.wallpaperShowsOrbit = wallpaperShowsOrbit
+        self.agenda = agenda
     }
 
     /// A v1 preset becomes a setup with its theme as a sky and its widget as the first slot.
@@ -112,7 +115,7 @@ struct LockSetup: Codable, Hashable, Sendable, Identifiable {
 }
 
 extension LockSetup {
-    private enum CodingKeys: String, CodingKey { case id, name, skyID, inline, slots, wallpaperShowsOrbit }
+    private enum CodingKeys: String, CodingKey { case id, name, skyID, inline, slots, wallpaperShowsOrbit, agenda }
     /// Tolerant decoding: fields added later (or dropped) fall back to defaults instead of failing the whole list.
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -121,6 +124,7 @@ extension LockSetup {
                   skyID: (try? container.decodeIfPresent(SkyID.self, forKey: .skyID)) ?? .livingSky,
                   inline: try? container.decodeIfPresent(WidgetKind.self, forKey: .inline),
                   slots: (try? container.decodeIfPresent([LockSlot].self, forKey: .slots)) ?? [],
-                  wallpaperShowsOrbit: try container.decodeIfPresent(Bool.self, forKey: .wallpaperShowsOrbit) ?? true)
+                  wallpaperShowsOrbit: try container.decodeIfPresent(Bool.self, forKey: .wallpaperShowsOrbit) ?? true,
+                  agenda: try? container.decodeIfPresent(AgendaWallpaper.self, forKey: .agenda))
     }
 }

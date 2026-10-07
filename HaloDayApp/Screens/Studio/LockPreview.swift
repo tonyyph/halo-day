@@ -27,6 +27,17 @@ struct LockPreview: View {
     var vibrant: Bool
     var coordinate: GeoCoordinate
     var onSlot: (SlotTarget.Position) -> Void
+    /// The agenda wallpaper behind the clock, when the setup carries one.
+    var agendaArt: AgendaWallpaperArt? = nil
+
+    /// The agenda takes the space under the clock unless the setup keeps room for widgets.
+    private var showsWidgetRow: Bool { setup.agenda.map { $0.roomForWidgets } ?? true }
+    private func clockInk(_ sky: SkyState) -> Color {
+        if let agenda = setup.agenda, agenda.usesPhoto, agendaArt?.photo != nil {
+            return agenda.photoIsDark ? SkyEngine.lightInk.color : SkyEngine.darkInk.color
+        }
+        return sky.inkColor.color
+    }
 
     /// The real Lock Screen this preview is laid out at (6.1-inch iPhone, points).
     static let screen = CGSize(width: 393, height: 852)
@@ -63,7 +74,11 @@ struct LockPreview: View {
                 .fill(Color.black)
                 .frame(width: body.width - 5, height: body.height - 5)
             ZStack(alignment: .top) {
-                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)
+                if let agendaArt {
+                    agendaArt
+                } else {
+                    WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)
+                }
                 lockScreen(sky: sky)
                 chrome(sky: sky)
                 Capsule().fill(Color.black).frame(width: 126, height: 37).padding(.top, 11)
@@ -117,7 +132,7 @@ struct LockPreview: View {
                 .frame(maxHeight: .infinity, alignment: .bottom)
                 .padding(.bottom, 8)
         }
-        .foregroundStyle(sky.inkColor.color)
+        .foregroundStyle(clockInk(sky))
         .allowsHitTesting(false)
         .accessibilityHidden(true)
     }
@@ -153,6 +168,7 @@ struct LockPreview: View {
                 .lineLimit(1)
                 .accessibilityLabel(Text(now, format: .dateTime.hour().minute()))
             // iOS's widget row: four 72 pt units with 14 pt gaps (a wide widget is two units, 158 pt).
+            if showsWidgetRow {
             HStack(spacing: Self.unitGap) {
                 ForEach(Array(setup.slots.enumerated()), id: \.element.id) { index, slot in
                     slotButton(.slot(index), label: "\(slot.kind.title), \(slot.family.title)") {
@@ -168,11 +184,12 @@ struct LockPreview: View {
                     }
                 }
             }
+            }
             Spacer()
         }
         .padding(.top, 58)
         .frame(maxWidth: .infinity)
-        .foregroundStyle(sky.inkColor.color)
+        .foregroundStyle(clockInk(sky))
         .dynamicTypeSize(.large)
     }
 

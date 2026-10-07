@@ -1,4 +1,5 @@
 import SwiftUI
+import PhotosUI
 
 /// v2 Studio: Lock Screen setups over sky wallpapers, slot editing, wallpapers to Photos and the "Halo today" card.
 struct StudioView: View {
@@ -13,6 +14,9 @@ struct StudioView: View {
     @State private var saving = false
     @State private var confirmDelete = false
     @State private var photosDenied = false
+    @State private var photos: [UUID: UIImage] = [:]
+    @State private var photoItem: PhotosPickerItem?
+    @State private var showAutomation = false
 
     var body: some View {
         SkyScreen { sky, now in
@@ -30,9 +34,9 @@ struct StudioView: View {
                     if !setups.isEmpty {
                         TabView(selection: $selection) {
                             ForEach(setups) { setup in
-                                LockPreview(setup: setup, data: data, now: now, moment: moment, vibrant: vibrant, coordinate: model.skyCoordinate) {
-                                    editing = SlotTarget(setupID: setup.id, position: $0)
-                                }
+                                LockPreview(setup: setup, data: data, now: now, moment: moment, vibrant: vibrant, coordinate: model.skyCoordinate,
+                                            onSlot: { editing = SlotTarget(setupID: setup.id, position: $0) },
+                                            agendaArt: agendaArt(setup, now: now))
                                 .frame(width: phoneWidth, height: phoneHeight)
                                 .padding(.vertical, DS.Space.l)
                                 .tag(Optional(setup.id))
@@ -61,6 +65,11 @@ struct StudioView: View {
             Text("Halo Day only adds the wallpapers you save. It never reads your photos.")
         }
         .sheet(isPresented: $sharing) { ShareCardSheet() }
+        .sheet(isPresented: $showAutomation) { AgendaAutomationGuide() }
+        .onChange(of: photoItem) { _, item in
+            guard let item, let id = selection ?? model.setups.first?.id else { return }
+            Task { await usePhoto(item, for: id) }
+        }
         .onAppear {
             if model.setups.isEmpty {
                 // A lapsed Premium sky must not make the very first setup hit the paywall on every visit.
@@ -68,6 +77,9 @@ struct StudioView: View {
                 HaloViewActions.saveSetup(.starter(name: String(localized: "My Halo"), sky: sky), model: model, fixture: fixture)
             }
             if selection == nil { selection = model.activeSetupID ?? model.setups.first?.id }
+            for setup in model.setups where setup.agenda?.usesPhoto == true && photos[setup.id] == nil {
+                photos[setup.id] = WallpaperPhotoStore.load(setup.id)
+            }
         }
     }
 
@@ -131,12 +143,7 @@ struct StudioView: View {
                 }
                 .scrollIndicators(.hidden)
             }
-            Toggle("Show Orbit on wallpaper", isOn: Binding(get: { setup.wallpaperShowsOrbit }, set: { value in
-                var updated = setup; updated.wallpaperShowsOrbit = value
-                HaloViewActions.saveSetup(updated, model: model, fixture: fixture)
-            }))
-            .tint(OrbitPalette.ritualColor(sky: sky))
-            .accessibilityIdentifier("studio-orbit-wallpaper")
+            wallpaperControls(setup, sky: sky)
             VStack(spacing: DS.Space.m) {
                 Button { saveWallpaper(setup, data: data, now: now) } label: {
                     HStack { if saving { ProgressView() }; Label("Save wallpaper", systemImage: "photo.on.rectangle") }.frame(maxWidth: .infinity)
@@ -204,17 +211,147 @@ struct StudioView: View {
         if fixture { model.activeSetupID = setup.id } else { model.activateSetup(setup.id) }
     }
 
+    // MARK: Wallpaper
+
+    private func agendaArt(_ setup: LockSetup, now: Date) -> AgendaWallpaperArt? {
+        guard let agenda = setup.agenda else { return nil }
+        let date = moment.date(on: now, now: now)
+        let sky = SkyEngine.state(sky: setup.skyID, at: date, coordinate: model.skyCoordinate)
+        return AgendaWallpaperMaker.art(setup: setup, agenda: agenda, now: now, sky: sky, events: { model.events(on: $0) },
+                                        habits: model.habits, coordinate: model.skyCoordinate, isSample: model.isSample,
+                                        photo: agenda.usesPhoto ? photos[setup.id] : nil)
+    }
+
+    private func updateAgenda(_ setup: LockSetup, _ change: (inout AgendaWallpaper) -> Void) {
+        var updated = setup
+        var agenda = setup.agenda ?? AgendaWallpaper()
+        change(&agenda)
+        updated.agenda = agenda
+        HaloViewActions.saveSetup(updated, model: model, fixture: fixture)
+    }
+
+    @ViewBuilder
+    private func wallpaperControls(_ setup: LockSetup, sky: SkyState) -> some View {
+        let agenda = setup.agenda
+        VStack(alignment: .leading, spacing: DS.Space.m) {
+            Text("Wallpaper").font(.headline).accessibilityAddTraits(.isHeader)
+            Picker("Wallpaper", selection: Binding(get: { agenda != nil }, set: { on in
+                var updated = setup
+                updated.agenda = on ? (setup.agenda ?? AgendaWallpaper()) : nil
+                HaloViewActions.saveSetup(updated, model: model, fixture: fixture)
+            })) {
+                Text("Sky").tag(false)
+                Text("Agenda").tag(true)
+            }
+            .pickerStyle(.segmented)
+            .accessibilityIdentifier("studio-wallpaper-kind")
+            if let agenda {
+                Text("Your calendar drawn into the wallpaper, under the clock — larger and more colourful than Lock Screen widgets can be.")
+                    .font(.footnote).opacity(SkyEngine.secondaryOpacity)
+                HStack(spacing: DS.Space.s) {
+                    ForEach(AgendaLayout.allCases) { layout in
+                        chipButton(layout.title, selected: agenda.layout == layout, sky: sky, id: "studio-agenda-\(layout.rawValue)") {
+                            updateAgenda(setup) { $0.layout = layout }
+                        }
+                    }
+                }
+                Text("Background").font(.subheadline.weight(.semibold))
+                HStack(spacing: DS.Space.s) {
+                    chipButton(String(localized: "Sky"), selected: !agenda.usesPhoto, sky: sky, id: "studio-agenda-sky") {
+                        updateAgenda(setup) { $0.usesPhoto = false }
+                    }
+                    PhotosPicker(selection: $photoItem, matching: .images, photoLibrary: .shared()) {
+                        HStack(spacing: DS.Space.xs) {
+                            Image(systemName: "photo")
+                            Text(agenda.usesPhoto ? "Change photo" : "My photo")
+                        }
+                        .font(.subheadline.weight(agenda.usesPhoto ? .semibold : .regular))
+                        .padding(.horizontal, DS.Space.m).frame(minHeight: 44)
+                        .background { if agenda.usesPhoto { Capsule().fill(sky.inkColor.color.opacity(0.14)) } }
+                    }
+                    .buttonStyle(.plain)
+                    .haloGlass(Capsule(), tint: sky.mid.color)
+                    .accessibilityIdentifier("studio-agenda-photo")
+                }
+                if agenda.layout == .month {
+                    Text("Colour").font(.subheadline.weight(.semibold))
+                    HStack(spacing: DS.Space.m) {
+                        ForEach(AgendaWallpaper.accents, id: \.self) { hex in
+                            let selected = agenda.accentHex == hex
+                            Button { updateAgenda(setup) { $0.accentHex = hex } } label: {
+                                Circle().fill(SkyColor(hexString: hex)?.color ?? .red)
+                                    .frame(width: 30, height: 30)
+                                    .overlay(Circle().strokeBorder(Color.white, lineWidth: selected ? 3 : 0))
+                                    .overlay(Circle().strokeBorder(Color.primary.opacity(0.25), lineWidth: 1))
+                                    .frame(width: 44, height: 44)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel(Text("Colour \(hex)"))
+                            .accessibilityAddTraits(selected ? [.isButton, .isSelected] : .isButton)
+                        }
+                    }
+                }
+                Toggle("Leave room for widgets", isOn: Binding(get: { agenda.roomForWidgets }, set: { value in
+                    updateAgenda(setup) { $0.roomForWidgets = value }
+                }))
+                .tint(OrbitPalette.ritualColor(sky: sky))
+                .accessibilityIdentifier("studio-agenda-room")
+                Button { showAutomation = true } label: {
+                    Label("Keep it up to date automatically", systemImage: "arrow.triangle.2.circlepath").frame(maxWidth: .infinity)
+                }
+                .buttonStyle(GlassPillStyle(sky: sky))
+                .accessibilityIdentifier("studio-agenda-automation")
+            } else {
+                Toggle("Show Orbit on wallpaper", isOn: Binding(get: { setup.wallpaperShowsOrbit }, set: { value in
+                    var updated = setup; updated.wallpaperShowsOrbit = value
+                    HaloViewActions.saveSetup(updated, model: model, fixture: fixture)
+                }))
+                .tint(OrbitPalette.ritualColor(sky: sky))
+                .accessibilityIdentifier("studio-orbit-wallpaper")
+            }
+        }
+    }
+
+    private func chipButton(_ title: String, selected: Bool, sky: SkyState, id: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title).font(.subheadline.weight(selected ? .semibold : .regular))
+                .padding(.horizontal, DS.Space.m).frame(minHeight: 44)
+                .background { if selected { Capsule().fill(sky.inkColor.color.opacity(0.14)) } }
+        }
+        .buttonStyle(.plain)
+        .haloGlass(Capsule(), tint: sky.mid.color)
+        .accessibilityAddTraits(selected ? [.isButton, .isSelected] : .isButton)
+        .accessibilityIdentifier(id)
+    }
+
+    private func usePhoto(_ item: PhotosPickerItem, for id: UUID) async {
+        defer { photoItem = nil }
+        do {
+            guard let data = try await item.loadTransferable(type: Data.self),
+                  let setup = model.setups.first(where: { $0.id == id }) else { return }
+            let saved = try WallpaperPhotoStore.save(data, for: id)
+            photos[id] = saved.image
+            updateAgenda(setup) { $0.usesPhoto = true; $0.photoIsDark = saved.isDark }
+        } catch {
+            model.error = error.localizedDescription
+        }
+    }
+
     private func saveWallpaper(_ setup: LockSetup, data: WidgetData, now: Date) {
-        guard model.purchases.isPremium || WallpaperMoment.isFree(sky: setup.skyID, moment: moment) else { model.showPaywall = true; return }
+        // Over the person's own photo no Premium sky is used.
+        let ownPhoto = setup.agenda?.usesPhoto == true && photos[setup.id] != nil
+        guard ownPhoto || model.purchases.isPremium || WallpaperMoment.isFree(sky: setup.skyID, moment: moment) else { model.showPaywall = true; return }
         let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: model.skyCoordinate)
         let art = WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)
-        if fixture { _ = ArtRenderer.wallpaper(art); toasts?.show("Wallpaper saved to Photos."); return }
+        let agenda = agendaArt(setup, now: now)
+        let render = { agenda.map { ArtRenderer.agendaWallpaper($0) } ?? ArtRenderer.wallpaper(art) }
+        if fixture { _ = render(); toasts?.show("Wallpaper saved to Photos."); return }
         saving = true
         Task {
             defer { saving = false }
             do {
                 try await PhotoSaver.authorize()
-                guard let image = ArtRenderer.wallpaper(art) else { return }
+                guard let image = render() else { return }
                 try await PhotoSaver.save(image)
                 toasts?.show("Wallpaper saved to Photos.")
             } catch PhotoSaver.Failure.denied {

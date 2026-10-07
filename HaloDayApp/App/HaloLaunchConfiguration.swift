@@ -83,6 +83,14 @@ struct HaloLaunchConfiguration {
         model.countdowns = []
         model.setups = [.starter(name: String(localized: "My Halo"), sky: settings.skyChoice ?? settings.skyID)]
         model.activeSetupID = model.setups.first?.id
+        // -UITestAgenda week|month|orbit shows the agenda wallpaper on the fixture setup.
+        let arguments = ProcessInfo.processInfo.arguments
+        if let index = arguments.firstIndex(of: "-UITestAgenda"), arguments.indices.contains(index + 1),
+           let layout = AgendaLayout(rawValue: arguments[index + 1]) {
+            var agenda = AgendaWallpaper()
+            agenda.layout = layout
+            model.setups[0].agenda = agenda
+        }
         if let sky = ProcessInfo.processInfo.arguments.firstIndex(of: "-UITestSky").flatMap({ ProcessInfo.processInfo.arguments.indices.contains($0 + 1) ? SkyID(rawValue: ProcessInfo.processInfo.arguments[$0 + 1]) : nil }) {
             model.settings.skyChoice = sky
         }
