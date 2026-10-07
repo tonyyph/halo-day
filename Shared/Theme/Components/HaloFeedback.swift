@@ -119,18 +119,3 @@ struct DelayedShimmer: View {
             }
     }
 }
-
-#Preview("Feedback · Light") {
-    DesignPreview {
-        VStack(spacing: 20) {
-            HaloToast(message: "Preset saved")
-            ShimmerPlaceholder()
-        }
-    }
-}
-
-#Preview("Feedback · Gold AX3 Reduced Motion") {
-    DesignPreview(themeID: "midnightGold", scheme: .dark, accessibility: true, reduceMotion: true) {
-        HaloToast(message: "Welcome to Halo Day Premium.")
-    }
-}

@@ -111,20 +111,6 @@ final class HaloModel {
         guard !theme.isPremium || purchases.isPremium else { showPaywall = true; return }
         settings.selectedThemeId = theme.id; persist()
     }
-    func savePreset(_ preset: WidgetPreset) -> Bool {
-        guard purchases.isPremium || (!ThemeRegistry.theme(preset.themeId).isPremium && !preset.widgetType.premium && ![.medium, .large].contains(preset.widgetFamily) && presets.count < 1) else { showPaywall = true; return false }
-        presets.append(preset)
-        do { try storage.write(presets, key: "presets"); try storage.write(preset.id.uuidString, key: "activePreset"); WidgetCenter.shared.reloadAllTimelines(); return true }
-        catch { self.error = error.localizedDescription; return false }
-    }
-    func activatePreset(_ preset: WidgetPreset) {
-        do { try storage.write(preset.id.uuidString, key: "activePreset"); WidgetCenter.shared.reloadAllTimelines() }
-        catch { self.error = error.localizedDescription }
-    }
-    func removePreset(_ id: UUID) {
-        presets.removeAll { $0.id == id }
-        do { try storage.write(presets, key: "presets"); WidgetCenter.shared.reloadAllTimelines() } catch { self.error = error.localizedDescription }
-    }
     func toggleHabit(_ habit: Habit) {
         do { try storage.toggleHabit(habit.id); habits = storage.habits }
         catch { self.error = error.localizedDescription }

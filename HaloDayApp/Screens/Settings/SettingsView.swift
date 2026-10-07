@@ -169,15 +169,11 @@ struct SettingsView: View {
     }
 }
 
-#Preview("Settings · Pearl") {
+#Preview("Settings") {
     NavigationStack { SettingsView() }.environment(HaloModel())
-        .haloTheme(ThemeRegistry.theme("pearlHalo"))
 }
 
-#Preview("Settings · Ruby Dark AX3") {
+#Preview("Settings · AX3") {
     NavigationStack { SettingsView() }.environment(HaloModel())
-        .haloTheme(ThemeRegistry.theme("rubyGlass"))
-        .preferredColorScheme(.dark)
         .environment(\.dynamicTypeSize, .accessibility3)
-        .environment(\.haloReduceMotionOverride, true)
 }

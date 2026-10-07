@@ -69,18 +69,3 @@ struct PremiumStatusRow: View {
         .onAppear { appeared = true }
     }
 }
-
-#Preview("Settings rows · Light") {
-    DesignPreview {
-        VStack(spacing: 20) {
-            PremiumStatusRow(premium: false)
-            SettingsLabel(title: "App theme", symbol: "paintpalette")
-        }
-    }
-}
-
-#Preview("Settings rows · Midnight AX3 Reduced Motion") {
-    DesignPreview(themeID: "midnightGold", scheme: .dark, accessibility: true, reduceMotion: true) {
-        PremiumStatusRow(premium: true)
-    }
-}

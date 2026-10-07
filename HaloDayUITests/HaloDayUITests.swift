@@ -296,6 +296,20 @@ final class HaloDayUITests: XCTestCase {
     }
 
     @MainActor
+    func testWidgetGuideShowsLockAndHomeSteps() throws {
+        let app = launchFixture(theme: "pearlHalo", screen: "studio", language: ("en", "en_US"))
+        let open = app.buttons["studio-guide"]
+        XCTAssertTrue(open.waitForExistence(timeout: 10))
+        open.tap()
+        XCTAssertTrue(app.staticTexts["Your Halo, on display"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Touch and hold your Lock Screen, then tap Customize."].exists)
+        app.buttons["Home Screen"].tap()
+        XCTAssertTrue(app.staticTexts["Touch and hold an empty spot on your Home Screen."].waitForExistence(timeout: 3))
+        app.buttons["guide-copy"].tap()
+        XCTAssertTrue(app.staticTexts["Steps copied."].waitForExistence(timeout: 3))
+    }
+
+    @MainActor
     func testStudioSavesWallpaperAndShares() throws {
         let app = launchFixture(theme: "pearlHalo", screen: "studio", language: ("en", "en_US"))
         let dawn = app.buttons["studio-moment-dawn"]
