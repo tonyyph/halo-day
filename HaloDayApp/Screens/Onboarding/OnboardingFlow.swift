@@ -95,7 +95,8 @@ struct OnboardingFlow: View {
         let content = OrbitContent(layout: OrbitLayout(day: day, events: step >= 1 ? model.events(on: day) : [], calendar: calendar),
                                    beads: DaySceneBuilder.beads(for: rituals, on: day),
                                    nightSpans: OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: model.skyCoordinate, calendar: calendar), calendar: calendar),
-                                   nowHour: step == 0 ? nil : OrbitGeometry.hours(of: now, calendar: calendar),
+                                   // On the dawn step the sun travels with the sky; afterwards it sits at now.
+                                   nowHour: OrbitGeometry.hours(of: step == 0 ? skyDate(progress: progress, now: now) : now, calendar: calendar),
                                    moonPhase: SolarCalculator.moonPhase(at: now))
         return OrbitCanvas(content: content, sky: sky, style: model.settings.skyID.orbitStyle, breathing: step > 0)
             .mask { Circle().trim(from: 0, to: progress).stroke(lineWidth: 400).rotationEffect(.degrees(90)) }

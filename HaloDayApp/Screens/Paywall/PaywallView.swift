@@ -1,29 +1,49 @@
 import SwiftUI
 import StoreKit
 
+struct PaywallPlan: Identifiable {
+    let id: String
+    let product: Product?
+    let name: String
+    let price: String
+    let period: String
+    let bestValue: Bool
+    let monthlyEquivalent: String?
+
+    init(id: String, product: Product?, bestValue: Bool = false) {
+        self.id = id
+        self.product = product
+        name = id.hasSuffix("yearly") ? String(localized: "Yearly") : id.hasSuffix("monthly") ? String(localized: "Monthly") : String(localized: "Lifetime")
+        price = product?.displayPrice ?? String(localized: "Coming soon")
+        period = id.hasSuffix("yearly") ? String(localized: "per year") : id.hasSuffix("monthly") ? String(localized: "per month") : String(localized: "once")
+        self.bestValue = bestValue
+        monthlyEquivalent = id.hasSuffix("yearly") ? product.map { ($0.price / 12).formatted($0.priceFormatStyle) } : nil
+    }
+}
+
+/// v2 paywall: the Premium skies cycle behind an Orbit that changes style with them. Prices, periods and trials
+/// come only from StoreKit; with no products, plans show placeholders and purchase stays disabled.
 struct PaywallView: View {
     @Environment(HaloModel.self) private var model
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.palette) private var palette
     @Environment(\.haloToasts) private var toasts
     @Environment(\.haloReduceMotion) private var reduceMotion
-    @Environment(\.haloReduceTransparency) private var reduceTransparency
     @Environment(\.haloHapticsEnabled) private var haptics
-    @Namespace private var planSelection
+    @Environment(\.haloReferenceDate) private var referenceDate
 
     @State private var selection = "co.haloday.premium.yearly"
-    @State private var appeared = false
     @State private var eligibleTrial = false
     @State private var purchased = false
     @State private var restoring = false
     @State private var showPrivacy = false
+    @State private var skyIndex = 0
 
-    private let features = [
-        "All 8 luxury themes, from Champagne Day to Midnight Gold",
-        "Advanced widgets: Habit Streak, Focus, and large Home Screen layouts",
-        "Unlimited widget presets: switch your look in a tap",
-        "Focus sessions on your Lock Screen and Dynamic Island",
-        "Event countdowns as Live Activities", "Unlimited rituals with streak history"
+    private let skies: [SkyID] = [.aurora, .instrument, .goldenHour, .mist]
+    private let benefits: [(String, LocalizedStringKey)] = [
+        ("sparkles", "Every sky — Instrument, Aurora, Golden Hour and Mist"),
+        ("circle.grid.cross", "Rhythm and Rituals widgets, and unlimited setups"),
+        ("timer", "Focus and event countdowns on your Lock Screen and Dynamic Island"),
+        ("infinity", "Unlimited rituals and countdowns")
     ]
 
     private var selectedProduct: Product? { model.purchases.products.first { $0.id == selection } }
@@ -35,7 +55,6 @@ struct PaywallView: View {
             PaywallPlan(id: id, product: model.purchases.products.first { $0.id == id }, bestValue: bestValue && id.hasSuffix("yearly"))
         }
     }
-
     private var trialDays: Int? {
         guard let period = selectedProduct?.subscription?.introductoryOffer?.period else { return nil }
         switch period.unit {
@@ -44,7 +63,6 @@ struct PaywallView: View {
         default: return nil
         }
     }
-
     private var cta: String {
         guard let product = selectedProduct else { return String(localized: "Continue") }
         if eligibleTrial {
@@ -55,7 +73,6 @@ struct PaywallView: View {
         if selection.hasSuffix("monthly") { return String(localized: "Subscribe for \(product.displayPrice)/month") }
         return String(localized: "Continue with Yearly")
     }
-
     private var trialCopy: String? {
         guard eligibleTrial, let price = selectedProduct?.displayPrice else { return nil }
         if selection.hasSuffix("monthly") {
@@ -67,71 +84,83 @@ struct PaywallView: View {
     }
 
     var body: some View {
+        let now = referenceDate ?? .now
+        let skyID = skies[skyIndex % skies.count]
+        let sky = SkyEngine.state(sky: skyID, at: now, coordinate: model.skyCoordinate)
         NavigationStack {
-            HaloScreen {
-                PaywallHero(events: model.todayEvents, habits: model.habits)
-                SectionTitle(
-                    title: "Make every glance beautiful.",
-                    subtitle: "All themes, advanced widgets, and Live Activities. Your day, at its most beautiful."
-                )
-
-                VStack(alignment: .leading, spacing: 16) {
-                    ForEach(features.indices, id: \.self) { index in
-                        HStack(alignment: .top, spacing: 12) {
-                            Image(systemName: "sparkle")
-                                .foregroundStyle(palette.accentInk)
-                                .symbolEffect(.bounce, options: .nonRepeating, value: reduceMotion ? false : appeared)
-                            Text(LocalizedStringKey(features[index]))
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                        .haloFont(.subhead)
-                        .opacity(appeared ? 1 : 0)
-                        .offset(y: appeared || reduceMotion ? 0 : 12)
-                        .animation(Motion.resolve(Motion.stagger(index), reduceMotion: reduceMotion), value: appeared)
-                    }
-                }
-
-                VStack(spacing: 12) {
-                    ForEach(plans) { plan in
-                        Button {
-                            withAnimation(Motion.resolve(Motion.snappy, reduceMotion: reduceMotion)) {
-                                selection = plan.id
+            ZStack {
+                SkyBackground(state: sky)
+                    .id(skyID)
+                    .transition(.opacity)
+                VStack(spacing: 0) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: DS.Space.xl) {
+                        ZStack {
+                            OrbitCanvas(content: OrbitContent(layout: OrbitLayout(day: now, events: model.events(on: now)),
+                                                              beads: DaySceneBuilder.beads(for: model.habits, on: now),
+                                                              nowHour: OrbitGeometry.hours(of: now, calendar: .current)),
+                                        sky: sky, style: skyID.orbitStyle)
+                            VStack(spacing: 2) {
+                                Text(skyID.title).font(DS.Typeface.title(20, relativeTo: .headline))
+                                Text(skyID.mood).font(DS.Typeface.moment(13, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)
+                                    .multilineTextAlignment(.center)
                             }
-                        } label: {
-                            PaywallPlanCard(plan: plan, selected: selection == plan.id, namespace: planSelection)
+                            .frame(width: 140)
                         }
-                        .buttonStyle(PressableStyle())
-                        .disabled(model.purchases.isLoading)
-                        .accessibilityIdentifier("plan-\(plan.id)")
-                        .accessibilityAddTraits(selection == plan.id ? [.isSelected] : [])
+                        .frame(width: 180, height: 180)
+                        .frame(maxWidth: .infinity)
+                        .accessibilityElement(children: .combine)
+                        Text("Every sky. Every ritual. Your whole day.")
+                            .font(DS.Typeface.display(30, relativeTo: .largeTitle))
+                            .fixedSize(horizontal: false, vertical: true)
+                        VStack(alignment: .leading, spacing: DS.Space.m) {
+                            ForEach(benefits.indices, id: \.self) { index in
+                                HStack(alignment: .top, spacing: DS.Space.m) {
+                                    Image(systemName: benefits[index].0).frame(width: 24).accessibilityHidden(true)
+                                    Text(benefits[index].1).fixedSize(horizontal: false, vertical: true)
+                                }
+                                .font(.subheadline)
+                            }
+                        }
+                        VStack(spacing: DS.Space.s) {
+                            ForEach(plans) { plan in planRow(plan, sky: sky) }
+                        }
+                        .accessibilityIdentifier("paywall-plans")
+                        Text(model.purchases.products.isEmpty
+                             ? String(localized: "Purchases are not configured for this build. The free experience is ready to use.")
+                             : String(localized: "Subscriptions renew automatically until canceled in App Store Settings. Prices shown are for the selected billing period."))
+                            .font(.footnote).opacity(SkyEngine.secondaryOpacity)
+                        if let message = model.purchases.message {
+                            Text(message).font(.footnote).opacity(SkyEngine.secondaryOpacity)
+                        }
                     }
+                    .padding(DS.Space.xl)
                 }
-                .accessibilityIdentifier("paywall-plans")
-
-                Text(model.purchases.products.isEmpty
-                     ? String(localized: "Purchases are not configured for this build. The free experience is ready to use.")
-                     : String(localized: "Subscriptions renew automatically until canceled in App Store Settings. Prices shown are for the selected billing period."))
-                    .haloFont(.footnote)
-                    .foregroundStyle(palette.ink2)
-
-                if let message = model.purchases.message {
-                    Text(message).haloFont(.footnote).foregroundStyle(palette.ink2)
+                .scrollIndicators(.hidden)
+                // Below the scroll view, not over it: plan rows never sit behind the purchase button.
+                purchaseTray(sky)
                 }
-                Text("Your calendar never leaves your iPhone.")
-                    .haloFont(.caption).foregroundStyle(palette.ink2)
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) { purchaseTray }
+            .foregroundStyle(sky.inkColor.color)
+            .tint(sky.inkColor.color)
+            .environment(\.colorScheme, sky.ink == .light ? .dark : .light)
+            .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button { dismiss() } label: {
-                        Image(systemName: "xmark").frame(width: 44, height: 44)
-                    }
-                    .accessibilityLabel("Close")
-                    .accessibilityIdentifier("paywall-close")
+                    Button { dismiss() } label: { Image(systemName: "xmark").frame(width: 44, height: 44) }
+                        .accessibilityLabel("Close")
+                        .accessibilityIdentifier("paywall-close")
                 }
             }
         }
-        .onAppear { appeared = true }
+        .task {
+            guard !reduceMotion else { return }
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(3))
+                guard !Task.isCancelled else { return }
+                withAnimation(.easeInOut(duration: 1.2)) { skyIndex += 1 }
+            }
+        }
         .sensoryFeedback(.selection, trigger: selection) { _, _ in haptics }
         .task(id: selectedProduct?.id) {
             eligibleTrial = false
@@ -141,37 +170,70 @@ struct PaywallView: View {
             guard !Task.isCancelled else { return }
             eligibleTrial = eligible
         }
-        .sheet(isPresented: $showPrivacy) { privacySheet.haloSheet() }
+        .sheet(isPresented: $showPrivacy) { privacySheet }
     }
 
-    private var purchaseTray: some View {
-        VStack(spacing: 8) {
-            HaloButton(
-                title: cta, isLoading: model.purchases.isLoading,
-                isSuccess: purchased, emitSuccessFeedback: false
-            ) { Task { await purchase() } }
-            .disabled(selectedProduct == nil)
+    private func planRow(_ plan: PaywallPlan, sky: SkyState) -> some View {
+        let selected = selection == plan.id
+        return Button { selection = plan.id } label: {
+            HStack(spacing: DS.Space.m) {
+                Image(systemName: selected ? "largecircle.fill.circle" : "circle").font(.title3).accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: DS.Space.s) {
+                        Text(plan.name).font(.headline)
+                        if plan.bestValue {
+                            Text("Best value").font(.caption2.weight(.semibold))
+                                .padding(.horizontal, 6).padding(.vertical, 2)
+                                .background(Capsule().fill(OrbitPalette.ritualColor(sky: sky).opacity(0.35)))
+                        }
+                    }
+                    if let monthly = plan.monthlyEquivalent {
+                        Text("\(monthly) per month").font(.caption).opacity(SkyEngine.secondaryOpacity)
+                    }
+                }
+                Spacer(minLength: 0)
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text(plan.price).font(.headline.monospacedDigit())
+                    Text(plan.period).font(.caption).opacity(SkyEngine.secondaryOpacity)
+                }
+            }
+            .padding(DS.Space.l)
+            .contentShape(RoundedRectangle(cornerRadius: DS.Radius.glass, style: .continuous))
+            .haloGlass(RoundedRectangle(cornerRadius: DS.Radius.glass, style: .continuous), tint: sky.mid.color)
+            .overlay(RoundedRectangle(cornerRadius: DS.Radius.glass, style: .continuous).strokeBorder(Color.primary.opacity(selected ? 0.55 : 0), lineWidth: 2))
+        }
+        .buttonStyle(.plain)
+        .disabled(model.purchases.isLoading)
+        .accessibilityAddTraits(selected ? [.isButton, .isSelected] : .isButton)
+        .accessibilityIdentifier("plan-\(plan.id)")
+    }
 
+    private func purchaseTray(_ sky: SkyState) -> some View {
+        VStack(spacing: DS.Space.s) {
+            Button { Task { await purchase() } } label: {
+                HStack {
+                    if model.purchases.isLoading { ProgressView() }
+                    if purchased { Image(systemName: "checkmark") }
+                    Text(cta).font(.headline)
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(GlassPillStyle(sky: sky))
+            .disabled(selectedProduct == nil || model.purchases.isLoading)
+            .accessibilityIdentifier("paywall-purchase")
             if let trialCopy {
-                Text(trialCopy)
-                    .haloFont(.footnote)
-                    .foregroundStyle(palette.ink2)
-                    .multilineTextAlignment(.center)
+                Text(trialCopy).font(.footnote).opacity(SkyEngine.secondaryOpacity).multilineTextAlignment(.center)
             }
-
             ViewThatFits(in: .horizontal) {
-                HStack(spacing: 20) { restore; legalLinks }
-                VStack(spacing: 4) { restore; legalLinks }
+                HStack(spacing: DS.Space.l) { restore; legalLinks }
+                VStack(spacing: DS.Space.xs) { restore; legalLinks }
             }
-            .haloFont(.footnote)
+            .font(.footnote)
         }
-        .padding(.horizontal, 20)
-        .padding(.top, 12)
-        .padding(.bottom, 8)
-        .background {
-            if reduceTransparency { palette.surface }
-            else { Rectangle().fill(.thinMaterial) }
-        }
+        .padding(.horizontal, DS.Space.xl)
+        .padding(.top, DS.Space.m)
+        .padding(.bottom, DS.Space.s)
+        .overlay(alignment: .top) { Rectangle().fill(Color.primary.opacity(0.12)).frame(height: 0.5) }
     }
 
     private var restore: some View {
@@ -189,10 +251,11 @@ struct PaywallView: View {
         }
         .frame(minHeight: 44)
         .disabled(restoring)
+        .accessibilityIdentifier("paywall-restore")
     }
 
     private var legalLinks: some View {
-        HStack(spacing: 20) {
+        HStack(spacing: DS.Space.l) {
             Link("Terms", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
                 .frame(minHeight: 44)
             Button("Privacy") { showPrivacy = true }.frame(minHeight: 44)
@@ -201,13 +264,20 @@ struct PaywallView: View {
 
     private var privacySheet: some View {
         NavigationStack {
-            HaloScreen {
-                SectionTitle(title: "Privacy")
-                Text("Your calendar never leaves your iPhone. Halo Day has no accounts, no tracking, and no servers.")
-                    .haloFont(.body)
+            SkyScreen { _, _ in
+                ScrollView {
+                    VStack(alignment: .leading, spacing: DS.Space.m) {
+                        Text("Your calendar never leaves your iPhone. Halo Day has no accounts, no tracking, and no servers.")
+                        Text("Location, if you turn it on, is rounded to about 10 km and stays on this iPhone. Wallpapers are added to Photos without reading your library.")
+                            .opacity(SkyEngine.secondaryOpacity)
+                    }
+                    .padding(DS.Space.xl)
+                }
             }
+            .navigationTitle("Privacy")
             .toolbar { Button("Close") { showPrivacy = false } }
         }
+        .presentationDetents([.medium])
     }
 
     private func purchase() async {
@@ -220,14 +290,4 @@ struct PaywallView: View {
         dismiss()
         toasts?.show("Welcome to Halo Day Premium.")
     }
-}
-
-#Preview("Paywall · Light") {
-    PaywallView().environment(HaloModel()).haloTheme(ThemeRegistry.theme("pearlHalo"))
-}
-
-#Preview("Paywall · Gold AX3 Reduced Motion") {
-    PaywallView().environment(HaloModel()).haloTheme(ThemeRegistry.theme("midnightGold"))
-        .environment(\.dynamicTypeSize, .accessibility3)
-        .environment(\.haloReduceMotionOverride, true)
 }

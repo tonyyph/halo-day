@@ -45,13 +45,13 @@ ruby -rjson -rfileutils -e '
   count = 0
   rows.each do |row|
     name = row.fetch("suggestedHumanReadableName", "")
-    match = name.match(/\A(en|vi)-(LivingSky|Celestial|Instrument)-(\d{4})-(Day|Focus|Event|Week|Month|You|Ritual|Settings|Skies|Studio|Slots)_0_.*\.png\z/)
+    match = name.match(/\A(en|vi)-(LivingSky|Celestial|Instrument)-(\d{4})-(Day|Focus|Event|Week|Month|You|Ritual|Settings|Skies|Studio|Slots|Onboarding|OnboardingRituals|Paywall)_0_.*\.png\z/)
     next unless match
     source = File.join(attachments, row.fetch("exportedFileName"))
     destination = File.join(output, "#{match[1]}-#{match[2]}-#{match[3]}-#{match[4]}.png")
     FileUtils.cp(source, destination)
     count += 1
   end
-  abort "Expected 60 screenshots, exported #{count}." unless count == 60
+  abort "Expected 66 screenshots, exported #{count}." unless count == 66
   puts "Exported #{count} screenshots to #{output}"
 ' "$ROOT" "$ATTACHMENTS" "$OUTPUT_DIR"

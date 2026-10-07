@@ -185,6 +185,23 @@ final class HaloDayUITests: XCTestCase {
             settings.terminate()
         }
         for language in languages {
+            let onboarding = launchFixture(theme: "pearlHalo", screen: "onboarding", language: language)
+            XCTAssertTrue(onboarding.buttons["onboarding-primary"].waitForExistence(timeout: 10))
+            sleep(7)
+            capture(onboarding, "\(language.code)-LivingSky-1005-Onboarding")
+            onboarding.buttons["onboarding-primary"].tap()
+            onboarding.buttons["onboarding-sample"].tap()
+            onboarding.buttons["onboarding-ritual-water"].tap()
+            onboarding.buttons["onboarding-ritual-read"].tap()
+            capture(onboarding, "\(language.code)-LivingSky-1005-OnboardingRituals")
+            onboarding.terminate()
+
+            let paywall = launchFixture(theme: "pearlHalo", screen: "paywall", language: language)
+            XCTAssertTrue(paywall.buttons["paywall-close"].waitForExistence(timeout: 10))
+            capture(paywall, "\(language.code)-LivingSky-1005-Paywall")
+            paywall.terminate()
+        }
+        for language in languages {
             let focus = launchFixture(theme: "pearlHalo", screen: "focus", language: language)
             XCTAssertTrue(focus.buttons["focus-start"].waitForExistence(timeout: 10))
             capture(focus, "\(language.code)-LivingSky-1005-Focus")
@@ -364,7 +381,8 @@ final class HaloDayUITests: XCTestCase {
         tabButton(app, 2, language: "en").tap()
         app.buttons["settings-open"].tap()
         app.buttons["Upgrade to Premium"].tap()
-        XCTAssertTrue(app.staticTexts["Make every glance beautiful."].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["Every sky. Every ritual. Your whole day."].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["paywall-purchase"].isEnabled, "no StoreKit products in this build")
         for _ in 0..<4 where !app.staticTexts["Yearly"].exists {
             app.scrollViews.firstMatch.swipeUp()
         }
