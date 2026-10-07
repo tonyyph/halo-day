@@ -28,7 +28,7 @@ struct LockPreview: View {
     var coordinate: GeoCoordinate
     var onSlot: (SlotTarget.Position) -> Void
 
-    /// The real Lock Screen this preview is laid out at (6.1" iPhone, points); the whole layout is then scaled to fit,
+    /// The real Lock Screen this preview is laid out at (6.1-inch iPhone, points); the whole layout is then scaled to fit,
     /// so text and widgets keep their true proportions instead of being squeezed into a small card.
     static let screen = CGSize(width: 393, height: 852)
 

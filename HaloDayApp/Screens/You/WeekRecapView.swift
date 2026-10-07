@@ -81,6 +81,8 @@ struct WeekRecapView: View {
             Text(label).font(.footnote).opacity(SkyEngine.secondaryOpacity)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(label))
+        .accessibilityValue(value == "–" ? Text("Not enough yet") : Text(verbatim: value))
     }
 }

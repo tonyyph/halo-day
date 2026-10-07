@@ -89,6 +89,8 @@ struct AccessoryView: View {
             }
         }
         .padding(3)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(data.countdown.map { "\($0.title), \(DaysLeft.string(days))" } ?? String(localized: "Add a countdown")))
     }
 
     private var countdownRectangle: some View {

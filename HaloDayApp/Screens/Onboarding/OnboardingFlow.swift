@@ -40,12 +40,19 @@ struct OnboardingFlow: View {
             let sky = SkyEngine.state(sky: model.settings.skyID, at: skyDate(progress: progress, now: now), coordinate: model.skyCoordinate)
             ZStack {
                 SkyBackground(state: sky)
-                VStack(spacing: DS.Space.xl) {
+                VStack(spacing: DS.Space.l) {
                     topBar(sky)
-                    orbit(sky: sky, now: now, progress: progress)
-                        .frame(maxWidth: 280)
-                    copy
-                    Spacer(minLength: 0)
+                    // Scrolls at large text sizes; the actions stay pinned and reachable.
+                    ScrollView {
+                        VStack(spacing: DS.Space.xl) {
+                            orbit(sky: sky, now: now, progress: progress)
+                                .frame(width: 240, height: 240)
+                            copy
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .scrollIndicators(.hidden)
+                    .scrollBounceBehavior(.basedOnSize)
                     actions(sky)
                 }
                 .padding(.horizontal, DS.Space.xl)

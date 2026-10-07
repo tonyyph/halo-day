@@ -184,6 +184,22 @@ final class HaloDayUITests: XCTestCase {
             capture(settings, "\(language.code)-LivingSky-1005-Skies")
             settings.terminate()
         }
+        // Largest accessibility text size: primary actions must stay reachable.
+        let ax3 = ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+        for (screen, name) in [("day", "Day"), ("you", "You"), ("studio", "Studio"), ("focus", "Focus"), ("onboarding", "Onboarding"), ("paywall", "Paywall")] {
+            let app = launchFixture(theme: "pearlHalo", screen: screen, language: ("en", "en_US"), extra: ax3)
+            sleep(screen == "onboarding" ? 7 : 3)
+            capture(app, "en-LivingSky-1005-AX3\(name)")
+            app.terminate()
+        }
+        for language in languages {
+            let studio = launchFixture(theme: "pearlHalo", screen: "studio", language: language)
+            XCTAssertTrue(studio.buttons["studio-guide"].waitForExistence(timeout: 10))
+            studio.buttons["studio-guide"].tap()
+            XCTAssertTrue(studio.buttons["guide-copy"].waitForExistence(timeout: 5))
+            capture(studio, "\(language.code)-LivingSky-1005-Guide")
+            studio.terminate()
+        }
         for language in languages {
             let onboarding = launchFixture(theme: "pearlHalo", screen: "onboarding", language: language)
             XCTAssertTrue(onboarding.buttons["onboarding-primary"].waitForExistence(timeout: 10))
@@ -418,12 +434,12 @@ final class HaloDayUITests: XCTestCase {
         app.buttons["onboarding-finish"].tap()
     }
 
-    @MainActor private func launchFixture(theme: String, screen: String, time: String = "10:05", language: (String, String)) -> XCUIApplication {
+    @MainActor private func launchFixture(theme: String, screen: String, time: String = "10:05", language: (String, String), extra: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments = [
             "-UITestScreenshotMode", "-UITestTheme", theme, "-UITestScreen", screen, "-UITestTime", time,
             "-AppleLanguages", "(\(language.0))", "-AppleLocale", language.1
-        ]
+        ] + extra
         app.launch()
         return app
     }

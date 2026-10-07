@@ -25,6 +25,11 @@ Dir.glob(File.join(root, '{HaloDayApp,HaloDayWidgets,Shared}', '**', '*.swift'))
   end
 end
 strings = existing.fetch('strings', {})
+# Drop code fragments a stray quote once captured, and stale keys nobody translated.
+current = keys.uniq
+strings.reject! do |key, entry|
+  key.include?("\n") || (!current.include?(key) && !entry.fetch('localizations', {}).key?('vi'))
+end
 keys.uniq.each do |key|
   strings[key] ||= { 'localizations' => {} }
   strings[key]['localizations'] ||= {}

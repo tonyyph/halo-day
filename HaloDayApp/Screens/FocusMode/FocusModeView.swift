@@ -42,26 +42,42 @@ struct FocusModeView: View {
                     .accessibilityLabel(Text("Close"))
                     .accessibilityIdentifier("focus-close")
             }
+            ScrollView {
+            VStack(spacing: DS.Space.xl) {
             Text("Make space to focus").font(DS.Typeface.display(30, relativeTo: .title)).multilineTextAlignment(.center)
-            FocusDialRing(minutes: $minutes, sky: sky).frame(maxWidth: 300)
-            HStack(spacing: DS.Space.s) {
-                ForEach([25, 50, 90], id: \.self) { value in
-                    Button("\(value) min") { minutes = value }.buttonStyle(GlassPillStyle(sky: sky))
-                }
+                .fixedSize(horizontal: false, vertical: true)
+            FocusDialRing(minutes: $minutes, sky: sky).frame(maxWidth: 300).frame(minHeight: 200)
+            // Stacks at accessibility sizes so "90 min" never truncates.
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: DS.Space.s) { presets(sky: sky) }
+                VStack(spacing: DS.Space.s) { presets(sky: sky) }
             }
             TextField("What are you focusing on?", text: $title)
                 .font(DS.Typeface.title(20))
                 .multilineTextAlignment(.center)
                 .padding(.vertical, DS.Space.m)
                 .haloGlass(RoundedRectangle(cornerRadius: DS.Radius.control, style: .continuous), tint: sky.mid.color)
-            Spacer(minLength: 0)
             Text(model.purchases.isPremium ? "Shows on your Lock Screen and Dynamic Island." : "Premium shows your session on the Lock Screen.")
                 .font(.footnote)
                 .opacity(SkyEngine.secondaryOpacity)
                 .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            }
+            }
+            .scrollIndicators(.hidden)
+            .scrollBounceBehavior(.basedOnSize)
             Button { Task { await start() } } label: { Text("Begin focus").font(.headline).frame(maxWidth: .infinity) }
                 .buttonStyle(GlassPillStyle(sky: sky))
                 .accessibilityIdentifier("focus-start")
+        }
+    }
+
+    @ViewBuilder
+    private func presets(sky: SkyState) -> some View {
+        ForEach([25, 50, 90], id: \.self) { value in
+            Button { minutes = value } label: { Text("\(value) min").lineLimit(1).fixedSize() }
+                .buttonStyle(GlassPillStyle(sky: sky))
+                .accessibilityAddTraits(minutes == value ? .isSelected : [])
         }
     }
 

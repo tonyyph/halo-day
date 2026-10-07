@@ -25,6 +25,12 @@ struct OrbitDial: View {
     @State private var glow: Double = 0
     @Environment(\.haloReduceMotion) private var reduceMotion
 
+    @Namespace private var rotorSpace
+
+    private func eventLabel(_ id: String) -> String {
+        events.first { $0.id == id }.map { "\($0.title), \($0.startDate.formatted(date: .omitted, time: .shortened))" } ?? ""
+    }
+
     var body: some View {
         GeometryReader { proxy in
             let size = min(proxy.size.width, proxy.size.height)
@@ -53,6 +59,17 @@ struct OrbitDial: View {
             .position(x: proxy.size.width / 2, y: proxy.size.height / 2)
         }
         .aspectRatio(1, contentMode: .fit)
+        // VoiceOver rotors jump straight between events or rituals on the ring.
+        .accessibilityRotor("Events") {
+            ForEach(scene.orbit.layout.arcs.sorted { $0.start < $1.start }) { arc in
+                AccessibilityRotorEntry(Text(eventLabel(arc.id)), id: arc.id, in: rotorSpace)
+            }
+        }
+        .accessibilityRotor("Rituals") {
+            ForEach(scene.orbit.beads.sorted { $0.hour < $1.hour }) { bead in
+                AccessibilityRotorEntry(Text(habits.first { $0.id == bead.id }?.title ?? ""), id: bead.id, in: rotorSpace)
+            }
+        }
         .onChange(of: celebration) { _, _ in celebrate() }
     }
 
@@ -85,15 +102,16 @@ struct OrbitDial: View {
                 .accessibilityIdentifier("orbit-now")
         }
         ForEach(scene.orbit.layout.arcs) { arc in
-            let event = events.first { $0.id == arc.id }
             target(at: OrbitGeometry.point(forHour: (arc.start + arc.end) / 2, radius: metrics.laneRadius(arc.lane), center: metrics.center)) { onEvent(arc.id) }
-                .accessibilityLabel(Text(event.map { "\($0.title), \($0.startDate.formatted(date: .omitted, time: .shortened))" } ?? ""))
+                .accessibilityLabel(Text(eventLabel(arc.id)))
+                .accessibilityRotorEntry(id: arc.id, in: rotorSpace)
                 .accessibilityIdentifier("arc-\(arc.id)")
         }
         ForEach(scene.orbit.beads) { bead in
             target(at: OrbitGeometry.point(forHour: bead.hour, radius: metrics.beadRadius, center: metrics.center), enabled: scene.isToday) { onBead(bead.id) }
                 .accessibilityLabel(Text(habits.first { $0.id == bead.id }?.title ?? ""))
                 .accessibilityValue(bead.isDone ? Text("Done") : Text("Not done"))
+                .accessibilityRotorEntry(id: bead.id, in: rotorSpace)
                 .accessibilityIdentifier("bead-\(bead.id.uuidString)")
         }
     }

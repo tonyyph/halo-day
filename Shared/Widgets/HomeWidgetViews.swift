@@ -1,7 +1,7 @@
 import SwiftUI
 import AppIntents
 
-/// Home Screen / StandBy sizes (points, 6.1" iPhone).
+/// Home Screen / StandBy sizes (points, 6.1-inch iPhone).
 enum HomeFamily: String, CaseIterable, Sendable {
     case small, medium, large
     var size: CGSize {
@@ -68,7 +68,7 @@ struct HomeWidgetView: View {
         .environment(\.colorScheme, ink == SkyEngine.lightInk ? .dark : .light)
     }
 
-    /// Sizes follow the real content area, so the same layouts fit a 4.7" SE and a 6.9" Pro Max.
+    /// Sizes follow the real content area, so the same layouts fit a 4.7-inch SE and a 6.9-inch Pro Max.
     @ViewBuilder
     private func content(_ size: CGSize) -> some View {
         switch (kind, family) {

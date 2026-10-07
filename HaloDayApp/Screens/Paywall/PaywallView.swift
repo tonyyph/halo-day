@@ -106,6 +106,8 @@ struct PaywallView: View {
                                     .multilineTextAlignment(.center)
                             }
                             .frame(width: 140)
+                            // The ring is a fixed-size picture; its caption must fit inside it.
+                            .dynamicTypeSize(...DynamicTypeSize.large)
                         }
                         .frame(width: 180, height: 180)
                         .frame(maxWidth: .infinity)

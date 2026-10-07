@@ -1,126 +1,6 @@
 {
   "sourceLanguage" : "vi",
   "strings" : {
-    "\n        case .add: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\n        case .add: "
-          }
-        }
-      }
-    },
-    "\n        case let .slot(index): " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\n        case let .slot(index): "
-          }
-        }
-      }
-    },
-    "\n        }\n        return Button { onSlot(position) } label: {\n            content()\n                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [4, 3])).opacity(0.45))\n                .contentShape(Rectangle())\n        }\n        .buttonStyle(.plain)\n        .accessibilityLabel(Text(label))\n        .accessibilityHint(Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "\n        }\n        return Button { onSlot(position) } label: {\n            content()\n                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [4, 3])).opacity(0.45))\n                .contentShape(Rectangle())\n        }\n        .buttonStyle(.plain)\n        .accessibilityLabel(Text(label))\n        .accessibilityHint(Text("
-          }
-        }
-      }
-    },
-    " : " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " : "
-          }
-        }
-      }
-    },
-    " Pro Max.\n    @ViewBuilder\n    private func content(_ size: CGSize) -> some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge(size)\n        case (.orbit, _): orbitSmall(size)\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge(size)\n        case (.rhythm, _): rhythmMedium(size)\n        case (.rituals, .medium): ritualsMedium(size)\n        case (.rituals, _): ritualsSmall(size)\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium(size)\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: displaySky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " Pro Max.\n    @ViewBuilder\n    private func content(_ size: CGSize) -> some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge(size)\n        case (.orbit, _): orbitSmall(size)\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge(size)\n        case (.rhythm, _): rhythmMedium(size)\n        case (.rituals, .medium): ritualsMedium(size)\n        case (.rituals, _): ritualsSmall(size)\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium(size)\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: displaySky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: "
-          }
-        }
-      }
-    },
-    " Pro Max.\n    @ViewBuilder\n    private func content(_ size: CGSize) -> some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge(size)\n        case (.orbit, _): orbitSmall(size)\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge(size)\n        case (.rhythm, _): rhythmMedium(size)\n        case (.rituals, .medium): ritualsMedium(size)\n        case (.rituals, _): ritualsSmall(size)\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium(size)\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: sky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " Pro Max.\n    @ViewBuilder\n    private func content(_ size: CGSize) -> some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge(size)\n        case (.orbit, _): orbitSmall(size)\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge(size)\n        case (.rhythm, _): rhythmMedium(size)\n        case (.rituals, .medium): ritualsMedium(size)\n        case (.rituals, _): ritualsSmall(size)\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium(size)\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: sky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: "
-          }
-        }
-      }
-    },
-    " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n\n    var body: some View {\n        ZStack {\n            content\n                .blur(radius: locked ? 6 : 0)\n                .opacity(locked ? 0.35 : 1)\n            if locked {\n                Label(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n\n    var body: some View {\n        ZStack {\n            content\n                .blur(radius: locked ? 6 : 0)\n                .opacity(locked ? 0.35 : 1)\n            if locked {\n                Label("
-          }
-        }
-      }
-    },
-    " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n    /// False when iOS removes the sky behind the widget (StandBy, tinted or clear Home Screen).\n    var backgroundVisible = true\n\n    /// Ink for the widget: the sky's ink over the sky, light ink when the sky is gone (StandBy is dark).\n    static func ink(for sky: SkyState, backgroundVisible: Bool) -> SkyColor { backgroundVisible ? sky.inkColor : SkyEngine.lightInk }\n\n    /// The sky the content is drawn against: the real one, or a night sky when iOS removed it (StandBy is black),\n    /// so rings, tracks and grids take light ink too.\n    private var displaySky: SkyState {\n        backgroundVisible ? sky : SkyEngine.state(sky: .celestial, at: data.date, coordinate: coordinate)\n    }\n\n    var body: some View {\n        let ink = Self.ink(for: sky, backgroundVisible: backgroundVisible)\n        GeometryReader { proxy in\n            ZStack {\n                content(proxy.size)\n                    .blur(radius: locked ? 6 : 0)\n                    .opacity(locked ? 0.35 : 1)\n                if locked {\n                    Label(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n    /// False when iOS removes the sky behind the widget (StandBy, tinted or clear Home Screen).\n    var backgroundVisible = true\n\n    /// Ink for the widget: the sky's ink over the sky, light ink when the sky is gone (StandBy is dark).\n    static func ink(for sky: SkyState, backgroundVisible: Bool) -> SkyColor { backgroundVisible ? sky.inkColor : SkyEngine.lightInk }\n\n    /// The sky the content is drawn against: the real one, or a night sky when iOS removed it (StandBy is black),\n    /// so rings, tracks and grids take light ink too.\n    private var displaySky: SkyState {\n        backgroundVisible ? sky : SkyEngine.state(sky: .celestial, at: data.date, coordinate: coordinate)\n    }\n\n    var body: some View {\n        let ink = Self.ink(for: sky, backgroundVisible: backgroundVisible)\n        GeometryReader { proxy in\n            ZStack {\n                content(proxy.size)\n                    .blur(radius: locked ? 6 : 0)\n                    .opacity(locked ? 0.35 : 1)\n                if locked {\n                    Label("
-          }
-        }
-      }
-    },
-    " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n    /// False when iOS removes the sky behind the widget (StandBy, tinted or clear Home Screen).\n    var backgroundVisible = true\n\n    /// Ink for the widget: the sky's ink over the sky, light ink when the sky is gone (StandBy is dark).\n    static func ink(for sky: SkyState, backgroundVisible: Bool) -> SkyColor { backgroundVisible ? sky.inkColor : SkyEngine.lightInk }\n\n    var body: some View {\n        let ink = Self.ink(for: sky, backgroundVisible: backgroundVisible)\n        GeometryReader { proxy in\n            ZStack {\n                content(proxy.size)\n                    .blur(radius: locked ? 6 : 0)\n                    .opacity(locked ? 0.35 : 1)\n                if locked {\n                    Label(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n    /// False when iOS removes the sky behind the widget (StandBy, tinted or clear Home Screen).\n    var backgroundVisible = true\n\n    /// Ink for the widget: the sky's ink over the sky, light ink when the sky is gone (StandBy is dark).\n    static func ink(for sky: SkyState, backgroundVisible: Bool) -> SkyColor { backgroundVisible ? sky.inkColor : SkyEngine.lightInk }\n\n    var body: some View {\n        let ink = Self.ink(for: sky, backgroundVisible: backgroundVisible)\n        GeometryReader { proxy in\n            ZStack {\n                content(proxy.size)\n                    .blur(radius: locked ? 6 : 0)\n                    .opacity(locked ? 0.35 : 1)\n                if locked {\n                    Label("
-          }
-        }
-      }
-    },
-    " iPhone, points); the whole layout is then scaled to fit,\n    /// so text and widgets keep their true proportions instead of being squeezed into a small card.\n    static let screen = CGSize(width: 393, height: 852)\n\n    var body: some View {\n        let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)\n        GeometryReader { proxy in\n            let scale = proxy.size.width / Self.screen.width\n            ZStack(alignment: .topLeading) {\n                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)\n                lockScreen(sky: sky)\n                    .frame(width: Self.screen.width, height: Self.screen.height)\n                    .scaleEffect(scale, anchor: .topLeading)\n                    // scaleEffect doesn't change layout size; pin the layout to the card so it doesn't grow to 393×852.\n                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: .topLeading)\n            }\n            .frame(width: proxy.size.width, height: proxy.size.height)\n            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))\n            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))\n        }\n        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.\n    private func lockScreen(sky: SkyState) -> some View {\n        VStack(spacing: 10) {\n            slotButton(.inline, label: setup.inline.map { " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " iPhone, points); the whole layout is then scaled to fit,\n    /// so text and widgets keep their true proportions instead of being squeezed into a small card.\n    static let screen = CGSize(width: 393, height: 852)\n\n    var body: some View {\n        let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)\n        GeometryReader { proxy in\n            let scale = proxy.size.width / Self.screen.width\n            ZStack(alignment: .topLeading) {\n                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)\n                lockScreen(sky: sky)\n                    .frame(width: Self.screen.width, height: Self.screen.height)\n                    .scaleEffect(scale, anchor: .topLeading)\n                    // scaleEffect doesn't change layout size; pin the layout to the card so it doesn't grow to 393×852.\n                    .frame(width: proxy.size.width, height: proxy.size.height, alignment: .topLeading)\n            }\n            .frame(width: proxy.size.width, height: proxy.size.height)\n            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))\n            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))\n        }\n        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.\n    private func lockScreen(sky: SkyState) -> some View {\n        VStack(spacing: 10) {\n            slotButton(.inline, label: setup.inline.map { "
-          }
-        }
-      }
-    },
-    " iPhone, points); the whole layout is then scaled to fit,\n    /// so text and widgets keep their true proportions instead of being squeezed into a small card.\n    static let screen = CGSize(width: 393, height: 852)\n\n    var body: some View {\n        let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)\n        GeometryReader { proxy in\n            let scale = proxy.size.width / Self.screen.width\n            ZStack(alignment: .topLeading) {\n                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)\n                lockScreen(sky: sky)\n                    .frame(width: Self.screen.width, height: Self.screen.height)\n                    .scaleEffect(scale, anchor: .topLeading)\n            }\n            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))\n            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))\n        }\n        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.\n    private func lockScreen(sky: SkyState) -> some View {\n        VStack(spacing: 10) {\n            slotButton(.inline, label: setup.inline.map { " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " iPhone, points); the whole layout is then scaled to fit,\n    /// so text and widgets keep their true proportions instead of being squeezed into a small card.\n    static let screen = CGSize(width: 393, height: 852)\n\n    var body: some View {\n        let sky = SkyEngine.state(sky: setup.skyID, at: moment.date(on: now, now: now), coordinate: coordinate)\n        GeometryReader { proxy in\n            let scale = proxy.size.width / Self.screen.width\n            ZStack(alignment: .topLeading) {\n                WallpaperArt(sky: sky, orbit: setup.wallpaperShowsOrbit ? data.orbit : nil, style: setup.skyID.orbitStyle)\n                lockScreen(sky: sky)\n                    .frame(width: Self.screen.width, height: Self.screen.height)\n                    .scaleEffect(scale, anchor: .topLeading)\n            }\n            .clipShape(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous))\n            .overlay(RoundedRectangle(cornerRadius: proxy.size.width * 0.12, style: .continuous).strokeBorder(Color.primary.opacity(0.15), lineWidth: 1))\n        }\n        .aspectRatio(Self.screen.width / Self.screen.height, contentMode: .fit)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    /// Real iOS metrics: the date with the inline widget beside it, the large clock, then the widget row.\n    private func lockScreen(sky: SkyState) -> some View {\n        VStack(spacing: 10) {\n            slotButton(.inline, label: setup.inline.map { "
-          }
-        }
-      }
-    },
-    " } ?? String(localized: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : " } ?? String(localized: "
-          }
-        }
-      }
-    },
     "%02X%02X%02X" : {
       "localizations" : {
         "en" : {
@@ -130,9 +10,6 @@
           }
         }
       }
-    },
-    "%@" : {
-
     },
     "%@ per month" : {
       "localizations" : {
@@ -146,16 +23,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ mỗi tháng"
-          }
-        }
-      }
-    },
-    "%@ · %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ · %2$@"
           }
         }
       }
@@ -192,6 +59,22 @@
         }
       }
     },
+    "%@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@, %@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@, %2$@"
+          }
+        }
+      }
+    },
     "%@, %lld events, %lld of %lld rituals" : {
       "localizations" : {
         "en" : {
@@ -223,22 +106,6 @@
           }
         }
       }
-    },
-    "%lld" : {
-
-    },
-    "%lld / %lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld / %2$lld"
-          }
-        }
-      }
-    },
-    "%lld / 6" : {
-
     },
     "%lld day streak" : {
       "localizations" : {
@@ -459,17 +326,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Đã hoàn thành %1$lld/%2$lld thói quen"
-          }
-        }
-      }
-    },
-    "%lld/%lld" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld/%2$lld"
+            "value" : "Đã hoàn thành %1$lld/%2$lld nghi thức"
           }
         }
       }
@@ -538,386 +395,6 @@
         }
       }
     },
-    ")\n                        .font(.caption.weight(.semibold))\n                        .multilineTextAlignment(.center)\n                }\n            }\n            .frame(width: proxy.size.width, height: proxy.size.height)\n        }\n        .foregroundStyle(ink.color)\n        .environment(\\.colorScheme, ink == SkyEngine.lightInk ? .dark : .light)\n    }\n\n    /// Sizes follow the real content area, so the same layouts fit a 4.7" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ")\n                        .font(.caption.weight(.semibold))\n                        .multilineTextAlignment(.center)\n                }\n            }\n            .frame(width: proxy.size.width, height: proxy.size.height)\n        }\n        .foregroundStyle(ink.color)\n        .environment(\\.colorScheme, ink == SkyEngine.lightInk ? .dark : .light)\n    }\n\n    /// Sizes follow the real content area, so the same layouts fit a 4.7"
-          }
-        }
-      }
-    },
-    ")\n                    .font(.caption.weight(.semibold))\n                    .multilineTextAlignment(.center)\n            }\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    @ViewBuilder\n    private var content: some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge\n        case (.orbit, _): orbitSmall\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge\n        case (.rhythm, _): rhythmMedium\n        case (.rituals, .medium): ritualsMedium\n        case (.rituals, _): ritualsSmall\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: sky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ")\n                    .font(.caption.weight(.semibold))\n                    .multilineTextAlignment(.center)\n            }\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    @ViewBuilder\n    private var content: some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge\n        case (.orbit, _): orbitSmall\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge\n        case (.rhythm, _): rhythmMedium\n        case (.rituals, .medium): ritualsMedium\n        case (.rituals, _): ritualsSmall\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: sky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: "
-          }
-        }
-      }
-    },
-    ") : time(event.startDate)\n    }\n\n    private func row(_ event: CalendarEvent) -> some View {\n        HStack(spacing: 8) {\n            Circle().fill(OrbitPalette.eventColor(event.accentColor, sky: displaySky)).frame(width: 7, height: 7)\n            Text(time(event.startDate)).font(.caption.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n            Text(event.title).font(.subheadline.weight(.medium)).lineLimit(1)\n            Spacer(minLength: 0)\n        }\n    }\n\n    private var sampleNote: some View {\n        Group { if data.isSample { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ") : time(event.startDate)\n    }\n\n    private func row(_ event: CalendarEvent) -> some View {\n        HStack(spacing: 8) {\n            Circle().fill(OrbitPalette.eventColor(event.accentColor, sky: displaySky)).frame(width: 7, height: 7)\n            Text(time(event.startDate)).font(.caption.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n            Text(event.title).font(.subheadline.weight(.medium)).lineLimit(1)\n            Spacer(minLength: 0)\n        }\n    }\n\n    private var sampleNote: some View {\n        Group { if data.isSample { Text("
-          }
-        }
-      }
-    },
-    ") : time(event.startDate)\n    }\n\n    private func row(_ event: CalendarEvent) -> some View {\n        HStack(spacing: 8) {\n            Circle().fill(OrbitPalette.eventColor(event.accentColor, sky: sky)).frame(width: 7, height: 7)\n            Text(time(event.startDate)).font(.caption.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n            Text(event.title).font(.subheadline.weight(.medium)).lineLimit(1)\n            Spacer(minLength: 0)\n        }\n    }\n\n    private var sampleNote: some View {\n        Group { if data.isSample { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ") : time(event.startDate)\n    }\n\n    private func row(_ event: CalendarEvent) -> some View {\n        HStack(spacing: 8) {\n            Circle().fill(OrbitPalette.eventColor(event.accentColor, sky: sky)).frame(width: 7, height: 7)\n            Text(time(event.startDate)).font(.caption.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n            Text(event.title).font(.subheadline.weight(.medium)).lineLimit(1)\n            Spacer(minLength: 0)\n        }\n    }\n\n    private var sampleNote: some View {\n        Group { if data.isSample { Text("
-          }
-        }
-      }
-    },
-    ") {\n                        AccessoryView(kind: slot.kind, family: slot.family, data: data, tint: tint(index + 1, sky))\n                            .padding(slot.family == .circular ? 2 : 6)\n                            .frame(width: slot.family == .circular ? 72 : 158, height: 72)\n                    }\n                }\n                if setup.remainingUnits > 0 {\n                    slotButton(.add, label: String(localized: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ") {\n                        AccessoryView(kind: slot.kind, family: slot.family, data: data, tint: tint(index + 1, sky))\n                            .padding(slot.family == .circular ? 2 : 6)\n                            .frame(width: slot.family == .circular ? 72 : 158, height: 72)\n                    }\n                }\n                if setup.remainingUnits > 0 {\n                    slotButton(.add, label: String(localized: "
-          }
-        }
-      }
-    },
-    ") }\n        let minutes = Int(event.startDate.timeIntervalSince(data.date) / 60)\n        return minutes < 90 ? String(localized: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ") }\n        let minutes = Int(event.startDate.timeIntervalSince(data.date) / 60)\n        return minutes < 90 ? String(localized: "
-          }
-        }
-      }
-    },
-    ")) {\n                        Image(systemName: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ")) {\n                        Image(systemName: "
-          }
-        }
-      }
-    },
-    ")) {\n                HStack(spacing: 6) {\n                    Text(now, format: .dateTime.weekday(.abbreviated).day())\n                    if let inline = setup.inline {\n                        AccessoryView(kind: inline, family: .inline, data: data, tint: tint(0, sky))\n                    }\n                }\n                .font(.system(size: 19, weight: .semibold))\n                .lineLimit(1)\n                .padding(.horizontal, 10)\n                .frame(maxWidth: 330, minHeight: 30)\n            }\n            Text(now, format: .dateTime.hour(.defaultDigits(amPM: .omitted)).minute())\n                .font(.system(size: 96, weight: .semibold))\n                .monospacedDigit()\n                .lineLimit(1)\n                .accessibilityLabel(Text(now, format: .dateTime.hour().minute()))\n            HStack(spacing: 10) {\n                ForEach(Array(setup.slots.enumerated()), id: \\.element.id) { index, slot in\n                    slotButton(.slot(index), label: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ")) {\n                HStack(spacing: 6) {\n                    Text(now, format: .dateTime.weekday(.abbreviated).day())\n                    if let inline = setup.inline {\n                        AccessoryView(kind: inline, family: .inline, data: data, tint: tint(0, sky))\n                    }\n                }\n                .font(.system(size: 19, weight: .semibold))\n                .lineLimit(1)\n                .padding(.horizontal, 10)\n                .frame(maxWidth: 330, minHeight: 30)\n            }\n            Text(now, format: .dateTime.hour(.defaultDigits(amPM: .omitted)).minute())\n                .font(.system(size: 96, weight: .semibold))\n                .monospacedDigit()\n                .lineLimit(1)\n                .accessibilityLabel(Text(now, format: .dateTime.hour().minute()))\n            HStack(spacing: 10) {\n                ForEach(Array(setup.slots.enumerated()), id: \\.element.id) { index, slot in\n                    slotButton(.slot(index), label: "
-          }
-        }
-      }
-    },
-    ").font(.caption)\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption)\n                Text("
-          }
-        }
-      }
-    },
-    ").font(.caption).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func rhythmMedium(_ size: CGSize) -> some View {\n        HStack(spacing: 14) {\n            orbit(min(size.height, size.width * 0.38))\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.weekday(.wide).day()).font(DS.Typeface.title(15, relativeTo: .headline))\n                let rows = data.upcoming(limit: 4)\n                if rows.isEmpty { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func rhythmMedium(_ size: CGSize) -> some View {\n        HStack(spacing: 14) {\n            orbit(min(size.height, size.width * 0.38))\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.weekday(.wide).day()).font(DS.Typeface.title(15, relativeTo: .headline))\n                let rows = data.upcoming(limit: 4)\n                if rows.isEmpty { Text("
-          }
-        }
-      }
-    },
-    ").font(.caption).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private var rhythmMedium: some View {\n        HStack(spacing: 14) {\n            orbit(130)\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.weekday(.wide).day()).font(DS.Typeface.title(15, relativeTo: .headline))\n                let rows = data.upcoming(limit: 4)\n                if rows.isEmpty { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private var rhythmMedium: some View {\n        HStack(spacing: 14) {\n            orbit(130)\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.weekday(.wide).day()).font(DS.Typeface.title(15, relativeTo: .headline))\n                let rows = data.upcoming(limit: 4)\n                if rows.isEmpty { Text("
-          }
-        }
-      }
-    },
-    ").font(.caption.monospacedDigit())\n                if let location = event.location { Text(location).font(.caption2).lineLimit(1).opacity(SkyEngine.secondaryOpacity) }\n            } else {\n                Text(data.date, format: .dateTime.weekday(.wide)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption.monospacedDigit())\n                if let location = event.location { Text(location).font(.caption2).lineLimit(1).opacity(SkyEngine.secondaryOpacity) }\n            } else {\n                Text(data.date, format: .dateTime.weekday(.wide)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text("
-          }
-        }
-      }
-    },
-    ").font(.caption.weight(.semibold))\n                Spacer(minLength: 0)\n                Text(countdown.title).font(DS.Typeface.title(17, relativeTo: .headline)).lineLimit(2)\n                Text(countdown.targetDate, format: .dateTime.day().month(.wide)).font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            } else {\n                Image(systemName: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption.weight(.semibold))\n                Spacer(minLength: 0)\n                Text(countdown.title).font(DS.Typeface.title(17, relativeTo: .headline)).lineLimit(2)\n                Text(countdown.targetDate, format: .dateTime.day().month(.wide)).font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            } else {\n                Image(systemName: "
-          }
-        }
-      }
-    },
-    ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private func ritualsMedium(_ size: CGSize) -> some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: size.height * 0.62, height: size.height * 0.62)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private func ritualsMedium(_ size: CGSize) -> some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: size.height * 0.62, height: size.height * 0.62)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text("
-          }
-        }
-      }
-    },
-    ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private var ritualsMedium: some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 90, height: 90)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private var ritualsMedium: some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 90, height: 90)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text("
-          }
-        }
-      }
-    },
-    ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func monthMedium(_ size: CGSize) -> some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(displaySky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: displaySky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func monthMedium(_ size: CGSize) -> some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(displaySky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: displaySky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text("
-          }
-        }
-      }
-    },
-    ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func monthMedium(_ size: CGSize) -> some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(sky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: sky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func monthMedium(_ size: CGSize) -> some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(sky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: sky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text("
-          }
-        }
-      }
-    },
-    ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private var monthMedium: some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(sky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: sky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private var monthMedium: some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(sky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: sky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text("
-          }
-        }
-      }
-    },
-    ").font(.caption2).opacity(SkyEngine.secondaryOpacity) }\n            }\n            .frame(width: min(size.width, size.height) * 0.5)\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n    }\n\n    private func orbitLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(displaySky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(min(size.width, size.height * 0.52)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 3 : 2)\n            if rows.isEmpty { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity) }\n            }\n            .frame(width: min(size.width, size.height) * 0.5)\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n    }\n\n    private func orbitLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(displaySky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(min(size.width, size.height * 0.52)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 3 : 2)\n            if rows.isEmpty { Text("
-          }
-        }
-      }
-    },
-    ").font(.caption2).opacity(SkyEngine.secondaryOpacity) }\n            }\n            .frame(width: min(size.width, size.height) * 0.5)\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n    }\n\n    private func orbitLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(sky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(min(size.width, size.height * 0.52)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 3 : 2)\n            if rows.isEmpty { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity) }\n            }\n            .frame(width: min(size.width, size.height) * 0.5)\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n    }\n\n    private func orbitLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(sky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(min(size.width, size.height * 0.52)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 3 : 2)\n            if rows.isEmpty { Text("
-          }
-        }
-      }
-    },
-    ").font(.caption2).opacity(SkyEngine.secondaryOpacity) } }\n    }\n\n    // MARK: Kinds\n\n    private var orbitSmall: some View {\n        ZStack {\n            orbit(150)\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption))\n                if !data.habits.isEmpty {\n                    Text(verbatim: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity) } }\n    }\n\n    // MARK: Kinds\n\n    private var orbitSmall: some View {\n        ZStack {\n            orbit(150)\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption))\n                if !data.habits.isEmpty {\n                    Text(verbatim: "
-          }
-        }
-      }
-    },
-    ").font(.caption2).opacity(SkyEngine.secondaryOpacity).lineLimit(1) } }\n    }\n\n    // MARK: Kinds\n\n    private func orbitSmall(_ size: CGSize) -> some View {\n        ZStack {\n            orbit(min(size.width, size.height))\n            VStack(spacing: 2) {\n                Text(displaySky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption)).lineLimit(1).minimumScaleFactor(0.7)\n                if !data.habits.isEmpty {\n                    Text(verbatim: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity).lineLimit(1) } }\n    }\n\n    // MARK: Kinds\n\n    private func orbitSmall(_ size: CGSize) -> some View {\n        ZStack {\n            orbit(min(size.width, size.height))\n            VStack(spacing: 2) {\n                Text(displaySky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption)).lineLimit(1).minimumScaleFactor(0.7)\n                if !data.habits.isEmpty {\n                    Text(verbatim: "
-          }
-        }
-      }
-    },
-    ").font(.caption2).opacity(SkyEngine.secondaryOpacity).lineLimit(1) } }\n    }\n\n    // MARK: Kinds\n\n    private func orbitSmall(_ size: CGSize) -> some View {\n        ZStack {\n            orbit(min(size.width, size.height))\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption)).lineLimit(1).minimumScaleFactor(0.7)\n                if !data.habits.isEmpty {\n                    Text(verbatim: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity).lineLimit(1) } }\n    }\n\n    // MARK: Kinds\n\n    private func orbitSmall(_ size: CGSize) -> some View {\n        ZStack {\n            orbit(min(size.width, size.height))\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption)).lineLimit(1).minimumScaleFactor(0.7)\n                if !data.habits.isEmpty {\n                    Text(verbatim: "
-          }
-        }
-      }
-    },
-    ").font(.caption2.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n                }\n                if data.isSample { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n                }\n                if data.isSample { Text("
-          }
-        }
-      }
-    },
-    ").font(.caption2.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n                }\n            }\n        }\n    }\n\n    private var orbitLarge: some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(sky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(200).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: 3)\n            if rows.isEmpty { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.caption2.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n                }\n            }\n        }\n    }\n\n    private var orbitLarge: some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(sky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(200).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: 3)\n            if rows.isEmpty { Text("
-          }
-        }
-      }
-    },
-    ").font(.subheadline) }\n                ForEach(data.habits.prefix(4)) { habit in\n                    HStack(spacing: 10) {\n                        toggle(habit)\n                        Text(habit.title).font(.subheadline.weight(.medium)).lineLimit(1)\n                        Spacer(minLength: 0)\n                    }\n                }\n            }\n        }\n    }\n\n    private var countdownSmall: some View {\n        VStack(alignment: .leading, spacing: 2) {\n            if let countdown = data.countdown, let days = data.countdownDays {\n                Text(verbatim: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.subheadline) }\n                ForEach(data.habits.prefix(4)) { habit in\n                    HStack(spacing: 10) {\n                        toggle(habit)\n                        Text(habit.title).font(.subheadline.weight(.medium)).lineLimit(1)\n                        Spacer(minLength: 0)\n                    }\n                }\n            }\n        }\n    }\n\n    private var countdownSmall: some View {\n        VStack(alignment: .leading, spacing: 2) {\n            if let countdown = data.countdown, let days = data.countdownDays {\n                Text(verbatim: "
-          }
-        }
-      }
-    },
-    ").font(.subheadline) }\n                ForEach(rows) { row($0) }\n                Spacer(minLength: 0)\n                sampleNote\n            }\n        }\n    }\n\n    private func rhythmLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 8) {\n            Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n            orbit(min(size.width, size.height * 0.4)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 5 : 4)\n            if rows.isEmpty { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.subheadline) }\n                ForEach(rows) { row($0) }\n                Spacer(minLength: 0)\n                sampleNote\n            }\n        }\n    }\n\n    private func rhythmLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 8) {\n            Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n            orbit(min(size.width, size.height * 0.4)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 5 : 4)\n            if rows.isEmpty { Text("
-          }
-        }
-      }
-    },
-    ").font(.subheadline) }\n                ForEach(rows) { row($0) }\n                Spacer(minLength: 0)\n                sampleNote\n            }\n        }\n    }\n\n    private var rhythmLarge: some View {\n        VStack(alignment: .leading, spacing: 8) {\n            Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n            orbit(160).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: 6)\n            if rows.isEmpty { Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.subheadline) }\n                ForEach(rows) { row($0) }\n                Spacer(minLength: 0)\n                sampleNote\n            }\n        }\n    }\n\n    private var rhythmLarge: some View {\n        VStack(alignment: .leading, spacing: 8) {\n            Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n            orbit(160).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: 6)\n            if rows.isEmpty { Text("
-          }
-        }
-      }
-    },
-    ").font(.title)\n                Spacer(minLength: 0)\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.title)\n                Spacer(minLength: 0)\n                Text("
-          }
-        }
-      }
-    },
-    ").font(.title2).frame(width: 72, height: 72)\n                    }\n                }\n            }\n            Spacer()\n        }\n        .padding(.top, 64)\n        .frame(maxWidth: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .dynamicTypeSize(.large)\n    }\n\n    /// Vibrant = single ink as iOS draws it; otherwise each slot gets its own colour.\n    private func tint(_ index: Int, _ sky: SkyState) -> Color? {\n        vibrant ? nil : OrbitPalette.eventColor(Habit.palette[index % Habit.palette.count], sky: sky)\n    }\n\n    private func slotButton<Content: View>(_ position: SlotTarget.Position, label: String, @ViewBuilder content: () -> Content) -> some View {\n        let id: String = switch position {\n        case .inline: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(.title2).frame(width: 72, height: 72)\n                    }\n                }\n            }\n            Spacer()\n        }\n        .padding(.top, 64)\n        .frame(maxWidth: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .dynamicTypeSize(.large)\n    }\n\n    /// Vibrant = single ink as iOS draws it; otherwise each slot gets its own colour.\n    private func tint(_ index: Int, _ sky: SkyState) -> Color? {\n        vibrant ? nil : OrbitPalette.eventColor(Habit.palette[index % Habit.palette.count], sky: sky)\n    }\n\n    private func slotButton<Content: View>(_ position: SlotTarget.Position, label: String, @ViewBuilder content: () -> Content) -> some View {\n        let id: String = switch position {\n        case .inline: "
-          }
-        }
-      }
-    },
-    ").font(DS.Typeface.clock(54)).minimumScaleFactor(0.5).lineLimit(1)\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(DS.Typeface.clock(54)).minimumScaleFactor(0.5).lineLimit(1)\n                Text("
-          }
-        }
-      }
-    },
-    ").font(DS.Typeface.clock(54)).minimumScaleFactor(0.5).lineLimit(1)\n                Text(verbatim: DaysLeft.string(days)).font(.caption.weight(.semibold))\n                Spacer(minLength: 0)\n                Text(countdown.title).font(DS.Typeface.title(17, relativeTo: .headline)).lineLimit(2)\n                Text(countdown.targetDate, format: .dateTime.day().month(.wide)).font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            } else {\n                Image(systemName: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(DS.Typeface.clock(54)).minimumScaleFactor(0.5).lineLimit(1)\n                Text(verbatim: DaysLeft.string(days)).font(.caption.weight(.semibold))\n                Spacer(minLength: 0)\n                Text(countdown.title).font(DS.Typeface.title(17, relativeTo: .headline)).lineLimit(2)\n                Text(countdown.targetDate, format: .dateTime.day().month(.wide)).font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            } else {\n                Image(systemName: "
-          }
-        }
-      }
-    },
-    ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            Spacer(minLength: 0)\n            sampleNote\n        }\n    }\n\n    private func bead(_ habit: Habit) -> some View {\n        let done = habit.isCompleted(on: data.date)\n        let color = (SkyColor(hexString: habit.accentColor) ?? .white).color\n        return ZStack {\n            Circle().fill(done ? color : .clear)\n            Circle().strokeBorder(color, lineWidth: 2)\n            Image(systemName: habit.icon).font(.system(size: 13, weight: .medium)).foregroundStyle(done ? Color.white : color)\n        }\n        .frame(width: 34, height: 34)\n    }\n\n    @ViewBuilder\n    private func toggle(_ habit: Habit) -> some View {\n        if interactive {\n            Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) { bead(habit) }.buttonStyle(.plain)\n        } else {\n            bead(habit)\n        }\n    }\n\n    private func ritualsSmall(_ size: CGSize) -> some View {\n        VStack(spacing: 8) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: size.height * 0.48, height: size.height * 0.48)\n            if data.habits.isEmpty {\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            Spacer(minLength: 0)\n            sampleNote\n        }\n    }\n\n    private func bead(_ habit: Habit) -> some View {\n        let done = habit.isCompleted(on: data.date)\n        let color = (SkyColor(hexString: habit.accentColor) ?? .white).color\n        return ZStack {\n            Circle().fill(done ? color : .clear)\n            Circle().strokeBorder(color, lineWidth: 2)\n            Image(systemName: habit.icon).font(.system(size: 13, weight: .medium)).foregroundStyle(done ? Color.white : color)\n        }\n        .frame(width: 34, height: 34)\n    }\n\n    @ViewBuilder\n    private func toggle(_ habit: Habit) -> some View {\n        if interactive {\n            Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) { bead(habit) }.buttonStyle(.plain)\n        } else {\n            bead(habit)\n        }\n    }\n\n    private func ritualsSmall(_ size: CGSize) -> some View {\n        VStack(spacing: 8) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: size.height * 0.48, height: size.height * 0.48)\n            if data.habits.isEmpty {\n                Text("
-          }
-        }
-      }
-    },
-    ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            Spacer(minLength: 0)\n            sampleNote\n        }\n    }\n\n    private func bead(_ habit: Habit) -> some View {\n        let done = habit.isCompleted(on: data.date)\n        let color = (SkyColor(hexString: habit.accentColor) ?? .white).color\n        return ZStack {\n            Circle().fill(done ? color : .clear)\n            Circle().strokeBorder(color, lineWidth: 2)\n            Image(systemName: habit.icon).font(.system(size: 13, weight: .medium)).foregroundStyle(done ? Color.white : color)\n        }\n        .frame(width: 34, height: 34)\n    }\n\n    @ViewBuilder\n    private func toggle(_ habit: Habit) -> some View {\n        if interactive {\n            Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) { bead(habit) }.buttonStyle(.plain)\n        } else {\n            bead(habit)\n        }\n    }\n\n    private var ritualsSmall: some View {\n        VStack(spacing: 10) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 74, height: 74)\n            if data.habits.isEmpty {\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            Spacer(minLength: 0)\n            sampleNote\n        }\n    }\n\n    private func bead(_ habit: Habit) -> some View {\n        let done = habit.isCompleted(on: data.date)\n        let color = (SkyColor(hexString: habit.accentColor) ?? .white).color\n        return ZStack {\n            Circle().fill(done ? color : .clear)\n            Circle().strokeBorder(color, lineWidth: 2)\n            Image(systemName: habit.icon).font(.system(size: 13, weight: .medium)).foregroundStyle(done ? Color.white : color)\n        }\n        .frame(width: 34, height: 34)\n    }\n\n    @ViewBuilder\n    private func toggle(_ habit: Habit) -> some View {\n        if interactive {\n            Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) { bead(habit) }.buttonStyle(.plain)\n        } else {\n            bead(habit)\n        }\n    }\n\n    private var ritualsSmall: some View {\n        VStack(spacing: 10) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 74, height: 74)\n            if data.habits.isEmpty {\n                Text("
-          }
-        }
-      }
-    },
-    ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            sampleNote\n        }\n    }\n\n    private var nextUpSmall: some View {\n        VStack(alignment: .leading, spacing: 4) {\n            if let event = data.nextEvent {\n                Text(badge(event)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(event.title).font(DS.Typeface.title(20, relativeTo: .headline)).lineLimit(2)\n                Spacer(minLength: 0)\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            sampleNote\n        }\n    }\n\n    private var nextUpSmall: some View {\n        VStack(alignment: .leading, spacing: 4) {\n            if let event = data.nextEvent {\n                Text(badge(event)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(event.title).font(DS.Typeface.title(20, relativeTo: .headline)).lineLimit(2)\n                Spacer(minLength: 0)\n                Text("
-          }
-        }
-      }
-    },
-    ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            sampleNote\n        }\n    }\n\n    private var nextUpSmall: some View {\n        VStack(alignment: .leading, spacing: 4) {\n            if let event = data.nextEvent {\n                Text(badge(event)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(event.title).font(DS.Typeface.title(20, relativeTo: .headline)).lineLimit(2).minimumScaleFactor(0.8)\n                Spacer(minLength: 0)\n                sampleNote\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            sampleNote\n        }\n    }\n\n    private var nextUpSmall: some View {\n        VStack(alignment: .leading, spacing: 4) {\n            if let event = data.nextEvent {\n                Text(badge(event)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(event.title).font(DS.Typeface.title(20, relativeTo: .headline)).lineLimit(2).minimumScaleFactor(0.8)\n                Spacer(minLength: 0)\n                sampleNote\n                Text("
-          }
-        }
-      }
-    },
-    ").font(DS.Typeface.title(17, relativeTo: .headline))\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(DS.Typeface.title(17, relativeTo: .headline))\n                Text("
-          }
-        }
-      }
-    },
-    ").font(DS.Typeface.title(20, relativeTo: .headline))\n                Spacer(minLength: 0)\n                Text(" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ").font(DS.Typeface.title(20, relativeTo: .headline))\n                Spacer(minLength: 0)\n                Text("
-          }
-        }
-      }
-    },
     "+%lld more today" : {
       "localizations" : {
         "en" : {
@@ -930,27 +407,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "+%lld sự kiện hôm nay"
-          }
-        }
-      }
-    },
-    ", " : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ", "
-          }
-        }
-      }
-    },
-    ", systemImage: " : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ", systemImage: "
           }
         }
       }
@@ -1402,7 +858,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lời nhắc nhẹ trước sự kiện và thói quen. Không làm phiền."
+            "value" : "Lời nhắc nhẹ trước sự kiện và nghi thức. Không làm phiền."
           }
         }
       }
@@ -1537,46 +993,6 @@
         }
       }
     },
-    "Accessories · Gold Empty AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accessories · Gold Empty AX3"
-          }
-        }
-      }
-    },
-    "Accessories · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accessories · Pearl"
-          }
-        }
-      }
-    },
-    "Activity · Gold Paused AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Activity · Gold Paused AX3"
-          }
-        }
-      }
-    },
-    "Activity · Ruby" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Activity · Ruby"
-          }
-        }
-      }
-    },
     "Add a countdown" : {
       "localizations" : {
         "en" : {
@@ -1604,7 +1020,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thêm thói quen"
+            "value" : "Thêm nghi thức"
           }
         }
       }
@@ -1684,7 +1100,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Widget nâng cao: chuỗi thói quen, tập trung và bố cục lớn trên Màn hình chính"
+            "value" : "Widget nâng cao: chuỗi nghi thức, tập trung và bố cục lớn trên Màn hình chính"
           }
         }
       }
@@ -1721,26 +1137,6 @@
         }
       }
     },
-    "Agenda · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Agenda · Light"
-          }
-        }
-      }
-    },
-    "Agenda · Ruby Dark Empty AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Agenda · Ruby Dark Empty AX3"
-          }
-        }
-      }
-    },
     "Alex" : {
       "localizations" : {
         "en" : {
@@ -1762,7 +1158,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cả 8 giao diện cao cấp"
+            "value" : "Cả 8 giao diện Premium"
           }
         }
       }
@@ -1778,7 +1174,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cả 8 giao diện cao cấp, từ Ngày champagne đến Vàng nửa đêm"
+            "value" : "Cả 8 giao diện Premium, từ Ngày champagne đến Vàng nửa đêm"
           }
         }
       }
@@ -1991,16 +1387,6 @@
         }
       }
     },
-    "Asia/Ho_Chi_Minh" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Asia/Ho_Chi_Minh"
-          }
-        }
-      }
-    },
     "Aurora" : {
       "localizations" : {
         "en" : {
@@ -2157,7 +1543,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bắt đầu thói quen"
+            "value" : "Bắt đầu nghi thức"
           }
         }
       }
@@ -2422,26 +1808,6 @@
         }
       }
     },
-    "Buttons · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buttons · Light"
-          }
-        }
-      }
-    },
-    "Buttons · Midnight AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Buttons · Midnight AX3"
-          }
-        }
-      }
-    },
     "Buy once for %@" : {
       "localizations" : {
         "en" : {
@@ -2542,26 +1908,6 @@
         }
       }
     },
-    "Calendar pagers · Gold Empty AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Calendar pagers · Gold Empty AX3"
-          }
-        }
-      }
-    },
-    "Calendar pagers · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Calendar pagers · Pearl"
-          }
-        }
-      }
-    },
     "Calendar sources" : {
       "localizations" : {
         "en" : {
@@ -2574,26 +1920,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nguồn lịch"
-          }
-        }
-      }
-    },
-    "Calendar · Month, Pearl Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Calendar · Month, Pearl Light"
-          }
-        }
-      }
-    },
-    "Calendar · Ruby Dark AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Calendar · Ruby Dark AX3"
           }
         }
       }
@@ -2917,7 +2243,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hoàn thành thói quen"
+            "value" : "Hoàn thành nghi thức"
           }
         }
       }
@@ -2950,26 +2276,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tỷ lệ hoàn thành"
-          }
-        }
-      }
-    },
-    "Completion · Gold AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Completion · Gold AX3"
-          }
-        }
-      }
-    },
-    "Completion · Ruby" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Completion · Ruby"
           }
         }
       }
@@ -3397,7 +2703,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thói quen hằng ngày"
+            "value" : "Nghi thức hằng ngày"
           }
         }
       }
@@ -3413,7 +2719,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thói quen hằng ngày"
+            "value" : "Nghi thức hằng ngày"
           }
         }
       }
@@ -3669,7 +2975,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Xóa thói quen này?"
+            "value" : "Xóa nghi thức này?"
           }
         }
       }
@@ -3751,16 +3057,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Duyệt thiết kế · 10 phút nữa"
-          }
-        }
-      }
-    },
-    "Dial · Midnight Gold AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dial · Midnight Gold AX3 Reduced Motion"
           }
         }
       }
@@ -4072,6 +3368,22 @@
         }
       }
     },
+    "Events" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Events"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sự kiện"
+          }
+        }
+      }
+    },
     "Every sky — Instrument, Aurora, Golden Hour and Mist" : {
       "localizations" : {
         "en" : {
@@ -4180,46 +3492,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Gia đình"
-          }
-        }
-      }
-    },
-    "Fan · Gold Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fan · Gold Reduced Motion"
-          }
-        }
-      }
-    },
-    "Fan · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fan · Pearl"
-          }
-        }
-      }
-    },
-    "Feedback · Gold AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Feedback · Gold AX3 Reduced Motion"
-          }
-        }
-      }
-    },
-    "Feedback · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Feedback · Light"
           }
         }
       }
@@ -4386,26 +3658,6 @@
         }
       }
     },
-    "Focus week · Gold AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Focus week · Gold AX3"
-          }
-        }
-      }
-    },
-    "Focus week · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Focus week · Pearl"
-          }
-        }
-      }
-    },
     "Focus · %@" : {
       "localizations" : {
         "vi" : {
@@ -4418,26 +3670,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Focus · %@"
-          }
-        }
-      }
-    },
-    "Focus · Gold AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Focus · Gold AX3 Reduced Motion"
-          }
-        }
-      }
-    },
-    "Focus · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Focus · Pearl"
           }
         }
       }
@@ -4794,26 +4026,6 @@
         }
       }
     },
-    "Guide · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guide · Light"
-          }
-        }
-      }
-    },
-    "Guide · Ruby AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Guide · Ruby AX3 Reduced Motion"
-          }
-        }
-      }
-    },
     "HALO DAY · COUNTDOWN" : {
       "localizations" : {
         "en" : {
@@ -4858,7 +4070,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chuỗi thói quen"
+            "value" : "Chuỗi nghi thức"
           }
         }
       }
@@ -4882,6 +4094,12 @@
     "Halo Day" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Halo Day"
+          }
+        },
+        "vi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Halo Day"
@@ -5108,26 +4326,6 @@
         }
       }
     },
-    "History · Emerald Dark" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "History · Emerald Dark"
-          }
-        }
-      }
-    },
-    "History · Empty AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "History · Empty AX3 Reduced Motion"
-          }
-        }
-      }
-    },
     "Home" : {
       "localizations" : {
         "en" : {
@@ -5172,56 +4370,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Widget Màn hình chính hiển thị đầy đủ màu giao diện."
-          }
-        }
-      }
-    },
-    "Home · Large Gold Empty AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Home · Large Gold Empty AX3"
-          }
-        }
-      }
-    },
-    "Home · Medium Ruby Dark" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Home · Medium Ruby Dark"
-          }
-        }
-      }
-    },
-    "Home · Small Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Home · Small Light"
-          }
-        }
-      }
-    },
-    "Hour grid · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hour grid · Pearl"
-          }
-        }
-      }
-    },
-    "Hour grid · Ruby Dark Empty AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hour grid · Ruby Dark Empty AX3"
           }
         }
       }
@@ -5402,26 +4550,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Instrument"
-          }
-        }
-      }
-    },
-    "Island · Gold Locked AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Island · Gold Locked AX3"
-          }
-        }
-      }
-    },
-    "Island · Ruby" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Island · Ruby"
           }
         }
       }
@@ -6350,26 +5478,6 @@
         }
       }
     },
-    "Next event · Empty AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Next event · Empty AX3"
-          }
-        }
-      }
-    },
-    "Next event · Ruby" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Next event · Ruby"
-          }
-        }
-      }
-    },
     "Next month" : {
       "localizations" : {
         "en" : {
@@ -6508,6 +5616,22 @@
         }
       }
     },
+    "Not enough yet" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not enough yet"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa đủ dữ liệu"
+          }
+        }
+      }
+    },
     "Not now" : {
       "localizations" : {
         "en" : {
@@ -6639,6 +5763,12 @@
             "state" : "translated",
             "value" : "OK"
           }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
         }
       }
     },
@@ -6670,26 +5800,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trên Dynamic Island của bạn"
-          }
-        }
-      }
-    },
-    "Onboarding · AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Onboarding · AX3 Reduced Motion"
-          }
-        }
-      }
-    },
-    "Onboarding · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Onboarding · Light"
           }
         }
       }
@@ -6807,26 +5917,6 @@
         }
       }
     },
-    "Pager · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pager · Light"
-          }
-        }
-      }
-    },
-    "Pager · Midnight AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pager · Midnight AX3 Reduced Motion"
-          }
-        }
-      }
-    },
     "Painting" : {
       "localizations" : {
         "en" : {
@@ -6924,26 +6014,6 @@
         }
       }
     },
-    "Paywall · Gold AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Paywall · Gold AX3 Reduced Motion"
-          }
-        }
-      }
-    },
-    "Paywall · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Paywall · Light"
-          }
-        }
-      }
-    },
     "Pearl Agenda" : {
       "localizations" : {
         "en" : {
@@ -6971,26 +6041,6 @@
         }
       }
     },
-    "Permissions · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Permissions · Light"
-          }
-        }
-      }
-    },
-    "Permissions · Ruby Dark AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Permissions · Ruby Dark AX3"
-          }
-        }
-      }
-    },
     "Personal" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7004,36 +6054,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cá nhân"
-          }
-        }
-      }
-    },
-    "Phone · Gold AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Phone · Gold AX3"
-          }
-        }
-      }
-    },
-    "Phone · Gold Dark AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Phone · Gold Dark AX3"
-          }
-        }
-      }
-    },
-    "Phone · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Phone · Pearl"
           }
         }
       }
@@ -7120,26 +6140,6 @@
         }
       }
     },
-    "Plan · Champagne AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plan · Champagne AX3"
-          }
-        }
-      }
-    },
-    "Plan · Ruby Dark" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Plan · Ruby Dark"
-          }
-        }
-      }
-    },
     "Plans are unavailable. Try again later." : {
       "localizations" : {
         "en" : {
@@ -7183,7 +6183,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cao cấp"
+            "value" : "Premium"
           }
         }
       }
@@ -7199,7 +6199,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Xem trước bản cao cấp"
+            "value" : "Xem trước Premium"
           }
         }
       }
@@ -7231,7 +6231,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Khám phá các phong cách cao cấp trong Studio. Halo đầu tiên bắt đầu với Ngọc trai."
+            "value" : "Khám phá các phong cách Premium trong Studio. Halo đầu tiên bắt đầu với Ngọc trai."
           }
         }
       }
@@ -7280,26 +6280,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Đã lưu mẫu"
-          }
-        }
-      }
-    },
-    "Presets · Gold Empty AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Presets · Gold Empty AX3"
-          }
-        }
-      }
-    },
-    "Presets · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Presets · Pearl"
           }
         }
       }
@@ -7445,26 +6425,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tiến độ"
-          }
-        }
-      }
-    },
-    "Progress hero · Gold AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Progress hero · Gold AX3"
-          }
-        }
-      }
-    },
-    "Progress hero · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Progress hero · Pearl"
           }
         }
       }
@@ -7773,26 +6733,6 @@
         }
       }
     },
-    "Ring · AX3 / Dark" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ring · AX3 / Dark"
-          }
-        }
-      }
-    },
-    "Ring · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ring · Light"
-          }
-        }
-      }
-    },
     "Ritual" : {
       "localizations" : {
         "en" : {
@@ -7804,7 +6744,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thói quen"
+            "value" : "Nghi thức"
           }
         }
       }
@@ -7820,27 +6760,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ID thói quen"
-          }
-        }
-      }
-    },
-    "Ritual editor · Pearl AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ritual editor · Pearl AX3"
-          }
-        }
-      }
-    },
-    "Ritual editor · Ruby Dark" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ritual editor · Ruby Dark"
+            "value" : "ID nghi thức"
           }
         }
       }
@@ -7856,7 +6776,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tên thói quen"
+            "value" : "Tên nghi thức"
           }
         }
       }
@@ -7872,47 +6792,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tùy chọn thói quen"
-          }
-        }
-      }
-    },
-    "Ritual rows · Emerald AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ritual rows · Emerald AX3 Reduced Motion"
-          }
-        }
-      }
-    },
-    "Ritual rows · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ritual rows · Light"
-          }
-        }
-      }
-    },
-    "Ritual · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ritual · Light"
-          }
-        }
-      }
-    },
-    "Ritual · Ruby AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ritual · Ruby AX3 Reduced Motion"
+            "value" : "Tùy chọn nghi thức"
           }
         }
       }
@@ -7944,27 +6824,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thói quen · đã hoàn thành %1$lld/%2$lld"
-          }
-        }
-      }
-    },
-    "Rituals · Emerald AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rituals · Emerald AX3"
-          }
-        }
-      }
-    },
-    "Rituals · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rituals · Light"
+            "value" : "Nghi thức · đã hoàn thành %1$lld/%2$lld"
           }
         }
       }
@@ -7981,7 +6841,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Duy trì thói quen nhẹ nhàng"
+            "value" : "Duy trì nghi thức nhẹ nhàng"
           }
         }
       }
@@ -8224,7 +7084,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lưu thói quen"
+            "value" : "Lưu nghi thức"
           }
         }
       }
@@ -8358,16 +7218,6 @@
         }
       }
     },
-    "Segments · Ruby Dark" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Segments · Ruby Dark"
-          }
-        }
-      }
-    },
     "Self care" : {
       "localizations" : {
         "en" : {
@@ -8400,42 +7250,12 @@
         }
       }
     },
-    "Settings rows · Light" : {
+    "Settings · AX3" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Settings rows · Light"
-          }
-        }
-      }
-    },
-    "Settings rows · Midnight AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Settings rows · Midnight AX3 Reduced Motion"
-          }
-        }
-      }
-    },
-    "Settings · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Settings · Pearl"
-          }
-        }
-      }
-    },
-    "Settings · Ruby Dark AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Settings · Ruby Dark AX3"
+            "value" : "Settings · AX3"
           }
         }
       }
@@ -8876,26 +7696,6 @@
         }
       }
     },
-    "Starters · Gold AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Starters · Gold AX3"
-          }
-        }
-      }
-    },
-    "Starters · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Starters · Light"
-          }
-        }
-      }
-    },
     "Starts at %@" : {
       "localizations" : {
         "en" : {
@@ -9071,26 +7871,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Studio về đêm. Khoảng riêng để suy nghĩ."
-          }
-        }
-      }
-    },
-    "Studio · Gold AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Studio · Gold AX3 Reduced Motion"
-          }
-        }
-      }
-    },
-    "Studio · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Studio · Pearl"
           }
         }
       }
@@ -9445,66 +8225,6 @@
         }
       }
     },
-    "Theme card · Champagne AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Theme card · Champagne AX3"
-          }
-        }
-      }
-    },
-    "Theme card · Ruby" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Theme card · Ruby"
-          }
-        }
-      }
-    },
-    "Theme carousel · Gold AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Theme carousel · Gold AX3"
-          }
-        }
-      }
-    },
-    "Theme carousel · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Theme carousel · Light"
-          }
-        }
-      }
-    },
-    "Themes · Gold AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Themes · Gold AX3"
-          }
-        }
-      }
-    },
-    "Themes · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Themes · Light"
-          }
-        }
-      }
-    },
     "This week" : {
       "localizations" : {
         "en" : {
@@ -9598,46 +8318,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lịch trình hôm nay"
-          }
-        }
-      }
-    },
-    "Today components · Gold Empty AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today components · Gold Empty AX3"
-          }
-        }
-      }
-    },
-    "Today components · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today components · Pearl"
-          }
-        }
-      }
-    },
-    "Today · Pearl" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today · Pearl"
-          }
-        }
-      }
-    },
-    "Today · Ruby Dark AX3" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today · Ruby Dark AX3"
           }
         }
       }
@@ -9761,7 +8441,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thói quen không giới hạn"
+            "value" : "Nghi thức không giới hạn"
           }
         }
       }
@@ -9793,7 +8473,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Không giới hạn thói quen và lịch sử chuỗi"
+            "value" : "Không giới hạn nghi thức và lịch sử chuỗi"
           }
         }
       }
@@ -9874,7 +8554,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mở khóa widget cao cấp, giao diện, Live Activity và mẫu không giới hạn."
+            "value" : "Mở khóa widget Premium, giao diện, Live Activity và mẫu không giới hạn."
           }
         }
       }
@@ -9890,7 +8570,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mở khóa với Cao cấp"
+            "value" : "Mở khóa với Premium"
           }
         }
       }
@@ -9922,7 +8602,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nâng cấp Cao cấp"
+            "value" : "Nâng cấp Premium"
           }
         }
       }
@@ -10179,7 +8859,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chào mừng trở lại. Đã khôi phục bản Cao cấp."
+            "value" : "Chào mừng trở lại. Đã khôi phục Premium."
           }
         }
       }
@@ -10195,27 +8875,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Chào mừng đến với Halo Day Cao cấp."
-          }
-        }
-      }
-    },
-    "Welcome · Light" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welcome · Light"
-          }
-        }
-      }
-    },
-    "Welcome · Ruby AX3 Reduced Motion" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welcome · Ruby AX3 Reduced Motion"
+            "value" : "Chào mừng đến với Halo Day Premium."
           }
         }
       }
@@ -10830,7 +9490,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Thói quen của bạn"
+            "value" : "Nghi thức của bạn"
           }
         }
       }
@@ -10847,7 +9507,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lịch trình, thói quen và thời gian tập trung trên Màn hình khóa. Chỉ cần liếc nhìn."
+            "value" : "Lịch trình, nghi thức và thời gian tập trung trên Màn hình khóa. Chỉ cần liếc nhìn."
           }
         }
       }
@@ -11029,16 +9689,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "graphiteFocus"
-          }
-        }
-      }
-    },
-    "halo.lastRitualCelebration" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "halo.lastRitualCelebration"
           }
         }
       }
@@ -11263,9 +9913,6 @@
           }
         }
       }
-    },
-    "–" : {
-
     }
   },
   "version" : "1.0"
