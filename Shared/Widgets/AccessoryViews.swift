@@ -33,13 +33,13 @@ struct AccessoryView: View {
 
     private var nextInline: String {
         guard let event = data.nextEvent else { return String(localized: "A clear day.") }
-        return "\(event.title) · \(time(event.startDate))"
+        return (data.isSample ? String(localized: "Sample") + " · " : "") + "\(event.title) · \(time(event.startDate))"
     }
 
     private var nextRectangle: some View {
         VStack(alignment: .leading, spacing: 1) {
             if let event = data.nextEvent {
-                Text(badge(for: event)).font(.caption2.weight(.semibold)).opacity(0.8)
+                Text((data.isSample ? String(localized: "Sample") + " · " : "") + badge(for: event)).font(.caption2.weight(.semibold)).opacity(0.8)
                 Text(event.title).font(DS.Typeface.title(15, relativeTo: .headline)).lineLimit(1)
                 Text("\(time(event.startDate)) – \(time(event.endDate))").font(.caption2).opacity(0.8)
             } else {
@@ -58,7 +58,8 @@ struct AccessoryView: View {
 
     private var rhythmRectangle: some View {
         VStack(alignment: .leading, spacing: 2) {
-            let rows = data.upcoming(limit: 3)
+            let rows = data.upcoming(limit: data.isSample ? 2 : 3)
+            if data.isSample { Text("Sample day").font(.caption2.weight(.semibold)).opacity(0.8) }
             if rows.isEmpty {
                 Text("A clear day.").font(DS.Typeface.title(15, relativeTo: .headline))
             }
@@ -94,7 +95,7 @@ struct AccessoryView: View {
         VStack(alignment: .leading, spacing: 1) {
             if let countdown = data.countdown, let days = data.countdownDays {
                 Text(countdown.title).font(DS.Typeface.title(15, relativeTo: .headline)).lineLimit(1)
-                Text("\(days) days left").font(.caption.weight(.medium))
+                Text(verbatim: DaysLeft.string(days)).font(.caption.weight(.medium))
                 Text(countdown.targetDate, format: .dateTime.day().month(.abbreviated)).font(.caption2).opacity(0.8)
             } else {
                 Text("Add a countdown").font(DS.Typeface.title(15, relativeTo: .headline))
@@ -107,7 +108,7 @@ struct AccessoryView: View {
         let month = data.monthProgress
         let name = data.date.formatted(.dateTime.month(.abbreviated))
         let percent = month.fraction.formatted(.percent.precision(.fractionLength(0)))
-        return "\(name) · \(percent) · " + String(localized: "\(month.daysLeft) days left")
+        return "\(name) · \(percent) · " + DaysLeft.string(month.daysLeft)
     }
 
     private var monthRectangle: some View {

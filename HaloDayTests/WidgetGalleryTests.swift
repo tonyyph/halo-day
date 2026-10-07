@@ -18,24 +18,37 @@ final class WidgetGalleryTests: XCTestCase {
     private var skies: [(String, SkyID, Double)] { [("living", .livingSky, 10.08), ("celestial", .celestial, 22.5)] }
 
     func testHomeWidgetsRenderOnEverySky() throws {
-        for (name, skyID, hour) in skies {
-            for empty in [false, true] {
-                let widgetData = data(hour, empty: empty)
-                let sky = SkyEngine.state(sky: skyID, at: widgetData.date, coordinate: hanoi)
-                for kind in WidgetKind.allCases {
-                    for family in kind.homeFamilies {
-                        let view = ZStack {
-                            SkyBackground(state: sky)
-                            HomeWidgetView(kind: kind, family: family, data: widgetData, sky: sky, style: skyID.orbitStyle, coordinate: hanoi,
-                                           locked: kind.isPremium && empty).padding(16)
-                        }
-                        .frame(width: family.size.width, height: family.size.height)
-                        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-                        try attach(view, name: "widget-\(kind.rawValue)-\(family.rawValue)-\(name)\(empty ? "-empty" : "")")
-                    }
+        // name, sky, hour, empty, background visible, size scale (1 = 6.1", SE ≈ 0.87), locked
+        let variants: [(String, SkyID, Double, Bool, Bool, CGFloat, Bool)] = [
+            ("living", .livingSky, 10.08, false, true, 1, false),
+            ("celestial", .celestial, 22.5, false, true, 1, false),
+            ("living-empty", .livingSky, 10.08, true, true, 1, false),
+            ("standby", .livingSky, 10.08, false, false, 1, false),
+            ("se", .livingSky, 10.08, false, true, 0.87, false)
+        ]
+        for (name, skyID, hour, empty, background, scale, _) in variants {
+            let widgetData = data(hour, empty: empty)
+            let sky = SkyEngine.state(sky: skyID, at: widgetData.date, coordinate: hanoi)
+            for kind in WidgetKind.allCases {
+                for family in kind.homeFamilies {
+                    let size = CGSize(width: family.size.width * scale, height: family.size.height * scale)
+                    try attach(widget(kind, family, widgetData, sky, skyID, size: size, background: background, locked: false),
+                               name: "widget-\(kind.rawValue)-\(family.rawValue)-\(name)")
                 }
             }
         }
+        let sky = SkyEngine.state(sky: .livingSky, at: data(10.08).date, coordinate: hanoi)
+        try attach(widget(.rituals, .small, data(10.08), sky, .livingSky, size: HomeFamily.small.size, background: true, locked: true), name: "widget-rituals-small-locked")
+    }
+
+    private func widget(_ kind: WidgetKind, _ family: HomeFamily, _ data: WidgetData, _ sky: SkyState, _ skyID: SkyID, size: CGSize, background: Bool, locked: Bool) -> some View {
+        ZStack {
+            if background { SkyBackground(state: sky) } else { Color.black }
+            HomeWidgetView(kind: kind, family: family, data: data, sky: sky, style: skyID.orbitStyle, coordinate: hanoi,
+                           locked: locked, backgroundVisible: background).padding(16)
+        }
+        .frame(width: size.width, height: size.height)
+        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
     }
 
     func testLockScreenWidgetsRenderVibrant() throws {

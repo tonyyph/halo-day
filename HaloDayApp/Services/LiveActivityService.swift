@@ -27,6 +27,13 @@ final class LiveActivityService: LiveActivityProviding {
             await activity.update(ActivityContent(state: .init(endDate: focus.endDate, pausedRemaining: focus.pausedRemaining, phase: focus.isPaused ? "paused" : "running"), staleDate: focus.isPaused ? nil : focus.endDate))
         }
     }
+    /// A natural finish: show "Done" for a while instead of vanishing.
+    func finish() async {
+        for activity in Activity<HaloActivityAttributes>.activities where !activity.attributes.isEvent {
+            await activity.end(ActivityContent(state: .init(endDate: activity.content.state.endDate, phase: "finished"), staleDate: nil),
+                               dismissalPolicy: .after(.now.addingTimeInterval(15 * 60)))
+        }
+    }
     func end() async {
         for activity in Activity<HaloActivityAttributes>.activities {
             await activity.end(ActivityContent(state: .init(endDate: .now, phase: "finished"), staleDate: nil), dismissalPolicy: .immediate)

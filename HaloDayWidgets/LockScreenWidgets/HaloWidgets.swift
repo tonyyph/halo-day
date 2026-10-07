@@ -74,6 +74,7 @@ struct HaloWidgetEntryView: View {
     var kind: WidgetKind
     var entry: HaloEntry
     @Environment(\.widgetFamily) private var family
+    @Environment(\.showsWidgetContainerBackground) private var showsBackground
 
     private var locked: Bool { kind.isPremium && !entry.snapshot.isPremium }
 
@@ -85,7 +86,8 @@ struct HaloWidgetEntryView: View {
                 let accessory: AccessoryFamily = family == .accessoryInline ? .inline : family == .accessoryCircular ? .circular : .rectangular
                 Group {
                     if locked {
-                        Label("Premium", systemImage: "sparkles")
+                        if accessory == .circular { Image(systemName: "sparkles").accessibilityLabel(Text("Premium")) }
+                        else { Label("Premium", systemImage: "sparkles") }
                     } else {
                         AccessoryView(kind: kind, family: accessory, data: snapshot.data, tint: nil)
                     }
@@ -96,7 +98,7 @@ struct HaloWidgetEntryView: View {
                 let sky = SkyEngine.state(sky: snapshot.setup.skyID, at: entry.date, coordinate: snapshot.coordinate)
                 let home: HomeFamily = family == .systemLarge || family == .systemExtraLarge ? .large : family == .systemMedium ? .medium : .small
                 HomeWidgetView(kind: kind, family: home, data: snapshot.data, sky: sky, style: snapshot.setup.skyID.orbitStyle,
-                               coordinate: snapshot.coordinate, locked: locked, interactive: !locked)
+                               coordinate: snapshot.coordinate, locked: locked, interactive: !locked, backgroundVisible: showsBackground)
                     .containerBackground(for: .widget) { SkyBackground(state: sky) }
             }
         }

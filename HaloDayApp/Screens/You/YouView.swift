@@ -98,7 +98,7 @@ struct YouView: View {
                             .opacity(SkyEngine.secondaryOpacity)
                     }
                     Spacer(minLength: 0)
-                    Text("\(days) days left").font(.footnote).opacity(SkyEngine.secondaryOpacity)
+                    Text(verbatim: DaysLeft.string(days)).font(.footnote).opacity(SkyEngine.secondaryOpacity)
                 }
                 .padding(DS.Space.m)
                 .haloGlass(RoundedRectangle(cornerRadius: DS.Radius.glass, style: .continuous), tint: sky.mid.color)

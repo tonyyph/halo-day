@@ -6,21 +6,21 @@ import SwiftUI
 struct HaloFocusLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: HaloActivityAttributes.self) { context in
-            FocusActivityView(attributes: context.attributes, state: context.state)
+            FocusActivityView(attributes: context.attributes, state: context.state, isStale: context.isStale)
                 .activityBackgroundTint(.clear)
                 .activitySystemActionForegroundColor(.white)
                 .widgetURL(URL(string: context.attributes.isEvent ? "haloday://day" : "haloday://focus"))
         } dynamicIsland: { context in
             let glow = OrbitPalette.ritualColor(sky: FocusActivityView.sky(for: context.attributes, at: context.attributes.startDate))
-            let running = context.state.pausedRemaining == nil && context.state.phase != "finished"
+            let running = context.state.pausedRemaining == nil && context.state.phase != "finished" && !context.isStale
             return DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
-                    FocusActivityRing(attributes: context.attributes, state: context.state, now: nil, glow: glow)
+                    FocusActivityRing(attributes: context.attributes, state: context.state, now: nil, isStale: context.isStale, glow: glow)
                         .frame(width: 44, height: 44)
                         .padding(.leading, 4)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    FocusActivityTimer(attributes: context.attributes, state: context.state)
+                    FocusActivityTimer(attributes: context.attributes, state: context.state, isStale: context.isStale)
                         .font(DS.Typeface.clock(30))
                         .monospacedDigit()
                         .frame(maxWidth: 110)
@@ -30,7 +30,7 @@ struct HaloFocusLiveActivity: Widget {
                 }
                 DynamicIslandExpandedRegion(.bottom) {
                     HStack {
-                        if !context.attributes.isEvent && context.state.phase != "finished" {
+                        if !context.attributes.isEvent && context.state.phase != "finished" && !context.isStale {
                             Button(intent: PauseFocusIntent()) {
                                 Label(running ? "Pause" : "Resume", systemImage: running ? "pause.fill" : "play.fill")
                             }
@@ -45,14 +45,14 @@ struct HaloFocusLiveActivity: Widget {
                     .tint(glow)
                 }
             } compactLeading: {
-                FocusActivityRing(attributes: context.attributes, state: context.state, now: nil, glow: glow)
+                FocusActivityRing(attributes: context.attributes, state: context.state, now: nil, isStale: context.isStale, glow: glow)
                     .frame(width: 22, height: 22)
             } compactTrailing: {
-                FocusActivityTimer(attributes: context.attributes, state: context.state)
+                FocusActivityTimer(attributes: context.attributes, state: context.state, isStale: context.isStale)
                     .font(.caption2.monospacedDigit())
                     .frame(width: 48)
             } minimal: {
-                FocusActivityRing(attributes: context.attributes, state: context.state, now: nil, glow: glow)
+                FocusActivityRing(attributes: context.attributes, state: context.state, now: nil, isStale: context.isStale, glow: glow)
                     .frame(width: 22, height: 22)
             }
             .keylineTint(glow)

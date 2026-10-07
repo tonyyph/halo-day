@@ -47,7 +47,7 @@ final class WidgetTimelineTests: XCTestCase {
     func testWidgetsDeepLinkIntoTheV2Tabs() {
         let data = WidgetData(date: at(10.08), events: [event("review", 10.5, 11.25)], habits: [], focus: nil, countdown: nil, isSample: false)
         XCTAssertEqual(WidgetKind.orbit.url(for: data).absoluteString, "haloday://day")
-        XCTAssertEqual(WidgetKind.nextUp.url(for: data).absoluteString, "haloday://event/review")
+        XCTAssertEqual(WidgetKind.nextUp.url(for: data).absoluteString, "haloday://event?id=review")
         XCTAssertEqual(WidgetKind.countdown.url(for: data).absoluteString, "haloday://you")
         XCTAssertEqual(WidgetKind.month.url(for: data).absoluteString, "haloday://calendar")
         let empty = WidgetData(date: at(10.08), events: [], habits: [], focus: nil, countdown: nil, isSample: false)

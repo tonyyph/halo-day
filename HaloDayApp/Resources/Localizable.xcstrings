@@ -41,12 +41,32 @@
         }
       }
     },
+    " Pro Max.\n    @ViewBuilder\n    private func content(_ size: CGSize) -> some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge(size)\n        case (.orbit, _): orbitSmall(size)\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge(size)\n        case (.rhythm, _): rhythmMedium(size)\n        case (.rituals, .medium): ritualsMedium(size)\n        case (.rituals, _): ritualsSmall(size)\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium(size)\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: sky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " Pro Max.\n    @ViewBuilder\n    private func content(_ size: CGSize) -> some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge(size)\n        case (.orbit, _): orbitSmall(size)\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge(size)\n        case (.rhythm, _): rhythmMedium(size)\n        case (.rituals, .medium): ritualsMedium(size)\n        case (.rituals, _): ritualsSmall(size)\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium(size)\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: sky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: "
+          }
+        }
+      }
+    },
     " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n\n    var body: some View {\n        ZStack {\n            content\n                .blur(radius: locked ? 6 : 0)\n                .opacity(locked ? 0.35 : 1)\n            if locked {\n                Label(" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n\n    var body: some View {\n        ZStack {\n            content\n                .blur(radius: locked ? 6 : 0)\n                .opacity(locked ? 0.35 : 1)\n            if locked {\n                Label("
+          }
+        }
+      }
+    },
+    " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n    /// False when iOS removes the sky behind the widget (StandBy, tinted or clear Home Screen).\n    var backgroundVisible = true\n\n    /// Ink for the widget: the sky's ink over the sky, light ink when the sky is gone (StandBy is dark).\n    static func ink(for sky: SkyState, backgroundVisible: Bool) -> SkyColor { backgroundVisible ? sky.inkColor : SkyEngine.lightInk }\n\n    var body: some View {\n        let ink = Self.ink(for: sky, backgroundVisible: backgroundVisible)\n        GeometryReader { proxy in\n            ZStack {\n                content(proxy.size)\n                    .blur(radius: locked ? 6 : 0)\n                    .opacity(locked ? 0.35 : 1)\n                if locked {\n                    Label(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " iPhone).\nenum HomeFamily: String, CaseIterable, Sendable {\n    case small, medium, large\n    var size: CGSize {\n        switch self {\n        case .small: CGSize(width: 170, height: 170)\n        case .medium: CGSize(width: 364, height: 170)\n        case .large: CGSize(width: 364, height: 382)\n        }\n    }\n}\n\nextension WidgetKind {\n    var homeFamilies: [HomeFamily] {\n        switch self {\n        case .orbit: [.small, .large]\n        case .nextUp, .countdown: [.small]\n        case .rhythm: [.medium, .large]\n        case .rituals: [.small, .medium]\n        case .month: [.medium]\n        }\n    }\n}\n\n/// A Home Screen / StandBy widget's content. The sky background comes from the caller\n/// (`containerBackground` in WidgetKit, a `SkyBackground` in previews and tests).\nstruct HomeWidgetView: View {\n    var kind: WidgetKind\n    var family: HomeFamily\n    var data: WidgetData\n    var sky: SkyState\n    var style: OrbitStyle\n    var coordinate: GeoCoordinate\n    var locked: Bool\n    /// True inside WidgetKit, where ritual beads become `ToggleRitualIntent` buttons.\n    var interactive = false\n    /// False when iOS removes the sky behind the widget (StandBy, tinted or clear Home Screen).\n    var backgroundVisible = true\n\n    /// Ink for the widget: the sky's ink over the sky, light ink when the sky is gone (StandBy is dark).\n    static func ink(for sky: SkyState, backgroundVisible: Bool) -> SkyColor { backgroundVisible ? sky.inkColor : SkyEngine.lightInk }\n\n    var body: some View {\n        let ink = Self.ink(for: sky, backgroundVisible: backgroundVisible)\n        GeometryReader { proxy in\n            ZStack {\n                content(proxy.size)\n                    .blur(radius: locked ? 6 : 0)\n                    .opacity(locked ? 0.35 : 1)\n                if locked {\n                    Label("
           }
         }
       }
@@ -482,6 +502,16 @@
         }
       }
     },
+    ")\n                        .font(.caption.weight(.semibold))\n                        .multilineTextAlignment(.center)\n                }\n            }\n            .frame(width: proxy.size.width, height: proxy.size.height)\n        }\n        .foregroundStyle(ink.color)\n        .environment(\\.colorScheme, ink == SkyEngine.lightInk ? .dark : .light)\n    }\n\n    /// Sizes follow the real content area, so the same layouts fit a 4.7" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ")\n                        .font(.caption.weight(.semibold))\n                        .multilineTextAlignment(.center)\n                }\n            }\n            .frame(width: proxy.size.width, height: proxy.size.height)\n        }\n        .foregroundStyle(ink.color)\n        .environment(\\.colorScheme, ink == SkyEngine.lightInk ? .dark : .light)\n    }\n\n    /// Sizes follow the real content area, so the same layouts fit a 4.7"
+          }
+        }
+      }
+    },
     ")\n                    .font(.caption.weight(.semibold))\n                    .multilineTextAlignment(.center)\n            }\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n        .foregroundStyle(sky.inkColor.color)\n        .environment(\\.colorScheme, sky.ink == .light ? .dark : .light)\n    }\n\n    @ViewBuilder\n    private var content: some View {\n        switch (kind, family) {\n        case (.orbit, .large): orbitLarge\n        case (.orbit, _): orbitSmall\n        case (.nextUp, _): nextUpSmall\n        case (.rhythm, .large): rhythmLarge\n        case (.rhythm, _): rhythmMedium\n        case (.rituals, .medium): ritualsMedium\n        case (.rituals, _): ritualsSmall\n        case (.countdown, _): countdownSmall\n        case (.month, _): monthMedium\n        }\n    }\n\n    // MARK: Pieces\n\n    private var orbitContent: OrbitContent {\n        let day = data.calendar.startOfDay(for: data.date)\n        var content = data.orbit\n        content.beads = DaySceneBuilder.beads(for: data.habits, on: day)\n        content.nightSpans = OrbitGeometry.nightSpans(SolarCalculator.day(containing: day, coordinate: coordinate, calendar: data.calendar), calendar: data.calendar)\n        content.moonPhase = SolarCalculator.moonPhase(at: data.date)\n        return content\n    }\n\n    private func orbit(_ side: CGFloat) -> some View {\n        OrbitCanvas(content: orbitContent, sky: sky, style: style).frame(width: side, height: side)\n    }\n\n    private func time(_ date: Date) -> String { date.formatted(date: .omitted, time: .shortened) }\n\n    private func badge(_ event: CalendarEvent) -> String {\n        if event.startDate <= data.date { return String(localized: " : {
       "localizations" : {
         "en" : {
@@ -552,6 +582,16 @@
         }
       }
     },
+    ").font(.caption).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func rhythmMedium(_ size: CGSize) -> some View {\n        HStack(spacing: 14) {\n            orbit(min(size.height, size.width * 0.38))\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.weekday(.wide).day()).font(DS.Typeface.title(15, relativeTo: .headline))\n                let rows = data.upcoming(limit: 4)\n                if rows.isEmpty { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func rhythmMedium(_ size: CGSize) -> some View {\n        HStack(spacing: 14) {\n            orbit(min(size.height, size.width * 0.38))\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.weekday(.wide).day()).font(DS.Typeface.title(15, relativeTo: .headline))\n                let rows = data.upcoming(limit: 4)\n                if rows.isEmpty { Text("
+          }
+        }
+      }
+    },
     ").font(.caption).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private var rhythmMedium: some View {\n        HStack(spacing: 14) {\n            orbit(130)\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.weekday(.wide).day()).font(DS.Typeface.title(15, relativeTo: .headline))\n                let rows = data.upcoming(limit: 4)\n                if rows.isEmpty { Text(" : {
       "localizations" : {
         "en" : {
@@ -582,12 +622,32 @@
         }
       }
     },
+    ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private func ritualsMedium(_ size: CGSize) -> some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: size.height * 0.62, height: size.height * 0.62)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private func ritualsMedium(_ size: CGSize) -> some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: size.height * 0.62, height: size.height * 0.62)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text("
+          }
+        }
+      }
+    },
     ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private var ritualsMedium: some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 90, height: 90)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text(" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ").font(.caption2).multilineTextAlignment(.center)\n            } else {\n                HStack(spacing: 8) { ForEach(data.habits.prefix(3)) { toggle($0) } }\n            }\n        }\n    }\n\n    private var ritualsMedium: some View {\n        HStack(spacing: 16) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 90, height: 90)\n            VStack(alignment: .leading, spacing: 8) {\n                if data.habits.isEmpty { Text("
+          }
+        }
+      }
+    },
+    ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func monthMedium(_ size: CGSize) -> some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(sky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: sky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            }\n        }\n        .frame(maxWidth: .infinity, alignment: .leading)\n    }\n\n    private func monthMedium(_ size: CGSize) -> some View {\n        let month = data.monthProgress\n        let rows = ZoomBuilder.month(containing: data.date, now: data.date, events: data.events, habits: data.habits, calendar: data.calendar)\n        return HStack(alignment: .top, spacing: 14) {\n            VStack(alignment: .leading, spacing: 6) {\n                Text(data.date, format: .dateTime.month(.wide)).font(DS.Typeface.title(20, relativeTo: .headline))\n                GeometryReader { proxy in\n                    ZStack(alignment: .leading) {\n                        Capsule().fill(sky.inkColor.color.opacity(0.18))\n                        Capsule().fill(OrbitPalette.ritualColor(sky: sky)).frame(width: max(4, proxy.size.width * month.fraction))\n                    }\n                }\n                .frame(height: 5)\n                Text("
           }
         }
       }
@@ -602,12 +662,42 @@
         }
       }
     },
+    ").font(.caption2).opacity(SkyEngine.secondaryOpacity) }\n            }\n            .frame(width: min(size.width, size.height) * 0.5)\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n    }\n\n    private func orbitLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(sky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(min(size.width, size.height * 0.52)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 3 : 2)\n            if rows.isEmpty { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity) }\n            }\n            .frame(width: min(size.width, size.height) * 0.5)\n        }\n        .frame(maxWidth: .infinity, maxHeight: .infinity)\n    }\n\n    private func orbitLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 10) {\n            HStack(alignment: .firstTextBaseline) {\n                Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n                Spacer()\n                Text(sky.moment.title).font(DS.Typeface.moment(14, relativeTo: .caption)).opacity(SkyEngine.secondaryOpacity)\n            }\n            orbit(min(size.width, size.height * 0.52)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 3 : 2)\n            if rows.isEmpty { Text("
+          }
+        }
+      }
+    },
     ").font(.caption2).opacity(SkyEngine.secondaryOpacity) } }\n    }\n\n    // MARK: Kinds\n\n    private var orbitSmall: some View {\n        ZStack {\n            orbit(150)\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption))\n                if !data.habits.isEmpty {\n                    Text(verbatim: " : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity) } }\n    }\n\n    // MARK: Kinds\n\n    private var orbitSmall: some View {\n        ZStack {\n            orbit(150)\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption))\n                if !data.habits.isEmpty {\n                    Text(verbatim: "
+          }
+        }
+      }
+    },
+    ").font(.caption2).opacity(SkyEngine.secondaryOpacity).lineLimit(1) } }\n    }\n\n    // MARK: Kinds\n\n    private func orbitSmall(_ size: CGSize) -> some View {\n        ZStack {\n            orbit(min(size.width, size.height))\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption)).lineLimit(1).minimumScaleFactor(0.7)\n                if !data.habits.isEmpty {\n                    Text(verbatim: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption2).opacity(SkyEngine.secondaryOpacity).lineLimit(1) } }\n    }\n\n    // MARK: Kinds\n\n    private func orbitSmall(_ size: CGSize) -> some View {\n        ZStack {\n            orbit(min(size.width, size.height))\n            VStack(spacing: 2) {\n                Text(sky.moment.title).font(DS.Typeface.moment(13, relativeTo: .caption)).lineLimit(1).minimumScaleFactor(0.7)\n                if !data.habits.isEmpty {\n                    Text(verbatim: "
+          }
+        }
+      }
+    },
+    ").font(.caption2.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n                }\n                if data.isSample { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.caption2.monospacedDigit()).opacity(SkyEngine.secondaryOpacity)\n                }\n                if data.isSample { Text("
           }
         }
       }
@@ -628,6 +718,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : ").font(.subheadline) }\n                ForEach(data.habits.prefix(4)) { habit in\n                    HStack(spacing: 10) {\n                        toggle(habit)\n                        Text(habit.title).font(.subheadline.weight(.medium)).lineLimit(1)\n                        Spacer(minLength: 0)\n                    }\n                }\n            }\n        }\n    }\n\n    private var countdownSmall: some View {\n        VStack(alignment: .leading, spacing: 2) {\n            if let countdown = data.countdown, let days = data.countdownDays {\n                Text(verbatim: "
+          }
+        }
+      }
+    },
+    ").font(.subheadline) }\n                ForEach(rows) { row($0) }\n                Spacer(minLength: 0)\n                sampleNote\n            }\n        }\n    }\n\n    private func rhythmLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 8) {\n            Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n            orbit(min(size.width, size.height * 0.4)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 5 : 4)\n            if rows.isEmpty { Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(.subheadline) }\n                ForEach(rows) { row($0) }\n                Spacer(minLength: 0)\n                sampleNote\n            }\n        }\n    }\n\n    private func rhythmLarge(_ size: CGSize) -> some View {\n        VStack(alignment: .leading, spacing: 8) {\n            Text(data.date, format: .dateTime.weekday(.wide).day().month(.wide)).font(DS.Typeface.title(18, relativeTo: .headline))\n            orbit(min(size.width, size.height * 0.4)).frame(maxWidth: .infinity)\n            let rows = data.upcoming(limit: size.height > 330 ? 5 : 4)\n            if rows.isEmpty { Text("
           }
         }
       }
@@ -672,6 +772,26 @@
         }
       }
     },
+    ").font(DS.Typeface.clock(54)).minimumScaleFactor(0.5).lineLimit(1)\n                Text(verbatim: DaysLeft.string(days)).font(.caption.weight(.semibold))\n                Spacer(minLength: 0)\n                Text(countdown.title).font(DS.Typeface.title(17, relativeTo: .headline)).lineLimit(2)\n                Text(countdown.targetDate, format: .dateTime.day().month(.wide)).font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            } else {\n                Image(systemName: " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(DS.Typeface.clock(54)).minimumScaleFactor(0.5).lineLimit(1)\n                Text(verbatim: DaysLeft.string(days)).font(.caption.weight(.semibold))\n                Spacer(minLength: 0)\n                Text(countdown.title).font(DS.Typeface.title(17, relativeTo: .headline)).lineLimit(2)\n                Text(countdown.targetDate, format: .dateTime.day().month(.wide)).font(.caption2).opacity(SkyEngine.secondaryOpacity)\n            } else {\n                Image(systemName: "
+          }
+        }
+      }
+    },
+    ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            Spacer(minLength: 0)\n            sampleNote\n        }\n    }\n\n    private func bead(_ habit: Habit) -> some View {\n        let done = habit.isCompleted(on: data.date)\n        let color = (SkyColor(hexString: habit.accentColor) ?? .white).color\n        return ZStack {\n            Circle().fill(done ? color : .clear)\n            Circle().strokeBorder(color, lineWidth: 2)\n            Image(systemName: habit.icon).font(.system(size: 13, weight: .medium)).foregroundStyle(done ? Color.white : color)\n        }\n        .frame(width: 34, height: 34)\n    }\n\n    @ViewBuilder\n    private func toggle(_ habit: Habit) -> some View {\n        if interactive {\n            Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) { bead(habit) }.buttonStyle(.plain)\n        } else {\n            bead(habit)\n        }\n    }\n\n    private func ritualsSmall(_ size: CGSize) -> some View {\n        VStack(spacing: 8) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: size.height * 0.48, height: size.height * 0.48)\n            if data.habits.isEmpty {\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            Spacer(minLength: 0)\n            sampleNote\n        }\n    }\n\n    private func bead(_ habit: Habit) -> some View {\n        let done = habit.isCompleted(on: data.date)\n        let color = (SkyColor(hexString: habit.accentColor) ?? .white).color\n        return ZStack {\n            Circle().fill(done ? color : .clear)\n            Circle().strokeBorder(color, lineWidth: 2)\n            Image(systemName: habit.icon).font(.system(size: 13, weight: .medium)).foregroundStyle(done ? Color.white : color)\n        }\n        .frame(width: 34, height: 34)\n    }\n\n    @ViewBuilder\n    private func toggle(_ habit: Habit) -> some View {\n        if interactive {\n            Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) { bead(habit) }.buttonStyle(.plain)\n        } else {\n            bead(habit)\n        }\n    }\n\n    private func ritualsSmall(_ size: CGSize) -> some View {\n        VStack(spacing: 8) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: size.height * 0.48, height: size.height * 0.48)\n            if data.habits.isEmpty {\n                Text("
+          }
+        }
+      }
+    },
     ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            Spacer(minLength: 0)\n            sampleNote\n        }\n    }\n\n    private func bead(_ habit: Habit) -> some View {\n        let done = habit.isCompleted(on: data.date)\n        let color = (SkyColor(hexString: habit.accentColor) ?? .white).color\n        return ZStack {\n            Circle().fill(done ? color : .clear)\n            Circle().strokeBorder(color, lineWidth: 2)\n            Image(systemName: habit.icon).font(.system(size: 13, weight: .medium)).foregroundStyle(done ? Color.white : color)\n        }\n        .frame(width: 34, height: 34)\n    }\n\n    @ViewBuilder\n    private func toggle(_ habit: Habit) -> some View {\n        if interactive {\n            Button(intent: ToggleRitualIntent(ritualID: habit.id.uuidString)) { bead(habit) }.buttonStyle(.plain)\n        } else {\n            bead(habit)\n        }\n    }\n\n    private var ritualsSmall: some View {\n        VStack(spacing: 10) {\n            AccessoryRitualRing(done: data.ritualsDone, total: data.habits.count).frame(width: 74, height: 74)\n            if data.habits.isEmpty {\n                Text(" : {
       "localizations" : {
         "en" : {
@@ -688,6 +808,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            sampleNote\n        }\n    }\n\n    private var nextUpSmall: some View {\n        VStack(alignment: .leading, spacing: 4) {\n            if let event = data.nextEvent {\n                Text(badge(event)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(event.title).font(DS.Typeface.title(20, relativeTo: .headline)).lineLimit(2)\n                Spacer(minLength: 0)\n                Text("
+          }
+        }
+      }
+    },
+    ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            sampleNote\n        }\n    }\n\n    private var nextUpSmall: some View {\n        VStack(alignment: .leading, spacing: 4) {\n            if let event = data.nextEvent {\n                Text(badge(event)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(event.title).font(DS.Typeface.title(20, relativeTo: .headline)).lineLimit(2).minimumScaleFactor(0.8)\n                Spacer(minLength: 0)\n                sampleNote\n                Text(" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ").font(DS.Typeface.title(16)) }\n            ForEach(rows) { row($0) }\n            sampleNote\n        }\n    }\n\n    private var nextUpSmall: some View {\n        VStack(alignment: .leading, spacing: 4) {\n            if let event = data.nextEvent {\n                Text(badge(event)).font(.caption.weight(.semibold)).opacity(SkyEngine.secondaryOpacity)\n                Text(event.title).font(DS.Typeface.title(20, relativeTo: .headline)).lineLimit(2).minimumScaleFactor(0.8)\n                Spacer(minLength: 0)\n                sampleNote\n                Text("
           }
         }
       }
@@ -879,12 +1009,32 @@
         }
       }
     },
+    "1 day left" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 day left"
+          }
+        }
+      }
+    },
     "10:30 PM" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "10:30 PM"
+          }
+        }
+      }
+    },
+    "12 days left" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "12 days left"
           }
         }
       }
@@ -3069,6 +3219,16 @@
         }
       }
     },
+    "Còn 12 ngày" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Còn 12 ngày"
+          }
+        }
+      }
+    },
     "DAYS" : {
       "localizations" : {
         "en" : {
@@ -4932,6 +5092,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sau %lld phút"
+          }
+        }
+      }
+    },
+    "In 25 min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In 25 min"
           }
         }
       }
@@ -7223,6 +7393,22 @@
         }
       }
     },
+    "Resume when you're ready" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume when you're ready"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiếp tục khi bạn sẵn sàng"
+          }
+        }
+      }
+    },
     "Rhythm" : {
       "localizations" : {
         "en" : {
@@ -7546,6 +7732,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "LỊCH TRÌNH MẪU"
+          }
+        }
+      }
+    },
+    "Sample" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sample"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mẫu"
           }
         }
       }
@@ -10122,6 +10324,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tuần của bạn"
+          }
+        }
+      }
+    },
+    "^[%lld day](inflect: true) left" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "^[%lld day](inflect: true) left"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Còn %lld ngày"
           }
         }
       }

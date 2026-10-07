@@ -10,6 +10,13 @@ enum WidgetTimeline {
             for boundary in [event.startDate, event.endDate] where boundary > now && boundary < midnight { dates.insert(boundary) }
         }
         if let focus, focus.isActive, !focus.isPaused, focus.endDate > now, focus.endDate < midnight { dates.insert(focus.endDate) }
+        // Five-minute steps in the 90 minutes before the next event keep "In 25 min" fresh.
+        if let next = events.filter({ !$0.isAllDay && $0.startDate > now }).min(by: { $0.startDate < $1.startDate }) {
+            for step in 1...18 {
+                let tick = next.startDate.addingTimeInterval(Double(-step * 5 * 60))
+                if tick > now && tick < midnight { dates.insert(tick) }
+            }
+        }
         if hourly, var hour = calendar.dateInterval(of: .hour, for: now)?.end {
             while hour < midnight { dates.insert(hour); hour.addTimeInterval(3600) }
         }
@@ -34,7 +41,8 @@ struct WidgetSnapshot: Sendable {
             ?? .starter(name: String(localized: "My Halo"), sky: settings.skyID)
         return WidgetSnapshot(
             data: WidgetData(date: date, events: events, habits: storage.habits, focus: storage.focus,
-                             countdown: storage.countdowns.first, isSample: snapshot.isSample),
+                             countdown: storage.countdowns.filter { $0.targetDate >= Calendar.current.startOfDay(for: date) }.min { $0.targetDate < $1.targetDate },
+                             isSample: snapshot.isSample),
             setup: setup, isPremium: settings.isPremium,
             coordinate: settings.approxCoordinate ?? TimeZoneLocator.approximateCoordinate(for: .current, at: date))
     }
@@ -45,7 +53,7 @@ extension WidgetKind {
     func url(for data: WidgetData) -> URL {
         let path: String = switch self {
         case .orbit, .rhythm, .rituals: "day"
-        case .nextUp: data.nextEvent.flatMap { $0.id.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) }.map { "event/\($0)" } ?? "day"
+        case .nextUp: data.nextEvent.flatMap { $0.id.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.map { "event?id=\($0)" } ?? "day"
         case .countdown: "you"
         case .month: "calendar"
         }

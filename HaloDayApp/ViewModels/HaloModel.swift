@@ -70,6 +70,7 @@ final class HaloModel {
     func saveSettings() { persist(); Task { await refresh() } }
     func refresh() async {
         settings = storage.settings; habits = storage.habits; focus = storage.focus
+        focusHistory = storage.read("focusHistory", fallback: [])
         settings.calendarPermissionGranted = calendarService.isAuthorized
         settings.notificationPermissionGranted = await notifications.isAuthorized()
         let interval = Self.loadInterval(selected: selectedDate, now: .now)
@@ -82,6 +83,7 @@ final class HaloModel {
         } catch { self.error = error.localizedDescription }
         await completeFocusIfDue()
         scheduleFocusCompletion()
+        resolvePendingEvent()
         WidgetCenter.shared.reloadAllTimelines()
     }
     /// The selected month and the current month, widened to whole weeks plus a week either side,
@@ -228,6 +230,7 @@ final class HaloModel {
     }
     /// Completes a running session whose time is up. One that ended over a minute ago (the app was closed) completes quietly.
     func completeFocusIfDue(now: Date = .now) async {
+        syncEndedFocus()
         guard let session = focus, session.isActive, !session.isPaused, session.endDate <= now else { return }
         await stopFocus(completed: true)
         if now.timeIntervalSince(session.endDate) < 60, let finished = focus, !finished.isActive {
@@ -251,15 +254,31 @@ final class HaloModel {
             await self?.completeFocusIfDue()
         }
     }
+    /// A widget or Live Activity may have ended the session (and recorded it) while the app wasn't looking.
+    private func syncEndedFocus() {
+        guard let stored = storage.focus, let current = focus, stored.id == current.id, current.isActive, !stored.isActive else { return }
+        focus = stored
+        focusHistory = storage.read("focusHistory", fallback: [])
+    }
+
+    /// An event deep link that arrived before events loaded (cold launch from a widget).
+    var pendingEventID: String?
+    func resolvePendingEvent() {
+        guard let id = pendingEventID, let event = events.first(where: { $0.id == id }) else { return }
+        pendingEventID = nil
+        selectedEvent = event
+    }
+
     func stopFocus(completed: Bool = false) async {
         focusTimer?.cancel()
+        syncEndedFocus()
         if var session = focus, session.isActive {
             session.isActive = false
             if !completed { session.endDate = .now }
             focus = session; focusHistory.insert(session, at: 0)
             do { try storage.write(session, key: "focus"); try storage.write(focusHistory, key: "focusHistory") } catch { self.error = error.localizedDescription }
         }
-        await activities.end()
+        if completed { await activities.finish() } else { await activities.end() }
         do { try await notifications.plan(events: events, focus: nil, minutes: settings.eventReminderMinutes) } catch { self.error = error.localizedDescription }
         WidgetCenter.shared.reloadAllTimelines()
     }
@@ -289,7 +308,10 @@ final class HaloModel {
         case "rituals", "you": tab = .you
         case "focus": tab = .day; showFocus = true
         case "paywall": showPaywall = true
-        case "event": tab = .day; selectedEvent = events.first { $0.id == url.lastPathComponent }
+        case "event":
+            tab = .day
+            pendingEventID = query?.first(where: { $0.name == "id" })?.value ?? url.lastPathComponent
+            resolvePendingEvent()
         default: tab = .day; dayZoom = .day; viewedDay = nil
         }
     }
