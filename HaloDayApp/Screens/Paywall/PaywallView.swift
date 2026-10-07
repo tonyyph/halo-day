@@ -36,6 +36,7 @@ struct PaywallView: View {
     @State private var purchased = false
     @State private var restoring = false
     @State private var showPrivacy = false
+    @State private var redeeming = false
     @State private var skyIndex = 0
 
     private let skies: [SkyID] = [.aurora, .instrument, .goldenHour, .mist]
@@ -129,7 +130,7 @@ struct PaywallView: View {
                         }
                         .accessibilityIdentifier("paywall-plans")
                         Text(model.purchases.products.isEmpty
-                             ? String(localized: "Purchases are not configured for this build. The free experience is ready to use.")
+                             ? String(localized: "Plans couldn't load from the App Store. Check your connection and open this again. Everything free keeps working.")
                              : String(localized: "Subscriptions renew automatically until canceled in App Store Settings. Prices shown are for the selected billing period."))
                             .font(.footnote).opacity(SkyEngine.secondaryOpacity)
                     }
@@ -161,6 +162,18 @@ struct PaywallView: View {
             }
         }
         .sensoryFeedback(.selection, trigger: selection) { _, _ in haptics }
+        // A first load at launch can fail (offline, App Store slow); opening the paywall tries again.
+        .task { if model.purchases.products.isEmpty { await model.purchases.loadProducts() } }
+        // Apple's own redemption sheet for offer codes, such as the 7-day Premium code.
+        .offerCodeRedemption(isPresented: $redeeming) { _ in
+            Task {
+                await model.purchases.refreshEntitlements()
+                guard model.purchases.isPremium else { return }
+                model.persist()
+                dismiss()
+                toasts?.show("Your code is redeemed. Enjoy Premium.")
+            }
+        }
         .task(id: selectedProduct?.id) {
             eligibleTrial = false
             guard let subscription = selectedProduct?.subscription,
@@ -229,8 +242,8 @@ struct PaywallView: View {
                 Text(trialCopy).font(.footnote).opacity(SkyEngine.secondaryOpacity).multilineTextAlignment(.center)
             }
             ViewThatFits(in: .horizontal) {
-                HStack(spacing: DS.Space.l) { restore; legalLinks }
-                VStack(spacing: DS.Space.xs) { restore; legalLinks }
+                HStack(spacing: DS.Space.l) { restore; redeem; legalLinks }
+                VStack(spacing: DS.Space.xs) { restore; redeem; legalLinks }
             }
             .font(.footnote)
         }
@@ -238,6 +251,12 @@ struct PaywallView: View {
         .padding(.top, DS.Space.m)
         .padding(.bottom, DS.Space.s)
         .overlay(alignment: .top) { Rectangle().fill(Color.primary.opacity(0.12)).frame(height: 0.5) }
+    }
+
+    private var redeem: some View {
+        Button("Redeem code") { redeeming = true }
+            .frame(minHeight: 44)
+            .accessibilityIdentifier("paywall-redeem")
     }
 
     private var restore: some View {

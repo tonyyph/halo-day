@@ -8,6 +8,7 @@ struct SettingsView: View {
     @Environment(\.haloToasts) private var toasts
     @Environment(\.haloReferenceDate) private var referenceDate
     @State private var manageSubscriptions = false
+    @State private var redeemingCode = false
     @State private var locating = false
     @State private var locationMessage: String?
     private let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -28,14 +29,50 @@ struct SettingsView: View {
                 .accessibilityLabel(model.purchases.isPremium ? Text("Halo Day Premium") : Text("Upgrade to Premium"))
                 .accessibilityIdentifier("settings-upgrade")
 
+                if model.purchases.isPremium, let until = model.purchases.premiumUntil {
+                    Text(model.purchases.premiumFromCode
+                         ? "From your code, until \(until.formatted(date: .abbreviated, time: .shortened))"
+                         : "Renews or ends \(until.formatted(date: .abbreviated, time: .shortened))")
+                        .font(.footnote)
+                        .accessibilityIdentifier("settings-premium-until")
+                }
                 Button { Task { await model.purchases.restore() } } label: {
                     SettingsLabel(title: "Restore purchases", symbol: "arrow.clockwise")
+                }
+                Button { redeemingCode = true } label: {
+                    SettingsLabel(title: "Redeem code", symbol: "giftcard")
+                }
+                .accessibilityIdentifier("settings-redeem")
+                .offerCodeRedemption(isPresented: $redeemingCode) { _ in
+                    Task { await model.purchases.refreshEntitlements() }
                 }
                 Button { manageSubscriptions = true } label: {
                     SettingsLabel(title: "Manage subscription", symbol: "creditcard")
                 }
             }
             .listRowBackground(sky.mid.color)
+
+            if model.purchases.isTestEnvironment {
+                // For QC on TestFlight: what StoreKit actually returned on this device.
+                Section {
+                    LabeledContent("Environment", value: "Sandbox / TestFlight")
+                    LabeledContent("Plans loaded", value: "\(model.purchases.products.count) of \(PurchaseService.productIDs.count)")
+                    ForEach(PurchaseService.productIDs, id: \.self) { id in
+                        LabeledContent(id, value: model.purchases.products.first { $0.id == id }?.displayPrice ?? "—")
+                            .font(.caption)
+                    }
+                    LabeledContent("Premium", value: model.purchases.isPremium ? "Active" : "Off")
+                    if let until = model.purchases.premiumUntil {
+                        LabeledContent("Until", value: until.formatted(date: .abbreviated, time: .shortened))
+                    }
+                    Button("Reload plans") { Task { await model.purchases.loadProducts(); await model.purchases.refreshEntitlements() } }
+                } header: {
+                    Text(verbatim: "StoreKit (QC)")
+                } footer: {
+                    Text(verbatim: "Only in TestFlight and development builds. 0 plans loaded means the products are missing or not Ready to Submit in App Store Connect, or the Paid Apps Agreement isn't active.")
+                }
+                .listRowBackground(sky.mid.color)
+            }
 
             Section {
                 TextField("Your first name", text: $model.settings.firstName)
