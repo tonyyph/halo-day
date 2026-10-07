@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
+	<key>CFBundleDisplayName</key>
+	<string>Halo Day</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -13,6 +13,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Halo Day reads your calendar to draw your day on the Orbit and in your widgets. Your events never leave your iPhone.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

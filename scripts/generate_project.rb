@@ -71,7 +71,7 @@ project.targets.each do |target|
     settings['TARGETED_DEVICE_FAMILY'] = '1'
     settings['GENERATE_INFOPLIST_FILE'] = 'YES'
     settings['MARKETING_VERSION'] = '1.0'
-    settings['CURRENT_PROJECT_VERSION'] = '3'
+    settings['CURRENT_PROJECT_VERSION'] = '4'
     settings['CODE_SIGN_STYLE'] = 'Automatic'
     # Preserve Xcode's account selection; the fallback is the pre-polish project team.
     team = preserved_teams[[target.name, config.name]]
