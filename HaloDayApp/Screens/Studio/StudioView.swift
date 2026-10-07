@@ -20,8 +20,8 @@ struct StudioView: View {
             let current = setups.first { $0.id == selection } ?? setups.first
             let data = widgetData(now: now)
             GeometryReader { screen in
-            // The iPhone fills the width (a 24 pt margin each side, capped on iPad), at true device proportions.
-            let phoneWidth = min(screen.size.width - 2 * DS.Space.xl, 420)
+            // Half the screen width (capped on iPad), at true device proportions.
+            let phoneWidth = min((screen.size.width - 2 * DS.Space.xl) / 1.5, 280)
             let phoneHeight = phoneWidth * LockPreview.device.height / LockPreview.device.width
             ScrollView {
                 VStack(alignment: .leading, spacing: DS.Space.xl) {

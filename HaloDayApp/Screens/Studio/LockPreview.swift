@@ -73,7 +73,7 @@ struct LockPreview: View {
             .clipShape(RoundedRectangle(cornerRadius: Self.screenRadius, style: .continuous))
         }
         .frame(width: Self.device.width, height: Self.device.height)
-        .shadow(color: .black.opacity(0.28), radius: 30, y: 18)
+                .shadow(color: .black.opacity(0.22), radius: 15, x: 12, y: 12)
     }
 
     /// Action button and volume on the left, the side button on the right.
