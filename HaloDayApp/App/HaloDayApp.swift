@@ -110,7 +110,7 @@ struct RootView: View {
             .haloTabMotion(selected: model.tab == .you)
             .tabItem { tabLabel("You", symbol: "person.crop.circle", tab: .you, index: 2) }.tag(AppTab.you)
         }
-        .fullScreenCover(isPresented: Binding(get: { !model.settings.hasCompletedOnboarding }, set: { _ in })) { OnboardingView() }
+        .fullScreenCover(isPresented: Binding(get: { !model.settings.hasCompletedOnboarding }, set: { _ in })) { OnboardingFlow() }
         .sheet(isPresented: $model.showPaywall) { PaywallView().haloSheet([.large]) }
         .sheet(isPresented: $model.showSettings) { NavigationStack { SettingsView() }.haloSheet([.large]) }
         .sheet(isPresented: $model.showGuide) { NavigationStack { WidgetGuideView() }.haloSheet([.large]) }

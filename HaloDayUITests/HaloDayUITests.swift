@@ -9,8 +9,8 @@ final class HaloDayUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(vi)", "-AppleLocale", "vi_VN"]
         app.launch()
-        if app.buttons["Bắt đầu"].waitForExistence(timeout: 5) {
-            XCTAssertTrue(app.staticTexts["Ngày của bạn, đẹp trong từng khoảnh khắc."].exists)
+        if app.buttons["onboarding-primary"].waitForExistence(timeout: 5) {
+            XCTAssertTrue(app.staticTexts["Ngày của bạn, như một vòng sáng."].exists)
         } else {
             XCTAssertTrue(app.tabBars.buttons["Ngày"].waitForExistence(timeout: 5))
         }
@@ -218,14 +218,15 @@ final class HaloDayUITests: XCTestCase {
     func testRecordOnboardingMotion() throws {
         let app = launchFixture(theme: "pearlHalo", screen: "onboarding", language: ("en", "en_US"))
         XCTAssertTrue(app.buttons["onboarding-primary"].waitForExistence(timeout: 10))
+        sleep(6)
         app.buttons["onboarding-primary"].tap()
+        app.buttons["onboarding-sample"].tap()
+        app.buttons["onboarding-ritual-water"].tap()
+        app.buttons["onboarding-ritual-read"].tap()
         app.buttons["onboarding-primary"].tap()
-        app.buttons["onboarding-primary"].tap()
-        app.buttons["Not now"].tap()
-        app.buttons["Not now"].tap()
-        app.buttons["Save my Halo"].tap()
-        if app.buttons["Done"].waitForExistence(timeout: 8) { app.buttons["Done"].tap() }
-        XCTAssertTrue(tabButton(app, 0, language: "en").waitForExistence(timeout: 8))
+        app.buttons["onboarding-finish"].tap()
+        XCTAssertTrue(app.buttons["orbit-now"].waitForExistence(timeout: 8))
+        XCTAssertEqual(app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'bead-'")).count, 2)
     }
 
     @MainActor
@@ -375,15 +376,14 @@ final class HaloDayUITests: XCTestCase {
     }
 
     @MainActor private func finishOnboardingIfNeeded(_ app: XCUIApplication) {
-        if app.buttons["Begin"].waitForExistence(timeout: 5) {
-            app.buttons["Begin"].tap()
-            app.buttons["onboarding-primary"].tap()
-            app.buttons["onboarding-primary"].tap()
-            app.buttons["Not now"].tap()
-            app.buttons["Not now"].tap()
-            app.buttons["Save my Halo"].tap()
-            if app.buttons["Done"].waitForExistence(timeout: 5) { app.buttons["Done"].tap() }
-        }
+        guard app.buttons["onboarding-primary"].waitForExistence(timeout: 5) else { return }
+        app.buttons["onboarding-primary"].tap()
+        XCTAssertTrue(app.buttons["onboarding-sample"].waitForExistence(timeout: 5))
+        app.buttons["onboarding-sample"].tap()
+        XCTAssertTrue(app.buttons["onboarding-primary"].waitForExistence(timeout: 5))
+        app.buttons["onboarding-primary"].tap()
+        XCTAssertTrue(app.buttons["onboarding-finish"].waitForExistence(timeout: 5))
+        app.buttons["onboarding-finish"].tap()
     }
 
     @MainActor private func launchFixture(theme: String, screen: String, time: String = "10:05", language: (String, String)) -> XCUIApplication {

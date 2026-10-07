@@ -180,6 +180,32 @@ final class HaloModel {
         do { try storage.write(id.uuidString, key: "activeSetup.v2"); WidgetCenter.shared.reloadAllTimelines() }
         catch { self.error = error.localizedDescription }
     }
+    /// Finishes onboarding: the chosen rituals replace the untouched v1 sample habits (or join real ones),
+    /// a free starter setup exists, and the flag is saved. Fixture mode changes memory only.
+    func completeOnboarding(rituals: [Habit], fixture: Bool = false) {
+        let untouchedSamples = habits.map(\.id) == MockData.habits.map(\.id) && habits.allSatisfy { $0.completedDates.isEmpty }
+        if untouchedSamples {
+            habits = rituals
+        } else {
+            for ritual in rituals where !habits.contains(where: { $0.title.caseInsensitiveCompare(ritual.title) == .orderedSame }) {
+                habits.append(ritual)
+            }
+        }
+        if setups.isEmpty {
+            let starter = LockSetup.starter(name: String(localized: "My Halo"), sky: settings.skyID.isPremium && !purchases.isPremium ? .livingSky : settings.skyID)
+            setups = [starter]
+            activeSetupID = starter.id
+        }
+        settings.hasCompletedOnboarding = true
+        guard !fixture else { return }
+        do {
+            try storage.write(habits, key: "habits")
+            try storage.write(setups, key: "setups.v2")
+            try storage.write(activeSetupID?.uuidString ?? "", key: "activeSetup.v2")
+        } catch { self.error = error.localizedDescription }
+        persist()
+    }
+
     func applySky(_ sky: SkyID) {
         guard !sky.isPremium || purchases.isPremium else { showSettings = false; showPaywall = true; return }
         settings.skyChoice = sky

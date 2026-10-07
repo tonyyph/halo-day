@@ -70,7 +70,8 @@ struct HaloLaunchConfiguration {
         settings.skyChoice = nil
         settings.approxCoordinate = nil
         model.settings = settings
-        model.habits = HaloFixtureData.habits(on: referenceDate)
+        // Onboarding starts like a fresh install: the untouched sample rituals.
+        model.habits = screen == "onboarding" ? MockData.habits : HaloFixtureData.habits(on: referenceDate)
         // A month of varied sample days so the week strip and month grid have texture.
         model.events = (-35...35).flatMap { offset -> [CalendarEvent] in
             let day = Calendar.current.date(byAdding: .day, value: offset, to: referenceDate)!
