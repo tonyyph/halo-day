@@ -90,7 +90,7 @@ struct WidgetGuideView: View {
                 .shadow(color: .black.opacity(0.18), radius: 16, y: 8)
         } else {
             LockPreview(setup: setup, data: data, now: now, moment: .now, vibrant: false, coordinate: model.skyCoordinate) { _ in }
-                .frame(width: 180, height: 180 * LockPreview.screen.height / LockPreview.screen.width)
+                .frame(width: 200, height: 200 * LockPreview.device.height / LockPreview.device.width)
                 .allowsHitTesting(false)
         }
     }

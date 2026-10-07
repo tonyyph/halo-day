@@ -19,6 +19,10 @@ struct StudioView: View {
             let setups = model.setups
             let current = setups.first { $0.id == selection } ?? setups.first
             let data = widgetData(now: now)
+            GeometryReader { screen in
+            // The iPhone fills the width (a 24 pt margin each side, capped on iPad), at true device proportions.
+            let phoneWidth = min(screen.size.width - 2 * DS.Space.xl, 420)
+            let phoneHeight = phoneWidth * LockPreview.device.height / LockPreview.device.width
             ScrollView {
                 VStack(alignment: .leading, spacing: DS.Space.xl) {
                     header(setups: setups, current: current, sky: sky)
@@ -29,14 +33,13 @@ struct StudioView: View {
                                 LockPreview(setup: setup, data: data, now: now, moment: moment, vibrant: vibrant, coordinate: model.skyCoordinate) {
                                     editing = SlotTarget(setupID: setup.id, position: $0)
                                 }
-                                // A whole Lock Screen at its true 393×852 proportions, sized to the carousel.
-                                .frame(width: 520 * LockPreview.screen.width / LockPreview.screen.height, height: 520)
-                                .shadow(color: .black.opacity(0.18), radius: 24, y: 12)
+                                .frame(width: phoneWidth, height: phoneHeight)
+                                .padding(.vertical, DS.Space.l)
                                 .tag(Optional(setup.id))
                             }
                         }
                         .tabViewStyle(.page(indexDisplayMode: setups.count > 1 ? .always : .never))
-                        .frame(height: 560)
+                        .frame(height: phoneHeight + 2 * DS.Space.l + (setups.count > 1 ? 28 : 0))
                     }
                     if let current {
                         controls(current, data: data, sky: sky, now: now)
@@ -46,6 +49,7 @@ struct StudioView: View {
                 .padding(.vertical, DS.Space.l)
             }
             .scrollIndicators(.hidden)
+            }
         }
         .sheet(item: $editing, onDismiss: {
             if model.paywallAfterSheet { model.paywallAfterSheet = false; model.showPaywall = true }
