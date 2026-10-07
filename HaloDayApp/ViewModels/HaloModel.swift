@@ -25,6 +25,8 @@ final class HaloModel {
     var showGuide = false
     var error: String?
     var showFocus = false
+    /// True while the opening splash plays; covers wait for it. Fixture mode has no splash.
+    var isSplashing = true
     /// A session that just finished while the app was open; the focus cover shows its bloom.
     var completedFocus: FocusSession?
     /// The day the Day tab shows; nil follows today.

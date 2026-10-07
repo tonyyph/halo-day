@@ -57,10 +57,18 @@ private struct ThemedRoot: View {
     @Environment(\.colorScheme) private var scheme
     @Environment(\.haloReduceMotion) private var reduceMotion
     @State private var toasts = HaloToastCenter()
+    @State private var splash = true
 
     var body: some View {
         let palette = PaletteResolver.resolve(model.theme, scheme: scheme)
         RootView()
+            .overlay {
+                // Never in fixture mode, so screenshots and UI tests open straight on their screen.
+                if splash && !launch.isScreenshotMode {
+                    SplashView { splash = false; model.isSplashing = false }
+                        .transition(.identity)
+                }
+            }
             .environment(model)
             .environment(\.haloTheme, model.theme)
             .environment(\.palette, palette)
@@ -110,7 +118,7 @@ struct RootView: View {
             .haloTabMotion(selected: model.tab == .you)
             .tabItem { tabLabel("You", symbol: "person.crop.circle", tab: .you, index: 2) }.tag(AppTab.you)
         }
-        .fullScreenCover(isPresented: Binding(get: { !model.settings.hasCompletedOnboarding }, set: { _ in })) { OnboardingFlow() }
+        .fullScreenCover(isPresented: Binding(get: { !model.settings.hasCompletedOnboarding && !model.isSplashing }, set: { _ in })) { OnboardingFlow() }
         .sheet(isPresented: $model.showPaywall) { PaywallView().haloSheet([.large]) }
         .sheet(isPresented: $model.showSettings) { NavigationStack { SettingsView() }.haloSheet([.large]) }
         .sheet(isPresented: $model.showGuide) { NavigationStack { WidgetGuideView() }.haloSheet([.large]) }

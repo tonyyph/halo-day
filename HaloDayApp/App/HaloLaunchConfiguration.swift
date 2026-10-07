@@ -101,6 +101,7 @@ struct HaloLaunchConfiguration {
         }
         model.showSettings = screen == "settings" || screen == "themes"
         model.showPaywall = screen == "paywall"
+        model.isSplashing = false
         return model
     }
 }
